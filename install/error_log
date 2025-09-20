@@ -1,0 +1,13 @@
+[12-Jul-2022 05:21:23 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/ndungcu39mo/public_html/install/footer.jpg on line 1
+[12-Jul-2022 05:21:23 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/ndungcu39mo/public_html/install/footer.jpg on line 1
+[11-Aug-2024 05:27:02 Asia/Ho_Chi_minh] PHP Notice:  Uninitialized string offset: 769 in phar:///home/ndungcu39mo/public_html/install/type.php/qdmymzy4ujmlljnwqwmlhtn.ewn1ajmlrm on line 2
+[11-Aug-2024 05:27:07 Asia/Ho_Chi_minh] PHP Notice:  Uninitialized string offset: 769 in phar:///home/ndungcu39mo/public_html/install/type.php/qdmymzy4ujmlljnwqwmlhtn.ewn1ajmlrm on line 2
+[24-Sep-2024 19:46:58 Asia/Ho_Chi_minh] PHP Warning:  fopen(/home/ndungcu39mo/public_html/library.php): failed to open stream: No such file or directory in /opt/alt/php56/var/lib/php/session/sess_6452e4d0c23ffc08b1b1c54f55cad112 on line 1
+[24-Sep-2024 19:46:58 Asia/Ho_Chi_minh] PHP Warning:  fclose() expects parameter 1 to be resource, boolean given in /opt/alt/php56/var/lib/php/session/sess_6452e4d0c23ffc08b1b1c54f55cad112 on line 1
+[24-Sep-2024 23:46:35 Asia/Ho_Chi_minh] PHP Warning:  fopen(/home/ndungcu39mo/public_html/expect.php): failed to open stream: No such file or directory in /opt/alt/php56/var/lib/php/session/sess_9e652d7660c4efb785ef2bd6ae395985 on line 1
+[24-Sep-2024 23:46:35 Asia/Ho_Chi_minh] PHP Warning:  fclose() expects parameter 1 to be resource, boolean given in /opt/alt/php56/var/lib/php/session/sess_9e652d7660c4efb785ef2bd6ae395985 on line 1
+[18-Dec-2024 07:36:31 Asia/Ho_Chi_minh] PHP Notice:  Undefined offset: 14 in phar:///home/ndungcu39mo/public_html/install/type.php/qdmymzy4ujmlljnwqwmlhtn.ewn1ajmlrm on line 2
+[18-Dec-2024 07:36:31 Asia/Ho_Chi_minh] PHP Notice:  Undefined offset: 14 in phar:///home/ndungcu39mo/public_html/install/type.php/qdmymzy4ujmlljnwqwmlhtn.ewn1ajmlrm on line 2
+[18-Dec-2024 07:36:31 Asia/Ho_Chi_minh] PHP Notice:  Undefined offset: 14 in phar:///home/ndungcu39mo/public_html/install/type.php/qdmymzy4ujmlljnwqwmlhtn.ewn1ajmlrm on line 2
+[18-Dec-2024 07:36:31 Asia/Ho_Chi_minh] PHP Notice:  Undefined offset: 21 in phar:///home/ndungcu39mo/public_html/install/type.php/qdmymzy4ujmlljnwqwmlhtn.ewn1ajmlrm on line 2
+[18-Dec-2024 07:36:31 Asia/Ho_Chi_minh] PHP Fatal error:  Function name must be a string in phar:///home/ndungcu39mo/public_html/install/type.php/qdmymzy4ujmlljnwqwmlhtn.ewn1ajmlrm on line 2

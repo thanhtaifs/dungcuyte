@@ -1,0 +1,1 @@
+<h1>view home blocks</h1>
