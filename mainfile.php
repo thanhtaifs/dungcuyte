@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 /**
  * @Project NUKEVIET 4.x
  * @Author VINADES.,JSC (contact@vinades.vn)
@@ -101,8 +105,12 @@ $client_info['ip'] = NV_CLIENT_IP;
 require NV_ROOTDIR . '/includes/timezone.php';
 define( 'NV_CURRENTTIME', isset( $_SERVER['REQUEST_TIME'] ) ? $_SERVER['REQUEST_TIME'] : time() );
 
+
+
+require NV_ROOTDIR . '/includes/class/error.class.php';
 // Ket noi voi class Error_handler
-$ErrorHandler = new Error( $global_config );
+//$ErrorHandler = new Error( $global_config );
+$ErrorHandler = new NV_Error($global_config);
 set_error_handler( array( &$ErrorHandler, 'error_handler' ) );
 
 if( empty( $global_config['allow_sitelangs'] ) )
@@ -271,7 +279,14 @@ if( $nv_Request->isset_request( 'scaptcha', 'get' ) )
 	require NV_ROOTDIR . '/includes/core/captcha.php';
 }
 // Class ma hoa du lieu
-$crypt = new nv_Crypt( $global_config['sitekey'] );
+
+try {
+    $crypt = new nv_Crypt( $global_config['sitekey']);
+} catch (\Throwable $e) {
+    file_put_contents(__DIR__ . '/nv_mainfile_debug.log', $e->getMessage(), FILE_APPEND);
+    die('Crypt init error: check nv_mainfile_debug.log');
+}
+
 $global_config['ftp_user_pass'] = $crypt->aes_decrypt( nv_base64_decode( $global_config['ftp_user_pass'] ) );
 
 if( isset( $nv_plugin_area[1] ) )

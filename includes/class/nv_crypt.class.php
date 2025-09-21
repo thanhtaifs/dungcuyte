@@ -117,17 +117,33 @@ class nv_Crypt
 	 */
 	public function aes_encrypt( $val, $ky = '' )
 	{
-		if( empty( $ky ) )
-		{
-			$ky = $this->_key;
+		// if( empty( $ky ) )
+		// {
+		// 	$ky = $this->_key;
+		// }
+		// $key = "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
+		// for( $a = 0; $a < strlen( $ky ); $a++ )
+		// 	$key[$a % 16] = chr( ord( $key[$a % 16] ) ^ ord( $ky[$a] ) );
+		// $mode = MCRYPT_MODE_ECB;
+		// $enc = MCRYPT_RIJNDAEL_128;
+		// $val = str_pad( $val, ( 16 * ( floor( strlen( $val ) / 16 ) + ( strlen( $val ) % 16 == 0 ? 2 : 1 ) ) ), chr( 16 - ( strlen( $val ) % 16 ) ) );
+		// return mcrypt_encrypt( $enc, $key, $val, $mode, mcrypt_create_iv( mcrypt_get_iv_size( $enc, $mode ), MCRYPT_DEV_URANDOM ) );
+
+
+		if (empty($ky)) {
+        $ky = $this->_key;
 		}
-		$key = "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
-		for( $a = 0; $a < strlen( $ky ); $a++ )
-			$key[$a % 16] = chr( ord( $key[$a % 16] ) ^ ord( $ky[$a] ) );
-		$mode = MCRYPT_MODE_ECB;
-		$enc = MCRYPT_RIJNDAEL_128;
-		$val = str_pad( $val, ( 16 * ( floor( strlen( $val ) / 16 ) + ( strlen( $val ) % 16 == 0 ? 2 : 1 ) ) ), chr( 16 - ( strlen( $val ) % 16 ) ) );
-		return mcrypt_encrypt( $enc, $key, $val, $mode, mcrypt_create_iv( mcrypt_get_iv_size( $enc, $mode ), MCRYPT_DEV_URANDOM ) );
+
+		// Tạo key 16 bytes (AES-128)
+		$key = substr(hash('sha256', $ky, true), 0, 16);
+
+		// Pad dữ liệu theo PKCS7
+		$block = 16;
+		$pad = $block - (strlen($val) % $block);
+		$val .= str_repeat(chr($pad), $pad);
+
+		// Mã hóa với AES-128-ECB
+		return openssl_encrypt($val, 'AES-128-ECB', $key, OPENSSL_RAW_DATA | OPENSSL_ZERO_PADDING);
 	}
 
 	/**
@@ -139,28 +155,50 @@ class nv_Crypt
 	 */
 	public function aes_decrypt( $val, $ky = '' )
 	{
-		if( empty( $ky ) )
-		{
-			$ky = $this->_key;
-		}
-		$key = "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
-		for( $a = 0; $a < strlen( $ky ); $a++ )
-			$key[$a % 16] = chr( ord( $key[$a % 16] ) ^ ord( $ky[$a] ) );
-		$mode = MCRYPT_MODE_ECB;
-		$enc = MCRYPT_RIJNDAEL_128;
-		$dec = mcrypt_decrypt( $enc, $key, $val, $mode, @mcrypt_create_iv( @mcrypt_get_iv_size( $enc, $mode ), MCRYPT_DEV_URANDOM ) );
+		// if( empty( $ky ) )
+		// {
+		// 	$ky = $this->_key;
+		// }
+		// $key = "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
+		// for( $a = 0; $a < strlen( $ky ); $a++ )
+		// 	$key[$a % 16] = chr( ord( $key[$a % 16] ) ^ ord( $ky[$a] ) );
+		// $mode = MCRYPT_MODE_ECB;
+		// $enc = MCRYPT_RIJNDAEL_128;
+		// $dec = mcrypt_decrypt( $enc, $key, $val, $mode, @mcrypt_create_iv( @mcrypt_get_iv_size( $enc, $mode ), MCRYPT_DEV_URANDOM ) );
 
-		$slast = ord( substr( $dec, -1 ) );
-		$slastc = chr( $slast );
-		$pcheck = substr( $dec, -$slast );
-		$dec_len = strlen( $dec );
-		if( $dec_len )
-		{
-			return rtrim( $dec, ( ( ord( substr( $dec, $dec_len - 1, 1 ) ) >= 0 and ord( substr( $dec, $dec_len - 1, 1 ) ) <= 16 ) ? chr( ord( substr( $dec, $dec_len - 1, 1 ) ) ) : null ) );
+		// $slast = ord( substr( $dec, -1 ) );
+		// $slastc = chr( $slast );
+		// $pcheck = substr( $dec, -$slast );
+		// $dec_len = strlen( $dec );
+		// if( $dec_len )
+		// {
+		// 	return rtrim( $dec, ( ( ord( substr( $dec, $dec_len - 1, 1 ) ) >= 0 and ord( substr( $dec, $dec_len - 1, 1 ) ) <= 16 ) ? chr( ord( substr( $dec, $dec_len - 1, 1 ) ) ) : null ) );
+		// }
+		// else
+		// {
+		// 	return null;
+		// }
+
+		if (empty($ky)) {
+        $ky = $this->_key;
 		}
-		else
-		{
-			return null;
+
+		// Tạo key 16 bytes
+		$key = substr(hash('sha256', $ky, true), 0, 16);
+
+		// Giải mã AES-128-ECB
+		$dec = openssl_decrypt($val, 'AES-128-ECB', $key, OPENSSL_RAW_DATA | OPENSSL_ZERO_PADDING);
+
+		// Remove PKCS7 padding
+		$pad = ord(substr($dec, -1));
+		if ($pad > 0 && $pad <= 16) {
+			$dec = substr($dec, 0, -$pad);
 		}
+
+		return $dec;
+
+		
 	}
+
+	
 }
