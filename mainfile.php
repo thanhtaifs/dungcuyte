@@ -287,7 +287,7 @@ try {
     die('Crypt init error: check nv_mainfile_debug.log');
 }
 
-$global_config['ftp_user_pass'] = $crypt->aes_decrypt( nv_base64_decode( $global_config['ftp_user_pass'] ) );
+$global_config['ftp_user_pass'] = $crypt->aes_decrypt( base64_decode( $global_config['ftp_user_pass'] ) );
 
 if( isset( $nv_plugin_area[1] ) )
 {

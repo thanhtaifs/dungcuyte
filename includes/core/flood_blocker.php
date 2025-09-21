@@ -13,14 +13,14 @@ if( ! defined( 'NV_MAINFILE' ) ) die( 'Stop!!!' );
 $rules = array( '60' => $global_config['max_requests_60'], '300' => $global_config['max_requests_300'] );
 
 if ($module_name != 'shops') {
-    $flb = new FloodBlocker( NV_ROOTDIR . '/' . NV_LOGS_DIR . '/ip_logs', $rules, NV_CLIENT_IP );
+	$flb = new FloodBlocker( NV_ROOTDIR . '/' . NV_LOGS_DIR . '/ip_logs', $rules, NV_CLIENT_IP );
 }
 
 if( $flb->is_blocker )
 {
 	if( ! defined( 'NV_IS_AJAX' ) and file_exists( NV_ROOTDIR . '/themes/dungcuytecantho/system/flood_blocker.tpl' ) )
 	{
-		$xtpl = new XTemplate( 'flood_blocker.tpl', NV_ROOTDIR . '/themes/dungcuytecantho/system' );
+		$xtpl = new XTemplate( array('file' => 'flood_blocker.tpl', 'path' => NV_ROOTDIR . '/themes/dungcuytecantho/system') );
 		$xtpl->assign( 'PAGE_TITLE', $lang_global['flood_page_title'] );
 		$xtpl->assign( 'IMG_SRC', NV_BASE_SITEURL . 'images/load_bar.gif' );
 		$xtpl->assign( 'IMG_WIDTH', 33 );

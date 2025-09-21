@@ -87,10 +87,26 @@ if( ! extension_loaded( 'session' ) )
 }
 
 //Neu he thong khong ho tro mcrypt library se bao loi
-if( ! function_exists( 'mcrypt_encrypt' ) )
-{
-	trigger_error( 'Mcrypt library not available', 256 );
+// if( ! function_exists( 'mcrypt_encrypt' ) )
+// {
+// 	trigger_error( 'Mcrypt library not available', 256 );
+// }
+
+if( ! function_exists( 'mcrypt_encrypt' ) ) {
+    if( ! function_exists('openssl_encrypt') ) {
+        trigger_error('Neither Mcrypt nor OpenSSL library is available', E_USER_ERROR);
+    } else {
+        // Định nghĩa hàm thay thế mcrypt_encrypt/mdecrypt_encrypt
+        function mcrypt_encrypt($cipher, $key, $data, $mode, $iv = '') {
+            return openssl_encrypt($data, 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv);
+        }
+
+        function mcrypt_decrypt($cipher, $key, $data, $mode, $iv = '') {
+            return openssl_decrypt($data, 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv);
+        }
+    }
 }
+
 
 //Xac dinh tien ich mo rong lam viec voi string
 $sys_info['string_handler'] = $sys_info['mb_support'] ? 'mb' : ( $sys_info['iconv_support'] ? 'iconv' : 'php' );

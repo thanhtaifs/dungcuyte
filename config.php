@@ -13,6 +13,15 @@ if ( ! defined( 'NV_MAINFILE' ) )
 	die( 'Stop!!!' );
 }
 
+// Bật hiển thị lỗi PHP
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+
+// Bật ghi log
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/php_error.log');
+
 $db_config['dbhost'] = 'localhost';
 $db_config['dbport'] = '';
 $db_config['dbname'] = 'ndungcu39mo_db';
@@ -31,3 +40,4 @@ $global_config['site_url'] = 'https://dungcuytecantho.com';
 $global_config['sitekey'] = 'b489e338627a82fe2de280b6df176ec6';// Do not change sitekey!
 $global_config['hashprefix'] = '{SSHA}';
 $global_config['rewrite_mode'] = 1;
+$global_config['debug_mode'] = 1;

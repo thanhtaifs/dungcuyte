@@ -1,2 +1,0 @@
-[Sun, 21 Sep 2025 10:22:38 +0700] [Array] [User Error(256): GD not installed] [FILE: /includes/ini.php] [LINE: 80]
-[Sun, 21 Sep 2025 10:23:14 +0700] [Array] [User Error(256): Mcrypt library not available] [FILE: /includes/ini.php] [LINE: 92]
