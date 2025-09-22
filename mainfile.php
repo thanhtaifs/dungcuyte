@@ -46,10 +46,13 @@ spl_autoload_register( function ( $classname )
 error_log("=== mainfile before file constants, config ===");
 // Ket noi voi cac file constants, config
 require NV_ROOTDIR . '/includes/constants.php';
+
 if( file_exists( NV_ROOTDIR . '/' . NV_CONFIG_FILENAME ) )
 {
 	error_log("=== mainfile if file constants, config ===");
+	error_log(NV_ROOTDIR . ' 1111 ' . NV_CONFIG_FILENAME);
 	require realpath( NV_ROOTDIR . '/' . NV_CONFIG_FILENAME );
+	error_log("=== mainfile require realpath constants, config ===");
 }
 else
 {
@@ -402,7 +405,12 @@ define( 'NV_MODFUNCS_TABLE', NV_PREFIXLANG . '_modfuncs' );
 define( 'NV_SEARCHKEYS_TABLE', NV_PREFIXLANG . '_searchkeys' );
 define( 'NV_REFSTAT_TABLE', NV_PREFIXLANG . '_referer_stats' );
 
+
+
+error_log("=== mainfile before sql excute ===");
+
 $sql = "SELECT lang, module, config_name, config_value FROM " . NV_CONFIG_GLOBALTABLE . " WHERE lang='" . NV_LANG_DATA . "' or (lang='sys' AND module='site') ORDER BY module ASC";
+error_log("=== mainfile before sql query ===" . $sql);
 $list = nv_db_cache( $sql, '', 'settings' );
 foreach( $list as $row )
 {
@@ -415,6 +423,9 @@ foreach( $list as $row )
 		$module_config[$row['module']][$row['config_name']] = $row['config_value'];
 	}
 }
+
+
+error_log("=== mainfile before NV_MAIN_DOMAIN ===");
 
 define( 'NV_MAIN_DOMAIN',  in_array( $global_config['site_domain'], $global_config['my_domains'] ) ? str_replace( NV_SERVER_NAME, $global_config['site_domain'], NV_MY_DOMAIN )  : NV_MY_DOMAIN );
 

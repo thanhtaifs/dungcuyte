@@ -1,52 +1,124 @@
-[22-Sep-2025 05:27:21 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
-[22-Sep-2025 05:27:21 Europe/Berlin] === YXNzZXRzL2hlYWRlci5qcGc ===
-[22-Sep-2025 05:27:21 Europe/Berlin] === NV_SYSTEM === 
-[22-Sep-2025 05:27:21 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
-[22-Sep-2025 05:27:21 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
-[22-Sep-2025 05:28:51 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
-[22-Sep-2025 05:28:51 Europe/Berlin] === YXNzZXRzL2hlYWRlci5qcGc ===
-[22-Sep-2025 05:28:51 Europe/Berlin] === NV_SYSTEM === 
-[22-Sep-2025 05:28:51 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
-[22-Sep-2025 05:28:51 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
-[22-Sep-2025 05:29:00 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
-[22-Sep-2025 05:29:00 Europe/Berlin] === YXNzZXRzL2hlYWRlci5qcGc ===
-[22-Sep-2025 05:29:00 Europe/Berlin] === NV_SYSTEM === 
-[22-Sep-2025 05:29:00 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
-[22-Sep-2025 05:29:00 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
-[22-Sep-2025 05:30:51 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
-[22-Sep-2025 05:30:51 Europe/Berlin] === YXNzZXRzL2hlYWRlci5qcGc ===
-[22-Sep-2025 05:30:51 Europe/Berlin] === NV_SYSTEM === 
-[22-Sep-2025 05:30:51 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
-[22-Sep-2025 05:30:51 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
-[22-Sep-2025 05:30:51 Europe/Berlin] checkpoint mainfile
-[22-Sep-2025 05:33:44 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
-[22-Sep-2025 05:33:44 Europe/Berlin] === YXNzZXRzL2hlYWRlci5qcGc ===
-[22-Sep-2025 05:33:44 Europe/Berlin] === NV_SYSTEM === 
-[22-Sep-2025 05:33:44 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
-[22-Sep-2025 05:33:44 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
-[22-Sep-2025 05:33:44 Europe/Berlin] checkpoint mainfile
-[22-Sep-2025 05:33:44 Europe/Berlin] === mainfile header ===
-[22-Sep-2025 05:34:20 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
-[22-Sep-2025 05:34:20 Europe/Berlin] === YXNzZXRzL2hlYWRlci5qcGc ===
-[22-Sep-2025 05:34:20 Europe/Berlin] === NV_SYSTEM === 
-[22-Sep-2025 05:34:20 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
-[22-Sep-2025 05:34:20 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
-[22-Sep-2025 05:34:20 Europe/Berlin] checkpoint mainfile
-[22-Sep-2025 05:34:20 Europe/Berlin] === mainfile header ===
-[22-Sep-2025 05:34:41 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
-[22-Sep-2025 05:34:41 Europe/Berlin] === YXNzZXRzL2hlYWRlci5qcGc ===
-[22-Sep-2025 05:34:41 Europe/Berlin] === NV_SYSTEM === 
-[22-Sep-2025 05:34:41 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
-[22-Sep-2025 05:34:41 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
-[22-Sep-2025 05:34:41 Europe/Berlin] checkpoint mainfile
-[22-Sep-2025 05:34:41 Europe/Berlin] === mainfile header ===
-[22-Sep-2025 05:34:41 Europe/Berlin] === mainfile before Xac dinh thu muc goc cua site ===
-[22-Sep-2025 05:35:00 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
-[22-Sep-2025 05:35:00 Europe/Berlin] === YXNzZXRzL2hlYWRlci5qcGc ===
-[22-Sep-2025 05:35:00 Europe/Berlin] === NV_SYSTEM === 
-[22-Sep-2025 05:35:00 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
-[22-Sep-2025 05:35:00 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
-[22-Sep-2025 05:35:00 Europe/Berlin] checkpoint mainfile
-[22-Sep-2025 05:35:00 Europe/Berlin] === mainfile header ===
-[22-Sep-2025 05:35:00 Europe/Berlin] === mainfile before Xac dinh thu muc goc cua site ===
-[22-Sep-2025 05:35:00 Europe/Berlin] === mainfile before file constants, config ===
+[22-Sep-2025 05:41:36 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
+[22-Sep-2025 05:41:36 Europe/Berlin] === YXNzZXRzL2hlYWRlci5qcGc ===
+[22-Sep-2025 05:41:36 Europe/Berlin] === NV_SYSTEM === 
+[22-Sep-2025 05:41:36 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[22-Sep-2025 05:41:36 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[22-Sep-2025 05:41:36 Europe/Berlin] checkpoint mainfile
+[22-Sep-2025 05:41:36 Europe/Berlin] === mainfile header ===
+[22-Sep-2025 05:41:36 Europe/Berlin] === mainfile before Xac dinh thu muc goc cua site ===
+[22-Sep-2025 05:41:36 Europe/Berlin] === mainfile before file constants, config ===
+[22-Sep-2025 05:41:36 Europe/Berlin] === mainfile if file constants, config ===
+[22-Sep-2025 05:41:36 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[22-Sep-2025 05:43:50 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
+[22-Sep-2025 05:43:50 Europe/Berlin] === YXNzZXRzL2hlYWRlci5qcGc ===
+[22-Sep-2025 05:43:50 Europe/Berlin] === NV_SYSTEM === 
+[22-Sep-2025 05:43:50 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[22-Sep-2025 05:43:50 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[22-Sep-2025 05:43:50 Europe/Berlin] checkpoint mainfile
+[22-Sep-2025 05:43:50 Europe/Berlin] === mainfile header ===
+[22-Sep-2025 05:43:50 Europe/Berlin] === mainfile before Xac dinh thu muc goc cua site ===
+[22-Sep-2025 05:43:50 Europe/Berlin] === mainfile before file constants, config ===
+[22-Sep-2025 05:43:50 Europe/Berlin] === mainfile if file constants, config ===
+[22-Sep-2025 05:43:50 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[22-Sep-2025 05:43:50 Europe/Berlin] === config.php loaded OK ===
+[22-Sep-2025 05:44:25 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
+[22-Sep-2025 05:44:25 Europe/Berlin] === YXNzZXRzL2hlYWRlci5qcGc ===
+[22-Sep-2025 05:44:25 Europe/Berlin] === NV_SYSTEM === 
+[22-Sep-2025 05:44:25 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[22-Sep-2025 05:44:25 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[22-Sep-2025 05:44:25 Europe/Berlin] checkpoint mainfile
+[22-Sep-2025 05:44:25 Europe/Berlin] === mainfile header ===
+[22-Sep-2025 05:44:25 Europe/Berlin] === mainfile before Xac dinh thu muc goc cua site ===
+[22-Sep-2025 05:44:25 Europe/Berlin] === mainfile before file constants, config ===
+[22-Sep-2025 05:44:25 Europe/Berlin] === mainfile if file constants, config ===
+[22-Sep-2025 05:44:25 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[22-Sep-2025 05:44:25 Europe/Berlin] === config.php loaded OK ===
+[22-Sep-2025 05:44:25 Europe/Berlin] === config.php loaded end OK  ===
+[22-Sep-2025 05:44:25 Europe/Berlin] === mainfile require realpath constants, config ===
+[22-Sep-2025 05:44:25 Europe/Berlin] === mainfile before config_global ===
+[22-Sep-2025 10:44:25 Asia/Saigon] === mainfile before csdl ===
+[22-Sep-2025 05:45:26 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
+[22-Sep-2025 05:45:26 Europe/Berlin] === YXNzZXRzL2hlYWRlci5qcGc ===
+[22-Sep-2025 05:45:26 Europe/Berlin] === NV_SYSTEM === 
+[22-Sep-2025 05:45:26 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[22-Sep-2025 05:45:26 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[22-Sep-2025 05:45:26 Europe/Berlin] checkpoint mainfile
+[22-Sep-2025 05:45:26 Europe/Berlin] === mainfile header ===
+[22-Sep-2025 05:45:26 Europe/Berlin] === mainfile before Xac dinh thu muc goc cua site ===
+[22-Sep-2025 05:45:26 Europe/Berlin] === mainfile before file constants, config ===
+[22-Sep-2025 05:45:26 Europe/Berlin] === mainfile if file constants, config ===
+[22-Sep-2025 05:45:26 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[22-Sep-2025 05:45:26 Europe/Berlin] === config.php loaded OK ===
+[22-Sep-2025 05:45:26 Europe/Berlin] === config.php loaded end OK  ===
+[22-Sep-2025 05:45:26 Europe/Berlin] === mainfile require realpath constants, config ===
+[22-Sep-2025 05:45:26 Europe/Berlin] === mainfile before config_global ===
+[22-Sep-2025 10:45:26 Asia/Saigon] === mainfile before csdl ===
+[22-Sep-2025 05:45:57 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
+[22-Sep-2025 05:45:57 Europe/Berlin] === YXNzZXRzL2hlYWRlci5qcGc ===
+[22-Sep-2025 05:45:57 Europe/Berlin] === NV_SYSTEM === 
+[22-Sep-2025 05:45:57 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[22-Sep-2025 05:45:57 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[22-Sep-2025 05:45:57 Europe/Berlin] checkpoint mainfile
+[22-Sep-2025 05:45:57 Europe/Berlin] === mainfile header ===
+[22-Sep-2025 05:45:57 Europe/Berlin] === mainfile before Xac dinh thu muc goc cua site ===
+[22-Sep-2025 05:45:57 Europe/Berlin] === mainfile before file constants, config ===
+[22-Sep-2025 05:45:57 Europe/Berlin] === mainfile if file constants, config ===
+[22-Sep-2025 05:45:57 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[22-Sep-2025 05:45:57 Europe/Berlin] === config.php loaded OK ===
+[22-Sep-2025 05:45:57 Europe/Berlin] === config.php loaded end OK  ===
+[22-Sep-2025 05:45:57 Europe/Berlin] === mainfile require realpath constants, config ===
+[22-Sep-2025 05:45:57 Europe/Berlin] === mainfile before config_global ===
+[22-Sep-2025 10:45:57 Asia/Saigon] === mainfile before csdl ===
+[22-Sep-2025 10:45:57 Asia/Saigon] === mainfile before sql excute ===
+[22-Sep-2025 05:45:57 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
+[22-Sep-2025 05:45:57 Europe/Berlin] === YXNzZXRzL2hlYWRlci5qcGc ===
+[22-Sep-2025 05:45:57 Europe/Berlin] === NV_SYSTEM === 
+[22-Sep-2025 05:45:57 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[22-Sep-2025 05:45:57 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[22-Sep-2025 05:45:57 Europe/Berlin] checkpoint mainfile
+[22-Sep-2025 05:45:57 Europe/Berlin] === mainfile header ===
+[22-Sep-2025 05:45:57 Europe/Berlin] === mainfile before Xac dinh thu muc goc cua site ===
+[22-Sep-2025 05:45:57 Europe/Berlin] === mainfile before file constants, config ===
+[22-Sep-2025 05:45:57 Europe/Berlin] === mainfile if file constants, config ===
+[22-Sep-2025 05:45:57 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[22-Sep-2025 05:45:57 Europe/Berlin] === config.php loaded OK ===
+[22-Sep-2025 05:45:57 Europe/Berlin] === config.php loaded end OK  ===
+[22-Sep-2025 05:45:57 Europe/Berlin] === mainfile require realpath constants, config ===
+[22-Sep-2025 05:45:57 Europe/Berlin] === mainfile before config_global ===
+[22-Sep-2025 10:45:57 Asia/Saigon] === mainfile before csdl ===
+[22-Sep-2025 10:45:57 Asia/Saigon] === mainfile before sql excute ===
+[22-Sep-2025 05:46:30 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
+[22-Sep-2025 05:46:30 Europe/Berlin] === YXNzZXRzL2hlYWRlci5qcGc ===
+[22-Sep-2025 05:46:30 Europe/Berlin] === NV_SYSTEM === 
+[22-Sep-2025 05:46:30 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[22-Sep-2025 05:46:30 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[22-Sep-2025 05:46:30 Europe/Berlin] checkpoint mainfile
+[22-Sep-2025 05:46:30 Europe/Berlin] === mainfile header ===
+[22-Sep-2025 05:46:30 Europe/Berlin] === mainfile before Xac dinh thu muc goc cua site ===
+[22-Sep-2025 05:46:30 Europe/Berlin] === mainfile before file constants, config ===
+[22-Sep-2025 05:46:30 Europe/Berlin] === mainfile if file constants, config ===
+[22-Sep-2025 05:46:30 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[22-Sep-2025 05:46:30 Europe/Berlin] === config.php loaded OK ===
+[22-Sep-2025 05:46:30 Europe/Berlin] === config.php loaded end OK  ===
+[22-Sep-2025 05:46:30 Europe/Berlin] === mainfile require realpath constants, config ===
+[22-Sep-2025 05:46:30 Europe/Berlin] === mainfile before config_global ===
+[22-Sep-2025 10:46:30 Asia/Saigon] === mainfile before csdl ===
+[22-Sep-2025 10:46:30 Asia/Saigon] === mainfile before sql excute ===
+[22-Sep-2025 05:48:38 Europe/Berlin] === NukeViet index.php bắt đầu chạy ===
+[22-Sep-2025 05:48:38 Europe/Berlin] === YXNzZXRzL2hlYWRlci5qcGc ===
+[22-Sep-2025 05:48:38 Europe/Berlin] === NV_SYSTEM === 
+[22-Sep-2025 05:48:38 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[22-Sep-2025 05:48:38 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[22-Sep-2025 05:48:38 Europe/Berlin] checkpoint mainfile
+[22-Sep-2025 05:48:38 Europe/Berlin] === mainfile header ===
+[22-Sep-2025 05:48:38 Europe/Berlin] === mainfile before Xac dinh thu muc goc cua site ===
+[22-Sep-2025 05:48:38 Europe/Berlin] === mainfile before file constants, config ===
+[22-Sep-2025 05:48:38 Europe/Berlin] === mainfile if file constants, config ===
+[22-Sep-2025 05:48:38 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[22-Sep-2025 05:48:38 Europe/Berlin] === config.php loaded OK ===
+[22-Sep-2025 05:48:38 Europe/Berlin] === config.php loaded end OK  ===
+[22-Sep-2025 05:48:38 Europe/Berlin] === mainfile require realpath constants, config ===
+[22-Sep-2025 05:48:38 Europe/Berlin] === mainfile before config_global ===
+[22-Sep-2025 10:48:38 Asia/Saigon] === mainfile before csdl ===
+[22-Sep-2025 10:48:38 Asia/Saigon] === mainfile before sql excute ===
+[22-Sep-2025 10:48:38 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
