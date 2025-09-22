@@ -19,15 +19,29 @@ $key_words = $module_info['keywords'];
 $contents = '';
 $cache_file = '';
 
+error_log("=== Main modules news before base_url===");
+
+
 $base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name;
 $base_url_rewrite = nv_url_rewrite( $base_url, true );
 $page_url_rewrite = $page ? nv_url_rewrite( $base_url . '/page-' . $page, true ) : $base_url_rewrite;
 $request_uri = $_SERVER['REQUEST_URI'];
+
+error_log("home=" . var_export($home, true));
+error_log("request_uri=" . $request_uri);
+error_log("base_url_rewrite=" . $base_url_rewrite);
+error_log("page_url_rewrite=" . $page_url_rewrite);
+error_log("NV_MAIN_DOMAIN=" . NV_MAIN_DOMAIN);
+
 if( ! ( $home OR $request_uri == $base_url_rewrite OR $request_uri == $page_url_rewrite OR NV_MAIN_DOMAIN . $request_uri == $base_url_rewrite OR NV_MAIN_DOMAIN . $request_uri == $page_url_rewrite ) )
 {
+	error_log("=== Main modules news check if home in news ===");
+
 	$redirect = '<meta http-equiv="Refresh" content="3;URL=' . $base_url_rewrite . '" />';
+	error_log("=== Main modules news check before nv_info_die ===");
 	nv_info_die( $lang_global['error_404_title'], $lang_global['error_404_title'], $lang_global['error_404_content'] . $redirect );
 }
+error_log("=== Main modules news before check NV_IS_MODADMIN ===");
 if( ! defined( 'NV_IS_MODADMIN' ) and $page < 5 )
 {
 	$cache_file = NV_LANG_DATA . '_' . $module_info['template'] . '-' . $op . '-' . $page . '-' . NV_CACHE_PREFIX . '.cache';
@@ -36,6 +50,8 @@ if( ! defined( 'NV_IS_MODADMIN' ) and $page < 5 )
 		$contents = $cache;
 	}
 }
+
+error_log("=== Main modules news before contents ===");
 
 if( empty( $contents ) )
 {
@@ -417,6 +433,8 @@ if( $page > 1 )
 	$page_title .= ' ' . NV_TITLEBAR_DEFIS . ' ' . $lang_global['page'] . ' ' . $page;
 }
 
+
+error_log("=== Main modules news before nv_site_theme ===");
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_site_theme( $contents );
 include NV_ROOTDIR . '/includes/footer.php';
