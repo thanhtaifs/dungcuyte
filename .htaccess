@@ -1,59 +1,10 @@
-php_flag display_errors 1
-RewriteRule ^test$ test.html [L]
-
-RewriteEngine On
-RewriteBase /dungcuyte/
-
-# Chuyển hướng từ http sang https
-RewriteCond %{HTTPS} !=on
-RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
-
-##################################################################################
-#nukeviet_rewrite_start //Please do not change the contents of the following lines
-##################################################################################
-
 <IfModule mod_rewrite.c>
-RewriteEngine On
+    RewriteEngine On
 
-# Sitemap
-#RewriteRule ^(.*?)sitemap\.xml$ index.php?nv=SitemapIndex [L]
-#RewriteRule ^(.*?)sitemap\-([a-z]{2})\.xml$ index.php?language=$2&nv=SitemapIndex [L]
-#RewriteRule ^(.*?)sitemap\-([a-z]{2})\.([a-zA-Z0-9-]+)\.xml$ index.php?language=$2&nv=$3&op=sitemap [L]
-
-RewriteRule ^sitemap.xml$ sitemap.php [L]
-
-# Nén CSS, JS
-RewriteRule ^((?!http(s?)|ftp\:\/\/).*)\.(css|js)$ CJzip.php?file=$1.$3 [L]
-# Rewrite cho module SEEK
-# RewriteRule ^seek/(.*)$ index.php?nv=seek&op=main&q=$1 [L,QSA]
-#RewriteRule ^seek/([^/]+)$ index.php?nv=seek&q=$1 [L,QSA]
-RewriteCond %{REQUEST_URI} !^/index\.php
-# Rule cho seek (thay vì search)
-RewriteRule ^seek/(.*)$ index.php?nv=search&q=$1 [L,QSA]
-RewriteRule ^seek\.html$ index.php?nv=search [L,QSA]
-# Hoặc nếu module thực sự tên là seek:
-RewriteRule ^seek/(.*)$ index.php?nv=seek&q=$1 [L,QSA]
-RewriteRule ^seek/([^/]+)$ index.php?nv=seek&q=$1 [QSA,L]
-RewriteRule ^seek\.html$ index.php?nv=seek [L,QSA]
-# Rule xử lý UTF-8 encoding
-RewriteRule ^seek/([^/]+)/?$ index.php?nv=search&q=$1 [L,QSA,B]
-
-
-
-# Các rule khác
-RewriteRule ^([a-zA-Z0-9\-]+)\/search\/q\=(.*)$ index.php?nv=$1&op=search&q=$2 [L]
-
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /index.php [L]
-
+    # Nếu chạy trong thư mục con thì sửa lại cho đúng
+    RewriteBase /dungcuyte/
+ 
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . index.php [L]
 </IfModule>
-
-#nukeviet_rewrite_end
-
-# php -- BEGIN cPanel-generated handler, do not edit
-# Set the “ea-php53” package as the default “PHP” programming language.
-<IfModule mime_module>
-  AddHandler application/x-httpd-ea-php53 .php .php5 .phtml
-</IfModule>
-# php -- END cPanel-generated handler, do not edit

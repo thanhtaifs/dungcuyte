@@ -6,3 +6,4 @@
 [Mon, 22 Sep 2025 08:01:19 +0700] [Array] [Run-time notices(8192): Required parameter $viewtype follows optional parameter $sort] [FILE: /modules/shops/theme.php] [LINE: 1125]
 [Mon, 22 Sep 2025 08:01:19 +0700] [Array] [Run-time notices(8192): Required parameter $viewtype follows optional parameter $sort] [FILE: /modules/shops/theme.php] [LINE: 1327]
 [Mon, 22 Sep 2025 08:01:38 +0700] [Array] [Warning(2): Undefined array key 1] [FILE: /includes/cronjobs/error_log_destroy.php] [LINE: 97]
+[Mon, 22 Sep 2025 08:31:34 +0700] [Array] [Warning(2): Undefined array key "imageposition"] [FILE: /modules/page/theme.php] [LINE: 51]

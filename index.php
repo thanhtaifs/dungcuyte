@@ -133,13 +133,13 @@ else
 	$meta_property['og:title'] = $global_config['site_name'];
 }
 
-error_log("=== Referer + Gqueries ===");
+//error_log("=== Referer + Gqueries ===");
 
 if( preg_match( $global_config['check_module'], $module_name ) )
 {
-	error_log("=== if ok ===");
+	//error_log("=== if ok ===");
 	$site_mods = nv_site_mods( $module_name );
-	error_log("site_mods pass");
+	//error_log("site_mods pass");
 	
 	// IMG thong ke truy cap + online
 	if( $global_config['statistic'] and isset( $sys_mods['statistics'] ) and $nv_Request->get_string( 'second', 'get' ) == 'statimg' )
