@@ -1,0 +1,8 @@
+[Mon, 22 Sep 2025 07:38:54 +0700] [Array] [User Error(256): GD not installed] [FILE: /includes/ini.php] [LINE: 80]
+[Mon, 22 Sep 2025 07:40:06 +0700] [Array] [Run-time notices(8192): Required parameter $info_title follows optional parameter $page_title] [FILE: /includes/core/theme_functions.php] [LINE: 96]
+[Mon, 22 Sep 2025 07:40:06 +0700] [Array] [Warning(2): Undefined variable $module_name] [FILE: /includes/core/flood_blocker.php] [LINE: 15]
+[Mon, 22 Sep 2025 07:40:06 +0700] [Array] [Warning(2): Undefined variable $nv_Cache] [FILE: /modules/shops/global.functions.php] [LINE: 66]
+[Mon, 22 Sep 2025 08:01:19 +0700] [Array] [Run-time notices(8192): Required parameter $data_title follows optional parameter $html_pages] [FILE: /modules/shops/theme.php] [LINE: 223]
+[Mon, 22 Sep 2025 08:01:19 +0700] [Array] [Run-time notices(8192): Required parameter $viewtype follows optional parameter $sort] [FILE: /modules/shops/theme.php] [LINE: 1125]
+[Mon, 22 Sep 2025 08:01:19 +0700] [Array] [Run-time notices(8192): Required parameter $viewtype follows optional parameter $sort] [FILE: /modules/shops/theme.php] [LINE: 1327]
+[Mon, 22 Sep 2025 08:01:38 +0700] [Array] [Warning(2): Undefined array key 1] [FILE: /includes/cronjobs/error_log_destroy.php] [LINE: 97]

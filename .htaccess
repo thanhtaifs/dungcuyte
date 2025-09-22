@@ -2,16 +2,11 @@ php_flag display_errors 1
 RewriteRule ^test$ test.html [L]
 
 RewriteEngine On
-RewriteBase /
+RewriteBase /dungcuyte/
 
 # Chuyển hướng từ http sang https
 RewriteCond %{HTTPS} !=on
 RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
-
-# Nếu không phải file hoặc thư mục thật thì dùng index.php xử lý
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /index.php [L]
 
 ##################################################################################
 #nukeviet_rewrite_start //Please do not change the contents of the following lines

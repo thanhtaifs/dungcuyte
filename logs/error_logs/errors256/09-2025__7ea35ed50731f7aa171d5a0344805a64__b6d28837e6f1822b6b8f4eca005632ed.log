@@ -1,6 +1,0 @@
-TIME: Sun, 21 Sep 2025 10:23:14 +0700
-IP: Array
-INFO: User Error(256): Mcrypt library not available
-FILE: /includes/ini.php
-LINE: 92
-USER-AGENT: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
