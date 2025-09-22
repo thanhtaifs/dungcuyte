@@ -12,8 +12,12 @@ if( ! defined( 'NV_MAINFILE' ) ) die( 'Stop!!!' );
 
 $rules = array( '60' => $global_config['max_requests_60'], '300' => $global_config['max_requests_300'] );
 
-if ($module_name != 'shops') {
-	$flb = new FloodBlocker( NV_ROOTDIR . '/' . NV_LOGS_DIR . '/ip_logs', $rules, NV_CLIENT_IP );
+if (!isset($module_name) || $module_name != 'shops') {
+    $flb = new FloodBlocker(
+        NV_ROOTDIR . '/' . NV_LOGS_DIR . '/ip_logs',
+        $rules,
+        NV_CLIENT_IP
+    );
 }
 
 if( $flb->is_blocker )

@@ -18,6 +18,9 @@ if( ! defined( 'NV_SYSTEM' ) and ! defined( 'NV_ADMIN' ) and ! defined( 'NV_WYSI
 	exit();
 }
 
+error_log("=== mainfile header ===");
+
+
 //error_reporting( 0 );
 
 define( 'NV_MAINFILE', true );
@@ -30,6 +33,7 @@ $db_config = $global_config = $module_config = $client_info = $user_info = $admi
 $page_title = $key_words = $canonicalUrl = $mod_title = $editor_password = $my_head = $my_footer = $description = $contents = '';
 $editor = false;
 
+error_log("=== mainfile before Xac dinh thu muc goc cua site ===");
 // Xac dinh thu muc goc cua site
 define( 'NV_ROOTDIR', pathinfo( str_replace( DIRECTORY_SEPARATOR, '/', __file__ ), PATHINFO_DIRNAME ) );
 
@@ -39,14 +43,17 @@ spl_autoload_register( function ( $classname )
 	include NV_ROOTDIR . '/includes/class/' . strtolower( $classname ) . '.class.php';
 } );
 
+error_log("=== mainfile before file constants, config ===");
 // Ket noi voi cac file constants, config
 require NV_ROOTDIR . '/includes/constants.php';
 if( file_exists( NV_ROOTDIR . '/' . NV_CONFIG_FILENAME ) )
 {
+	error_log("=== mainfile if file constants, config ===");
 	require realpath( NV_ROOTDIR . '/' . NV_CONFIG_FILENAME );
 }
 else
 {
+	error_log("=== mainfile else file constants, config ===");
 	if( file_exists( NV_ROOTDIR . '/install/index.php' ) )
 	{
 		$base_siteurl = pathinfo( $_SERVER['PHP_SELF'], PATHINFO_DIRNAME );
@@ -63,6 +70,7 @@ else
 	}
 	die();
 }
+error_log("=== mainfile before config_global ===");
 require NV_ROOTDIR . '/' . NV_DATADIR . '/config_global.php';
 
 if( defined( 'NV_CONFIG_DIR' ) )
@@ -90,8 +98,8 @@ $ips = new ips();
 // define( 'NV_SERVER_IP', $ips->server_ip );
 define( 'NV_FORWARD_IP', $ips->forward_ip );
 define( 'NV_REMOTE_ADDR', $ips->remote_addr );
-define( 'NV_CLIENT_IP', "115.77.79.135" );
-//define( 'NV_CLIENT_IP', $ips->remote_ip );
+//define( 'NV_CLIENT_IP', "115.77.79.135" );
+define( 'NV_CLIENT_IP', $ips->remote_ip );
 
 // Neu khong co IP
 if( NV_CLIENT_IP == 'none' ) die( 'Error: Your IP address is not correct' );
@@ -148,18 +156,47 @@ if( defined( 'NV_SYSTEM' ) )
 // Ket noi voi class xu ly request
 $nv_Request = new Request( $global_config, NV_CLIENT_IP );
 
-define( 'NV_SERVER_NAME', $nv_Request->server_name );
+if (!empty($_SERVER['HTTP_HOST'])) {
+    $nv_Request->server_name = $_SERVER['HTTP_HOST'];
+}
+define( 'NV_SERVER_NAME', $nv_Request -> server_name );
 // vd: mydomain1.com
 
 define( 'NV_SERVER_PROTOCOL', $nv_Request->server_protocol );
 // vd: http
 
+// --- START: ensure server name includes port if HTTP_HOST present
+// Prefer HTTP_HOST (may include :port), fallback to SERVER_NAME + SERVER_PORT
+$host_with_port = '';
+if (!empty($_SERVER['HTTP_HOST'])) {
+    $host_with_port = $_SERVER['HTTP_HOST'];
+} elseif (!empty($_SERVER['SERVER_NAME'])) {
+    $host_with_port = $_SERVER['SERVER_NAME'];
+    if (!empty($_SERVER['SERVER_PORT']) && !preg_match('/:\d+$/', $host_with_port)) {
+        $host_with_port .= ':' . $_SERVER['SERVER_PORT'];
+    }
+}
+
+// If we obtained a host with port, override the request value so NV_SERVER_NAME includes port
+if (!empty($host_with_port)) {
+    $nv_Request->server_name = $host_with_port;
+}
+// --- END
+
+
+
 define( 'NV_SERVER_PORT', $nv_Request->server_port );
+
 // vd: 80
 
-define( 'NV_MY_DOMAIN', 'https://dungcutheduccantho.com' );
-
-
+file_put_contents(NV_ROOTDIR . '/nv_servername_debug.log', date('c') . " - HOST=" . $_SERVER['HTTP_HOST'] . " - NV_SERVER_NAME=" . NV_SERVER_NAME . PHP_EOL, FILE_APPEND);
+//define( 'NV_MY_DOMAIN', 'https://dungcutheduccantho.com' );
+define( 'NV_MY_DOMAIN', NV_SERVER_PROTOCOL . '://' . NV_SERVER_NAME . NV_SERVER_PORT );
+file_put_contents(
+    NV_ROOTDIR . '/nv_serverport_debug.log',
+    date('c') . " - NV_MY_DOMAIN=" . NV_SERVER_PROTOCOL . '://' . NV_SERVER_NAME  . NV_SERVER_PORT . PHP_EOL,
+    FILE_APPEND
+);
 // vd: http://mydomain1.com:80
 
 define( 'NV_HEADERSTATUS', $nv_Request->headerstatus );
@@ -183,13 +220,27 @@ define( 'NV_USER_AGENT', $nv_Request->user_agent );
 require NV_ROOTDIR . '/includes/language.php';
 require NV_ROOTDIR . '/language/' . NV_LANG_INTERFACE . '/global.php';
 
-$domains = explode( ',', $global_config['my_domains'] );
-if( ! in_array( NV_SERVER_NAME, $domains ) )
+// $domains = explode( ',', $global_config['my_domains'] );
+// if( ! in_array( NV_SERVER_NAME, $domains ) )
+// {
+//     $global_config['site_logo'] = 'images/logo.png';
+//     $global_config['site_url'] = NV_SERVER_PROTOCOL . '://' . $domains[0] . NV_SERVER_PORT;
+//     nv_info_die( $global_config['error_404_title'], $lang_global['error_404_title'], $lang_global['error_404_content'], '', '', '', '' );
+// }
+
+$domains = array_map('trim', explode( ',', $global_config['my_domains'] ) );
+
+// Cho phép host dev tạm thời: (dành cho máy local)
+$dev_allow = array('localhost', '127.0.0.1', 'dungcuyte.local', 'dungcuyte.local:8080');
+
+// Nếu không khớp với my_domains và cũng không phải dev host thì die
+if( ! in_array( NV_SERVER_NAME, $domains ) && ! in_array( NV_SERVER_NAME, $dev_allow ) )
 {
     $global_config['site_logo'] = 'images/logo.png';
     $global_config['site_url'] = NV_SERVER_PROTOCOL . '://' . $domains[0] . NV_SERVER_PORT;
     nv_info_die( $global_config['error_404_title'], $lang_global['error_404_title'], $lang_global['error_404_content'], '', '', '', '' );
 }
+
 
 // Xac dinh duong dan thuc den thu muc upload
 define( 'NV_UPLOADS_REAL_DIR', NV_ROOTDIR . '/' . NV_UPLOADS_DIR );
@@ -204,7 +255,19 @@ $global_config['cookie_domain'] = $nv_Request->cookie_domain;
 $global_config['site_url'] = $nv_Request->site_url;
 
 // vd: array( 'mydomain1.com', 'mydomain2.com' )
-$global_config['my_domains'] = $nv_Request->my_domains;
+$global_config['my_domains'] = $nv_Request-> my_domains;
+
+file_put_contents(
+    NV_ROOTDIR . '/nv_host_debug.log',
+    date('c')
+    . " - HTTP_HOST=" . ($_SERVER['HTTP_HOST'] ?? '')
+    . " - SERVER_NAME=" . ($_SERVER['SERVER_NAME'] ?? '')
+    . " - NV_SERVER_NAME=" . NV_SERVER_NAME
+    . " - site_domain=" . $global_config['site_domain']
+    . PHP_EOL,
+    FILE_APPEND
+);
+
 
 $sys_info['register_globals'] = $nv_Request->is_register_globals;
 // 0 = khong, 1 = bat
@@ -298,6 +361,13 @@ if( isset( $nv_plugin_area[1] ) )
     }
 }
 
+
+file_put_contents(
+    __DIR__ . '/debug.log',
+    date('Y-m-d H:i:s') . ' - HOST=' . $_SERVER['HTTP_HOST'] . ' - NV_SERVER_NAME=' . NV_SERVER_NAME . PHP_EOL,
+    FILE_APPEND
+);
+
 // Bat dau phien lam viec cua MySQL
 $db = new sql_db( $db_config );
 if( empty( $db->connect ) )
@@ -305,6 +375,8 @@ if( empty( $db->connect ) )
 	trigger_error( 'Sorry! Could not connect to data server', 256 );
 }
 unset( $db_config['dbpass'] );
+
+error_log("=== mainfile before csdl ===");
 
 // Ten cac table cua CSDL dung chung cho he thong
 define( 'NV_AUTHORS_GLOBALTABLE', $db_config['prefix'] . '_authors' );

