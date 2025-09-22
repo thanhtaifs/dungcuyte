@@ -321,9 +321,24 @@ function nv_getCountry_from_file( $ip )
 function nv_getCountry_from_cookie( $ip )
 {
 	global $global_config, $countries;
+	error_log("=== DEBUG IP: " . var_export($ip, true));
+	//$numbers = preg_split( '/\./', $ip );
+	//$code = ( $numbers[0] * 16777216 ) + ( $numbers[1] * 65536 ) + ( $numbers[2] * 256 ) + ( $numbers[3] );
+	
+	$ip_num = explode('.', $ip);
 
-	$numbers = preg_split( '/\./', $ip );
-	$code = ( $numbers[0] * 16777216 ) + ( $numbers[1] * 65536 ) + ( $numbers[2] * 256 ) + ( $numbers[3] );
+	// Nếu không phải IPv4 (vd: IPv6 ::1), thì fallback
+	if (count($ip_num) < 4) {
+		// fallback: gán IP = 127.0.0.1 để tránh lỗi
+		$ip_num = [127, 0, 0, 1];
+	}
+
+	$ip_val = ((int)$ip_num[0]) * 16777216
+			+ ((int)$ip_num[1]) * 65536
+			+ ((int)$ip_num[2]) * 256
+			+ ((int)$ip_num[3]);
+
+	$code = $ip_val > 0 ? $ip_val : 0;
 
 	if( isset( $_COOKIE[$global_config['cookie_prefix'] . '_ctr'] ) )
 	{

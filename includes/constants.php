@@ -8,6 +8,11 @@
  * @Createdate 1-27-2010 5:25
  */
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+ini_set('error_log', NV_ROOTDIR . '/error_php.log'); // Log riêng
+
 if( ! defined( 'NV_MAINFILE' ) ) die( 'Stop!!!' );
 
 //Neu thay doi bat ky gia tri trong file nay ban can vao admin phan cau hinh he thong va luu lai

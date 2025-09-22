@@ -1,0 +1,8 @@
+[Mon, 22 Sep 2025 14:01:49 +0700] [127.0.0.1] [Run-time notices(8192): Required parameter $data_title follows optional parameter $html_pages] [FILE: /modules/shops/theme.php] [LINE: 224]
+[Mon, 22 Sep 2025 14:01:49 +0700] [127.0.0.1] [Run-time notices(8192): Required parameter $viewtype follows optional parameter $sort] [FILE: /modules/shops/theme.php] [LINE: 1126]
+[Mon, 22 Sep 2025 14:01:49 +0700] [127.0.0.1] [Run-time notices(8192): Required parameter $viewtype follows optional parameter $sort] [FILE: /modules/shops/theme.php] [LINE: 1328]
+[Mon, 22 Sep 2025 15:37:40 +0700] [Array] [Warning(2): Undefined array key "error_404_title"] [FILE: /mainfile.php] [LINE: 245]
+[Mon, 22 Sep 2025 15:37:40 +0700] [Array] [Warning(2): Undefined array key "site_description"] [FILE: /includes/core/theme_functions.php] [LINE: 100]
+[Mon, 22 Sep 2025 15:37:40 +0700] [Array] [Warning(2): Undefined array key "site_name"] [FILE: /includes/core/theme_functions.php] [LINE: 140]
+[Mon, 22 Sep 2025 15:37:40 +0700] [Array] [Warning(2): Undefined array key "cronjobs_next_time"] [FILE: /includes/functions.php] [LINE: 1562]
+[Mon, 22 Sep 2025 15:37:40 +0700] [Array] [Warning(2): Undefined array key "googleAnalyticsID"] [FILE: /includes/functions.php] [LINE: 1573]

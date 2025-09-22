@@ -10,6 +10,9 @@
 
 if( ! defined( 'NV_IS_MOD_NEWS' ) ) die( 'Stop!!!' );
 
+error_log("=== news viewcat theme.php loaded OK ===");
+
+
 $cache_file = '';
 $contents = '';
 $viewcat = $global_array_cat[$catid]['viewcat'];

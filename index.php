@@ -2,9 +2,11 @@
 
 
 error_reporting(E_ALL);
-ini_set('display_errors', 0); // 0 = không in lỗi ra ngoài trình duyệt
+ini_set('display_errors', 1); // 0 = không in lỗi ra ngoài trình duyệt
 ini_set('log_errors', 1);
 ini_set('error_log', __DIR__ . '/error_log.txt');
+
+
 
 // Test để chắc chắn log ghi được
 error_log("=== NukeViet index.php bắt đầu chạy ===");

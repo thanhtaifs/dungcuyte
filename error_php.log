@@ -1,0 +1,96 @@
+[22-Sep-2025 10:56:00 Europe/Berlin] === mainfile if file constants, config ===
+[22-Sep-2025 10:56:00 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[22-Sep-2025 10:56:00 Europe/Berlin] === config.php loaded OK ===
+[22-Sep-2025 10:56:00 Europe/Berlin] === config.php loaded end OK  ===
+[22-Sep-2025 10:56:00 Europe/Berlin] === mainfile require realpath constants, config ===
+[22-Sep-2025 10:56:00 Europe/Berlin] === mainfile before config_global ===
+[22-Sep-2025 10:56:00 Europe/Berlin] === DEBUG IP: '127.0.0.1'
+[22-Sep-2025 15:56:00 Asia/Saigon] === mainfile before csdl ===
+[22-Sep-2025 15:56:00 Asia/Saigon] === mainfile before sql excute ===
+[22-Sep-2025 15:56:00 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
+[22-Sep-2025 15:56:00 Asia/Saigon] === mainfile before NV_MAIN_DOMAIN ===
+[22-Sep-2025 15:56:00 Asia/Saigon] === mainfile before cronjobs ===
+[22-Sep-2025 15:56:00 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
+[22-Sep-2025 15:56:00 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
+[22-Sep-2025 15:56:00 Asia/Saigon] === mainfile before cache_file ===
+[22-Sep-2025 15:56:00 Asia/Saigon] === mainfile require ===
+[22-Sep-2025 15:56:00 Asia/Saigon] === NV_ROOTDIR else  ===
+[22-Sep-2025 15:56:00 Asia/Saigon] === DIRECTORY_SEPARATOR
+[22-Sep-2025 15:56:00 Asia/Saigon] === user_functions
+[22-Sep-2025 15:56:00 Asia/Saigon] SitemapIndex
+[22-Sep-2025 15:56:00 Asia/Saigon] Cap nhat trang thai online
+[22-Sep-2025 15:56:00 Asia/Saigon] IMG thong ke truy cap + online pass
+[22-Sep-2025 15:56:00 Asia/Saigon] rewrite_op_mod pass
+[22-Sep-2025 15:56:00 Asia/Saigon] Kiểm tra module có trong hệ thống hay không pass
+[22-Sep-2025 15:56:00 Asia/Saigon]  Tuy chon kieu giao dien pass
+[22-Sep-2025 15:56:00 Asia/Saigon] Xac dinh cac op, array_op pass
+[22-Sep-2025 15:56:00 Asia/Saigon] Xac dinh quyen dieu hanh module pass
+[22-Sep-2025 15:56:00 Asia/Saigon] Ket noi ngon ngu cua module pass
+[22-Sep-2025 15:56:00 Asia/Saigon] Xac dinh giao dien chung pass
+[22-Sep-2025 15:56:00 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/news/functions.php
+[22-Sep-2025 15:56:00 Asia/Saigon] === news theme.php loaded OK ===
+[22-Sep-2025 15:56:00 Asia/Saigon] === Main modules news ===
+[22-Sep-2025 10:56:09 Europe/Berlin] === mainfile if file constants, config ===
+[22-Sep-2025 10:56:09 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[22-Sep-2025 10:56:09 Europe/Berlin] === config.php loaded OK ===
+[22-Sep-2025 10:56:09 Europe/Berlin] === config.php loaded end OK  ===
+[22-Sep-2025 10:56:09 Europe/Berlin] === mainfile require realpath constants, config ===
+[22-Sep-2025 10:56:09 Europe/Berlin] === mainfile before config_global ===
+[22-Sep-2025 10:56:09 Europe/Berlin] === DEBUG IP: '127.0.0.1'
+[22-Sep-2025 15:56:09 Asia/Saigon] === mainfile before csdl ===
+[22-Sep-2025 15:56:09 Asia/Saigon] === mainfile before sql excute ===
+[22-Sep-2025 15:56:09 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
+[22-Sep-2025 15:56:09 Asia/Saigon] === mainfile before NV_MAIN_DOMAIN ===
+[22-Sep-2025 15:56:09 Asia/Saigon] === mainfile before cronjobs ===
+[22-Sep-2025 15:56:09 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
+[22-Sep-2025 15:56:09 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
+[22-Sep-2025 15:56:09 Asia/Saigon] === mainfile before cache_file ===
+[22-Sep-2025 15:56:09 Asia/Saigon] === mainfile require ===
+[22-Sep-2025 15:56:09 Asia/Saigon] === NV_ROOTDIR else  ===
+[22-Sep-2025 15:56:09 Asia/Saigon] === DIRECTORY_SEPARATOR
+[22-Sep-2025 15:56:09 Asia/Saigon] === user_functions
+[22-Sep-2025 15:56:09 Asia/Saigon] SitemapIndex
+[22-Sep-2025 15:56:09 Asia/Saigon] Cap nhat trang thai online
+[22-Sep-2025 15:56:09 Asia/Saigon] IMG thong ke truy cap + online pass
+[22-Sep-2025 15:56:09 Asia/Saigon] rewrite_op_mod pass
+[22-Sep-2025 15:56:09 Asia/Saigon] Kiểm tra module có trong hệ thống hay không pass
+[22-Sep-2025 15:56:09 Asia/Saigon]  Tuy chon kieu giao dien pass
+[22-Sep-2025 15:56:09 Asia/Saigon] Xac dinh cac op, array_op pass
+[22-Sep-2025 15:56:09 Asia/Saigon] Xac dinh quyen dieu hanh module pass
+[22-Sep-2025 15:56:09 Asia/Saigon] Ket noi ngon ngu cua module pass
+[22-Sep-2025 15:56:09 Asia/Saigon] Xac dinh giao dien chung pass
+[22-Sep-2025 15:56:09 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/news/functions.php
+[22-Sep-2025 15:56:09 Asia/Saigon] === news theme.php loaded OK ===
+[22-Sep-2025 15:56:09 Asia/Saigon] === Main modules news ===
+[22-Sep-2025 10:56:10 Europe/Berlin] === mainfile if file constants, config ===
+[22-Sep-2025 10:56:10 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[22-Sep-2025 10:56:10 Europe/Berlin] === config.php loaded OK ===
+[22-Sep-2025 10:56:10 Europe/Berlin] === config.php loaded end OK  ===
+[22-Sep-2025 10:56:10 Europe/Berlin] === mainfile require realpath constants, config ===
+[22-Sep-2025 10:56:10 Europe/Berlin] === mainfile before config_global ===
+[22-Sep-2025 10:56:10 Europe/Berlin] === DEBUG IP: '127.0.0.1'
+[22-Sep-2025 15:56:10 Asia/Saigon] === mainfile before csdl ===
+[22-Sep-2025 15:56:10 Asia/Saigon] === mainfile before sql excute ===
+[22-Sep-2025 15:56:10 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
+[22-Sep-2025 15:56:10 Asia/Saigon] === mainfile before NV_MAIN_DOMAIN ===
+[22-Sep-2025 15:56:10 Asia/Saigon] === mainfile before cronjobs ===
+[22-Sep-2025 15:56:10 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
+[22-Sep-2025 15:56:10 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
+[22-Sep-2025 15:56:10 Asia/Saigon] === mainfile before cache_file ===
+[22-Sep-2025 15:56:10 Asia/Saigon] === mainfile require ===
+[22-Sep-2025 15:56:10 Asia/Saigon] === NV_ROOTDIR else  ===
+[22-Sep-2025 15:56:10 Asia/Saigon] === DIRECTORY_SEPARATOR
+[22-Sep-2025 15:56:10 Asia/Saigon] === user_functions
+[22-Sep-2025 15:56:10 Asia/Saigon] SitemapIndex
+[22-Sep-2025 15:56:10 Asia/Saigon] Cap nhat trang thai online
+[22-Sep-2025 15:56:10 Asia/Saigon] IMG thong ke truy cap + online pass
+[22-Sep-2025 15:56:10 Asia/Saigon] rewrite_op_mod pass
+[22-Sep-2025 15:56:10 Asia/Saigon] Kiểm tra module có trong hệ thống hay không pass
+[22-Sep-2025 15:56:10 Asia/Saigon]  Tuy chon kieu giao dien pass
+[22-Sep-2025 15:56:10 Asia/Saigon] Xac dinh cac op, array_op pass
+[22-Sep-2025 15:56:10 Asia/Saigon] Xac dinh quyen dieu hanh module pass
+[22-Sep-2025 15:56:10 Asia/Saigon] Ket noi ngon ngu cua module pass
+[22-Sep-2025 15:56:10 Asia/Saigon] Xac dinh giao dien chung pass
+[22-Sep-2025 15:56:10 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/news/functions.php
+[22-Sep-2025 15:56:10 Asia/Saigon] === news theme.php loaded OK ===
+[22-Sep-2025 15:56:10 Asia/Saigon] === Main modules news ===

@@ -4,6 +4,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+
 /**
  * @Project NUKEVIET 4.x
  * @Author VINADES.,JSC (contact@vinades.vn)
@@ -461,7 +462,7 @@ if( defined( 'NV_ADMIN' ) )
 		exit();
 	}
 }
-
+error_log("=== mainfile before cronjobs ===");
 // cronjobs
 if( $nv_Request->isset_request( 'second', 'get' ) and $nv_Request->get_string( 'second', 'get' ) == 'cronjobs' )
 {
@@ -506,6 +507,7 @@ else
 	}
 }
 
+error_log("=== mainfile before Dinh chi hoat dong cua site ===");
 // Dinh chi hoat dong cua site
 if( $nv_check_update and ! defined( 'NV_IS_UPDATE' ) )
 {
@@ -531,7 +533,7 @@ elseif( ! defined( 'NV_ADMIN' ) and ! defined( 'NV_IS_ADMIN' ) )
 }
 
 unset( $nv_check_update );
-
+error_log("=== mainfile before PCLZIP_TEMPORARY_DIR ===");
 define( 'PCLZIP_TEMPORARY_DIR', NV_ROOTDIR . '/' . NV_TEMP_DIR . '/' );
 
 if( isset( $nv_plugin_area[2] ) )
@@ -542,7 +544,7 @@ if( isset( $nv_plugin_area[2] ) )
         include NV_ROOTDIR . '/includes/plugin/' . $_fplugin;
     }
 }
-
+error_log("=== mainfile before cache_file ===");
 $cache_file = NV_LANG_DATA . '_sitemods_' . NV_CACHE_PREFIX . '.cache';
 if( ( $cache = nv_get_cache( 'modules', $cache_file ) ) != false )
 {

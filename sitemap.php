@@ -3,10 +3,10 @@
 // SAVE AS UTF-8 WITHOUT BOM
 
 // Không hiển thị lỗi ra trình duyệt
-error_reporting(E_ALL);
-ini_set('display_errors', 0);
-ini_set('log_errors', 1);
-ini_set('error_log', __DIR__ . '/sitemap_error.log');
+// error_reporting(E_ALL);
+// ini_set('display_errors', 0);
+// ini_set('log_errors', 1);
+// ini_set('error_log', __DIR__ . '/sitemap_error.log');
 
 // Bật output buffering (để tránh output đứt đoạn)
 ob_start();
