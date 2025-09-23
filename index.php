@@ -1,6 +1,9 @@
 <?php
 
 
+
+
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1); // 0 = không in lỗi ra ngoài trình duyệt
 ini_set('log_errors', 1);
@@ -67,7 +70,10 @@ if (!file_exists($mainfile) || !is_readable($mainfile)) {
 error_log("=== mainfile sau edit ===". $mainfile);
 error_log("checkpoint mainfile");
 require $mainfile;
-error_log("=== mainfile require ===");
+
+
+error_log("REQ_URI=" . ($_SERVER['REQUEST_URI'] ?? ''));
+error_log("NV_MAIN_DOMAIN=" . (defined('NV_MAIN_DOMAIN') ? NV_MAIN_DOMAIN : 'not defined'));
 
 if (!defined('NV_ROOTDIR')) {
     // realpath để chuẩn hóa (trả về false nếu không tồn tại)
@@ -154,7 +160,7 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 	{
 		include_once NV_ROOTDIR . '/includes/core/statimg.php';
 	}
-	error_log("IMG thong ke truy cap + online pass");
+	//error_log("IMG thong ke truy cap + online pass");
 	$op = $nv_Request->get_string( NV_OP_VARIABLE, 'post,get', 'main' );
 	if( empty( $op ) ) $op = 'main';
 
@@ -163,13 +169,13 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 		$op = ( $op == 'main' ) ? $module_name : $module_name . '/' . $op;
 		$module_name = $global_config['rewrite_op_mod'];
 	}
-	error_log("rewrite_op_mod pass");
+	//error_log("rewrite_op_mod pass");
 
 	// Kiểm tra module có trong hệ thống hay không
 	if( isset( $site_mods[$module_name] ) )
 	{
 
-		error_log("Kiểm tra module có trong hệ thống hay không pass");
+		//error_log("Kiểm tra module có trong hệ thống hay không pass");
 		$module_info = $site_mods[$module_name];
 		$module_file = $module_info['module_file'];
 		$module_data = $module_info['module_data'];

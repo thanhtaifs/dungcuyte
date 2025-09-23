@@ -123,8 +123,6 @@ define('NV_MAX_LOGIN_TIME', 1);
 define('NV_MAX_FLOOD', 999999);
 define('NV_MAX_FLOOD_TIME', 1);
 
-
-
 //Cac thiet lap trong siteword
 define( 'NV_SITEWORDS_MIN_WORD_LENGTH', 4 );
 define( 'NV_SITEWORDS_MIN_WORD_OCCUR', 5 );

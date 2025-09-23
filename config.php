@@ -30,8 +30,8 @@ $db_config['prefix'] = 'nv4nu';
 
 $global_config['idsite'] = 0;
 #$global_config['site_url'] = 'https://dungcuytecantho.com';
-$global_config['site_url'] = 'http://dungcuyte.local:8080';
-$global_config['site_domain'] = 'dungcuyte.local:8080';
+#$global_config['site_url'] = 'http://dungcuyte.local';
+#$global_config['site_domain'] = 'dungcuyte.local';
 $global_config['sitekey'] = 'b489e338627a82fe2de280b6df176ec6';// Do not change sitekey!
 $global_config['hashprefix'] = '{SSHA}';
 $global_config['rewrite_mode'] = 1;

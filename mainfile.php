@@ -169,38 +169,9 @@ define( 'NV_SERVER_NAME', $nv_Request -> server_name );
 define( 'NV_SERVER_PROTOCOL', $nv_Request->server_protocol );
 // vd: http
 
-// --- START: ensure server name includes port if HTTP_HOST present
-// Prefer HTTP_HOST (may include :port), fallback to SERVER_NAME + SERVER_PORT
-$host_with_port = '';
-if (!empty($_SERVER['HTTP_HOST'])) {
-    $host_with_port = $_SERVER['HTTP_HOST'];
-} elseif (!empty($_SERVER['SERVER_NAME'])) {
-    $host_with_port = $_SERVER['SERVER_NAME'];
-    if (!empty($_SERVER['SERVER_PORT']) && !preg_match('/:\d+$/', $host_with_port)) {
-        $host_with_port .= ':' . $_SERVER['SERVER_PORT'];
-    }
-}
-
-// If we obtained a host with port, override the request value so NV_SERVER_NAME includes port
-if (!empty($host_with_port)) {
-    $nv_Request->server_name = $host_with_port;
-}
-// --- END
-
-
-
-define( 'NV_SERVER_PORT', $nv_Request->server_port );
-
-// vd: 80
-
-file_put_contents(NV_ROOTDIR . '/nv_servername_debug.log', date('c') . " - HOST=" . $_SERVER['HTTP_HOST'] . " - NV_SERVER_NAME=" . NV_SERVER_NAME . PHP_EOL, FILE_APPEND);
+define( 'NV_SERVER_PORT', $nv_Request->server_port);// vd: 80
 //define( 'NV_MY_DOMAIN', 'https://dungcutheduccantho.com' );
-define( 'NV_MY_DOMAIN', NV_SERVER_PROTOCOL . '://' . NV_SERVER_NAME . NV_SERVER_PORT );
-file_put_contents(
-    NV_ROOTDIR . '/nv_serverport_debug.log',
-    date('c') . " - NV_MY_DOMAIN=" . NV_SERVER_PROTOCOL . '://' . NV_SERVER_NAME  . NV_SERVER_PORT . PHP_EOL,
-    FILE_APPEND
-);
+define( 'NV_MY_DOMAIN', NV_SERVER_PROTOCOL . '://' . NV_SERVER_NAME );
 // vd: http://mydomain1.com:80
 
 define( 'NV_HEADERSTATUS', $nv_Request->headerstatus );
@@ -232,19 +203,35 @@ require NV_ROOTDIR . '/language/' . NV_LANG_INTERFACE . '/global.php';
 //     nv_info_die( $global_config['error_404_title'], $lang_global['error_404_title'], $lang_global['error_404_content'], '', '', '', '' );
 // }
 
-$domains = array_map('trim', explode( ',', $global_config['my_domains'] ) );
+// $domains = array_map('trim', explode( ',', $global_config['my_domains'] ) );
 
-// Cho phép host dev tạm thời: (dành cho máy local)
-$dev_allow = array('localhost', '127.0.0.1', 'dungcuyte.local', 'dungcuyte.local:8080');
+// // Cho phép host dev tạm thời: (dành cho máy local)
+// $dev_allow = array('localhost', '127.0.0.1', 'dungcuyte.local', 'dungcuyte.local:8080');
 
-// Nếu không khớp với my_domains và cũng không phải dev host thì die
-if( ! in_array( NV_SERVER_NAME, $domains ) && ! in_array( NV_SERVER_NAME, $dev_allow ) )
-{
-    $global_config['site_logo'] = 'images/logo.png';
-    $global_config['site_url'] = NV_SERVER_PROTOCOL . '://' . $domains[0] . NV_SERVER_PORT;
-    nv_info_die( $global_config['error_404_title'], $lang_global['error_404_title'], $lang_global['error_404_content'], '', '', '', '' );
-}
+// // Nếu không khớp với my_domains và cũng không phải dev host thì die
+// if( ! in_array( NV_SERVER_NAME, $domains ) && ! in_array( NV_SERVER_NAME, $dev_allow ) )
+// {
+//     $global_config['site_logo'] = 'images/logo.png';
+//     $global_config['site_url'] = NV_SERVER_PROTOCOL . '://' . $domains[0] . NV_SERVER_PORT;
+//     nv_info_die( $global_config['error_404_title'], $lang_global['error_404_title'], $lang_global['error_404_content'], '', '', '', '' );
+// }
 
+
+// vd: http://mydomain1.com/ten_thu_muc_chua_site
+$global_config['site_url'] = $nv_Request->site_url;
+
+file_put_contents(
+    NV_ROOTDIR . '/nv_host_debug.log',
+    date('c')
+    . " - HTTP_HOST=" . ($_SERVER['HTTP_HOST'] ?? '')
+    . " - SERVER_NAME=" . ($_SERVER['SERVER_NAME'] ?? '')
+    . " - NV_SERVER_NAME=" . NV_SERVER_NAME
+    . " - site_domain=" . $global_config['site_domain']
+	. " - site_url=" . $global_config['site_url']
+	. " - NV_MY_DOMAIN=" .  NV_MY_DOMAIN
+    . PHP_EOL,
+    FILE_APPEND
+);
 
 // Xac dinh duong dan thuc den thu muc upload
 define( 'NV_UPLOADS_REAL_DIR', NV_ROOTDIR . '/' . NV_UPLOADS_DIR );
@@ -255,22 +242,9 @@ $global_config['cookie_path'] = $nv_Request->cookie_path;
 // vd: .mydomain1.com
 $global_config['cookie_domain'] = $nv_Request->cookie_domain;
 
-// vd: http://mydomain1.com/ten_thu_muc_chua_site
-$global_config['site_url'] = $nv_Request->site_url;
 
 // vd: array( 'mydomain1.com', 'mydomain2.com' )
 $global_config['my_domains'] = $nv_Request-> my_domains;
-
-file_put_contents(
-    NV_ROOTDIR . '/nv_host_debug.log',
-    date('c')
-    . " - HTTP_HOST=" . ($_SERVER['HTTP_HOST'] ?? '')
-    . " - SERVER_NAME=" . ($_SERVER['SERVER_NAME'] ?? '')
-    . " - NV_SERVER_NAME=" . NV_SERVER_NAME
-    . " - site_domain=" . $global_config['site_domain']
-    . PHP_EOL,
-    FILE_APPEND
-);
 
 
 $sys_info['register_globals'] = $nv_Request->is_register_globals;
@@ -366,12 +340,6 @@ if( isset( $nv_plugin_area[1] ) )
 }
 
 
-file_put_contents(
-    __DIR__ . '/debug.log',
-    date('Y-m-d H:i:s') . ' - HOST=' . $_SERVER['HTTP_HOST'] . ' - NV_SERVER_NAME=' . NV_SERVER_NAME . PHP_EOL,
-    FILE_APPEND
-);
-
 // Bat dau phien lam viec cua MySQL
 $db = new sql_db( $db_config );
 if( empty( $db->connect ) )
@@ -426,9 +394,22 @@ foreach( $list as $row )
 }
 
 
-error_log("=== mainfile before NV_MAIN_DOMAIN ===");
+
 
 define( 'NV_MAIN_DOMAIN',  in_array( $global_config['site_domain'], $global_config['my_domains'] ) ? str_replace( NV_SERVER_NAME, $global_config['site_domain'], NV_MY_DOMAIN )  : NV_MY_DOMAIN );
+file_put_contents(
+    NV_ROOTDIR . '/nv_host_debug_2.log',
+    date('c')
+    . " - HTTP_HOST=" . ($_SERVER['HTTP_HOST'] ?? '')
+    . " - SERVER_NAME=" . ($_SERVER['SERVER_NAME'] ?? '')
+    . " - NV_SERVER_NAME=" . NV_SERVER_NAME
+    . " - site_domain=" . $global_config['site_domain']
+	. " - site_url=" . $global_config['site_url']
+	. " - NV_MY_DOMAIN=" .  NV_MY_DOMAIN
+    . PHP_EOL,
+    FILE_APPEND
+);
+
 
 $global_config['smtp_password'] = $crypt->aes_decrypt( nv_base64_decode( $global_config['smtp_password'] ) );
 if( $sys_info['ini_set_support'] )
@@ -462,7 +443,7 @@ if( defined( 'NV_ADMIN' ) )
 		exit();
 	}
 }
-error_log("=== mainfile before cronjobs ===");
+//error_log("=== mainfile before cronjobs ===");
 // cronjobs
 if( $nv_Request->isset_request( 'second', 'get' ) and $nv_Request->get_string( 'second', 'get' ) == 'cronjobs' )
 {
