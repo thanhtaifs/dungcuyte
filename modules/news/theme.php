@@ -204,6 +204,7 @@ function viewcat_page_new( $array_catpage, $array_cat_other, $generate_page )
 	}
 
 	$a = 0;
+	error_log("=== news viewcat_page_new before foreach loaded OK ===");
 	foreach( $array_catpage as $array_row_i )
 	{
 		$newday = $array_row_i['publtime'] + ( 86400 * $array_row_i['newday'] );
@@ -277,7 +278,7 @@ function viewcat_page_new( $array_catpage, $array_cat_other, $generate_page )
 		++$a;
 	}
 	$xtpl->parse( 'main.viewcatloop' );
-
+	error_log("=== news viewcat_page_new before check not empty array_cat_other loaded OK ===");
 	if( ! empty( $array_cat_other ) )
 	{
 		$xtpl->assign( 'ORTHERNEWS', $lang_module['other'] );
@@ -302,7 +303,7 @@ function viewcat_page_new( $array_catpage, $array_cat_other, $generate_page )
 		$xtpl->assign( 'GENERATE_PAGE', $generate_page );
 		$xtpl->parse( 'main.generate_page' );
 	}
-
+	error_log("=== news viewcat_page_new load parse OK ===");
 	$xtpl->parse( 'main' );
 	return $xtpl->text( 'main' );
 }

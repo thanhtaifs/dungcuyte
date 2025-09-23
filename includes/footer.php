@@ -16,9 +16,10 @@ global $db, $nv_Request, $nv_plugin_area;
 $contents = ob_get_contents();
 ob_end_clean();
 $contents = nv_url_rewrite( $contents );
+
 if( ! defined( 'NV_IS_AJAX' ) )
 {
-	$contents = nv_change_buffer( $contents );
+	$contents = nv_change_buffer( $contents );	    
 	if( defined( 'NV_IS_SPADMIN' ) )
 	{
 		$contents = str_replace( '[MEMORY_TIME_USAGE]', sprintf( $lang_global['memory_time_usage'] , nv_convertfromBytes( memory_get_usage() ), number_format( ( microtime( true ) - NV_START_TIME ), 3, '.', '' ) ), $contents );
@@ -36,38 +37,71 @@ if( isset( $nv_plugin_area[3] ) )
 
 $db = null;
 unset( $lang_global, $global_config, $client_info );
-
 //Nen trang
-if( defined( 'NV_IS_GZIP' ) )
-{
-	$http_accept_encoding = $nv_Request->get_string( 'HTTP_ACCEPT_ENCODING', 'server', '' );
+// if( defined( 'NV_IS_GZIP' ) )
+// {
+// 	$http_accept_encoding = $nv_Request->get_string( 'HTTP_ACCEPT_ENCODING', 'server', '' );
 
-	if( ! empty( $http_accept_encoding ) )
-	{
-		$compress_list = array();
-		$compress_list['deflate'] = 'gzdeflate';
-		$compress_list['gzip'] = 'gzencode';
-		$compress_list['x-gzip'] = 'gzencode';
-		$compress_list['compress'] = 'gzcompress';
-		$compress_list['x-compress'] = 'gzcompress';
+// 	if( ! empty( $http_accept_encoding ) )
+// 	{
+// 		$compress_list = array();
+// 		$compress_list['deflate'] = 'gzdeflate';
+// 		$compress_list['gzip'] = 'gzencode';
+// 		$compress_list['x-gzip'] = 'gzencode';
+// 		$compress_list['compress'] = 'gzcompress';
+// 		$compress_list['x-compress'] = 'gzcompress';
 
-		$http_accept_encoding = explode( ',', str_replace( ' ', '', $http_accept_encoding ) );
+// 		$http_accept_encoding = explode( ',', str_replace( ' ', '', $http_accept_encoding ) );
 
-		foreach( $http_accept_encoding as $enc )
-		{
-			if( ! empty( $enc ) and isset( $compress_list[$enc] ) )
-			{
-				if( nv_function_exists( $compress_list[$enc] ) )
-				{
-					$contents = call_user_func( $compress_list[$enc], $contents, ZLIB_OUTPUT_COMPRESSION_LEVEL );
-					@Header( 'Content-Encoding: ' . $enc );
-					@Header( 'Vary: Accept-Encoding' );
-					break;
-				}
-			}
-		}
-	}
+// 		foreach( $http_accept_encoding as $enc )
+// 		{
+// 			if( ! empty( $enc ) and isset( $compress_list[$enc] ) )
+// 			{
+// 				if( nv_function_exists( $compress_list[$enc] ) )
+// 				{
+// 					$contents = call_user_func( $compress_list[$enc], $contents, ZLIB_OUTPUT_COMPRESSION_LEVEL );
+// 					@Header( 'Content-Encoding: ' . $enc );
+// 					@Header( 'Vary: Accept-Encoding' );
+// 					break;
+// 				}
+// 			}
+// 		}
+// 	}
+// }
+
+// Nén trang
+$host = $_SERVER['HTTP_HOST'] ?? '';
+
+if (defined('NV_IS_GZIP') && !preg_match('/(localhost|\.local)(:\d+)?$/', $host)) {
+    $http_accept_encoding = $nv_Request->get_string('HTTP_ACCEPT_ENCODING', 'server', '');
+
+    if (!empty($http_accept_encoding)) {
+        $compress_list = [
+            'deflate'   => 'gzdeflate',
+            'gzip'      => 'gzencode',
+            'x-gzip'    => 'gzencode',
+            'compress'  => 'gzcompress',
+            'x-compress'=> 'gzcompress'
+        ];
+
+        $http_accept_encoding = explode(',', str_replace(' ', '', $http_accept_encoding));
+
+        foreach ($http_accept_encoding as $enc) {
+            if (!empty($enc) && isset($compress_list[$enc]) && nv_function_exists($compress_list[$enc])) {
+                $contents = call_user_func($compress_list[$enc], $contents, ZLIB_OUTPUT_COMPRESSION_LEVEL);
+                header('Content-Encoding: ' . $enc);
+                header('Vary: Accept-Encoding');
+
+                // Chỉ set Content-Length khi không phải localhost
+                if (!preg_match('/(localhost|\.local)(:\d+)?$/', $host)) {
+                    header('Content-Length: ' . strlen($contents));
+                }
+                break;
+            }
+        }
+    }
 }
+
 
 echo $contents;
 exit();

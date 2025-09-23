@@ -9,7 +9,7 @@
  */
 
 if( ! defined( 'NV_IS_MOD_NEWS' ) ) die( 'Stop!!!' );
-echo "News module main.php chạy thành công!";
+
 error_log("=== Main modules news ===");
 
 
@@ -55,6 +55,7 @@ error_log("=== Main modules news before contents ===");
 
 if( empty( $contents ) )
 {
+	error_log("=== Main check empty modules news contents ===");
 	$viewcat = $module_config[$module_name]['indexfile'];
 	$show_no_image = $module_config[$module_name]['show_no_image'];
 	$array_catpage = array();
@@ -62,10 +63,12 @@ if( empty( $contents ) )
 
 	if(  $viewcat == 'viewcat_none' )
 	{
+		error_log("=== Main check empty modules viewcat_none contents ===");
 		$contents = '';
 	}
 	elseif( $viewcat == 'viewcat_page_new' or $viewcat == 'viewcat_page_old' )
 	{
+		error_log("=== Main check empty modules viewcat_page_new and viewcat_page_old contents ===");
 		$order_by = ( $viewcat == 'viewcat_page_new' ) ? 'publtime DESC' : 'publtime ASC';
 		$db->sqlreset()
 			->select( 'COUNT(*)' )
@@ -82,6 +85,7 @@ if( empty( $contents ) )
 		$end_publtime = 0;
 
 		$result = $db->query( $db->sql() );
+		error_log("=== Main news num_items ===" .$num_items);
 		while( $item = $result->fetch() )
 		{
 			if( $item['homeimgthumb'] == 1 ) //image thumb
@@ -110,10 +114,12 @@ if( empty( $contents ) )
 			$array_catpage[] = $item;
 			$end_publtime = $item['publtime'];
 		}
-
+		error_log("=== Main news pass  while loop  ===");
 		$db->sqlreset()
 			->select('id, catid, addtime, edittime, publtime, title, alias, hitstotal')
 			->from( NV_PREFIXLANG . '_' . $module_data . '_rows' );
+
+		error_log("=== Main news pass  sql reset() ===");
 
 		if( $viewcat == 'viewcat_page_new' )
 		{
@@ -132,13 +138,14 @@ if( empty( $contents ) )
 			$item['link'] = $global_array_cat[$item['catid']]['link'] . '/' . $item['alias'] . '-' . $item['id'] . $global_config['rewrite_exturl'];
 			$array_cat_other[] = $item;
 		}
-
+		error_log("=== Main end fetch ===");
 		$viewcat = 'viewcat_page_new';
 		$generate_page = nv_alias_page( $page_title, $base_url, $num_items, $per_page, $page );
 		$contents = call_user_func( $viewcat, $array_catpage, $array_cat_other, $generate_page );
 	}
 	elseif( $viewcat == 'viewcat_main_left' or $viewcat == 'viewcat_main_right' or $viewcat == 'viewcat_main_bottom' )
 	{
+		error_log("=== Main check empty modules viewcat_main_left and viewcat_main_right contents ===");
 		$array_cat = array();
 
 		$key = 0;
@@ -231,6 +238,7 @@ if( empty( $contents ) )
 	}
 	elseif( $viewcat == 'viewcat_two_column' )
 	{
+		error_log("=== Main check empty modules viewcat_two_column contents ===");
 		// Cac bai viet phan dau
 		$array_content = $array_catpage = array();
 
@@ -326,6 +334,7 @@ if( empty( $contents ) )
 	}
 	elseif( $viewcat == 'viewcat_grid_new' or $viewcat == 'viewcat_grid_old' )
 	{
+		error_log("=== Main check empty modules viewcat_grid_new and viewcat_grid_old contents ===");
 		$order_by = ( $viewcat == 'viewcat_grid_new' ) ? ' publtime DESC' : ' publtime ASC';
 		$db->sqlreset()
 			->select( 'COUNT(*) ')
@@ -374,6 +383,7 @@ if( empty( $contents ) )
 	}
 	elseif( $viewcat == 'viewcat_list_new' or $viewcat == 'viewcat_list_old' ) // Xem theo tieu de
 	{
+		error_log("=== Main check empty modules viewcat_list_new and viewcat_list_old contents ===");
 		$order_by = ( $viewcat == 'viewcat_list_new' ) ? 'publtime DESC' : 'publtime ASC';
 
 		$db->sqlreset()
@@ -433,8 +443,10 @@ if( $page > 1 )
 	$page_title .= ' ' . NV_TITLEBAR_DEFIS . ' ' . $lang_global['page'] . ' ' . $page;
 }
 
-
+error_log("=== CONTENTS === " . var_export($contents, true));
 error_log("=== Main modules news before nv_site_theme ===");
 include NV_ROOTDIR . '/includes/header.php';
-echo nv_site_theme( $contents );
+error_log("=== Main modules news header nv_site_theme ===");
+echo  nv_site_theme($contents);
+error_log("=== Main modules news contents OK===");
 include NV_ROOTDIR . '/includes/footer.php';

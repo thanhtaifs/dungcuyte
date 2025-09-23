@@ -14,8 +14,12 @@ error_log("=== news viewcat theme.php loaded OK ===");
 
 
 $cache_file = '';
+error_log("=== news viewcat cache_file OK ===");
 $contents = '';
+error_log("=== news viewcat contents loaded OK ===");
 $viewcat = $global_array_cat[$catid]['viewcat'];
+
+error_log("=== news viewcat parameter loaded OK ===");
 
 $base_url_rewrite = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $global_array_cat[$catid]['alias'];
 if( $page > 1 )
@@ -30,6 +34,8 @@ if( $_SERVER['REQUEST_URI'] != $base_url_rewrite and NV_MAIN_DOMAIN . $_SERVER['
 }
 
 $set_view_page = ( $page > 1 and substr( $viewcat, 0, 13 ) == 'viewcat_main_' ) ? true : false;
+
+error_log("=== news viewcat set_view_page loaded OK ===");
 
 if( ! defined( 'NV_IS_MODADMIN' ) and $page < 5 )
 {
@@ -46,6 +52,7 @@ if( ! defined( 'NV_IS_MODADMIN' ) and $page < 5 )
 		$contents = $cache;
 	}
 }
+error_log("=== news viewcat befire page_title loaded OK ===");
 
 $page_title = ( ! empty( $global_array_cat[$catid]['titlesite'] ) ) ? $global_array_cat[$catid]['titlesite'] : $global_array_cat[$catid]['title'];
 $key_words = $global_array_cat[$catid]['keywords'];
@@ -56,8 +63,11 @@ if( ! empty($global_array_cat[$catid]['image']))
 	$meta_property['og:image'] = NV_MY_DOMAIN . NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $global_array_cat[$catid]['image'];
 }
 
+error_log("=== news viewcat meta_property loaded OK ===");
+
 if( empty( $contents ) )
 {
+	error_log("=== news viewcat contents loaded OK ===");
 	$array_catpage = array();
 	$array_cat_other = array();
 	$base_url = $global_array_cat[$catid]['link'];
@@ -65,6 +75,7 @@ if( empty( $contents ) )
 
 	if( $viewcat == 'viewcat_page_new' or $viewcat == 'viewcat_page_old' or $set_view_page )
 	{
+		error_log("=== news viewcat viewcat_page_new viewcat_page_old loaded OK ===");
 		$order_by = ( $viewcat == 'viewcat_page_new' ) ? 'publtime DESC' : 'publtime ASC';
 
 		$db->sqlreset()
@@ -527,6 +538,7 @@ if( empty( $contents ) )
 	}
 	elseif( $viewcat == 'viewcat_grid_new' or $viewcat == 'viewcat_grid_old' )
 	{
+		error_log("=== news viewcat viewcat_grid_new viewcat_grid_old loaded OK ===");
 		$order_by = ( $viewcat == 'viewcat_grid_new' ) ? 'publtime DESC' : 'publtime ASC';
 
 		$db->sqlreset()
@@ -631,7 +643,7 @@ if( empty( $contents ) )
 		nv_set_cache( $module_name, $cache_file, $contents );
 	}
 }
-
+error_log("=== news viewcat contents end loaded OK ===");
 if( $page > 1 )
 {
 	$page_title .= ' ' . NV_TITLEBAR_DEFIS . ' ' . $lang_global['page'] . ' ' . $page;
