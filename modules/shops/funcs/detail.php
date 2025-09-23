@@ -10,8 +10,12 @@
 
 if( !defined( 'NV_IS_MOD_SHOPS' ) ) die( 'Stop!!!' );
 
+error_log("=== START detail.php shops ===");
+
+
 if( $nv_Request->isset_request( 'check_quantity', 'post' ) )
 {
+	error_log("=== if detail.php shops ===");
 	$id_pro = $nv_Request->get_int( 'id_pro', 'post', 0 );
 	$unit = $nv_Request->get_string( 'pro_unit', 'post', '' );
 	$listid = $nv_Request->get_string( 'listid', 'post' );
@@ -137,6 +141,7 @@ $description = $data_content[NV_LANG_DATA . '_hometext'];
 
 if( nv_user_in_groups( $global_array_shops_cat[$catid]['groups_view'] ) )
 {
+	error_log("=== nv_user_in_groups detail.php shops ===");
 	$popup = $nv_Request->get_int( 'popup', 'post,get', 0 );
 
 	$time_set = $nv_Request->get_int( $module_data . '_' . $op . '_' . $id, 'session' );
@@ -214,27 +219,33 @@ if( nv_user_in_groups( $global_array_shops_cat[$catid]['groups_view'] ) )
 	{
 		$data_content['homeimgthumb'] = NV_BASE_SITEURL . 'themes/' . $module_info['template'] . '/images/' . $module_file . '/no-image.jpg';
 	}
-
+	error_log("=== Tu khoa detail.php shops ===");
 	// Tu khoa
 	$array_keyword = array();
+	$key_words = array(); 
 	$_query = $db->query( 'SELECT a1.keyword keyword, a2.alias alias FROM ' . $db_config['prefix'] . '_' . $module_data . '_tags_id_' . NV_LANG_DATA . ' a1 INNER JOIN ' . $db_config['prefix'] . '_' . $module_data . '_tags_' . NV_LANG_DATA . ' a2 ON a1.tid=a2.tid WHERE a1.id=' . $data_content['id'] );
-	while( $row = $_query->fetch() )
-	{
-		$array_keyword[] = $row;
-		$key_words[] = $row['keyword'];
+	error_log("=== truoc khi while tu khoa shops ===");
+	while( $row = $_query->fetch())
+	{		
+		$array_keyword[] = $row;	
+		$key_words[] = $row['keyword'];	
 	}
+	
 	$key_words = !empty( $key_words ) ? implode( ',', $key_words ) : '';
 
 	//metatag image facebook
 	$meta_property['og:image'] = NV_MY_DOMAIN . $data_content['homeimgthumb'];
-
+	error_log("=== metatag image facebookdetail.php shops ===");
 	// Fetch Limit
 	$db->sqlreset()->select( ' id, listcatid, ' . NV_LANG_DATA . '_title, ' . NV_LANG_DATA . '_alias, homeimgfile, homeimgthumb, addtime, publtime, product_code, product_number, product_price, price_config, money_unit, discount_id, showprice, ' . NV_LANG_DATA . '_hometext,' . NV_LANG_DATA . '_gift_content, gift_from, gift_to' )->from( $db_config['prefix'] . '_' . $module_data . '_rows' )->where( 'id!=' . $id . ' AND listcatid = ' . $data_content['listcatid'] . ' AND status=1' )->order( 'ID DESC' )->limit( $pro_config['per_row'] * 2 );
+	
 	$result = $db->query( $db->sql() );
 
 	$data_others = array();
+	error_log("=== truoc khi vao while detail.php shops ===");
 	while( list( $_id, $listcatid, $title, $alias, $homeimgfile, $homeimgthumb, $addtime, $publtime, $product_code, $product_number, $product_price, $price_config, $money_unit, $discount_id, $showprice, $hometext, $gift_content, $gift_from, $gift_to ) = $result->fetch( 3 ) )
 	{
+
 		if( $homeimgthumb == 1 )//image thumb
 		{
 			$thumb = NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_upload . '/' . $homeimgfile;
@@ -372,7 +383,7 @@ else
 	$nv_redirect = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name;
 	redict_link( $lang_module['detail_no_permission'], $lang_module['redirect_to_back_shops'], $nv_redirect );
 }
-
+error_log("=== if detail.php shops ===");
 if( $popup )
 {
 	echo $contents;

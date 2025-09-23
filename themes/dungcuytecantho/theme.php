@@ -144,24 +144,69 @@ function nv_site_theme( $contents, $full = true )
 	// Only full theme
 	if( $full )
 	{
+
+
+
 		// Search form variables
 		$xtpl->assign( 'THEME_SEARCH_QUERY_MAX_LENGTH', NV_MAX_SEARCH_LENGTH );
 		$xtpl->assign( 'THEME_SEARCH_SUBMIT_ONCLICK', "nv_search_submit('topmenu_search_query', 'topmenu_search_submit', " . NV_MIN_SEARCH_LENGTH . ", " . NV_MAX_SEARCH_LENGTH . ");" );
         $xtpl->assign('THEME_SEARCH_URL', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=seek&q=');
 		// Breadcrumbs
-		if( $home != 1 && $module_name != 'seek' && $module_name != 'search')
-		{
-			if( $global_config['rewrite_op_mod'] != $module_name )
-			{
+		// if( $home != 1 && $module_name != 'seek' && $module_name != 'search')
+		// {
+		// 	if( $global_config['rewrite_op_mod'] != $module_name )
+		// 	{
+
+
+		// 		$arr_cat_title_i = array(
+		// 			'catid' => 0,
+		// 			'title' => $module_info['custom_title'],
+		// 			'link' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name
+		// 		);
+		// 		// error_log("=== BEFORE array_unshift ===");
+		// 		// foreach ($array_mod_title as $i => $arr) {
+		// 		// 	error_log($i . " => " . $arr['title']);
+		// 		// }
+		// 		array_unshift( $array_mod_title, $arr_cat_title_i );
+		// 	}
+		// 	if( ! empty( $array_mod_title ) )
+		// 	{				
+		// 		foreach( $array_mod_title as $arr_cat_title_i )
+		// 		{
+		// 			$xtpl->assign( 'BREADCRUMBS', $arr_cat_title_i );
+		// 			$xtpl->parse( 'main.breadcrumbs.loop' );
+		// 		}
+		// 		$xtpl->parse( 'main.breadcrumbs' );
+		// 	}
+		// }
+
+		// Lặp từ con lên cha
+		while ($catid_i > 0) {
+			$array_mod_title[] = array(
+				'catid' => $catid_i,
+				'title' => $global_array_shops_cat[$catid_i]['title'],
+				'link'  => $global_array_shops_cat[$catid_i]['link']
+			);
+			$catid_i = $global_array_shops_cat[$catid_i]['parentid'];
+		}
+
+		// Đảo ngược để được Cha → Con
+		$array_mod_title = array_reverse($array_mod_title);
+
+		// Thêm module cha "Sản phẩm" vào đầu
+		if ($home != 1 && $module_name != 'seek' && $module_name != 'search') {
+			if ($global_config['rewrite_op_mod'] != $module_name) {
 				$arr_cat_title_i = array(
 					'catid' => 0,
 					'title' => $module_info['custom_title'],
-					'link' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name
+					'link'  => NV_BASE_SITEURL . 'index.php?' 
+						. NV_LANG_VARIABLE . '=' . NV_LANG_DATA 
+						. '&amp;' . NV_NAME_VARIABLE . '=' . $module_name
 				);
-				array_unshift( $array_mod_title, $arr_cat_title_i );
+				array_unshift($array_mod_title, $arr_cat_title_i);
 			}
 			if( ! empty( $array_mod_title ) )
-			{
+			{				
 				foreach( $array_mod_title as $arr_cat_title_i )
 				{
 					$xtpl->assign( 'BREADCRUMBS', $arr_cat_title_i );

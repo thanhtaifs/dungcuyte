@@ -21,8 +21,9 @@ if( ! defined( 'NV_IS_MOD_CONTACT' ) ) die( 'Stop!!!' );
  */
 function contact_main_theme( $array_content, $array_department, $base_url, $checkss )
 {
-	global $module_file, $lang_global, $lang_module, $module_info;
 
+	global $module_file, $lang_global, $lang_module, $module_info;
+	error_log("=== contact_main_theme Tu khoa theme.php contact  ===");
 	$xtpl = new XTemplate( 'form.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
 	$xtpl->assign( 'CONTENT', $array_content );
 	$xtpl->assign( 'LANG', $lang_module );
@@ -48,7 +49,7 @@ function contact_main_theme( $array_content, $array_department, $base_url, $chec
 	{
 		$xtpl->parse( 'main.form.iguest' );
 	}
-
+	error_log("=== main.form.iguest  ===");
 	if( ! empty( $array_department ) )
 	{
 		foreach( $array_department as $value => $row )
@@ -64,7 +65,7 @@ function contact_main_theme( $array_content, $array_department, $base_url, $chec
 
 		$xtpl->parse( 'main.form' );
 	}
-
+	error_log("=== OK theme.php contact  ===");
 	$xtpl->parse( 'main' );
 	return $xtpl->text( 'main' );
 }
@@ -77,6 +78,7 @@ function contact_main_theme( $array_content, $array_department, $base_url, $chec
  */
 function sendcontact( $url )
 {
+	error_log("=== contact_main_theme Tu khoa theme.php send contact  ===");
 	global $module_file, $module_info, $lang_module;
 
 	$xtpl = new XTemplate( 'sendcontact.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );

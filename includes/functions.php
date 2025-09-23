@@ -1798,3 +1798,5 @@ function nv_insert_notification( $module, $type, $content = array(), $send_to = 
 	}
 	return true;
 }
+
+

@@ -81,6 +81,7 @@ function nv_SendMail2User( $cid, $fcontent, $ftitle, $femail, $full_name )
 
 //Danh sach cac bo phan
 $sql = 'SELECT id, alias, full_name FROM ' . NV_PREFIXLANG . '_' . $module_data . '_department WHERE act=1 ORDER BY weight';
+error_log($sql);
 $array_department = nv_db_cache( $sql, 'alias' );
 
 $page_title = $module_info['custom_title'];
@@ -246,7 +247,7 @@ if( ! empty( $bodytext ) )
 {
 	$lang_module['note'] = $bodytext;
 }
-
+error_log($lang_module['note']);
 $array_content = array(
 	'error' => $error,
 	'fpart' => $fpart,
@@ -257,9 +258,10 @@ $array_content = array(
 	'fphone' => $fphone
 );
 
-$checkss = md5( $client_info['session_id'] . $global_config['sitekey'] );
+$checkss = md5($client_info['session_id'] . $global_config['sitekey'] );
 $contents = contact_main_theme( $array_content, $array_department, $base_url, $checkss );
-
+error_log("=== contact_main_theme main load fucs theme.php contact  ===");
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_site_theme( $contents, $full );
+error_log("=== contact_main_theme main load fucs full footer===");
 include NV_ROOTDIR . '/includes/footer.php';
