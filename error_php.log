@@ -1,740 +1,359 @@
-[23-Sep-2025 10:53:43 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 10:53:43 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 10:53:43 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 10:53:43 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 10:53:43 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 10:53:43 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 10:53:43 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 15:53:43 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 15:53:43 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 15:53:43 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 15:53:43 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 15:53:43 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 15:53:43 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 15:53:43 Asia/Saigon] REQ_URI=/contact/
-[23-Sep-2025 15:53:43 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 15:53:43 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 15:53:43 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 15:53:43 Asia/Saigon] === user_functions
-[23-Sep-2025 15:53:43 Asia/Saigon] SitemapIndex
-[23-Sep-2025 15:53:43 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 15:53:43 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 15:53:43 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 15:53:43 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 15:53:43 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 15:53:43 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 15:53:43 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/contact/functions.php
-[23-Sep-2025 15:53:43 Asia/Saigon] === contact_main_theme Tu khoa theme.php contact  ===
-[23-Sep-2025 15:53:43 Asia/Saigon] === OK theme.php contact  ===
-[23-Sep-2025 15:53:43 Asia/Saigon] === contact_main_theme main load fucs theme.php contact  ===
-[23-Sep-2025 15:53:43 Asia/Saigon] === contact_main_theme main load fucs full footer===
-[23-Sep-2025 10:53:44 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 10:53:44 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 10:53:44 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 10:53:44 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 10:53:44 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 10:53:44 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 10:53:44 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 15:53:44 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 15:53:44 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 15:53:44 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 15:53:44 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 15:53:44 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 15:53:44 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 15:53:44 Asia/Saigon] REQ_URI=/themes/dungcuytecantho/css/bootstrap.min.css.map
-[23-Sep-2025 15:53:44 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 15:53:44 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 15:53:44 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 15:53:44 Asia/Saigon] === user_functions
-[23-Sep-2025 15:53:44 Asia/Saigon] SitemapIndex
-[23-Sep-2025 15:53:44 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 15:53:44 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 15:53:44 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 15:53:44 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 15:53:44 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 15:53:44 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 15:53:44 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/shops/functions.php
-[23-Sep-2025 15:53:44 Asia/Saigon] === theme.php loaded OK ===
-[23-Sep-2025 10:54:35 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 10:54:35 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 10:54:35 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 10:54:35 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 10:54:35 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 10:54:35 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 10:54:35 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 15:54:35 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 15:54:35 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 15:54:35 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 15:54:35 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 15:54:35 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 15:54:35 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 15:54:35 Asia/Saigon] REQ_URI=/contact/
-[23-Sep-2025 15:54:35 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 15:54:35 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 15:54:35 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 15:54:35 Asia/Saigon] === user_functions
-[23-Sep-2025 15:54:35 Asia/Saigon] SitemapIndex
-[23-Sep-2025 15:54:35 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 15:54:35 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 15:54:35 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 15:54:35 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 15:54:35 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 15:54:35 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 15:54:35 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/contact/functions.php
-[23-Sep-2025 15:54:35 Asia/Saigon] === contact_main_theme Tu khoa theme.php contact  ===
-[23-Sep-2025 15:54:35 Asia/Saigon] === OK theme.php contact  ===
-[23-Sep-2025 15:54:35 Asia/Saigon] === contact_main_theme main load fucs theme.php contact  ===
-[23-Sep-2025 15:54:35 Asia/Saigon] === contact_main_theme main load fucs full footer===
-[23-Sep-2025 10:54:35 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 10:54:35 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 10:54:35 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 10:54:35 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 10:54:35 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 10:54:35 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 10:54:35 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 15:54:35 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 15:54:35 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 15:54:35 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 15:54:35 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 15:54:35 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 15:54:35 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 15:54:35 Asia/Saigon] REQ_URI=/themes/dungcuytecantho/css/bootstrap.min.css.map
-[23-Sep-2025 15:54:35 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 15:54:35 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 15:54:35 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 15:54:35 Asia/Saigon] === user_functions
-[23-Sep-2025 15:54:35 Asia/Saigon] SitemapIndex
-[23-Sep-2025 15:54:35 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 15:54:35 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 15:54:35 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 15:54:35 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 15:54:35 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 15:54:35 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 15:54:35 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/shops/functions.php
-[23-Sep-2025 15:54:35 Asia/Saigon] === theme.php loaded OK ===
-[23-Sep-2025 10:58:59 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 10:58:59 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 10:58:59 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 10:58:59 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 10:58:59 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 10:58:59 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 10:58:59 Europe/Berlin] === DEBUG IP: '10.92.208.92'
-[23-Sep-2025 15:58:59 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 15:58:59 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 15:58:59 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 15:58:59 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 15:58:59 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 15:58:59 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 15:58:59 Asia/Saigon] REQ_URI=/
-[23-Sep-2025 15:58:59 Asia/Saigon] NV_MAIN_DOMAIN=http://9359TAITT.vss.local
-[23-Sep-2025 15:58:59 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 15:58:59 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 15:58:59 Asia/Saigon] === user_functions
-[23-Sep-2025 15:58:59 Asia/Saigon] SitemapIndex
-[23-Sep-2025 15:58:59 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 15:58:59 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 15:58:59 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 15:58:59 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 15:58:59 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 15:58:59 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 15:58:59 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/shops/functions.php
-[23-Sep-2025 15:58:59 Asia/Saigon] === theme.php loaded OK ===
-[23-Sep-2025 11:05:05 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:05:05 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:05:05 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:05:05 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:05:05 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:05:05 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 11:05:05 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 16:05:05 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:05:05 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:05:05 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 16:05:05 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 16:05:05 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 16:05:05 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 16:05:05 Asia/Saigon] REQ_URI=/contact/
-[23-Sep-2025 16:05:05 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 16:05:05 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 16:05:05 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 16:05:05 Asia/Saigon] === user_functions
-[23-Sep-2025 16:05:05 Asia/Saigon] SitemapIndex
-[23-Sep-2025 16:05:05 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 16:05:05 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 16:05:05 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 16:05:05 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 16:05:05 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 16:05:05 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 16:05:05 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/contact/functions.php
-[23-Sep-2025 16:05:05 Asia/Saigon] === contact_main_theme Tu khoa theme.php contact  ===
-[23-Sep-2025 16:05:05 Asia/Saigon] === main.form.iguest  ===
-[23-Sep-2025 16:05:05 Asia/Saigon] === OK theme.php contact  ===
-[23-Sep-2025 16:05:05 Asia/Saigon] === contact_main_theme main load fucs theme.php contact  ===
-[23-Sep-2025 16:05:05 Asia/Saigon] === contact_main_theme main load fucs full footer===
-[23-Sep-2025 11:05:05 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:05:05 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:05:05 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:05:05 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:05:05 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:05:05 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 11:05:05 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 16:05:05 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:05:05 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:05:05 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 16:05:05 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 16:05:05 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 16:05:05 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 16:05:05 Asia/Saigon] REQ_URI=/themes/dungcuytecantho/css/bootstrap.min.css.map
-[23-Sep-2025 16:05:05 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 16:05:05 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 16:05:05 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 16:05:05 Asia/Saigon] === user_functions
-[23-Sep-2025 16:05:05 Asia/Saigon] SitemapIndex
-[23-Sep-2025 16:05:05 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 16:05:05 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 16:05:05 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 16:05:05 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 16:05:05 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 16:05:05 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 16:05:05 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/shops/functions.php
-[23-Sep-2025 16:05:05 Asia/Saigon] === theme.php loaded OK ===
-[23-Sep-2025 11:05:05 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:05:05 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:05:05 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:05:05 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:05:05 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:05:05 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 11:05:05 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 16:05:05 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:05:05 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:05:05 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 11:05:45 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:05:45 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:05:45 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:05:45 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:05:45 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:05:45 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 11:05:45 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 16:05:45 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:05:45 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:05:45 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 16:05:45 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 16:05:45 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 16:05:45 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 16:05:45 Asia/Saigon] REQ_URI=/contact/
-[23-Sep-2025 16:05:45 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 16:05:45 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 16:05:45 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 16:05:45 Asia/Saigon] === user_functions
-[23-Sep-2025 16:05:45 Asia/Saigon] SitemapIndex
-[23-Sep-2025 16:05:45 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 16:05:45 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 16:05:45 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 16:05:45 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 16:05:45 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 16:05:45 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 16:05:45 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/contact/functions.php
-[23-Sep-2025 16:05:45 Asia/Saigon] === contact_main_theme main load fucs theme.php contact  ===
-[23-Sep-2025 16:05:45 Asia/Saigon] === contact_main_theme main load fucs full footer===
-[23-Sep-2025 11:05:45 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:05:45 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:05:45 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:05:45 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:05:45 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:05:45 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 11:05:45 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 16:05:45 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:05:45 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:05:45 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 16:05:45 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 16:05:45 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 16:05:45 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 16:05:45 Asia/Saigon] REQ_URI=/themes/dungcuytecantho/css/bootstrap.min.css.map
-[23-Sep-2025 16:05:45 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 16:05:45 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 16:05:45 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 16:05:45 Asia/Saigon] === user_functions
-[23-Sep-2025 16:05:45 Asia/Saigon] SitemapIndex
-[23-Sep-2025 16:05:45 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 16:05:45 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 16:05:45 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 16:05:45 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 16:05:45 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 16:05:45 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 16:05:45 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/shops/functions.php
-[23-Sep-2025 16:05:45 Asia/Saigon] === theme.php loaded OK ===
-[23-Sep-2025 11:06:47 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:06:47 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:06:47 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:06:47 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:06:47 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:06:47 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 11:06:47 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 16:06:47 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:06:47 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:06:47 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 16:06:47 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 16:06:47 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 16:06:47 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 16:06:47 Asia/Saigon] REQ_URI=/contact/
-[23-Sep-2025 16:06:47 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 16:06:47 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 16:06:47 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 16:06:47 Asia/Saigon] === user_functions
-[23-Sep-2025 16:06:47 Asia/Saigon] SitemapIndex
-[23-Sep-2025 16:06:47 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 16:06:47 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 16:06:47 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 16:06:47 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 16:06:47 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 16:06:47 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 16:06:47 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/contact/functions.php
-[23-Sep-2025 16:06:47 Asia/Saigon] === contact_main_theme Tu khoa theme.php contact  ===
-[23-Sep-2025 16:06:47 Asia/Saigon] === main.form.iguest  ===
-[23-Sep-2025 16:06:47 Asia/Saigon] === OK theme.php contact  ===
-[23-Sep-2025 16:06:47 Asia/Saigon] === contact_main_theme main load fucs theme.php contact  ===
-[23-Sep-2025 16:06:47 Asia/Saigon] === contact_main_theme main load fucs full footer===
-[23-Sep-2025 11:06:47 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:06:47 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:06:47 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:06:47 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:06:47 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:06:47 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 11:06:47 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 16:06:47 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:06:47 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:06:47 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 16:06:47 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 16:06:47 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 16:06:47 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 16:06:47 Asia/Saigon] REQ_URI=/themes/dungcuytecantho/css/bootstrap.min.css.map
-[23-Sep-2025 16:06:47 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 16:06:47 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 16:06:47 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 16:06:47 Asia/Saigon] === user_functions
-[23-Sep-2025 16:06:47 Asia/Saigon] SitemapIndex
-[23-Sep-2025 16:06:47 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 16:06:47 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 16:06:47 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 16:06:47 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 16:06:47 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 16:06:47 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 16:06:47 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/shops/functions.php
-[23-Sep-2025 16:06:47 Asia/Saigon] === theme.php loaded OK ===
-[23-Sep-2025 11:07:31 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:07:31 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:07:31 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:07:31 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:07:31 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:07:31 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 11:07:31 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 16:07:31 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:07:31 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:07:31 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 16:07:31 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 16:07:31 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 16:07:31 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 16:07:31 Asia/Saigon] REQ_URI=/contact/
-[23-Sep-2025 16:07:31 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 16:07:31 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 16:07:31 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 16:07:31 Asia/Saigon] === user_functions
-[23-Sep-2025 16:07:31 Asia/Saigon] SitemapIndex
-[23-Sep-2025 16:07:31 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 16:07:31 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 16:07:31 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 16:07:31 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 16:07:31 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 16:07:31 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 16:07:31 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/contact/functions.php
-[23-Sep-2025 16:07:31 Asia/Saigon] === contact_main_theme Tu khoa theme.php contact  ===
-[23-Sep-2025 16:07:31 Asia/Saigon] === main.form.iguest  ===
-[23-Sep-2025 16:07:31 Asia/Saigon] === OK theme.php contact  ===
-[23-Sep-2025 16:07:31 Asia/Saigon] === contact_main_theme main load fucs theme.php contact  ===
-[23-Sep-2025 16:07:31 Asia/Saigon] === contact_main_theme main load fucs full footer===
-[23-Sep-2025 11:07:31 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:07:31 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:07:31 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:07:31 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:07:31 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:07:31 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 11:07:31 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 16:07:31 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:07:31 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:07:31 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 16:07:31 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 16:07:31 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 16:07:31 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 16:07:31 Asia/Saigon] REQ_URI=/themes/dungcuytecantho/css/bootstrap.min.css.map
-[23-Sep-2025 16:07:31 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 16:07:31 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 16:07:31 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 16:07:31 Asia/Saigon] === user_functions
-[23-Sep-2025 16:07:31 Asia/Saigon] SitemapIndex
-[23-Sep-2025 16:07:31 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 16:07:31 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 16:07:31 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 16:07:31 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 16:07:31 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 16:07:31 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 16:07:31 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/shops/functions.php
-[23-Sep-2025 16:07:31 Asia/Saigon] === theme.php loaded OK ===
-[23-Sep-2025 11:08:05 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:08:05 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:08:05 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:08:05 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:08:05 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:08:05 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 11:08:05 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 16:08:05 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:08:05 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:08:05 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 16:08:05 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 16:08:05 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 16:08:05 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 16:08:05 Asia/Saigon] REQ_URI=/contact/
-[23-Sep-2025 16:08:05 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 16:08:05 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 16:08:05 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 16:08:05 Asia/Saigon] === user_functions
-[23-Sep-2025 16:08:05 Asia/Saigon] SitemapIndex
-[23-Sep-2025 16:08:05 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 16:08:05 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 16:08:05 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 16:08:05 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 16:08:05 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 16:08:05 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 16:08:05 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/contact/functions.php
-[23-Sep-2025 16:08:05 Asia/Saigon] === contact_main_theme Tu khoa theme.php contact  ===
-[23-Sep-2025 16:08:05 Asia/Saigon] === main.form.iguest  ===
-[23-Sep-2025 16:08:05 Asia/Saigon] === OK theme.php contact  ===
-[23-Sep-2025 16:08:05 Asia/Saigon] === contact_main_theme main load fucs theme.php contact  ===
-[23-Sep-2025 16:08:05 Asia/Saigon] === contact_main_theme main load fucs full footer===
-[23-Sep-2025 11:08:05 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:08:05 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:08:05 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:08:05 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:08:05 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:08:05 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 11:08:05 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 16:08:05 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:08:05 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:08:05 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 16:08:05 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 16:08:05 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 16:08:05 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 16:08:05 Asia/Saigon] REQ_URI=/themes/dungcuytecantho/css/bootstrap.min.css.map
-[23-Sep-2025 16:08:05 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 16:08:05 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 16:08:05 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 16:08:05 Asia/Saigon] === user_functions
-[23-Sep-2025 16:08:05 Asia/Saigon] SitemapIndex
-[23-Sep-2025 16:08:05 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 16:08:05 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 16:08:05 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 16:08:05 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 16:08:05 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 16:08:05 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 16:08:05 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/shops/functions.php
-[23-Sep-2025 16:08:05 Asia/Saigon] === theme.php loaded OK ===
-[23-Sep-2025 11:08:20 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:08:20 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:08:20 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:08:20 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:08:20 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:08:20 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 11:08:20 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 16:08:20 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:08:20 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:08:20 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 16:08:20 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 16:08:20 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 16:08:20 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 16:08:20 Asia/Saigon] REQ_URI=/contact/
-[23-Sep-2025 16:08:20 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 16:08:20 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 16:08:20 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 16:08:20 Asia/Saigon] === user_functions
-[23-Sep-2025 16:08:20 Asia/Saigon] SitemapIndex
-[23-Sep-2025 16:08:20 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 16:08:20 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 16:08:20 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 16:08:20 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 16:08:20 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 16:08:20 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 16:08:20 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/contact/functions.php
-[23-Sep-2025 16:08:20 Asia/Saigon] === contact_main_theme Tu khoa theme.php contact  ===
-[23-Sep-2025 16:08:20 Asia/Saigon] === main.form.iguest  ===
-[23-Sep-2025 16:08:20 Asia/Saigon] === OK theme.php contact  ===
-[23-Sep-2025 16:08:20 Asia/Saigon] === contact_main_theme main load fucs theme.php contact  ===
-[23-Sep-2025 16:08:20 Asia/Saigon] === contact_main_theme main load fucs full footer===
-[23-Sep-2025 11:08:20 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:08:20 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:08:20 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:08:20 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:08:20 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:08:20 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 11:08:20 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 16:08:20 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:08:20 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:08:20 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 16:08:20 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 16:08:20 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 16:08:20 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 16:08:20 Asia/Saigon] REQ_URI=/themes/dungcuytecantho/css/bootstrap.min.css.map
-[23-Sep-2025 16:08:20 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 16:08:20 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 16:08:20 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 16:08:20 Asia/Saigon] === user_functions
-[23-Sep-2025 16:08:20 Asia/Saigon] SitemapIndex
-[23-Sep-2025 16:08:20 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 16:08:20 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 16:08:20 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 16:08:20 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 16:08:20 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 16:08:20 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 16:08:20 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/shops/functions.php
-[23-Sep-2025 16:08:20 Asia/Saigon] === theme.php loaded OK ===
-[23-Sep-2025 11:08:26 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:08:26 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:08:26 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:08:26 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:08:26 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:08:26 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 11:08:26 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 16:08:26 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:08:26 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:08:26 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 16:08:26 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 16:08:26 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 16:08:26 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 16:08:26 Asia/Saigon] REQ_URI=/contact/
-[23-Sep-2025 16:08:26 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 16:08:26 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 16:08:26 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 16:08:26 Asia/Saigon] === user_functions
-[23-Sep-2025 16:08:26 Asia/Saigon] SitemapIndex
-[23-Sep-2025 16:08:26 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 16:08:26 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 16:08:26 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 16:08:26 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 16:08:26 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 16:08:26 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 16:08:26 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/contact/functions.php
-[23-Sep-2025 16:08:26 Asia/Saigon] === contact_main_theme Tu khoa theme.php contact  ===
-[23-Sep-2025 16:08:26 Asia/Saigon] === main.form.iguest  ===
-[23-Sep-2025 16:08:26 Asia/Saigon] === OK theme.php contact  ===
-[23-Sep-2025 16:08:26 Asia/Saigon] === contact_main_theme main load fucs theme.php contact  ===
-[23-Sep-2025 16:08:26 Asia/Saigon] === contact_main_theme main load fucs full footer===
-[23-Sep-2025 11:08:26 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:08:26 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:08:26 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:08:26 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:08:26 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:08:26 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 11:08:26 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 16:08:26 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:08:26 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:08:26 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 16:08:26 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 16:08:26 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 16:08:26 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 16:08:26 Asia/Saigon] REQ_URI=/themes/dungcuytecantho/css/bootstrap.min.css.map
-[23-Sep-2025 16:08:26 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 16:08:26 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 16:08:26 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 16:08:26 Asia/Saigon] === user_functions
-[23-Sep-2025 16:08:26 Asia/Saigon] SitemapIndex
-[23-Sep-2025 16:08:26 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 16:08:26 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 16:08:26 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 16:08:26 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 16:08:26 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 16:08:26 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 16:08:26 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/shops/functions.php
-[23-Sep-2025 16:08:26 Asia/Saigon] === theme.php loaded OK ===
-[23-Sep-2025 11:08:34 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:08:34 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:08:34 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:08:34 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:08:34 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:08:34 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 11:08:34 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 16:08:34 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:08:34 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:08:34 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 16:08:34 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 16:08:34 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 16:08:34 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 16:08:34 Asia/Saigon] REQ_URI=/contact/
-[23-Sep-2025 16:08:34 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 16:08:34 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 16:08:34 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 16:08:34 Asia/Saigon] === user_functions
-[23-Sep-2025 16:08:34 Asia/Saigon] SitemapIndex
-[23-Sep-2025 16:08:34 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 16:08:34 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 16:08:34 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 16:08:34 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 16:08:34 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 16:08:34 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 16:08:34 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/contact/functions.php
-[23-Sep-2025 16:08:34 Asia/Saigon] === contact_main_theme Tu khoa theme.php contact  ===
-[23-Sep-2025 16:08:34 Asia/Saigon] === main.form.iguest  ===
-[23-Sep-2025 16:08:34 Asia/Saigon] === OK theme.php contact  ===
-[23-Sep-2025 16:08:34 Asia/Saigon] === contact_main_theme main load fucs theme.php contact  ===
-[23-Sep-2025 16:08:34 Asia/Saigon] === contact_main_theme main load fucs full footer===
-[23-Sep-2025 11:08:34 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:08:34 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:08:34 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:08:34 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:08:34 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:08:34 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 11:08:34 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 16:08:34 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:08:34 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:08:34 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 16:08:34 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 16:08:34 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 16:08:34 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 16:08:34 Asia/Saigon] REQ_URI=/themes/dungcuytecantho/css/bootstrap.min.css.map
-[23-Sep-2025 16:08:34 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 16:08:34 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 16:08:34 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 16:08:34 Asia/Saigon] === user_functions
-[23-Sep-2025 16:08:34 Asia/Saigon] SitemapIndex
-[23-Sep-2025 16:08:34 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 16:08:34 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 16:08:34 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 16:08:34 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 16:08:34 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 16:08:34 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 16:08:34 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/shops/functions.php
-[23-Sep-2025 16:08:34 Asia/Saigon] === theme.php loaded OK ===
-[23-Sep-2025 11:09:49 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:09:49 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:09:49 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:09:49 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:09:49 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:09:49 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 11:09:49 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 16:09:49 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:09:49 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:09:49 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 16:09:49 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 16:09:49 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 16:09:49 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 16:09:49 Asia/Saigon] REQ_URI=/contact/
-[23-Sep-2025 16:09:49 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 16:09:49 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 16:09:49 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 16:09:49 Asia/Saigon] === user_functions
-[23-Sep-2025 16:09:49 Asia/Saigon] SitemapIndex
-[23-Sep-2025 16:09:49 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 16:09:49 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 16:09:49 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 16:09:49 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 16:09:49 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 16:09:49 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 16:09:49 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/contact/functions.php
-[23-Sep-2025 16:09:49 Asia/Saigon] SELECT id, alias, full_name FROM nv4nu_vi_contact_department WHERE act=1 ORDER BY weight
-[23-Sep-2025 16:09:49 Asia/Saigon] === contact_main_theme Tu khoa theme.php contact  ===
-[23-Sep-2025 16:09:49 Asia/Saigon] === main.form.iguest  ===
-[23-Sep-2025 16:09:49 Asia/Saigon] === OK theme.php contact  ===
-[23-Sep-2025 16:09:49 Asia/Saigon] === contact_main_theme main load fucs theme.php contact  ===
-[23-Sep-2025 16:09:49 Asia/Saigon] === contact_main_theme main load fucs full footer===
-[23-Sep-2025 11:09:49 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:09:49 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:09:49 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:09:49 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:09:49 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:09:49 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 11:09:49 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 16:09:49 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:09:49 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:09:49 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 16:09:49 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 16:09:49 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 16:09:49 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 16:09:49 Asia/Saigon] REQ_URI=/themes/dungcuytecantho/css/bootstrap.min.css.map
-[23-Sep-2025 16:09:49 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 16:09:49 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 16:09:49 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 16:09:49 Asia/Saigon] === user_functions
-[23-Sep-2025 16:09:49 Asia/Saigon] SitemapIndex
-[23-Sep-2025 16:09:49 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 16:09:49 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 16:09:49 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 16:09:49 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 16:09:49 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 16:09:49 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 16:09:49 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/shops/functions.php
-[23-Sep-2025 16:09:49 Asia/Saigon] === theme.php loaded OK ===
-[23-Sep-2025 11:10:20 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:10:20 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:10:20 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:10:20 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:10:20 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:10:20 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 11:10:20 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 16:10:20 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:10:20 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:10:20 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 16:10:20 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 16:10:20 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 16:10:20 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 16:10:20 Asia/Saigon] REQ_URI=/contact/
-[23-Sep-2025 16:10:20 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 16:10:20 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 16:10:20 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 16:10:20 Asia/Saigon] === user_functions
-[23-Sep-2025 16:10:20 Asia/Saigon] SitemapIndex
-[23-Sep-2025 16:10:20 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 16:10:20 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 16:10:20 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 16:10:20 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 16:10:20 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 16:10:20 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 16:10:20 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/contact/functions.php
-[23-Sep-2025 16:10:20 Asia/Saigon] SELECT id, alias, full_name FROM nv4nu_vi_contact_department WHERE act=1 ORDER BY weight
-[23-Sep-2025 16:10:20 Asia/Saigon] === contact_main_theme Tu khoa theme.php contact  ===
-[23-Sep-2025 16:10:20 Asia/Saigon] === main.form.iguest  ===
-[23-Sep-2025 16:10:20 Asia/Saigon] === OK theme.php contact  ===
-[23-Sep-2025 16:10:20 Asia/Saigon] === contact_main_theme main load fucs theme.php contact  ===
-[23-Sep-2025 16:10:20 Asia/Saigon] === contact_main_theme main load fucs full footer===
-[23-Sep-2025 11:10:20 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:10:20 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:10:20 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:10:20 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:10:20 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:10:20 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 11:10:20 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 11:10:20 Europe/Berlin] === mainfile if file constants, config ===
-[23-Sep-2025 11:10:20 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
-[23-Sep-2025 11:10:20 Europe/Berlin] === config.php loaded OK ===
-[23-Sep-2025 11:10:20 Europe/Berlin] === config.php loaded end OK  ===
-[23-Sep-2025 11:10:20 Europe/Berlin] === mainfile require realpath constants, config ===
-[23-Sep-2025 11:10:20 Europe/Berlin] === mainfile before config_global ===
-[23-Sep-2025 16:10:20 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:10:20 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:10:20 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 11:10:20 Europe/Berlin] === DEBUG IP: '127.0.0.1'
-[23-Sep-2025 16:10:20 Asia/Saigon] === mainfile before csdl ===
-[23-Sep-2025 16:10:20 Asia/Saigon] === mainfile before sql excute ===
-[23-Sep-2025 16:10:20 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
-[23-Sep-2025 16:10:20 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
-[23-Sep-2025 16:10:20 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
-[23-Sep-2025 16:10:20 Asia/Saigon] === mainfile before cache_file ===
-[23-Sep-2025 16:10:20 Asia/Saigon] REQ_URI=/themes/dungcuytecantho/css/bootstrap.min.css.map
-[23-Sep-2025 16:10:20 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
-[23-Sep-2025 16:10:20 Asia/Saigon] === NV_ROOTDIR else  ===
-[23-Sep-2025 16:10:20 Asia/Saigon] === DIRECTORY_SEPARATOR
-[23-Sep-2025 16:10:20 Asia/Saigon] === user_functions
-[23-Sep-2025 16:10:20 Asia/Saigon] SitemapIndex
-[23-Sep-2025 16:10:20 Asia/Saigon] Cap nhat trang thai online
-[23-Sep-2025 16:10:20 Asia/Saigon]  Tuy chon kieu giao dien pass
-[23-Sep-2025 16:10:20 Asia/Saigon] Xac dinh cac op, array_op pass
-[23-Sep-2025 16:10:20 Asia/Saigon] Xac dinh quyen dieu hanh module pass
-[23-Sep-2025 16:10:20 Asia/Saigon] Ket noi ngon ngu cua module pass
-[23-Sep-2025 16:10:20 Asia/Saigon] Xac dinh giao dien chung pass
-[23-Sep-2025 16:10:20 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/shops/functions.php
-[23-Sep-2025 16:10:20 Asia/Saigon] === theme.php loaded OK ===
+[24-Sep-2025 02:54:52 Europe/Berlin] === mainfile if file constants, config ===
+[24-Sep-2025 02:54:52 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[24-Sep-2025 02:54:52 Europe/Berlin] === config.php loaded OK ===
+[24-Sep-2025 02:54:52 Europe/Berlin] === config.php loaded end OK  ===
+[24-Sep-2025 02:54:52 Europe/Berlin] === mainfile require realpath constants, config ===
+[24-Sep-2025 02:54:52 Europe/Berlin] === mainfile before config_global ===
+[24-Sep-2025 02:54:52 Europe/Berlin] === DEBUG IP: '127.0.0.1'
+[24-Sep-2025 07:54:52 Asia/Saigon] === mainfile before csdl ===
+[24-Sep-2025 07:54:52 Asia/Saigon] === mainfile before sql excute ===
+[24-Sep-2025 07:54:52 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
+[24-Sep-2025 07:54:52 Asia/Saigon] === mainfile là ADMIN ===
+[24-Sep-2025 07:54:52 Asia/Saigon] === mainfile là ADMIN beforelanguage===
+[24-Sep-2025 07:54:52 Asia/Saigon] === mainfile là ADMIN ok ===
+[24-Sep-2025 07:54:52 Asia/Saigon] === mainfile là Kiem tra admin_cookie ===
+[24-Sep-2025 02:55:31 Europe/Berlin] === mainfile if file constants, config ===
+[24-Sep-2025 02:55:31 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[24-Sep-2025 02:55:31 Europe/Berlin] === config.php loaded OK ===
+[24-Sep-2025 02:55:31 Europe/Berlin] === config.php loaded end OK  ===
+[24-Sep-2025 02:55:31 Europe/Berlin] === mainfile require realpath constants, config ===
+[24-Sep-2025 02:55:31 Europe/Berlin] === mainfile before config_global ===
+[24-Sep-2025 02:55:31 Europe/Berlin] === DEBUG IP: '127.0.0.1'
+[24-Sep-2025 07:55:31 Asia/Saigon] === mainfile before csdl ===
+[24-Sep-2025 07:55:31 Asia/Saigon] === mainfile before sql excute ===
+[24-Sep-2025 07:55:31 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
+[24-Sep-2025 07:55:31 Asia/Saigon] === mainfile là ADMIN ===
+[24-Sep-2025 07:55:31 Asia/Saigon] === mainfile là ADMIN beforelanguage===
+[24-Sep-2025 07:55:31 Asia/Saigon] === mainfile là ADMIN ok ===
+[24-Sep-2025 07:55:31 Asia/Saigon] === mainfile là Kiem tra admin_cookie ===
+[24-Sep-2025 02:57:16 Europe/Berlin] === mainfile if file constants, config ===
+[24-Sep-2025 02:57:16 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[24-Sep-2025 02:57:16 Europe/Berlin] === config.php loaded OK ===
+[24-Sep-2025 02:57:16 Europe/Berlin] === config.php loaded end OK  ===
+[24-Sep-2025 02:57:16 Europe/Berlin] === mainfile require realpath constants, config ===
+[24-Sep-2025 02:57:16 Europe/Berlin] === mainfile before config_global ===
+[24-Sep-2025 02:57:16 Europe/Berlin] === DEBUG IP: '127.0.0.1'
+[24-Sep-2025 07:57:16 Asia/Saigon] === mainfile before csdl ===
+[24-Sep-2025 07:57:16 Asia/Saigon] === mainfile before sql excute ===
+[24-Sep-2025 07:57:16 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
+[24-Sep-2025 07:57:16 Asia/Saigon] === mainfile là ADMIN ===
+[24-Sep-2025 07:57:16 Asia/Saigon] === mainfile là ADMIN beforelanguage===
+[24-Sep-2025 07:57:16 Asia/Saigon] === mainfile là ADMIN ok ===
+[24-Sep-2025 07:57:16 Asia/Saigon] === mainfile là Kiem tra admin_cookie ===
+[24-Sep-2025 07:57:16 Asia/Saigon] === mainfile Vào is admin ===
+[24-Sep-2025 02:57:44 Europe/Berlin] === mainfile if file constants, config ===
+[24-Sep-2025 02:57:44 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[24-Sep-2025 02:57:44 Europe/Berlin] === config.php loaded OK ===
+[24-Sep-2025 02:57:44 Europe/Berlin] === config.php loaded end OK  ===
+[24-Sep-2025 02:57:44 Europe/Berlin] === mainfile require realpath constants, config ===
+[24-Sep-2025 02:57:44 Europe/Berlin] === mainfile before config_global ===
+[24-Sep-2025 02:57:44 Europe/Berlin] === DEBUG IP: '127.0.0.1'
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile before csdl ===
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile before sql excute ===
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile là ADMIN ===
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile là ADMIN beforelanguage===
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile là ADMIN ok ===
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile là Kiem tra admin_cookie ===
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile Vào is admin ===
+[24-Sep-2025 02:57:44 Europe/Berlin] === mainfile if file constants, config ===
+[24-Sep-2025 02:57:44 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[24-Sep-2025 02:57:44 Europe/Berlin] === config.php loaded OK ===
+[24-Sep-2025 02:57:44 Europe/Berlin] === config.php loaded end OK  ===
+[24-Sep-2025 02:57:44 Europe/Berlin] === mainfile require realpath constants, config ===
+[24-Sep-2025 02:57:44 Europe/Berlin] === mainfile before config_global ===
+[24-Sep-2025 02:57:44 Europe/Berlin] === DEBUG IP: '127.0.0.1'
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile before csdl ===
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile before sql excute ===
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile là ADMIN ===
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile là ADMIN beforelanguage===
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile là ADMIN ok ===
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile là Kiem tra admin_cookie ===
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile Vào is admin ===
+[24-Sep-2025 02:57:44 Europe/Berlin] === mainfile if file constants, config ===
+[24-Sep-2025 02:57:44 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[24-Sep-2025 02:57:44 Europe/Berlin] === config.php loaded OK ===
+[24-Sep-2025 02:57:44 Europe/Berlin] === config.php loaded end OK  ===
+[24-Sep-2025 02:57:44 Europe/Berlin] === mainfile require realpath constants, config ===
+[24-Sep-2025 02:57:44 Europe/Berlin] === mainfile before config_global ===
+[24-Sep-2025 02:57:44 Europe/Berlin] === DEBUG IP: '127.0.0.1'
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile before csdl ===
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile before sql excute ===
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile là ADMIN ===
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile là ADMIN beforelanguage===
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile là ADMIN ok ===
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile là Kiem tra admin_cookie ===
+[24-Sep-2025 07:57:44 Asia/Saigon] === mainfile Vào is admin ===
+[24-Sep-2025 02:58:43 Europe/Berlin] === mainfile if file constants, config ===
+[24-Sep-2025 02:58:43 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[24-Sep-2025 02:58:43 Europe/Berlin] === config.php loaded OK ===
+[24-Sep-2025 02:58:43 Europe/Berlin] === config.php loaded end OK  ===
+[24-Sep-2025 02:58:43 Europe/Berlin] === mainfile require realpath constants, config ===
+[24-Sep-2025 02:58:43 Europe/Berlin] === mainfile before config_global ===
+[24-Sep-2025 02:58:43 Europe/Berlin] === DEBUG IP: '127.0.0.1'
+[24-Sep-2025 07:58:43 Asia/Saigon] === mainfile before csdl ===
+[24-Sep-2025 07:58:43 Asia/Saigon] === mainfile before sql excute ===
+[24-Sep-2025 07:58:43 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
+[24-Sep-2025 07:58:43 Asia/Saigon] === mainfile là ADMIN ===
+[24-Sep-2025 07:58:43 Asia/Saigon] === mainfile là ADMIN beforelanguage===
+[24-Sep-2025 07:58:43 Asia/Saigon] === mainfile là ADMIN ok ===
+[24-Sep-2025 07:58:43 Asia/Saigon] === mainfile là Kiem tra admin_cookie ===
+[24-Sep-2025 07:58:43 Asia/Saigon] === mainfile Vào is admin ===
+[24-Sep-2025 07:58:43 Asia/Saigon] ===  admin nv_admin_checkdata ===
+[24-Sep-2025 02:59:33 Europe/Berlin] === mainfile if file constants, config ===
+[24-Sep-2025 02:59:33 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[24-Sep-2025 02:59:33 Europe/Berlin] === config.php loaded OK ===
+[24-Sep-2025 02:59:33 Europe/Berlin] === config.php loaded end OK  ===
+[24-Sep-2025 02:59:33 Europe/Berlin] === mainfile require realpath constants, config ===
+[24-Sep-2025 02:59:33 Europe/Berlin] === mainfile before config_global ===
+[24-Sep-2025 02:59:33 Europe/Berlin] === DEBUG IP: '127.0.0.1'
+[24-Sep-2025 07:59:33 Asia/Saigon] === mainfile before csdl ===
+[24-Sep-2025 07:59:33 Asia/Saigon] === mainfile before sql excute ===
+[24-Sep-2025 07:59:33 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
+[24-Sep-2025 07:59:33 Asia/Saigon] === mainfile là ADMIN ===
+[24-Sep-2025 07:59:33 Asia/Saigon] === mainfile là ADMIN beforelanguage===
+[24-Sep-2025 07:59:33 Asia/Saigon] === mainfile là ADMIN ok ===
+[24-Sep-2025 07:59:33 Asia/Saigon] === mainfile là Kiem tra admin_cookie ===
+[24-Sep-2025 07:59:33 Asia/Saigon] === mainfile Vào is admin ===
+[24-Sep-2025 07:59:33 Asia/Saigon] ===  admin nv_admin_checkdata ===
+[24-Sep-2025 07:59:33 Asia/Saigon] ===  admin nv_admin_checkdata before NV_IS_ADMIN ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === mainfile if file constants, config ===
+[24-Sep-2025 03:03:28 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[24-Sep-2025 03:03:28 Europe/Berlin] === config.php loaded OK ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === config.php loaded end OK  ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === mainfile require realpath constants, config ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === mainfile before config_global ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === DEBUG IP: '127.0.0.1'
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before csdl ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before sql excute ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile là ADMIN ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile là ADMIN beforelanguage===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile là ADMIN ok ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile là Kiem tra admin_cookie ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile Vào is admin ===
+[24-Sep-2025 08:03:28 Asia/Saigon] ===  admin nv_admin_checkdata ===
+[24-Sep-2025 08:03:28 Asia/Saigon] ===  admin nv_admin_checkdata before NV_IS_ADMIN ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === in_groups chưa tồn tại, khởi tạo array ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === admin in_groups OK ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile hoàn thành is admin ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile là Kiem tra admin_cookie ok ===
+[24-Sep-2025 08:03:28 Asia/Saigon] ===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh===
+[24-Sep-2025 08:03:28 Asia/Saigon] ===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh ok ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before cache_file ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === mainfile if file constants, config ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === mainfile if file constants, config ===
+[24-Sep-2025 03:03:28 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[24-Sep-2025 03:03:28 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[24-Sep-2025 03:03:28 Europe/Berlin] === config.php loaded OK ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === config.php loaded OK ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === config.php loaded end OK  ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === config.php loaded end OK  ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === mainfile require realpath constants, config ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === mainfile require realpath constants, config ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === mainfile before config_global ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === mainfile before config_global ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === DEBUG IP: '127.0.0.1'
+[24-Sep-2025 03:03:28 Europe/Berlin] === DEBUG IP: '127.0.0.1'
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before csdl ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before sql excute ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile là Kiem tra admin_cookie ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile Vào is admin ===
+[24-Sep-2025 08:03:28 Asia/Saigon] ===  admin nv_admin_checkdata ===
+[24-Sep-2025 08:03:28 Asia/Saigon] ===  admin nv_admin_checkdata before NV_IS_ADMIN ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === in_groups chưa tồn tại, khởi tạo array ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === admin in_groups OK ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile hoàn thành is admin ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile là Kiem tra admin_cookie ok ===
+[24-Sep-2025 08:03:28 Asia/Saigon] ===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh===
+[24-Sep-2025 08:03:28 Asia/Saigon] ===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh ok ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before cache_file ===
+[24-Sep-2025 08:03:28 Asia/Saigon] REQ_URI=/images/banner_nukeviet_88x15.jpg
+[24-Sep-2025 08:03:28 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
+[24-Sep-2025 08:03:28 Asia/Saigon] === NV_ROOTDIR else  ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === DIRECTORY_SEPARATOR
+[24-Sep-2025 08:03:28 Asia/Saigon] === user_functions
+[24-Sep-2025 08:03:28 Asia/Saigon] SitemapIndex
+[24-Sep-2025 03:03:28 Europe/Berlin] === mainfile if file constants, config ===
+[24-Sep-2025 03:03:28 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[24-Sep-2025 03:03:28 Europe/Berlin] === config.php loaded OK ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === config.php loaded end OK  ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === mainfile require realpath constants, config ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === mainfile before config_global ===
+[24-Sep-2025 08:03:28 Asia/Saigon] Cap nhat trang thai online
+[24-Sep-2025 08:03:28 Asia/Saigon]  Tuy chon kieu giao dien pass
+[24-Sep-2025 08:03:28 Asia/Saigon] Xac dinh cac op, array_op pass
+[24-Sep-2025 08:03:28 Asia/Saigon] Xac dinh quyen dieu hanh module pass
+[24-Sep-2025 03:03:28 Europe/Berlin] === DEBUG IP: '127.0.0.1'
+[24-Sep-2025 08:03:28 Asia/Saigon] Ket noi ngon ngu cua module pass
+[24-Sep-2025 08:03:28 Asia/Saigon] Xac dinh giao dien chung pass
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before csdl ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before sql excute ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before csdl ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before sql excute ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile là ADMIN ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile là ADMIN beforelanguage===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile là ADMIN ok ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === mainfile if file constants, config ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile là Kiem tra admin_cookie ===
+[24-Sep-2025 03:03:28 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[24-Sep-2025 03:03:28 Europe/Berlin] === config.php loaded OK ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile Vào is admin ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === config.php loaded end OK  ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === mainfile require realpath constants, config ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === mainfile before config_global ===
+[24-Sep-2025 08:03:28 Asia/Saigon] ===  admin nv_admin_checkdata ===
+[24-Sep-2025 08:03:28 Asia/Saigon] ===  admin nv_admin_checkdata before NV_IS_ADMIN ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === in_groups chưa tồn tại, khởi tạo array ===
+[24-Sep-2025 03:03:28 Europe/Berlin] === DEBUG IP: '127.0.0.1'
+[24-Sep-2025 08:03:28 Asia/Saigon] === admin in_groups OK ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile hoàn thành is admin ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile là Kiem tra admin_cookie ok ===
+[24-Sep-2025 08:03:28 Asia/Saigon] ===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh===
+[24-Sep-2025 08:03:28 Asia/Saigon] ===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh ok ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before cache_file ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before csdl ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before sql excute ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile là Kiem tra admin_cookie ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile Vào is admin ===
+[24-Sep-2025 08:03:28 Asia/Saigon] ===  admin nv_admin_checkdata ===
+[24-Sep-2025 08:03:28 Asia/Saigon] ===  admin nv_admin_checkdata before NV_IS_ADMIN ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === in_groups chưa tồn tại, khởi tạo array ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === admin in_groups OK ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile hoàn thành is admin ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile là Kiem tra admin_cookie ok ===
+[24-Sep-2025 08:03:28 Asia/Saigon] ===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh===
+[24-Sep-2025 08:03:28 Asia/Saigon] ===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh ok ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === mainfile before cache_file ===
+[24-Sep-2025 08:03:28 Asia/Saigon] REQ_URI=/favicon.ico
+[24-Sep-2025 08:03:28 Asia/Saigon] NV_MAIN_DOMAIN=http://dungcuyte.local:8080
+[24-Sep-2025 08:03:28 Asia/Saigon] === NV_ROOTDIR else  ===
+[24-Sep-2025 08:03:28 Asia/Saigon] === DIRECTORY_SEPARATOR
+[24-Sep-2025 08:03:28 Asia/Saigon] === user_functions
+[24-Sep-2025 08:03:28 Asia/Saigon] SitemapIndex
+[24-Sep-2025 08:03:28 Asia/Saigon] Cap nhat trang thai online
+[24-Sep-2025 08:03:28 Asia/Saigon]  Tuy chon kieu giao dien pass
+[24-Sep-2025 08:03:28 Asia/Saigon] Xac dinh cac op, array_op pass
+[24-Sep-2025 08:03:28 Asia/Saigon] Xac dinh quyen dieu hanh module pass
+[24-Sep-2025 08:03:28 Asia/Saigon] Ket noi ngon ngu cua module pass
+[24-Sep-2025 08:03:28 Asia/Saigon] Xac dinh giao dien chung pass
+[24-Sep-2025 08:03:28 Asia/Saigon] DEBUG path: C:/xampp/htdocs/dungcuyte/modules/shops/functions.php
+[24-Sep-2025 08:03:28 Asia/Saigon] === theme.php loaded OK ===
+[24-Sep-2025 03:03:39 Europe/Berlin] === mainfile if file constants, config ===
+[24-Sep-2025 03:03:39 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[24-Sep-2025 03:03:39 Europe/Berlin] === config.php loaded OK ===
+[24-Sep-2025 03:03:39 Europe/Berlin] === config.php loaded end OK  ===
+[24-Sep-2025 03:03:39 Europe/Berlin] === mainfile require realpath constants, config ===
+[24-Sep-2025 03:03:39 Europe/Berlin] === mainfile before config_global ===
+[24-Sep-2025 03:03:39 Europe/Berlin] === DEBUG IP: '127.0.0.1'
+[24-Sep-2025 08:03:39 Asia/Saigon] === mainfile before csdl ===
+[24-Sep-2025 08:03:39 Asia/Saigon] === mainfile before sql excute ===
+[24-Sep-2025 08:03:39 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
+[24-Sep-2025 08:03:39 Asia/Saigon] === mainfile là ADMIN ===
+[24-Sep-2025 08:03:39 Asia/Saigon] === mainfile là ADMIN beforelanguage===
+[24-Sep-2025 08:03:39 Asia/Saigon] === mainfile là ADMIN ok ===
+[24-Sep-2025 08:03:39 Asia/Saigon] === mainfile là Kiem tra admin_cookie ===
+[24-Sep-2025 08:03:39 Asia/Saigon] === mainfile Vào is admin ===
+[24-Sep-2025 08:03:39 Asia/Saigon] ===  admin nv_admin_checkdata ===
+[24-Sep-2025 08:03:39 Asia/Saigon] ===  admin nv_admin_checkdata before NV_IS_ADMIN ===
+[24-Sep-2025 08:03:39 Asia/Saigon] === in_groups chưa tồn tại, khởi tạo array ===
+[24-Sep-2025 08:03:39 Asia/Saigon] === admin in_groups OK ===
+[24-Sep-2025 08:03:39 Asia/Saigon] === mainfile hoàn thành is admin ===
+[24-Sep-2025 08:03:39 Asia/Saigon] === mainfile là Kiem tra admin_cookie ok ===
+[24-Sep-2025 08:03:39 Asia/Saigon] ===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh===
+[24-Sep-2025 08:03:39 Asia/Saigon] ===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh ok ===
+[24-Sep-2025 08:03:39 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
+[24-Sep-2025 08:03:39 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
+[24-Sep-2025 08:03:39 Asia/Saigon] === mainfile before cache_file ===
+[24-Sep-2025 03:03:50 Europe/Berlin] === mainfile if file constants, config ===
+[24-Sep-2025 03:03:50 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[24-Sep-2025 03:03:50 Europe/Berlin] === config.php loaded OK ===
+[24-Sep-2025 03:03:50 Europe/Berlin] === config.php loaded end OK  ===
+[24-Sep-2025 03:03:50 Europe/Berlin] === mainfile require realpath constants, config ===
+[24-Sep-2025 03:03:50 Europe/Berlin] === mainfile before config_global ===
+[24-Sep-2025 03:03:50 Europe/Berlin] === DEBUG IP: '127.0.0.1'
+[24-Sep-2025 08:03:50 Asia/Saigon] === mainfile before csdl ===
+[24-Sep-2025 08:03:50 Asia/Saigon] === mainfile before sql excute ===
+[24-Sep-2025 08:03:50 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
+[24-Sep-2025 08:03:50 Asia/Saigon] === mainfile là ADMIN ===
+[24-Sep-2025 08:03:50 Asia/Saigon] === mainfile là ADMIN beforelanguage===
+[24-Sep-2025 08:03:50 Asia/Saigon] === mainfile là ADMIN ok ===
+[24-Sep-2025 08:03:50 Asia/Saigon] === mainfile là Kiem tra admin_cookie ===
+[24-Sep-2025 08:03:50 Asia/Saigon] === mainfile Vào is admin ===
+[24-Sep-2025 08:03:50 Asia/Saigon] ===  admin nv_admin_checkdata ===
+[24-Sep-2025 08:03:50 Asia/Saigon] ===  admin nv_admin_checkdata before NV_IS_ADMIN ===
+[24-Sep-2025 08:03:50 Asia/Saigon] === in_groups chưa tồn tại, khởi tạo array ===
+[24-Sep-2025 08:03:50 Asia/Saigon] === admin in_groups OK ===
+[24-Sep-2025 08:03:50 Asia/Saigon] === mainfile hoàn thành is admin ===
+[24-Sep-2025 08:03:50 Asia/Saigon] === mainfile là Kiem tra admin_cookie ok ===
+[24-Sep-2025 08:03:50 Asia/Saigon] ===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh===
+[24-Sep-2025 08:03:50 Asia/Saigon] ===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh ok ===
+[24-Sep-2025 08:03:50 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
+[24-Sep-2025 08:03:50 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
+[24-Sep-2025 08:03:50 Asia/Saigon] === mainfile before cache_file ===
+[24-Sep-2025 03:04:01 Europe/Berlin] === mainfile if file constants, config ===
+[24-Sep-2025 03:04:01 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[24-Sep-2025 03:04:01 Europe/Berlin] === config.php loaded OK ===
+[24-Sep-2025 03:04:01 Europe/Berlin] === config.php loaded end OK  ===
+[24-Sep-2025 03:04:01 Europe/Berlin] === mainfile require realpath constants, config ===
+[24-Sep-2025 03:04:01 Europe/Berlin] === mainfile before config_global ===
+[24-Sep-2025 03:04:01 Europe/Berlin] === DEBUG IP: '127.0.0.1'
+[24-Sep-2025 08:04:01 Asia/Saigon] === mainfile before csdl ===
+[24-Sep-2025 08:04:01 Asia/Saigon] === mainfile before sql excute ===
+[24-Sep-2025 08:04:01 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
+[24-Sep-2025 08:04:01 Asia/Saigon] === mainfile là ADMIN ===
+[24-Sep-2025 08:04:01 Asia/Saigon] === mainfile là ADMIN beforelanguage===
+[24-Sep-2025 08:04:01 Asia/Saigon] === mainfile là ADMIN ok ===
+[24-Sep-2025 08:04:01 Asia/Saigon] === mainfile là Kiem tra admin_cookie ===
+[24-Sep-2025 08:04:01 Asia/Saigon] === mainfile Vào is admin ===
+[24-Sep-2025 08:04:01 Asia/Saigon] ===  admin nv_admin_checkdata ===
+[24-Sep-2025 08:04:01 Asia/Saigon] ===  admin nv_admin_checkdata before NV_IS_ADMIN ===
+[24-Sep-2025 08:04:01 Asia/Saigon] === in_groups chưa tồn tại, khởi tạo array ===
+[24-Sep-2025 08:04:01 Asia/Saigon] === admin in_groups OK ===
+[24-Sep-2025 08:04:01 Asia/Saigon] === mainfile hoàn thành is admin ===
+[24-Sep-2025 08:04:01 Asia/Saigon] === mainfile là Kiem tra admin_cookie ok ===
+[24-Sep-2025 08:04:01 Asia/Saigon] ===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh===
+[24-Sep-2025 08:04:01 Asia/Saigon] ===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh ok ===
+[24-Sep-2025 08:04:01 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
+[24-Sep-2025 08:04:01 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
+[24-Sep-2025 08:04:01 Asia/Saigon] === mainfile before cache_file ===
+[24-Sep-2025 03:04:12 Europe/Berlin] === mainfile if file constants, config ===
+[24-Sep-2025 03:04:12 Europe/Berlin] C:/xampp/htdocs/dungcuyte 1111 config.php
+[24-Sep-2025 03:04:12 Europe/Berlin] === config.php loaded OK ===
+[24-Sep-2025 03:04:12 Europe/Berlin] === config.php loaded end OK  ===
+[24-Sep-2025 03:04:12 Europe/Berlin] === mainfile require realpath constants, config ===
+[24-Sep-2025 03:04:12 Europe/Berlin] === mainfile before config_global ===
+[24-Sep-2025 03:04:12 Europe/Berlin] === DEBUG IP: '127.0.0.1'
+[24-Sep-2025 08:04:12 Asia/Saigon] === mainfile before csdl ===
+[24-Sep-2025 08:04:12 Asia/Saigon] === mainfile before sql excute ===
+[24-Sep-2025 08:04:12 Asia/Saigon] === mainfile before sql query ===SELECT lang, module, config_name, config_value FROM nv4nu_config WHERE lang='vi' or (lang='sys' AND module='site') ORDER BY module ASC
+[24-Sep-2025 08:04:12 Asia/Saigon] === mainfile là ADMIN ===
+[24-Sep-2025 08:04:12 Asia/Saigon] === mainfile là ADMIN beforelanguage===
+[24-Sep-2025 08:04:12 Asia/Saigon] === mainfile là ADMIN ok ===
+[24-Sep-2025 08:04:12 Asia/Saigon] === mainfile là Kiem tra admin_cookie ===
+[24-Sep-2025 08:04:12 Asia/Saigon] === mainfile Vào is admin ===
+[24-Sep-2025 08:04:12 Asia/Saigon] ===  admin nv_admin_checkdata ===
+[24-Sep-2025 08:04:12 Asia/Saigon] ===  admin nv_admin_checkdata before NV_IS_ADMIN ===
+[24-Sep-2025 08:04:12 Asia/Saigon] === in_groups chưa tồn tại, khởi tạo array ===
+[24-Sep-2025 08:04:12 Asia/Saigon] === admin in_groups OK ===
+[24-Sep-2025 08:04:12 Asia/Saigon] === mainfile hoàn thành is admin ===
+[24-Sep-2025 08:04:12 Asia/Saigon] === mainfile là Kiem tra admin_cookie ok ===
+[24-Sep-2025 08:04:12 Asia/Saigon] ===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh===
+[24-Sep-2025 08:04:12 Asia/Saigon] ===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh ok ===
+[24-Sep-2025 08:04:12 Asia/Saigon] === mainfile before Dinh chi hoat dong cua site ===
+[24-Sep-2025 08:04:12 Asia/Saigon] === mainfile before PCLZIP_TEMPORARY_DIR ===
+[24-Sep-2025 08:04:12 Asia/Saigon] === mainfile before cache_file ===

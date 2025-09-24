@@ -19,9 +19,6 @@ if( ! defined( 'NV_SYSTEM' ) and ! defined( 'NV_ADMIN' ) and ! defined( 'NV_WYSI
 	exit();
 }
 
-error_log("=== mainfile header ===");
-
-
 //error_reporting( 0 );
 
 define( 'NV_MAINFILE', true );
@@ -34,7 +31,7 @@ $db_config = $global_config = $module_config = $client_info = $user_info = $admi
 $page_title = $key_words = $canonicalUrl = $mod_title = $editor_password = $my_head = $my_footer = $description = $contents = '';
 $editor = false;
 
-error_log("=== mainfile before Xac dinh thu muc goc cua site ===");
+//error_log("=== mainfile before Xac dinh thu muc goc cua site ===");
 // Xac dinh thu muc goc cua site
 define( 'NV_ROOTDIR', pathinfo( str_replace( DIRECTORY_SEPARATOR, '/', __file__ ), PATHINFO_DIRNAME ) );
 
@@ -216,22 +213,21 @@ require NV_ROOTDIR . '/language/' . NV_LANG_INTERFACE . '/global.php';
 //     nv_info_die( $global_config['error_404_title'], $lang_global['error_404_title'], $lang_global['error_404_content'], '', '', '', '' );
 // }
 
-
 // vd: http://mydomain1.com/ten_thu_muc_chua_site
 $global_config['site_url'] = $nv_Request->site_url;
 
-file_put_contents(
-    NV_ROOTDIR . '/nv_host_debug.log',
-    date('c')
-    . " - HTTP_HOST=" . ($_SERVER['HTTP_HOST'] ?? '')
-    . " - SERVER_NAME=" . ($_SERVER['SERVER_NAME'] ?? '')
-    . " - NV_SERVER_NAME=" . NV_SERVER_NAME
-    . " - site_domain=" . $global_config['site_domain']
-	. " - site_url=" . $global_config['site_url']
-	. " - NV_MY_DOMAIN=" .  NV_MY_DOMAIN
-    . PHP_EOL,
-    FILE_APPEND
-);
+// file_put_contents(
+//     NV_ROOTDIR . '/nv_host_debug.log',
+//     date('c')
+//     . " - HTTP_HOST=" . ($_SERVER['HTTP_HOST'] ?? '')
+//     . " - SERVER_NAME=" . ($_SERVER['SERVER_NAME'] ?? '')
+//     . " - NV_SERVER_NAME=" . NV_SERVER_NAME
+//     . " - site_domain=" . $global_config['site_domain']
+// 	. " - site_url=" . $global_config['site_url']
+// 	. " - NV_MY_DOMAIN=" .  NV_MY_DOMAIN
+//     . PHP_EOL,
+//     FILE_APPEND
+// );
 
 // Xac dinh duong dan thuc den thu muc upload
 define( 'NV_UPLOADS_REAL_DIR', NV_ROOTDIR . '/' . NV_UPLOADS_DIR );
@@ -424,6 +420,7 @@ define( 'UPLOAD_CHECKING_MODE', $global_config['upload_checking_mode'] );
 
 if( defined( 'NV_ADMIN' ) )
 {
+	error_log("=== mainfile là ADMIN ===");
 	if( ! file_exists( NV_ROOTDIR . '/language/' . NV_LANG_DATA . '/global.php' ) )
 	{
 		if( $global_config['lang_multi'] )
@@ -433,6 +430,7 @@ if( defined( 'NV_ADMIN' ) )
 		Header( 'Location: ' . NV_BASE_ADMINURL );
 		exit();
 	}
+	error_log("=== mainfile là ADMIN beforelanguage===");
 	if( ! file_exists( NV_ROOTDIR . '/language/' . NV_LANG_INTERFACE . '/global.php' ) )
 	{
 		if( $global_config['lang_multi'] )
@@ -442,6 +440,7 @@ if( defined( 'NV_ADMIN' ) )
 		Header( 'Location: ' . NV_BASE_ADMINURL );
 		exit();
 	}
+	error_log("=== mainfile là ADMIN ok ===");
 }
 //error_log("=== mainfile before cronjobs ===");
 // cronjobs
@@ -453,6 +452,7 @@ if( $nv_Request->isset_request( 'second', 'get' ) and $nv_Request->get_string( '
 // Kiem tra tu cach admin
 if( defined( 'NV_IS_ADMIN' ) || defined( 'NV_IS_SPADMIN' ) )
 {
+	error_log("=== mainfile là Kiem tra tu cach admin ===");
 	trigger_error( 'Hacking attempt', 256 );
 }
 
@@ -463,12 +463,15 @@ define( 'ADMIN_LOGIN_MODE', $nv_check_update ? 1 : ( empty( $global_config['clos
 $admin_cookie = $nv_Request->get_bool( 'admin', 'session', false );
 if( ! empty( $admin_cookie ) )
 {
+	error_log("=== mainfile là Kiem tra admin_cookie ===");
 	require NV_ROOTDIR . '/includes/core/admin_access.php';
 	require NV_ROOTDIR . '/includes/core/is_admin.php';
+	error_log("=== mainfile là Kiem tra admin_cookie ok ===");
 }
 
 if( defined( 'NV_IS_ADMIN' ) )
 {
+	error_log("===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh===");
 	// Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh
 	if( empty( $admin_info['checkpass'] ) )
 	{
@@ -478,6 +481,7 @@ if( defined( 'NV_IS_ADMIN' ) )
 			exit();
 		}
 	}
+	error_log("===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh ok ===");
 }
 else
 {

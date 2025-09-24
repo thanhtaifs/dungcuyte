@@ -9,7 +9,7 @@
  */
 
 if( ! defined( 'NV_MAINFILE' ) ) die( 'Stop!!!' );
-
+error_log("=== mainfile Vào Admin access ===");
 /**
  * nv_admin_checkip()
  *

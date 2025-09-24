@@ -1,6 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
 
 /**
  * @Project NUKEVIET 4.x
@@ -10,7 +8,15 @@ error_reporting(E_ALL);
  * @Createdate 12/30/2009 6:18
  */
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
 define( 'NV_ADMIN', true );
+
+
+error_log("=== ADMIN START ===");
 
 // Ket noi den mainfile.php nam o thu muc goc.
 $realpath_mainfile = $set_active_op = '';
@@ -35,6 +41,7 @@ ob_start();
 // Admin dang nhap
 if( ! defined( 'NV_IS_ADMIN' ) or ! isset( $admin_info ) or empty( $admin_info ) )
 {
+	error_log("=== ADMIN START Admin dang nhap ===");
 	require NV_ROOTDIR . '/includes/core/admin_access.php';
 	require NV_ROOTDIR . '/includes/core/admin_login.php';
 	exit();

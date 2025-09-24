@@ -81,7 +81,7 @@ function nv_SendMail2User( $cid, $fcontent, $ftitle, $femail, $full_name )
 
 //Danh sach cac bo phan
 $sql = 'SELECT id, alias, full_name FROM ' . NV_PREFIXLANG . '_' . $module_data . '_department WHERE act=1 ORDER BY weight';
-error_log($sql);
+//error_log($sql);
 $array_department = nv_db_cache( $sql, 'alias' );
 
 $page_title = $module_info['custom_title'];
@@ -247,7 +247,7 @@ if( ! empty( $bodytext ) )
 {
 	$lang_module['note'] = $bodytext;
 }
-error_log($lang_module['note']);
+error_log("LANG_NOTE: --- ". $lang_module['note']);
 $array_content = array(
 	'error' => $error,
 	'fpart' => $fpart,

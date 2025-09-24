@@ -9,7 +9,7 @@
  */
 
 if( ! defined( 'NV_MAINFILE' ) ) die( 'Stop!!!' );
-
+error_log("=== mainfile Vào is admin ===");
 $admin_cookie = $nv_Request->get_string( 'admin', 'session' );
 $admin_online = $nv_Request->get_string( 'online', 'session' );
 
@@ -43,7 +43,7 @@ if( ! empty( $admin_cookie ) )
 	}
 
 	$admin_info = nv_admin_checkdata( $admin_cookie );
-
+	error_log("===  admin nv_admin_checkdata ===");
 	if( $admin_info == array() )
 	{
 		$nv_Request->unset_request( 'admin,online', 'session' );
@@ -66,10 +66,22 @@ if( ! empty( $admin_cookie ) )
 		}
 		require_once NV_ROOTDIR . '/includes/core/admin_logout.php';
 	}
-
+	//error_log("===  admin nv_admin_checkdata before NV_IS_ADMIN ===");
 	define( 'NV_IS_ADMIN', true );
-	$admin_info['in_groups'][] = 3;
+	if (!isset($admin_info)) {
+    	$admin_info = [];
+    	//error_log("=== admin_info chưa tồn tại, tạo mới ===");
+	}
 
+	if (!isset($admin_info['in_groups']) || !is_array($admin_info['in_groups'])) {
+		$admin_info['in_groups'] = [];
+		//error_log("=== in_groups chưa tồn tại, khởi tạo array ===");
+	}
+
+	$admin_info['in_groups'][] = 3;
+	//error_log("=== admin in_groups OK ===");
+	// $admin_info['in_groups'][] = 3;
+	// error_log("===  admin in_groups ===");
 	if( $admin_info['level'] == 1 or $admin_info['level'] == 2 )
 	{
 		define( 'NV_IS_SPADMIN', true );
@@ -157,5 +169,5 @@ if( ! empty( $admin_cookie ) )
 	}
 	$admin_info['full_name'] = nv_show_name_user( $admin_info['first_name'], $admin_info['last_name'] );
 }
-
+error_log("=== mainfile hoàn thành is admin ===");
 unset( $admin_cookie, $admin_online );

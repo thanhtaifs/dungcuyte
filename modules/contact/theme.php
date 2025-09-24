@@ -49,7 +49,7 @@ function contact_main_theme( $array_content, $array_department, $base_url, $chec
 	{
 		$xtpl->parse( 'main.form.iguest' );
 	}
-	error_log("=== main.form.iguest  ===");
+	//error_log("=== main.form.iguest  ===");
 	if( ! empty( $array_department ) )
 	{
 		foreach( $array_department as $value => $row )
