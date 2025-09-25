@@ -1,10 +1,10 @@
 <!-- BEGIN: main -->
 <style type="text/css">
 .panel-body {  padding: 0px !important; }
-.support-ol {background:#fff;display:block;}
+.support-ol {display:block;}
 .support-ol .name-phone {}
 .support-ol .name-phone span {font-weight:bold;}
-.support-ol .name-phone span.name {color: #65aa00;font-size:16px}
+.support-ol .name-phone span.name {color: #4B7A00; font-size:16px}
 .support-ol .name-phone span.phone {font-size:16px;}
 .support-ol .email-support {padding: 5px 0; text-align:left}
 .support-ol .email-support div {text-align:center}

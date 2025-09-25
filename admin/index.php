@@ -16,7 +16,7 @@ error_reporting(E_ALL);
 define( 'NV_ADMIN', true );
 
 
-error_log("=== ADMIN START ===");
+//error_log("=== ADMIN START ===");
 
 // Ket noi den mainfile.php nam o thu muc goc.
 $realpath_mainfile = $set_active_op = '';
