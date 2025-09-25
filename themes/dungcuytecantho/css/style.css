@@ -41,6 +41,7 @@ ul, ol {
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
+
 .header__top__left {
     padding: 15px 0 15px;
 }
@@ -374,6 +375,8 @@ ul, ol {
     overflow: hidden;
     margin-bottom: 15px;
     margin-top: 5px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+	border-radius: 12px;
 }
 
 .hero__search__form {
@@ -628,7 +631,6 @@ input:focus, select:focus, button:focus, textarea:focus
 .breadcrumb-card {
             display: flex;
             align-items: center;
-            background: white;
             padding: 8px 18px;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
@@ -2721,18 +2723,21 @@ a{
 }
 
 .page-link:hover {
-    background-color: #FF1744;
-     border-color: #F00;
-     color: #FFF;
+    background-color: #65AA00;   /* xanh lá sáng */
+    border-color: #4B7A00;       /* xanh đậm */
+    color: #FFF;                 /* chữ trắng */
 }
+
 .page-item.disabled .page-link {
-    border-color: #4B7A00;
+    border-color: #4B7A00;       /* giữ border xanh đậm */
+    color: #aaa;                 /* chữ xám nhạt */
 }
 
 .page-item.active .page-link {
-    background-color: #F00;
-     border-color: #F00;
-     color: #FFF;
+    background-color: #AADD55;   /* xanh sáng tươi */
+    border-color: #65AA00;       /* xanh lá sáng */
+    color: #2E4D00;              /* chữ xanh đậm dễ đọc */
+    font-weight: 600;
 }
 
 .pagination > li > a, .pagination > li > span {
