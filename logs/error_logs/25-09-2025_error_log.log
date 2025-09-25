@@ -157,3 +157,5 @@
 [Thu, 25 Sep 2025 13:55:06 +0700] [127.0.0.1] [Warning(2): Undefined variable $nv_Request] [FILE: /index.php] [LINE: 85]
 [Thu, 25 Sep 2025 13:55:16 +0700] [127.0.0.1] [Warning(2): Undefined variable $nv_Request] [FILE: /index.php] [LINE: 83]
 [Thu, 25 Sep 2025 13:57:15 +0700] [127.0.0.1] [Warning(2): Undefined variable $nv_Request] [FILE: /index.php] [LINE: 88]
+[Thu, 25 Sep 2025 14:53:11 +0700] [127.0.0.1] [Warning(2): Undefined variable $nv_Request] [FILE: /index.php] [LINE: 109]
+[Thu, 25 Sep 2025 15:08:26 +0700] [127.0.0.1] [Warning(2): Undefined variable $global_config] [FILE: /index.php] [LINE: 105]

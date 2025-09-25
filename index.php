@@ -32,7 +32,6 @@ $b = 'base6' . '4_decode';
 
 
 define( 'NV_SYSTEM', true );
-//error_log("=== NV_SYSTEM === ");
 
 $mainfile = init_system();
 require $mainfile;
@@ -47,13 +46,31 @@ else
 	error_log("=== defined NV_ROOTDIR ===");
 }
 
-require NV_ROOTDIR . '/includes/core/user_functions.php';
+$user_functions =  NV_ROOTDIR . '/includes/core/user_functions.php';
+if ($user_functions) {
+    require $user_functions;
+}
 google_sitemap($nv_Request);
 if( defined( 'NV_IS_USER' ) ) 
 	trigger_error( 'Hacking attempt', 256 );
-require NV_ROOTDIR . '/includes/core/is_user.php';
-require update_status_online($global_config);
+$is_user = NV_ROOTDIR . '/includes/core/is_user.php';
+if ($is_user) {
+    require $is_user;
+}
+$update_status_online =  update_status_online($global_config);
+if ($update_status_online) {
+    require $update_status_online;
+}
+//require update_statistic($global_config, $nv_Request);
+$statFile = update_statistic($global_config, $nv_Request);
+if ($statFile) {
+    require $statFile;
+}
 
+$Referer = Referer($client_info);
+if ($Referer) {
+    require $Referer;
+}
 
 // ============================= Method =============================
 function init_system() 
@@ -83,7 +100,7 @@ function init_root()
 	return $root;    
 }
 
-function google_sitemap($nv_Request ) 
+function google_sitemap($nv_Request) 
 {    
 	if( $nv_Request->isset_request(NV_NAME_VARIABLE, 'get') and $nv_Request-> get_string( NV_NAME_VARIABLE, 'get' ) == 'SitemapIndex' )
 	{
@@ -100,6 +117,25 @@ function update_status_online($global_config)
 		return NV_ROOTDIR . '/includes/core/online.php';
 	}
 }
+
+function update_statistic($global_config, $nv_Request) 
+{    
+	if( $global_config['statistic'] and ! defined( 'NV_IS_AJAX' ) and ! defined( 'NV_IS_MY_USER_AGENT' ) )
+	{
+		if( ! $nv_Request->isset_request( 'statistic_' . NV_LANG_DATA, 'cookie' ) )
+		{
+			return NV_ROOTDIR . '/includes/core/stat.php';
+		}
+	}	
+}
+function Referer($client_info) 
+{    
+	if( $client_info['is_myreferer'] === 0 and ! defined( 'NV_IS_MY_USER_AGENT' ) )
+	{
+		require NV_ROOTDIR . '/includes/core/referer.php';
+	}
+}
+
 
 // $mainfile = __DIR__ . '/mainfile.php';
 // error_log("=== mainfile ===" . $mainfile);
@@ -159,21 +195,21 @@ function update_status_online($global_config)
 // {
 // 	require NV_ROOTDIR . '/includes/core/online.php';
 // }
-error_log("Cap nhat trang thai online");
+//error_log("Cap nhat trang thai online");
 // Thong ke
-if( $global_config['statistic'] and ! defined( 'NV_IS_AJAX' ) and ! defined( 'NV_IS_MY_USER_AGENT' ) )
-{
-	if( ! $nv_Request->isset_request( 'statistic_' . NV_LANG_DATA, 'cookie' ) )
-	{
-		require NV_ROOTDIR . '/includes/core/stat.php';
-	}
-}
+// if( $global_config['statistic'] and ! defined( 'NV_IS_AJAX' ) and ! defined( 'NV_IS_MY_USER_AGENT' ) )
+// {
+// 	if( ! $nv_Request->isset_request( 'statistic_' . NV_LANG_DATA, 'cookie' ) )
+// 	{
+// 		require NV_ROOTDIR . '/includes/core/stat.php';
+// 	}
+// }
 
 // Referer + Gqueries
-if( $client_info['is_myreferer'] === 0 and ! defined( 'NV_IS_MY_USER_AGENT' ) )
-{
-	require NV_ROOTDIR . '/includes/core/referer.php';
-}
+// if( $client_info['is_myreferer'] === 0 and ! defined( 'NV_IS_MY_USER_AGENT' ) )
+// {
+// 	require NV_ROOTDIR . '/includes/core/referer.php';
+// }
 
 if( $nv_Request->isset_request( NV_NAME_VARIABLE, 'get' ) || $nv_Request->isset_request( NV_NAME_VARIABLE, 'post' ) )
 {

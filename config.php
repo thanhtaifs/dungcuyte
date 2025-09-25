@@ -13,8 +13,6 @@ if ( ! defined( 'NV_MAINFILE' ) )
 	die( 'Stop!!!' );
 }
 
-error_log("=== config.php loaded OK ===");
-
 $db_config['dbhost'] = 'localhost';
 $db_config['dbport'] = '';
 $db_config['dbname'] = 'ndungcu39mo_db';
@@ -36,4 +34,3 @@ $global_config['sitekey'] = 'b489e338627a82fe2de280b6df176ec6';// Do not change 
 $global_config['hashprefix'] = '{SSHA}';
 $global_config['rewrite_mode'] = 1;
 
-error_log("=== config.php loaded end OK  ===");
