@@ -256,9 +256,7 @@ function nv_site_theme( $contents, $full = true )
 			$xtpl->parse( 'main.theme_type.loop' );
 		}
 		$xtpl->parse( 'main.theme_type' );
-	}
-	
-	
+	}	
 	
 	$xtpl->parse( 'main' );
 	$sitecontent = $xtpl->text( 'main' );

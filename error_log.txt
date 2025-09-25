@@ -16308,3 +16308,193 @@
 [25-Sep-2025 04:39:08 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
 [25-Sep-2025 04:39:08 Europe/Berlin] checkpoint mainfile
 [25-Sep-2025 04:39:08 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:27:01 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:27:02 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:27:02 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:29:59 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:29:59 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:30:55 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:30:55 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:07 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:08 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:16 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:16 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:16 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:16 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:16 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:16 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:16 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:16 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:16 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:16 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:16 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:16 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:16 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:16 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:16 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:16 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:16 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:16 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:16 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:16 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:16 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:16 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:16 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:16 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:16 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:16 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:16 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:16 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:16 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:16 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:16 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:16 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:16 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:16 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:16 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:17 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:17 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:17 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:17 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:17 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:17 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:17 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:17 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:17 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:17 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:17 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:17 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:17 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:17 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:17 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:17 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:17 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:17 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:17 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:17 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:17 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:18 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:18 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:18 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:18 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:18 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:18 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:18 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:18 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:18 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:18 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:18 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:18 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:18 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:18 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:18 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:18 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:18 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:18 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:18 Europe/Berlin] === NV_SYSTEM === 
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile ===C:\xampp\htdocs\dungcuyte/mainfile.php
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile sau edit ===C:/xampp/htdocs/dungcuyte/mainfile.php
+[25-Sep-2025 08:32:18 Europe/Berlin] checkpoint mainfile
+[25-Sep-2025 08:32:18 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:38 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:32:39 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:37:47 Europe/Berlin] REQ_URI=/
+[25-Sep-2025 08:37:47 Europe/Berlin] NV_MAIN_DOMAIN=not defined
+[25-Sep-2025 08:37:47 Europe/Berlin] === NV_ROOTDIR  ===
+[25-Sep-2025 08:37:47 Europe/Berlin] === DIRECTORY_SEPARATOR
+[25-Sep-2025 08:37:47 Europe/Berlin] REQ_URI=/favicon.ico
+[25-Sep-2025 08:37:47 Europe/Berlin] NV_MAIN_DOMAIN=not defined
+[25-Sep-2025 08:37:47 Europe/Berlin] === NV_ROOTDIR  ===
+[25-Sep-2025 08:37:47 Europe/Berlin] === DIRECTORY_SEPARATOR
+[25-Sep-2025 08:37:48 Europe/Berlin] REQ_URI=/
+[25-Sep-2025 08:37:48 Europe/Berlin] NV_MAIN_DOMAIN=not defined
+[25-Sep-2025 08:37:48 Europe/Berlin] === NV_ROOTDIR  ===
+[25-Sep-2025 08:37:48 Europe/Berlin] === DIRECTORY_SEPARATOR
+[25-Sep-2025 08:37:48 Europe/Berlin] REQ_URI=/favicon.ico
+[25-Sep-2025 08:37:48 Europe/Berlin] NV_MAIN_DOMAIN=not defined
+[25-Sep-2025 08:37:48 Europe/Berlin] === NV_ROOTDIR  ===
+[25-Sep-2025 08:37:48 Europe/Berlin] === DIRECTORY_SEPARATOR
+[25-Sep-2025 08:37:48 Europe/Berlin] REQ_URI=/
+[25-Sep-2025 08:37:48 Europe/Berlin] NV_MAIN_DOMAIN=not defined
+[25-Sep-2025 08:37:48 Europe/Berlin] === NV_ROOTDIR  ===
+[25-Sep-2025 08:37:48 Europe/Berlin] === DIRECTORY_SEPARATOR
+[25-Sep-2025 08:37:48 Europe/Berlin] REQ_URI=/favicon.ico
+[25-Sep-2025 08:37:48 Europe/Berlin] NV_MAIN_DOMAIN=not defined
+[25-Sep-2025 08:37:48 Europe/Berlin] === NV_ROOTDIR  ===
+[25-Sep-2025 08:37:48 Europe/Berlin] === DIRECTORY_SEPARATOR
+[25-Sep-2025 08:37:48 Europe/Berlin] REQ_URI=/
+[25-Sep-2025 08:37:48 Europe/Berlin] NV_MAIN_DOMAIN=not defined
+[25-Sep-2025 08:37:48 Europe/Berlin] === NV_ROOTDIR  ===
+[25-Sep-2025 08:37:48 Europe/Berlin] === DIRECTORY_SEPARATOR
+[25-Sep-2025 08:37:48 Europe/Berlin] REQ_URI=/favicon.ico
+[25-Sep-2025 08:37:48 Europe/Berlin] NV_MAIN_DOMAIN=not defined
+[25-Sep-2025 08:37:48 Europe/Berlin] === NV_ROOTDIR  ===
+[25-Sep-2025 08:37:48 Europe/Berlin] === DIRECTORY_SEPARATOR
+[25-Sep-2025 08:37:49 Europe/Berlin] REQ_URI=/
+[25-Sep-2025 08:37:49 Europe/Berlin] NV_MAIN_DOMAIN=not defined
+[25-Sep-2025 08:37:49 Europe/Berlin] === NV_ROOTDIR  ===
+[25-Sep-2025 08:37:49 Europe/Berlin] === DIRECTORY_SEPARATOR
+[25-Sep-2025 08:37:49 Europe/Berlin] REQ_URI=/favicon.ico
+[25-Sep-2025 08:37:49 Europe/Berlin] NV_MAIN_DOMAIN=not defined
+[25-Sep-2025 08:37:49 Europe/Berlin] === NV_ROOTDIR  ===
+[25-Sep-2025 08:37:49 Europe/Berlin] === DIRECTORY_SEPARATOR
+[25-Sep-2025 08:38:12 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:38:12 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:40:24 Europe/Berlin] === mainfile before file constants, config ===
+[25-Sep-2025 08:40:24 Europe/Berlin] === mainfile before file constants, config ===
