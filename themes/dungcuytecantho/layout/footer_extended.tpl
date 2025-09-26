@@ -72,6 +72,16 @@
                         <div class="support">
                 			[TRUYCAP]
                 		</div>
+                        <div class="support">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Kết nối với chúng tôi
+                                </div>
+                            </div>   
+                            <div class="social-icons">
+                                [SOCIAL_ICONS]                            
+                            </div>                    
+                		</div>
                     </div>
                 </div>
                 <div class="row">
