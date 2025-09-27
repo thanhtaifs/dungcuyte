@@ -216,19 +216,6 @@ require NV_ROOTDIR . '/language/' . NV_LANG_INTERFACE . '/global.php';
 // vd: http://mydomain1.com/ten_thu_muc_chua_site
 $global_config['site_url'] = $nv_Request->site_url;
 
-// file_put_contents(
-//     NV_ROOTDIR . '/nv_host_debug.log',
-//     date('c')
-//     . " - HTTP_HOST=" . ($_SERVER['HTTP_HOST'] ?? '')
-//     . " - SERVER_NAME=" . ($_SERVER['SERVER_NAME'] ?? '')
-//     . " - NV_SERVER_NAME=" . NV_SERVER_NAME
-//     . " - site_domain=" . $global_config['site_domain']
-// 	. " - site_url=" . $global_config['site_url']
-// 	. " - NV_MY_DOMAIN=" .  NV_MY_DOMAIN
-//     . PHP_EOL,
-//     FILE_APPEND
-// );
-
 // Xac dinh duong dan thuc den thu muc upload
 define( 'NV_UPLOADS_REAL_DIR', NV_ROOTDIR . '/' . NV_UPLOADS_DIR );
 

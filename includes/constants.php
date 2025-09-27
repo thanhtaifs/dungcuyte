@@ -11,7 +11,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('log_errors', 1);
-ini_set('error_log', NV_ROOTDIR . '/error_php.log'); // Log riêng
+ini_set('error_log', NV_ROOTDIR . '/error_php.log');
 
 if( ! defined( 'NV_MAINFILE' ) ) die( 'Stop!!!' );
 

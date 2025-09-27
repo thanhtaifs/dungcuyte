@@ -10,6 +10,8 @@
 
 if( ! defined( 'NV_IS_FILE_ADMIN' ) ) die( 'Stop!!!' );
 
+error_log("=== START upload page shops ===");
+
 $path = nv_check_path_upload( $nv_Request->get_string( 'path', 'post,get', NV_UPLOADS_DIR ) );
 $check_allow_upload_dir = nv_check_allow_upload_dir( $path );
 
@@ -165,35 +167,87 @@ else
 	}
 }
 
+//error_log("=== editor upload page shops ===");
+
 $editor = $nv_Request->get_string( 'editor', 'post,get' );
 $CKEditorFuncNum = $nv_Request->get_string( 'CKEditorFuncNum', 'post,get', 0 );
 
 if( empty( $error ) )
 {
+	error_log("=== error upload page shops ===");
 	if( isset( $array_dirname[$path] ) )
 	{
-		$did = $array_dirname[$path];
-		$info = nv_getFileInfo( $path, $upload_info['basename'] );
-		$info['userid'] = $admin_info['userid'];
+			$did = $array_dirname[$path];
+			// Đường dẫn lưu file upload
+			$upload_dir = NV_ROOTDIR . '/' . NV_UPLOADS_DIR;
+			$file_name  = $upload_info['basename'];
+			$file_path  = $upload_dir . '/' . $file_name;
+			// if (!file_exists($file_path)) {
+			// 	if (isset($_FILES['uploadfile']['tmp_name']) && is_uploaded_file($_FILES['uploadfile']['tmp_name'])) 
+			// 	{
+			// 		if (!move_uploaded_file($_FILES['uploadfile']['tmp_name'], $file_path)) 
+			// 		{
+			// 			error_log("=== MOVE UPLOADED FILE FAIL: " . $file_path);
+			// 		} else 
+			// 		{
+			// 			error_log("=== MOVE UPLOADED FILE OK: " . $file_path);
+			// 		}
+			// 	} 
+			// 	else 
+			// 	{
+			// 		error_log("=== UPLOAD SOURCE FILE NOT FOUND ===");
+			// 	}
+			// }
 
-		$newalt = $nv_Request->get_title( 'filealt', 'post', '', true );
+			if (file_exists($file_path)) 
+			{
+				//error_log("=== FILE EXISTS NOW: " . $file_path);
+				$info = nv_getFileInfo(NV_UPLOADS_DIR, $file_name);
+				// fix userid
+				$info['userid'] = $admin_info['userid'];
 
-		if( empty( $newalt ) )
-		{
-			$newalt = preg_replace( '/(.*)(\.[a-zA-Z0-9]+)$/', '\1', $upload_info['basename'] );
-			$newalt = str_replace( '-', ' ', change_alias( $newalt ) );
-		}
+				// tránh NULL cho ảnh
+				$info['srcwidth']  = (int)($info['srcwidth'] ?? 0);
+				$info['srcheight'] = (int)($info['srcheight'] ?? 0);
+				$newalt = $nv_Request->get_title('filealt', 'post', '', true);
+				if (empty($newalt)) {
+					$newalt = preg_replace('/(.*)(\.[a-zA-Z0-9]+)$/', '\1', $file_name);
+					$newalt = str_replace('-', ' ', change_alias($newalt));
+				}			
+				try 
+				{
+					$sql = "INSERT INTO " . NV_UPLOAD_GLOBALTABLE . "_file
+						(name, ext, type, filesize, src, srcwidth, srcheight, sizes, userid, mtime, did, title, alt)
+						VALUES (:name, :ext, :type, :filesize, :src, :srcwidth, :srcheight, :sizes, :userid, :mtime, :did, :title, :newalt)";
+					$sth = $db->prepare($sql);
 
-		$sth = $db->prepare( "INSERT INTO " . NV_UPLOAD_GLOBALTABLE . "_file
-		(name, ext, type, filesize, src, srcwidth, srcheight, sizes, userid, mtime, did, title, alt) VALUES
-		('" . $info['name'] . "', '" . $info['ext'] . "', '" . $info['type'] . "', " . $info['filesize'] . ", '" . $info['src'] . "', " . $info['srcwidth'] . ", " . $info['srcheight'] . ", '" . $info['size'] . "', " . $info['userid'] . ", " . $info['mtime'] . ", " . $did . ", '" . $upload_info['basename'] . "', :newalt)" );
-
-		$sth->bindParam( ':newalt', $newalt, PDO::PARAM_STR );
-		$sth->execute();
+					$sth->bindParam(':name', $info['name'], PDO::PARAM_STR);
+					$sth->bindParam(':ext', $info['ext'], PDO::PARAM_STR);
+					$sth->bindParam(':type', $info['type'], PDO::PARAM_STR);
+					$sth->bindParam(':filesize', $info['filesize'], PDO::PARAM_INT);
+					$sth->bindParam(':src', $info['src'], PDO::PARAM_STR);
+					$sth->bindParam(':srcwidth', $info['srcwidth'], PDO::PARAM_INT);
+					$sth->bindParam(':srcheight', $info['srcheight'], PDO::PARAM_INT);
+					$sth->bindParam(':sizes', $info['size'], PDO::PARAM_STR);
+					$sth->bindParam(':userid', $info['userid'], PDO::PARAM_INT);
+					$sth->bindParam(':mtime', $info['mtime'], PDO::PARAM_INT);
+					$sth->bindParam(':did', $did, PDO::PARAM_INT);
+					$sth->bindParam(':title', $file_name, PDO::PARAM_STR);
+					$sth->bindParam(':newalt', $newalt, PDO::PARAM_STR);
+					$sth->execute();
+					//error_log("=== DB EXECUTE OK upload page shops ===");
+				} 
+				catch (PDOException $e)
+				{
+					error_log("=== DB ERROR === " . $e->getMessage());
+					error_log("=== SQL === " . $sql);
+				}
+			}	
+				
 	}
-
+	//error_log("=== nv_insert_logs upload page shops ===");
 	nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['upload_file'], $path . '/' . $upload_info['basename'], $admin_info['userid'] );
-
+	error_log("=== nv_insert_logs ok upload page shops ===");
 	if( $editor == 'ckeditor' )
 	{
 		echo "<script type=\"text/javascript\">window.parent.CKEDITOR.tools.callFunction(" . $CKEditorFuncNum . ", '" . NV_BASE_SITEURL . $path . "/" . $upload_info['basename'] . "', '');</script>";
@@ -205,6 +259,7 @@ if( empty( $error ) )
 }
 else
 {
+	//error_log("=== else error upload page shops ===");
 	if( $editor == 'ckeditor' )
 	{
 		echo "<script type=\"text/javascript\">window.parent.CKEDITOR.tools.callFunction(" . $CKEditorFuncNum . ", '', '" . $error . "');</script>";
@@ -214,5 +269,5 @@ else
 		echo 'ERROR_' . $error;
 	}
 }
-
+//error_log("=== finished upload page shops ===");
 exit();

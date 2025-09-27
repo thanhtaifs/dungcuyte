@@ -326,7 +326,7 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 					}
 				}
 			}
-			error_log("Xac dinh quyen dieu hanh module pass");
+			//error_log("Xac dinh quyen dieu hanh module pass");
 			// Ket noi ngon ngu cua module
 			if( file_exists( NV_ROOTDIR . '/modules/' . $module_file . '/language/' . NV_LANG_INTERFACE . '.php' ) )
 			{
@@ -373,7 +373,7 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 					trigger_error( 'Error! Does not exist themes default', 256 );
 				}
 			}
-			error_log("Xac dinh giao dien chung pass");
+			//error_log("Xac dinh giao dien chung pass");
 			// Xac lap lai giao kieu giao dien hien tai
 			if( $theme_type != $global_config['current_theme_type'] )
 			{

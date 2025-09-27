@@ -569,7 +569,7 @@ function view_home_blocks($data_content, $compare_id, $html_pages, $sorts)
             $se = '';
             $xtpl->assign('value', $array_displays_i);
             $xtpl->assign('key', $k);
-            $se = ($sort == $k) ? 'selected="selected"' : '';
+            $se = ($sorts == $k) ? 'selected="selected"' : '';
             $xtpl->assign('se', $se);
             $xtpl->parse('main.displays.sorts');
         }
@@ -3025,7 +3025,7 @@ function nv_review_content($data_content)
  */
 function nv_download_content($data_content)
 {
-    global $module_info, $lang_module, $lang_global, $module_name, $module_data, $module_file, $pro_config, $op;
+    global $module_info, $lang_module, $lang_global, $module_name, $module_data, $module_file, $pro_config, $op, $client_info;
 
     $xtpl = new XTemplate('download_content.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
     $xtpl->assign('LANG', $lang_module);
@@ -3054,7 +3054,8 @@ function nv_download_content($data_content)
         }
 
         if ($login > 0) {
-            $link_login = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=users&amp;' . NV_OP_VARIABLE . '=login&amp;nv_redirect=' . nv_redirect_encrypt($client_info['selfurl'] . '#'.$linktab);
+            $linktab = ''; // Assign a default value or set as needed
+            $link_login = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=users&amp;' . NV_OP_VARIABLE . '=login&amp;nv_redirect=' . nv_redirect_encrypt($client_info['selfurl'] . '#' . $linktab);
             $xtpl->assign('DOWNLOAD_LOGIN', '<a title="' . $lang_global['loginsubmit'] . '" href="' . $link_login . '">' . $lang_module['download_login'] . '</a>');
             $xtpl->parse('main.form_login');
         }

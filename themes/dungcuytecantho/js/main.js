@@ -431,8 +431,29 @@ $(function() {
         prependTo: '#mobile-menu-wrap',
         allowParentLinks: false
     });
+
+	// ========== Cart dropdown ==============
+
+	const toggleBtn = $("#cartToggle");
+	const dropdown = $(".cart-dropdown");
+
+	toggleBtn.on("click", function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		dropdown.toggleClass("open");
+	});
+
+	$(document).on("click", function (e) {
+        if (!$(e.target).closest(".cart-dropdown, .cart-toggle-btn").length) {
+            dropdown.removeClass("open");            
+        }
+
+    });
+
+	// ========== End Cart dropdown ==============
     
 });
+
 // Fix bootstrap multiple modal
 $(document).on({
 	'show.bs.modal': function() {

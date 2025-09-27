@@ -39,6 +39,7 @@ ul, ol {
      background: linear-gradient(to bottom, #4B7A00, #5C8A00);
     padding: 4px 8px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+	height: 65px;
 }
 
 
@@ -247,6 +248,10 @@ ul, ol {
     display: none;
 }
 
+.cart-mobile {
+    display: none;
+}
+
 	.humberger__menu__wrapper .slicknav_menu .slicknav_nav ul li  {
         color: #1c1c1c;
         font-size: 24px;
@@ -340,6 +345,23 @@ ul, ol {
             box-shadow: 0 4px 12px rgba(101, 170, 0, 0.4);
             color: white;
         }
+
+		.cart-icon-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+        }
         
         .cart-badge {
             position: absolute;
@@ -366,6 +388,7 @@ ul, ol {
         /* Cart Dropdown */
         .cart-dropdown {
             position: absolute;
+			display: none;
             top: 100%;
             right: 0;
             background: white;
@@ -378,13 +401,25 @@ ul, ol {
             transform: translateY(-10px);
             transition: all 0.3s ease;
         }
+
+
+		.cart-dropdownMobile {
+		top: 100%;
+		left: 0;
+		right: 0;
+		background: #fff;
+		border: 1px solid #ddd;
+		display: block;
+        }
         
-        .cart-dropdown.show {
+        .cart-dropdown.open {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
+			display: block;
         }
-        
+    
+
         .cart-dropdown-header {
             background: linear-gradient(135deg, #65aa00, #7bc100);
             color: white;
@@ -1163,11 +1198,16 @@ input:focus, select:focus, button:focus, textarea:focus
 		text-align: center;
 		border: 1px solid #FFF;
 		cursor: pointer;
-		position: absolute;
-		right: 15px;
-		top: 10px;
+		position: absolute;		
+		top: 12px;
+		left: 20px;
 		
 	}
+	.cart-mobile 
+	{
+		display: block;			
+	}
+
 	.header .container {
 		position: relative;
 	}
@@ -1442,10 +1482,25 @@ input:focus, select:focus, button:focus, textarea:focus
 		text-align: center;
 		border: 1px solid #FFF;
 		cursor: pointer;
-		position: absolute;
-		right: 15px;
-		top: 5px;
+		position: absolute;		
+		top: 12px;
+		left: 20px;
 	}
+
+	.cart-mobile {
+		display: block;
+		font-size: 22px;
+		color: #FFF;
+		height: 35px;
+		width: 35px;
+		line-height: 33px;
+		text-align: center;
+		cursor: pointer;
+		position: absolute;		
+		top: 16px;
+		right: 20px;
+	}
+
 	.header .container {
 		position: relative;
 	}
