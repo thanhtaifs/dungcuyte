@@ -546,7 +546,7 @@ function openidLogin_Res1( $attribs )
 			$data_insert['email'] = $reg_attribs['email'];
 			$data_insert['first_name'] = $reg_attribs['first_name'];
 			$data_insert['last_name'] = $reg_attribs['last_name'];
-			$data_insert['gender'] = ucfirst( $reg_attribs['gender'] ? $reg_attribs['gender']{0} : 'N' );
+			$data_insert['gender'] = ucfirst( $reg_attribs['gender'] ? $reg_attribs['gender'][0] : 'N' );
 			$userid = $db->insert_id( $sql, 'userid', $data_insert );
 			if( ! $userid )
 			{

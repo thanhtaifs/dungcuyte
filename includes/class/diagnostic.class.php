@@ -34,12 +34,12 @@ class Diagnostic
 	 */
 	function __construct( $_pattern = array() )
 	{
-		if( isset( $_pattern['PageRank'] ) ) $this->$pattern['PageRank'] = $_pattern['PageRank'];
-		if( isset( $_pattern['AlexaRank'] ) ) $this->$pattern['AlexaRank'] = $_pattern['AlexaRank'];
-		if( isset( $_pattern['GoogleBackLink'] ) ) $this->$pattern['GoogleBackLink'] = $_pattern['GoogleBackLink'];
-		if( isset( $_pattern['GoogleIndexed'] ) ) $this->$pattern['GoogleIndexed'] = $_pattern['GoogleIndexed'];
-		if( isset( $_pattern['BingBackLink'] ) ) $this->$pattern['BingBackLink'] = $_pattern['BingBackLink'];
-		if( isset( $_pattern['BingIndexed'] ) ) $this->$pattern['BingIndexed'] = $_pattern['BingIndexed'];
+		if( isset( $_pattern['PageRank'] ) ) $this->pattern['PageRank'] = $_pattern['PageRank'];
+		if( isset( $_pattern['AlexaRank'] ) ) $this->pattern['AlexaRank'] = $_pattern['AlexaRank'];
+		if( isset( $_pattern['GoogleBackLink'] ) ) $this->pattern['GoogleBackLink'] = $_pattern['GoogleBackLink'];
+		if( isset( $_pattern['GoogleIndexed'] ) ) $this->pattern['GoogleIndexed'] = $_pattern['GoogleIndexed'];
+		if( isset( $_pattern['BingBackLink'] ) ) $this->pattern['BingBackLink'] = $_pattern['BingBackLink'];
+		if( isset( $_pattern['BingIndexed'] ) ) $this->pattern['BingIndexed'] = $_pattern['BingIndexed'];
 
 		$disable_functions = ( ini_get( 'disable_functions' ) != '' and ini_get( 'disable_functions' ) != false ) ? array_map( 'trim', preg_split( "/[\s,]+/", ini_get( 'disable_functions' ) ) ) : array();
 		if( extension_loaded( 'suhosin' ) )
@@ -76,7 +76,7 @@ class Diagnostic
 
 				$Check = ( $Check < - 2147483648 ) ? ( $Check + $Int32Unit ) : $Check;
 			}
-			$Check += ord( $Str{$i} );
+			$Check += ord( $Str[$i] );
 		}
 		return $Check;
 	}
@@ -117,7 +117,7 @@ class Diagnostic
 
 		for( $i = $length - 1; $i >= 0; --$i )
 		{
-			$Re = $HashStr{$i};
+			$Re = $HashStr[$i];
 			if( 1 === ( $Flag % 2 ) )
 			{
 				$Re += $Re;

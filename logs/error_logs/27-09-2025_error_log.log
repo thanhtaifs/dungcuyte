@@ -1,0 +1,8 @@
+[Sat, 27 Sep 2025 08:18:02 +0700] [127.0.0.1] [User Notice(1024): SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it] [FILE: /includes/class/sql_db.class.php] [LINE: 80]
+[Sat, 27 Sep 2025 08:18:02 +0700] [127.0.0.1] [User Error(256): Sorry! Could not connect to data server] [FILE: /mainfile.php] [LINE: 343]
+[Sat, 27 Sep 2025 08:18:43 +0700] [127.0.0.1] [Run-time notices(8192): Required parameter $data_title follows optional parameter $html_pages] [FILE: /modules/shops/theme.php] [LINE: 224]
+[Sat, 27 Sep 2025 08:18:43 +0700] [127.0.0.1] [Run-time notices(8192): Required parameter $viewtype follows optional parameter $sort] [FILE: /modules/shops/theme.php] [LINE: 1126]
+[Sat, 27 Sep 2025 08:18:43 +0700] [127.0.0.1] [Run-time notices(8192): Required parameter $viewtype follows optional parameter $sort] [FILE: /modules/shops/theme.php] [LINE: 1328]
+[Sat, 27 Sep 2025 08:18:43 +0700] [127.0.0.1] [Warning(2): Undefined variable $catid_i] [FILE: /themes/dungcuytecantho/theme.php] [LINE: 184]
+[Sat, 27 Sep 2025 08:18:45 +0700] [127.0.0.1] [Warning(2): Undefined variable $nv_Cache] [FILE: /modules/shops/global.functions.php] [LINE: 66]
+[Sat, 27 Sep 2025 08:18:56 +0700] [127.0.0.1] [Warning(2): Undefined array key 1] [FILE: /includes/cronjobs/error_log_destroy.php] [LINE: 97]

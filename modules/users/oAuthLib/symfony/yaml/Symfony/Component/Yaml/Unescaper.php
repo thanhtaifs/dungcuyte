@@ -67,7 +67,7 @@ class Unescaper
      */
     public function unescapeCharacter($value)
     {
-        switch ($value{1}) {
+        switch ($value[1]) {
             case '0':
                 return "\x0";
             case 'a':
@@ -114,6 +114,8 @@ class Unescaper
                 return self::utf8chr(hexdec(substr($value, 2, 4)));
             case 'U':
                 return self::utf8chr(hexdec(substr($value, 2, 8)));
+            default:
+            return $value;
         }
     }
 

@@ -320,7 +320,8 @@ function nv_get_viewImage( $fileName )
 	else
 	{
 		$size = @getimagesize( NV_ROOTDIR . '/' . $fileName );
-		return array( $viewFile, $size[0], $size[1] );
+		$viewFile = $fileName;
+		return array($viewFile, $size[0], $size[1] );
 	}
 	return false;
 }
@@ -343,7 +344,7 @@ function nv_getFileInfo( $pathimg, $file )
 
 	$info = array();
 	$info['name'] = $file;
-	if( isset( $file{17} ) )
+	if(isset($file[17]))
 	{
 		$info['name'] = substr( $matches[1], 0, ( 13 - strlen( $matches[2] ) ) ) . '...' . $matches[2];
 	}
