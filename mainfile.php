@@ -390,21 +390,7 @@ foreach( $list as $row )
 }
 
 
-
-
 define( 'NV_MAIN_DOMAIN',  in_array( $global_config['site_domain'], $global_config['my_domains'] ) ? str_replace( NV_SERVER_NAME, $global_config['site_domain'], NV_MY_DOMAIN )  : NV_MY_DOMAIN );
-file_put_contents(
-    NV_ROOTDIR . '/nv_host_debug_2.log',
-    date('c')
-    . " - HTTP_HOST=" . ($_SERVER['HTTP_HOST'] ?? '')
-    . " - SERVER_NAME=" . ($_SERVER['SERVER_NAME'] ?? '')
-    . " - NV_SERVER_NAME=" . NV_SERVER_NAME
-    . " - site_domain=" . $global_config['site_domain']
-	. " - site_url=" . $global_config['site_url']
-	. " - NV_MY_DOMAIN=" .  NV_MY_DOMAIN
-    . PHP_EOL,
-    FILE_APPEND
-);
 
 
 $global_config['smtp_password'] = $crypt->aes_decrypt( nv_base64_decode( $global_config['smtp_password'] ) );
