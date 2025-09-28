@@ -178,58 +178,54 @@ if( empty( $error ) )
 	{
 			$did = $array_dirname[$path];
 			$path = preg_replace('#^' . preg_quote(NV_UPLOADS_DIR . '/', '#') . '#', '', $path);
-			$real_path = NV_UPLOADS_DIR . '/' . $path; // uploads/shops/2025_09				
+			$real_path = NV_UPLOADS_DIR . '/' . $path; 		
 			$upload_dir = NV_ROOTDIR . '/' . $real_path;			
 			 if (!is_dir($upload_dir)) {
 				nv_mkdir(NV_ROOTDIR . '/' . NV_UPLOADS_DIR, $path); // tạo đúng thư mục con
 			}
-
 			$file_name = $upload_info['basename'];
 			$file_path = $upload_dir . '/' . $file_name;
 
-			error_log("=== file_path: " . $file_path);
-			error_log("=== file_name: " . $file_name);
-			error_log("=== upload_dir: " . $upload_dir);
-			error_log("=== src_dir: " . $real_path);
-
-			if (!file_exists($file_path)) {
-				if (isset($_FILES['uploadfile']['tmp_name']) && is_uploaded_file($_FILES['uploadfile']['tmp_name'])) 
-				{
-					if (!move_uploaded_file($_FILES['uploadfile']['tmp_name'], $file_path)) 
-					{
-						error_log("=== MOVE UPLOADED FILE FAIL: " . $file_path);
-					} else 
-					{
-						error_log("=== MOVE UPLOADED FILE OK: " . $file_path);
-					}
-				} 
-				else 
-				{
-					error_log("=== UPLOAD SOURCE FILE NOT FOUND ===");
-				}
-			}
+			//error_log("=== file_path: " . $file_path);
+			//error_log("=== file_name: " . $file_name);
+			//error_log("=== upload_dir: " . $upload_dir);
+			//error_log("=== src_dir: " . $real_path);
+			// if (!file_exists($file_path)) {
+			// 	if (isset($_FILES['uploadfile']['tmp_name']) && is_uploaded_file($_FILES['uploadfile']['tmp_name'])) 
+			// 	{
+			// 		if (!move_uploaded_file($_FILES['uploadfile']['tmp_name'], $file_path)) 
+			// 		{
+			// 			error_log("=== MOVE UPLOADED FILE FAIL: " . $file_path);
+			// 		} else 
+			// 		{
+			// 			error_log("=== MOVE UPLOADED FILE OK: " . $file_path);
+			// 		}
+			// 	} 
+			// 	else 
+			// 	{
+			// 		error_log("=== UPLOAD SOURCE FILE NOT FOUND ===");
+			// 	}
+			// }
 
 			if (file_exists($file_path)) 
 			{				
 				$info = nv_getFileInfo($real_path, $file_name);	
-				clearstatcache(true, $file_path);
+				//clearstatcache(true, $file_path);
 				//$img_size = @getimagesize($file_path);
-				if ($img_size === false) {
-					error_log("=== getimagesize FAIL MANUAL: " . $file_path);
-				} else {
-					error_log("=== getimagesize OK: width=" . $img_size[0] . " height=" . $img_size[1]);
-				}
-
+				// if ($img_size === false) {
+				// 	error_log("=== getimagesize FAIL MANUAL: " . $file_path);
+				// } else {
+				// 	error_log("=== getimagesize OK: width=" . $img_size[0] . " height=" . $img_size[1]);
+				// }
 
 				// fix userid
-				$info['userid'] = $admin_info['userid'];
+				$info['userid'] = $admin_info['userid'];			
 
 				$img_size = @getimagesize($file_path);
 				$info['srcwidth']  = $img_size ? $img_size[0] : 0;
 				$info['srcheight'] = $img_size ? $img_size[1] : 0;
 				$info['filesize']  = filesize($file_path);
 				$info['mtime']     = filemtime($file_path);
-
 				$newalt = $nv_Request->get_title('filealt', 'post', '', true);
 				if (empty($newalt)) {
 					$newalt = preg_replace('/(.*)(\.[a-zA-Z0-9]+)$/', '\1', $file_name);

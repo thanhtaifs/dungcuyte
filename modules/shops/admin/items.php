@@ -14,7 +14,6 @@
 if( !defined( 'NV_IS_FILE_ADMIN' ) )
 	die( 'Stop!!!' );
 
-error_log("=== START items page shops ===");
 
 $page_title = $lang_module['content_list'];
 
