@@ -10,6 +10,8 @@
 
 if( ! defined( 'NV_ADMIN' ) or ! defined( 'NV_MAINFILE' ) or ! defined( 'NV_IS_MODADMIN' ) ) die( 'Stop!!!' );
 
+
+
 $menu_top = array(
 	'title' => $module_name,
 	'module_file' => '',
@@ -38,6 +40,7 @@ if( defined( 'NV_IS_SPADMIN' ) )
  */
 function nv_check_allow_upload_dir( $dir )
 {
+	//error_log("=== START nv_check_allow_upload_dir ===");
 	global $site_mods, $allow_upload_dir, $admin_info;
 
 	$dir = trim( $dir );
@@ -167,6 +170,7 @@ function nv_check_allow_upload_dir( $dir )
  */
 function nv_check_path_upload( $path )
 {
+	//error_log("=== START nv_check_path_upload ===");
 	global $allow_upload_dir, $global_config;
 
 	$path = htmlspecialchars( trim( $path ), ENT_QUOTES );
@@ -212,6 +216,8 @@ function nv_check_path_upload( $path )
  */
 function nv_get_viewImage( $fileName )
 {
+	//error_log("=== START nv_get_viewImage ===");
+	
 	global $array_thumb_config;
 
 	if( preg_match( '/^' . nv_preg_quote( NV_UPLOADS_DIR ) . '\/(([a-z0-9\-\_\/]+\/)*([a-z0-9\-\_\.]+)(\.(gif|jpg|jpeg|png|ico)))$/i', $fileName, $m ) )
@@ -335,6 +341,7 @@ function nv_get_viewImage( $fileName )
  */
 function nv_getFileInfo( $pathimg, $file )
 {
+	//error_log("=== START nv_getFileInfo ===");
 	global $array_images, $array_flash, $array_archives, $array_documents;
 
 	clearstatcache();

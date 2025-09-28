@@ -10,6 +10,8 @@
 
 if( ! defined( 'NV_IS_FILE_ADMIN' ) ) die( 'Stop!!!' );
 
+error_log("=== START cat page shops ===");
+
 $page_title = $lang_module['cat_title'];
 
 $table_name = $db_config['prefix'] . '_' . $module_data . '_catalogs';

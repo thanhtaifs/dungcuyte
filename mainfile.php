@@ -331,7 +331,7 @@ if( empty( $db->connect ) )
 }
 unset( $db_config['dbpass'] );
 
-error_log("=== mainfile before csdl ===");
+//error_log("=== mainfile before csdl ===");
 
 // Ten cac table cua CSDL dung chung cho he thong
 define( 'NV_AUTHORS_GLOBALTABLE', $db_config['prefix'] . '_authors' );
@@ -359,10 +359,10 @@ define( 'NV_REFSTAT_TABLE', NV_PREFIXLANG . '_referer_stats' );
 
 
 
-error_log("=== mainfile before sql excute ===");
+//error_log("=== mainfile before sql excute ===");
 
 $sql = "SELECT lang, module, config_name, config_value FROM " . NV_CONFIG_GLOBALTABLE . " WHERE lang='" . NV_LANG_DATA . "' or (lang='sys' AND module='site') ORDER BY module ASC";
-error_log("=== mainfile before sql query ===" . $sql);
+//error_log("=== mainfile before sql query ===" . $sql);
 $list = nv_db_cache( $sql, '', 'settings' );
 foreach( $list as $row )
 {
@@ -393,7 +393,7 @@ define( 'UPLOAD_CHECKING_MODE', $global_config['upload_checking_mode'] );
 
 if( defined( 'NV_ADMIN' ) )
 {
-	error_log("=== mainfile là ADMIN ===");
+	//error_log("=== mainfile là ADMIN ===");
 	if( ! file_exists( NV_ROOTDIR . '/language/' . NV_LANG_DATA . '/global.php' ) )
 	{
 		if( $global_config['lang_multi'] )
@@ -403,7 +403,7 @@ if( defined( 'NV_ADMIN' ) )
 		Header( 'Location: ' . NV_BASE_ADMINURL );
 		exit();
 	}
-	error_log("=== mainfile là ADMIN beforelanguage===");
+	//error_log("=== mainfile là ADMIN beforelanguage===");
 	if( ! file_exists( NV_ROOTDIR . '/language/' . NV_LANG_INTERFACE . '/global.php' ) )
 	{
 		if( $global_config['lang_multi'] )
@@ -413,7 +413,7 @@ if( defined( 'NV_ADMIN' ) )
 		Header( 'Location: ' . NV_BASE_ADMINURL );
 		exit();
 	}
-	error_log("=== mainfile là ADMIN ok ===");
+	//error_log("=== mainfile là ADMIN ok ===");
 }
 //error_log("=== mainfile before cronjobs ===");
 // cronjobs
@@ -425,7 +425,7 @@ if( $nv_Request->isset_request( 'second', 'get' ) and $nv_Request->get_string( '
 // Kiem tra tu cach admin
 if( defined( 'NV_IS_ADMIN' ) || defined( 'NV_IS_SPADMIN' ) )
 {
-	error_log("=== mainfile là Kiem tra tu cach admin ===");
+	//error_log("=== mainfile là Kiem tra tu cach admin ===");
 	trigger_error( 'Hacking attempt', 256 );
 }
 
@@ -436,15 +436,15 @@ define( 'ADMIN_LOGIN_MODE', $nv_check_update ? 1 : ( empty( $global_config['clos
 $admin_cookie = $nv_Request->get_bool( 'admin', 'session', false );
 if( ! empty( $admin_cookie ) )
 {
-	error_log("=== mainfile là Kiem tra admin_cookie ===");
+	//error_log("=== mainfile là Kiem tra admin_cookie ===");
 	require NV_ROOTDIR . '/includes/core/admin_access.php';
 	require NV_ROOTDIR . '/includes/core/is_admin.php';
-	error_log("=== mainfile là Kiem tra admin_cookie ok ===");
+	//error_log("=== mainfile là Kiem tra admin_cookie ok ===");
 }
 
 if( defined( 'NV_IS_ADMIN' ) )
 {
-	error_log("===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh===");
+	//error_log("===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh===");
 	// Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh
 	if( empty( $admin_info['checkpass'] ) )
 	{
@@ -454,7 +454,7 @@ if( defined( 'NV_IS_ADMIN' ) )
 			exit();
 		}
 	}
-	error_log("===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh ok ===");
+	//error_log("===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh ok ===");
 }
 else
 {
@@ -465,7 +465,7 @@ else
 	}
 }
 
-error_log("=== mainfile before Dinh chi hoat dong cua site ===");
+//error_log("=== mainfile before Dinh chi hoat dong cua site ===");
 // Dinh chi hoat dong cua site
 if( $nv_check_update and ! defined( 'NV_IS_UPDATE' ) )
 {
@@ -491,7 +491,7 @@ elseif( ! defined( 'NV_ADMIN' ) and ! defined( 'NV_IS_ADMIN' ) )
 }
 
 unset( $nv_check_update );
-error_log("=== mainfile before PCLZIP_TEMPORARY_DIR ===");
+//error_log("=== mainfile before PCLZIP_TEMPORARY_DIR ===");
 define( 'PCLZIP_TEMPORARY_DIR', NV_ROOTDIR . '/' . NV_TEMP_DIR . '/' );
 
 if( isset( $nv_plugin_area[2] ) )
@@ -502,7 +502,7 @@ if( isset( $nv_plugin_area[2] ) )
         include NV_ROOTDIR . '/includes/plugin/' . $_fplugin;
     }
 }
-error_log("=== mainfile before cache_file ===");
+//error_log("=== mainfile before cache_file ===");
 $cache_file = NV_LANG_DATA . '_sitemods_' . NV_CACHE_PREFIX . '.cache';
 if( ( $cache = nv_get_cache( 'modules', $cache_file ) ) != false )
 {

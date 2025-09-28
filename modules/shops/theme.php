@@ -12,7 +12,7 @@ if (!defined('NV_IS_MOD_SHOPS')) {
     die('Stop!!!');
 }
 
-error_log("=== theme.php loaded OK ===");
+//error_log("=== theme.php loaded OK ===");
 /**
  * redict_link()
  *

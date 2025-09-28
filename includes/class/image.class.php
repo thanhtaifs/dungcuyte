@@ -779,6 +779,7 @@ class image
 	 */
 	function save( $path, $newname = '', $quality = 100 )
 	{
+		
 		if( empty( $this->error ) )
 		{
 			if( $this->is_destroy )

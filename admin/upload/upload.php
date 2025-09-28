@@ -167,48 +167,69 @@ else
 	}
 }
 
-//error_log("=== editor upload page shops ===");
+error_log("=== editor upload page shops ===");
 
 $editor = $nv_Request->get_string( 'editor', 'post,get' );
 $CKEditorFuncNum = $nv_Request->get_string( 'CKEditorFuncNum', 'post,get', 0 );
 
 if( empty( $error ) )
 {
-	error_log("=== error upload page shops ===");
 	if( isset( $array_dirname[$path] ) )
 	{
 			$did = $array_dirname[$path];
-			// Đường dẫn lưu file upload
-			$upload_dir = NV_ROOTDIR . '/' . NV_UPLOADS_DIR;
-			$file_name  = $upload_info['basename'];
-			$file_path  = $upload_dir . '/' . $file_name;
-			// if (!file_exists($file_path)) {
-			// 	if (isset($_FILES['uploadfile']['tmp_name']) && is_uploaded_file($_FILES['uploadfile']['tmp_name'])) 
-			// 	{
-			// 		if (!move_uploaded_file($_FILES['uploadfile']['tmp_name'], $file_path)) 
-			// 		{
-			// 			error_log("=== MOVE UPLOADED FILE FAIL: " . $file_path);
-			// 		} else 
-			// 		{
-			// 			error_log("=== MOVE UPLOADED FILE OK: " . $file_path);
-			// 		}
-			// 	} 
-			// 	else 
-			// 	{
-			// 		error_log("=== UPLOAD SOURCE FILE NOT FOUND ===");
-			// 	}
-			// }
+			$path = preg_replace('#^' . preg_quote(NV_UPLOADS_DIR . '/', '#') . '#', '', $path);
+			$real_path = NV_UPLOADS_DIR . '/' . $path; // uploads/shops/2025_09				
+			$upload_dir = NV_ROOTDIR . '/' . $real_path;			
+			 if (!is_dir($upload_dir)) {
+				nv_mkdir(NV_ROOTDIR . '/' . NV_UPLOADS_DIR, $path); // tạo đúng thư mục con
+			}
+
+			$file_name = $upload_info['basename'];
+			$file_path = $upload_dir . '/' . $file_name;
+
+			error_log("=== file_path: " . $file_path);
+			error_log("=== file_name: " . $file_name);
+			error_log("=== upload_dir: " . $upload_dir);
+			error_log("=== src_dir: " . $real_path);
+
+			if (!file_exists($file_path)) {
+				if (isset($_FILES['uploadfile']['tmp_name']) && is_uploaded_file($_FILES['uploadfile']['tmp_name'])) 
+				{
+					if (!move_uploaded_file($_FILES['uploadfile']['tmp_name'], $file_path)) 
+					{
+						error_log("=== MOVE UPLOADED FILE FAIL: " . $file_path);
+					} else 
+					{
+						error_log("=== MOVE UPLOADED FILE OK: " . $file_path);
+					}
+				} 
+				else 
+				{
+					error_log("=== UPLOAD SOURCE FILE NOT FOUND ===");
+				}
+			}
 
 			if (file_exists($file_path)) 
-			{
-				//error_log("=== FILE EXISTS NOW: " . $file_path);
-				$info = nv_getFileInfo(NV_UPLOADS_DIR, $file_name);
+			{				
+				$info = nv_getFileInfo($real_path, $file_name);	
+				clearstatcache(true, $file_path);
+				//$img_size = @getimagesize($file_path);
+				if ($img_size === false) {
+					error_log("=== getimagesize FAIL MANUAL: " . $file_path);
+				} else {
+					error_log("=== getimagesize OK: width=" . $img_size[0] . " height=" . $img_size[1]);
+				}
+
+
 				// fix userid
 				$info['userid'] = $admin_info['userid'];
 
-				// tránh NULL cho ảnh
-				$info['srcwidth']  = (int)($info['srcwidth'] ?? 0);
-				$info['srcheight'] = (int)($info['srcheight'] ?? 0);
+				$img_size = @getimagesize($file_path);
+				$info['srcwidth']  = $img_size ? $img_size[0] : 0;
+				$info['srcheight'] = $img_size ? $img_size[1] : 0;
+				$info['filesize']  = filesize($file_path);
+				$info['mtime']     = filemtime($file_path);
+
 				$newalt = $nv_Request->get_title('filealt', 'post', '', true);
 				if (empty($newalt)) {
 					$newalt = preg_replace('/(.*)(\.[a-zA-Z0-9]+)$/', '\1', $file_name);
@@ -245,7 +266,7 @@ if( empty( $error ) )
 			}	
 				
 	}
-	//error_log("=== nv_insert_logs upload page shops ===");
+	error_log("=== nv_insert_logs upload page shops ===");
 	nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['upload_file'], $path . '/' . $upload_info['basename'], $admin_info['userid'] );
 	error_log("=== nv_insert_logs ok upload page shops ===");
 	if( $editor == 'ckeditor' )
@@ -269,5 +290,5 @@ else
 		echo 'ERROR_' . $error;
 	}
 }
-//error_log("=== finished upload page shops ===");
+error_log("=== finished upload page shops ===");
 exit();

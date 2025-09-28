@@ -11,6 +11,8 @@
 if( !defined( 'NV_IS_FILE_ADMIN' ) )
 	die( 'Stop!!!' );
 
+error_log('=== START content page shops ===');
+
 if( defined( 'NV_EDITOR' ) )
 {
 	require_once NV_ROOTDIR . '/' . NV_EDITORSDIR . '/' . NV_EDITOR . '/nv.php';
@@ -27,9 +29,12 @@ $month_dir_module = nv_mkdir( NV_UPLOADS_REAL_DIR . '/' . $module_upload, date( 
 $array_block_cat_module = array( );
 $id_block_content = array( );
 $array_custom = array( );
-$custom = array( );
+$custom = array();
+
 
 $sql = 'SELECT bid, adddefault, ' . NV_LANG_DATA . '_title FROM ' . $db_config['prefix'] . '_' . $module_data . '_block_cat ORDER BY weight ASC';
+error_log('=== START content page shops sql ===' . $sql );
+
 $result = $db->query( $sql );
 while( list( $bid_i, $adddefault_i, $title_i ) = $result->fetch( 3 ) )
 {
@@ -39,7 +44,7 @@ while( list( $bid_i, $adddefault_i, $title_i ) = $result->fetch( 3 ) )
 		$id_block_content[] = $bid_i;
 	}
 }
-
+error_log('=== START content page shops result ===' );
 $catid = $nv_Request->get_int( 'catid', 'get', 0 );
 
 $rowcontent = array(
@@ -99,6 +104,7 @@ $is_copy = $nv_Request->isset_request( 'copy', 'get' );
 $rowcontent['id'] = $nv_Request->get_int( 'id', 'get,post', 0 );
 
 $group_id_old = array( );
+error_log('=== START content page shops rowcontent ===' );
 if( $rowcontent['id'] > 0 )
 {
 	// Old group
@@ -126,9 +132,11 @@ if( $rowcontent['id'] > 0 )
 	}
 }
 
+error_log('=== START pass content page shops rowcontent[id] ===' );
+
 if( $nv_Request->get_int( 'save', 'post' ) == 1 )
-{
-    //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "Run: Add San Pham \n", FILE_APPEND);
+{   
+	error_log('=== START Add San Pham ===');
 	$field_lang = nv_file_table( $table_name );
 	$id_block_content = array_unique( $nv_Request->get_typed_array( 'bids', 'post', 'int', array( ) ) );
 	$rowcontent['listcatid'] = $nv_Request->get_int( 'catid', 'post', 0 );
@@ -901,7 +909,8 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 }
 elseif( $rowcontent['id'] > 0 )
 {
-	//file_put_contents(NV_ROOTDIR . '/menu_debug.log', "Run: Update San Pham \n", FILE_APPEND);
+
+	error_log('=== START update San Pham ===');	
 	$files = $rowcontent['files'];
 	$keyword = $rowcontent['keywords'];
 	$rowcontent = $db->query( "SELECT * FROM " . $db_config['prefix'] . "_" . $module_data . "_rows where id=" . $rowcontent['id'] )->fetch( );
@@ -1324,6 +1333,9 @@ if( $rowcontent['listcatid'] AND !empty( $global_array_shops_cat[$rowcontent['li
 	$datacustom_form = nv_show_custom_form( $rowcontent['id'], $global_array_shops_cat[$rowcontent['listcatid']]['form'], $custom );
 	$xtpl->assign( 'DATACUSTOM_FORM', $datacustom_form );
 }
+
+
+error_log('=== START content page shops finished ===' );
 
 $xtpl->parse( 'main' );
 $contents = $xtpl->text( 'main' );
