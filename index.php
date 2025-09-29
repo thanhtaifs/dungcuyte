@@ -285,7 +285,7 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 				Header( 'Location: ' . nv_url_rewrite( $nv_redirect ) );
 				die();
 			}
-			error_log(" Tuy chon kieu giao dien pass");
+			//error_log(" Tuy chon kieu giao dien pass");
 			// Xac dinh cac $op, $array_op
 			$array_op = array();
 			if( ! preg_match( '/^[a-z0-9\-\_\/\+]+$/i', $op ) )
@@ -293,7 +293,7 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 				Header( 'Location: ' . nv_url_rewrite( NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name, true ) );
 				die();
 			}
-			error_log("Xac dinh cac op, array_op pass");
+			//error_log("Xac dinh cac op, array_op pass");
 			if( $op != 'main' and ! isset( $module_info['funcs'][$op] ) )
 			{
 				$array_op = explode( '/', $op );
@@ -326,7 +326,7 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 					}
 				}
 			}
-			error_log("Xac dinh quyen dieu hanh module pass");
+			//error_log("Xac dinh quyen dieu hanh module pass");
 			// Ket noi ngon ngu cua module
 			if( file_exists( NV_ROOTDIR . '/modules/' . $module_file . '/language/' . NV_LANG_INTERFACE . '.php' ) )
 			{
@@ -336,7 +336,7 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 			{
 				require NV_ROOTDIR . '/modules/' . $module_file . '/language/en.php';
 			}
-			error_log("Ket noi ngon ngu cua module pass");
+			//error_log("Ket noi ngon ngu cua module pass");
 			// Xac dinh kieu giao dien mac dinh
 			$global_config['current_theme_type'] = $nv_Request->get_string( 'nv' . NV_LANG_DATA . 'themever', 'cookie', '' );
 
@@ -373,7 +373,7 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 					trigger_error( 'Error! Does not exist themes default', 256 );
 				}
 			}
-			error_log("Xac dinh giao dien chung pass");
+			//error_log("Xac dinh giao dien chung pass");
 			// Xac lap lai giao kieu giao dien hien tai
 			if( $theme_type != $global_config['current_theme_type'] )
 			{
@@ -437,7 +437,7 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 			{
 				//error_log("Ket noi voi file functions.php, file chua cac function vào được if");
 				require NV_ROOTDIR . '/modules/' . $module_file . '/functions.php';
-				error_log("DEBUG path: " . NV_ROOTDIR . '/modules/' . $module_file . '/functions.php');
+				//error_log("DEBUG path: " . NV_ROOTDIR . '/modules/' . $module_file . '/functions.php');
 			}
 			
 			
