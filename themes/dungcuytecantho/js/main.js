@@ -292,6 +292,7 @@ function showSubBreadcrumbs(a, b) {
 $(function() {
 	winResize();
 	fix_banner_center();
+		
 	// Modify all empty link
 	$('a[href="#"], a[href=""]').attr("href", "javascript:void(0);");
 	// Smooth scroll to top
@@ -427,12 +428,15 @@ $(function() {
         $("body").removeClass("over_hid");
     });
     
-      $(".mobile-menu").slicknav({
+    $(".mobile-menu").slicknav({
         prependTo: '#mobile-menu-wrap',
         allowParentLinks: false
     });
+
+
     
 });
+
 // Fix bootstrap multiple modal
 $(document).on({
 	'show.bs.modal': function() {
@@ -450,16 +454,16 @@ $(document).on({
 		}
 	}
 }, '.modal');
+
 $(window).on("resize", function() {
 	winResize();
 	fix_banner_center();
-	nvbreadcrumbs();
-	//if (150 < cRangeX || 150 < cRangeY) tipHide(), ftipHide()
+	nvbreadcrumbs();	
 });
 
 
 // Load Social script - lasest
-$(window).load(function() {
+$(window).on("load", function() {
 	nvbreadcrumbs();
 	(0 < $(".fb-share-button").length || 0 < $(".fb-like").length) && (1 > $("#fb-root").length && $("body").append('<div id="fb-root"></div>'), function(a, b, c) {
 		var d = a.getElementsByTagName(b)[0];
@@ -502,11 +506,8 @@ $(window).load(function() {
 
     $('.hero__categories__all').on('click', function(){
         $('.hero__categories ul').slideToggle(200);
-    });
+    });  
     
-    
-    
-  
    /*-----------------------
         Categories Slider
     ------------------------*/
@@ -540,6 +541,14 @@ $(window).load(function() {
                 items: 4,
             }
         }
-    });
-    
+    });	
+	
+    console.log("✅ Script loaded"); // test trước
+
+
+	$('.cart-icon-btn').click(function() {
+		console.log("✅ Bắt được click!");
+	});
 });
+
+
