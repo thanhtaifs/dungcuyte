@@ -36,7 +36,7 @@ ul, ol {
 }
 
 .header__top_menu {
-     background: linear-gradient(to bottom, #4B7A00, #5C8A00);
+     background: linear-gradient(to bottom, #2e9f3c, #5ea700);
     padding: 4px 8px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 	height: 65px;
@@ -327,7 +327,7 @@ ul, ol {
 
 /* Cart Styles with #65aa00 */
         .cart-icon-btn {
-            background: linear-gradient(135deg, #65aa00, #7bc100);
+            background: linear-gradient(135deg, #2e9f3c, #5ea700);
             border: none;
             border-radius: 25px;
             padding: 8px 15px;
@@ -640,7 +640,7 @@ ul, ol {
 
 .hero__search__form .search__button button {
     color: #fff;
-    background-color: #6EB433;
+   	background: linear-gradient(to bottom, #2e9f3c, #5ea700); 
     border-color: #6EB433;
     display: inline-block;
     font-weight: bold;
@@ -1977,7 +1977,7 @@ header{
 	display:block;
 	width:32px;
 	height:32px;
-	background:#6EB433;
+	background: linear-gradient(to bottom, #2e9f3c, #5ea700);
 	color:#fff;
 	margin-right:10px;
 	text-align:center;
