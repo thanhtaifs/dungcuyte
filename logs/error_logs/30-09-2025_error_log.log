@@ -1,5 +1,0 @@
-[Tue, 30 Sep 2025 07:28:28 +0700] [127.0.0.1] [Warning(2): Undefined variable $nv_Cache] [FILE: /modules/shops/global.functions.php] [LINE: 66]
-[Tue, 30 Sep 2025 07:28:45 +0700] [127.0.0.1] [Run-time notices(8192): Required parameter $data_title follows optional parameter $html_pages] [FILE: /modules/shops/theme.php] [LINE: 224]
-[Tue, 30 Sep 2025 07:28:45 +0700] [127.0.0.1] [Run-time notices(8192): Required parameter $viewtype follows optional parameter $sort] [FILE: /modules/shops/theme.php] [LINE: 1126]
-[Tue, 30 Sep 2025 07:28:45 +0700] [127.0.0.1] [Run-time notices(8192): Required parameter $viewtype follows optional parameter $sort] [FILE: /modules/shops/theme.php] [LINE: 1328]
-[Tue, 30 Sep 2025 07:28:45 +0700] [127.0.0.1] [Warning(2): Undefined variable $catid_i] [FILE: /themes/dungcuytecantho/theme.php] [LINE: 184]
