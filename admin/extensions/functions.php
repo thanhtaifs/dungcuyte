@@ -98,11 +98,11 @@ function is_serialized_string( $data )
 	{
 		return false;
 	}
-	elseif( $data{1} !== ':' )
+	elseif( $data[1]!== ':' )
 	{
 		return false;
 	}
-	elseif( $data{0} !== 'a' )
+	elseif( $data[0]!== 'a' )
 	{
 		return false;
 	}

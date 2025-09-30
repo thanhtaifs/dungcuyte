@@ -41,20 +41,20 @@ spl_autoload_register( function ( $classname )
 	include NV_ROOTDIR . '/includes/class/' . strtolower( $classname ) . '.class.php';
 } );
 
-//error_log("=== mainfile before file constants, config ===");
+error_log("=== mainfile before file constants, config ===");
 // Ket noi voi cac file constants, config
 require NV_ROOTDIR . '/includes/constants.php';
 
 if( file_exists( NV_ROOTDIR . '/' . NV_CONFIG_FILENAME ) )
 {
-	//error_log("=== mainfile if file constants, config ===");
-	//error_log(NV_ROOTDIR . ' 1111 ' . NV_CONFIG_FILENAME);
+	error_log("=== mainfile if file constants, config ===");
+	error_log(NV_ROOTDIR . ' 1111 ' . NV_CONFIG_FILENAME);
 	require realpath( NV_ROOTDIR . '/' . NV_CONFIG_FILENAME );
-	//error_log("=== mainfile require realpath constants, config ===");
+	error_log("=== mainfile require realpath constants, config ===");
 }
 else
 {
-	//error_log("=== mainfile else file constants, config ===");
+	error_log("=== mainfile else file constants, config ===");
 	if( file_exists( NV_ROOTDIR . '/install/index.php' ) )
 	{
 		$base_siteurl = pathinfo( $_SERVER['PHP_SELF'], PATHINFO_DIRNAME );
@@ -71,7 +71,7 @@ else
 	}
 	die();
 }
-//error_log("=== mainfile before config_global ===");
+error_log("=== mainfile before config_global ===");
 require NV_ROOTDIR . '/' . NV_DATADIR . '/config_global.php';
 
 if( defined( 'NV_CONFIG_DIR' ) )
@@ -216,19 +216,6 @@ require NV_ROOTDIR . '/language/' . NV_LANG_INTERFACE . '/global.php';
 // vd: http://mydomain1.com/ten_thu_muc_chua_site
 $global_config['site_url'] = $nv_Request->site_url;
 
-// file_put_contents(
-//     NV_ROOTDIR . '/nv_host_debug.log',
-//     date('c')
-//     . " - HTTP_HOST=" . ($_SERVER['HTTP_HOST'] ?? '')
-//     . " - SERVER_NAME=" . ($_SERVER['SERVER_NAME'] ?? '')
-//     . " - NV_SERVER_NAME=" . NV_SERVER_NAME
-//     . " - site_domain=" . $global_config['site_domain']
-// 	. " - site_url=" . $global_config['site_url']
-// 	. " - NV_MY_DOMAIN=" .  NV_MY_DOMAIN
-//     . PHP_EOL,
-//     FILE_APPEND
-// );
-
 // Xac dinh duong dan thuc den thu muc upload
 define( 'NV_UPLOADS_REAL_DIR', NV_ROOTDIR . '/' . NV_UPLOADS_DIR );
 
@@ -319,8 +306,8 @@ if( $nv_Request->isset_request( 'scaptcha', 'get' ) )
 
 try {
     $crypt = new nv_Crypt( $global_config['sitekey']);
-} catch (Throwable $e) {    
-	error_log("=== mainfile Crypt init error: check nv_mainfile_debug.log ===");
+} catch (\Throwable $e) {
+    file_put_contents(__DIR__ . '/nv_mainfile_debug.log', $e->getMessage(), FILE_APPEND);
     die('Crypt init error: check nv_mainfile_debug.log');
 }
 
@@ -390,9 +377,8 @@ foreach( $list as $row )
 }
 
 
-
-
 define( 'NV_MAIN_DOMAIN',  in_array( $global_config['site_domain'], $global_config['my_domains'] ) ? str_replace( NV_SERVER_NAME, $global_config['site_domain'], NV_MY_DOMAIN )  : NV_MY_DOMAIN );
+
 
 $global_config['smtp_password'] = $crypt->aes_decrypt( nv_base64_decode( $global_config['smtp_password'] ) );
 if( $sys_info['ini_set_support'] )
@@ -458,7 +444,7 @@ if( ! empty( $admin_cookie ) )
 
 if( defined( 'NV_IS_ADMIN' ) )
 {
-	error_log("===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh===");
+	//error_log("===  Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh===");
 	// Buoc admin khai bao lai pass neu khong online trong khoang thoi gian nhat dinh
 	if( empty( $admin_info['checkpass'] ) )
 	{

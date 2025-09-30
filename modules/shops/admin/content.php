@@ -11,6 +11,8 @@
 if( !defined( 'NV_IS_FILE_ADMIN' ) )
 	die( 'Stop!!!' );
 
+//error_log('=== START content page shops ===');
+
 if( defined( 'NV_EDITOR' ) )
 {
 	require_once NV_ROOTDIR . '/' . NV_EDITORSDIR . '/' . NV_EDITOR . '/nv.php';
@@ -27,9 +29,12 @@ $month_dir_module = nv_mkdir( NV_UPLOADS_REAL_DIR . '/' . $module_upload, date( 
 $array_block_cat_module = array( );
 $id_block_content = array( );
 $array_custom = array( );
-$custom = array( );
+$custom = array();
+
 
 $sql = 'SELECT bid, adddefault, ' . NV_LANG_DATA . '_title FROM ' . $db_config['prefix'] . '_' . $module_data . '_block_cat ORDER BY weight ASC';
+//error_log('=== START content page shops sql ===' . $sql );
+
 $result = $db->query( $sql );
 while( list( $bid_i, $adddefault_i, $title_i ) = $result->fetch( 3 ) )
 {
@@ -39,7 +44,7 @@ while( list( $bid_i, $adddefault_i, $title_i ) = $result->fetch( 3 ) )
 		$id_block_content[] = $bid_i;
 	}
 }
-
+//error_log('=== START content page shops result ===' );
 $catid = $nv_Request->get_int( 'catid', 'get', 0 );
 
 $rowcontent = array(
@@ -99,6 +104,7 @@ $is_copy = $nv_Request->isset_request( 'copy', 'get' );
 $rowcontent['id'] = $nv_Request->get_int( 'id', 'get,post', 0 );
 
 $group_id_old = array( );
+//error_log('=== START content page shops rowcontent ===' );
 if( $rowcontent['id'] > 0 )
 {
 	// Old group
@@ -126,9 +132,11 @@ if( $rowcontent['id'] > 0 )
 	}
 }
 
+//error_log('=== START pass content page shops rowcontent[id] ===' );
+
 if( $nv_Request->get_int( 'save', 'post' ) == 1 )
-{
-    //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "Run: Add San Pham \n", FILE_APPEND);
+{   
+	//error_log('=== START Add San Pham ===');
 	$field_lang = nv_file_table( $table_name );
 	$id_block_content = array_unique( $nv_Request->get_typed_array( 'bids', 'post', 'int', array( ) ) );
 	$rowcontent['listcatid'] = $nv_Request->get_int( 'catid', 'post', 0 );
@@ -342,6 +350,8 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
             $error_message = "Mã sản phẩm đúng !!!";
         		
         }
+
+		//error_log('===error_message ===' . $error_message);
 		
 		//file_put_contents(NV_ROOTDIR . '/menu_debug.log', "Run:" . $error_message . ":\n", FILE_APPEND);
 	}
@@ -421,7 +431,7 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 	{
 		require NV_ROOTDIR . '/modules/' . $module_file . '/fields.check.php';
 	}
-
+	//error_log('=== Xu ly tu khoa ===' );
 	if( empty( $error ) )
 	{
 		// Xu ly tu khoa
@@ -467,7 +477,7 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 		//file_put_contents(NV_ROOTDIR . '/menu_debug.log', "keywords :" . $rowcontent['keywords'] . ":\n", FILE_APPEND);
 		
 		$rowcontent['status'] = ($nv_Request->isset_request( 'status1', 'post' )) ? 1 : 0;
-
+		//error_log('=== Xu ly anh minh hoa ===' );
 		// Xu ly anh minh hoa
 		$rowcontent['homeimgthumb'] = 0;
 		if( !nv_is_url( $rowcontent['homeimgfile'] ) and is_file( NV_DOCUMENT_ROOT . $rowcontent['homeimgfile'] ) )
@@ -500,7 +510,7 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 			$listfield .= ', ' . $flang . '_' . $fname;
 			$listvalue .= ', :' . $flang . '_' . $fname;
 		}
-		
+		//error_log('=== qua được hàm Xu ly anh minh hoa ===' );
 		//file_put_contents(NV_ROOTDIR . '/menu_debug.log', "qua được hàm Xu ly anh minh hoa \n", FILE_APPEND);
 
 		if( $rowcontent['id'] == 0 or $is_copy )
@@ -789,13 +799,12 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 				$error = $lang_module['errorsave'];
 			}
 		}
-        //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "qua được check is_copy \n", FILE_APPEND);
 	    // Bỏ kiểm tra trạng thái
-		//nv_set_status_module( );
-        //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "gia tri error :" . $error . ":\n", FILE_APPEND);
+		//nv_set_status_module();
+		//error_log( "gia tri error :" . $error);
 		if( $error == '' )
 		{
-		    //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "vào check if error \n", FILE_APPEND);
+			//error_log( "vào check if error");
 			$db->query( 'DELETE FROM ' . $db_config['prefix'] . '_' . $module_data . '_block WHERE id = ' . $rowcontent['id'] );
 
 			foreach( $id_block_content as $bid_i )
@@ -807,40 +816,51 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 			{
 				nv_news_fix_block( $bid_i );
 			}
-            //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "chuẩn bị check Update tags list \n", FILE_APPEND);
+			//error_log( "chuẩn bị check Update tags list");
              
 			// Update tags list
 			if( $rowcontent['keywords'] != $rowcontent['keywords_old'] )
 			{
 			    //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "vào được Update tags list \n", FILE_APPEND);
+				//error_log( "vào được Update tags list");
 				$keywords = explode( ',', $rowcontent['keywords'] );
 				$keywords = array_map( 'strip_punctuation', $keywords );
 				$keywords = array_map( 'trim', $keywords );
 				$keywords = array_diff( $keywords, array( '' ) );
 				$keywords = array_unique( $keywords );
-
+				//error_log( "chuẩn bị vào foreach  Update tags list");
 				foreach( $keywords as $keyword )
 				{
-					if( !in_array( $keyword, $array_keywords_old ) )
+					//error_log( "foreach");
+					//error_log("DEBUG array_keywords_old: " . gettype($array_keywords_old));
+					//error_log(print_r($array_keywords_old, true));
+
+					if( !is_array($array_keywords_old) ) {
+						$array_keywords_old = [];
+					}
+
+					if( !in_array( $keyword, $array_keywords_old) )
 					{
+						//error_log( "foreach have items");
 						$alias_i = ($module_config[$module_name]['tags_alias']) ? change_alias( $keyword ) : str_replace( ' ', '-', $keyword );
 						$alias_i = nv_strtolower( $alias_i );
 						$sth = $db->prepare( 'SELECT tid, alias, description, keywords FROM ' . $db_config['prefix'] . '_' . $module_data . '_tags_' . NV_LANG_DATA . ' where alias= :alias OR FIND_IN_SET(:keyword, keywords)>0' );
 						$sth->bindParam( ':alias', $alias_i, PDO::PARAM_STR );
 						$sth->bindParam( ':keyword', $keyword, PDO::PARAM_STR );
 						$sth->execute( );
-
+						//error_log( "foreach have items and excute");
 						list( $tid, $alias, $keywords_i ) = $sth->fetch( 3 );
 						if( empty( $tid ) )
 						{
-							$array_insert = array( );
+							//error_log( "chuẩn bị vào foreach empty tid Update tags list");
+							$array_insert = array();
 							$array_insert['alias'] = $alias_i;
 							$array_insert['keyword'] = $keyword;
-
 							$tid = $db->insert_id( "INSERT INTO " . $db_config['prefix'] . "_" . $module_data . "_tags_" . NV_LANG_DATA . " (numpro, alias, description, image, keywords) VALUES (1, :alias, '', '', :keyword)", "tid", $array_insert );
 						}
 						else
 						{
+							//error_log( "chuẩn bị vào foreach else empty tid Update tags list");
 							if( $alias != $alias_i )
 							{
 								if( !empty( $keywords_i ) )
@@ -866,20 +886,22 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 						// insert keyword for table _tags_id
 						try
 						{
+							//error_log( "insert keyword for table _tags_id");
 							$sth = $db->prepare( 'INSERT INTO ' . $db_config['prefix'] . '_' . $module_data . '_tags_id_' . NV_LANG_DATA . ' (id, tid,  keyword) VALUES (' . $rowcontent['id'] . ', ' . intval( $tid ) . ', :keyword)' );
 							$sth->bindParam( ':keyword', $keyword, PDO::PARAM_STR );
 							$sth->execute( );
 						}
 						catch( PDOException $e )
 						{
+							error_log($e);
 							$sth = $db->prepare( 'UPDATE ' . $db_config['prefix'] . '_' . $module_data . '_tags_id_' . NV_LANG_DATA . ' SET  keyword = :keyword WHERE id = ' . $rowcontent['id'] . ' AND tid=' . intval( $tid ) );
 							$sth->bindParam( ':keyword', $keyword, PDO::PARAM_STR );
 							$sth->execute( );
 						}
 						unset( $array_keywords_old[$tid] );
-					}
+					}			
 				}
-
+				//error_log( "update được Update tags list thành công");
 				foreach( $array_keywords_old as $tid => $keyword )
 				{
 					if( !in_array( $keyword, $keywords ) )
@@ -889,6 +911,7 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 					}
 				}
 			}
+			//error_log( "trước hàm nv_del_moduleCache");
             //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "trước hàm nv_del_moduleCache \n", FILE_APPEND);
 			nv_del_moduleCache( $module_name );
 			Header( 'Location: ' . NV_BASE_ADMINURL . 'index.php?' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=items' );
@@ -897,11 +920,12 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 
 		nv_del_moduleCache( $module_name );
 	}
-	//file_put_contents(NV_ROOTDIR . '/menu_debug.log', "Hoàn thành hàm thêm sản phẩm \n", FILE_APPEND);
+	//error_log('=== END hoan thanh them san pham moi ===' );
 }
 elseif( $rowcontent['id'] > 0 )
 {
-	//file_put_contents(NV_ROOTDIR . '/menu_debug.log', "Run: Update San Pham \n", FILE_APPEND);
+
+	//error_log('=== START update San Pham ===');	
 	$files = $rowcontent['files'];
 	$keyword = $rowcontent['keywords'];
 	$rowcontent = $db->query( "SELECT * FROM " . $db_config['prefix'] . "_" . $module_data . "_rows where id=" . $rowcontent['id'] )->fetch( );
@@ -1317,13 +1341,13 @@ if( !$pro_config['active_warehouse'] )
 	}
 	$xtpl->parse( 'main.warehouse' );
 }
-
 // Custom fiels
 if( $rowcontent['listcatid'] AND !empty( $global_array_shops_cat[$rowcontent['listcatid']]['form'] ) )
 {
 	$datacustom_form = nv_show_custom_form( $rowcontent['id'], $global_array_shops_cat[$rowcontent['listcatid']]['form'], $custom );
 	$xtpl->assign( 'DATACUSTOM_FORM', $datacustom_form );
 }
+//error_log('=== START content page shops finished ===' );
 
 $xtpl->parse( 'main' );
 $contents = $xtpl->text( 'main' );

@@ -7,42 +7,7 @@
        <!-- Humberger Begin -->
        <div class="humberger__menu__overlay"></div>
        <div class="humberger__menu__wrapper">
-          [MOBILE_MENU]        
-        <div class="header__top__right__social">   
-        <!-- CART INTEGRATION START -->
-                                    <div class="position-relative d-inline-block">
-                                        <button class="cart-icon-btn" id="cartToggle">
-                                            <i class="fa fa-shopping-cart"></i>
-                                                Giỏ hàng
-                                            <span class="cart-badge" id="cartBadge">0</span>
-                                        </button>                                        
-                                        <!-- Cart Dropdown -->
-                                        <div class="cart-dropdown" id="cartDropdown">
-                                            <div class="cart-dropdown-header">
-                                                <i class="fas fa-shopping-cart mr-2"></i>
-                                                Giỏ hàng của bạn
-                                            </div>                                            
-                                            <div class="cart-content" id="cartContent">
-                                                <div class="empty-cart">
-                                                    <i class="fas fa-shopping-bag"></i>
-                                                    <p class="mb-0">Giỏ hàng trống</p>
-                                                    <small>Thêm sản phẩm để bắt đầu mua sắm!</small>
-                                                </div>
-                                            </div>                                            
-                                            <div class="cart-footer" id="cartFooter" style="display: none;">
-                                                <div class="cart-total">
-                                                    <span>Tổng cộng:</span>
-                                                    <span class="total-price" id="totalPrice">0đ</span>
-                                                </div>
-                                                <button class="checkout-btn">
-                                                    <i class="fas fa-credit-card mr-2"></i>
-                                                    Thanh toán ngay
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <!-- CART INTEGRATION END -->                                 
-        </div>
+            [MOBILE_MENU]        
         <div class="humberger__menu__contact">
             <ul>
                 <li><a href="mailto:huynhgiact65@gmail.com">
@@ -147,6 +112,10 @@
                    </div>
                    <div class="humberger__open">
                         <i class="fa fa-bars"></i>
+                    </div>
+                    <div class="cart-mobile">
+                       <i class="fa fa-shopping-cart"></i>
+                       <span class="cart-icon-badge" id="cart-icon-badge">0</span>
                     </div>
            </div>
            </div>

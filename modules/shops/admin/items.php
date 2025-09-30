@@ -8,8 +8,12 @@
  * @Createdate 9-8-2010 14:43
  */
 
+
+
+
 if( !defined( 'NV_IS_FILE_ADMIN' ) )
 	die( 'Stop!!!' );
+
 
 $page_title = $lang_module['content_list'];
 
@@ -24,6 +28,8 @@ if( !defined( 'SHADOWBOX' ) )
 	define( 'SHADOWBOX', true );
 }
 
+
+//error_log("===List pro_unit itmes shop loaded OK ===");
 // List pro_unit
 $array_unit = array();
 $sql = 'SELECT id, ' . NV_LANG_DATA . '_title FROM ' . $db_config['prefix'] . '_' . $module_data . '_units';
@@ -115,6 +121,9 @@ $from = $db_config['prefix'] . '_' . $module_data . '_rows AS a LEFT JOIN ' . NV
 $page = $nv_Request->get_int( 'page', 'get', 1 );
 $checkss = $nv_Request->get_string( 'checkss', 'get', '' );
 
+
+//error_log("===session_id itmes shop loaded OK ===");
+
 if( $checkss == md5( session_id( ) ) )
 {
 	// Tim theo tu khoa
@@ -161,7 +170,6 @@ if( $checkss == md5( session_id( ) ) )
 		}
 		$from .= ' )';
 	}
-
 	// Tim theo loai san pham
 	if( !empty( $catid ) )
 	{
@@ -262,6 +270,8 @@ foreach( $global_array_shops_cat as $cat )
 	}
 }
 
+
+
 // Kieu tim kiem
 foreach( $array_search as $key => $val )
 {
@@ -336,6 +346,8 @@ else
 	$xtpl->parse( 'main.no_order_num_sell' );
 }
 
+
+
 // Thong tin tim kiem
 $xtpl->assign( 'Q', $q );
 $xtpl->assign( 'FROM', $from_time );
@@ -404,7 +416,6 @@ while( list( $id, $listcatid, $admin_id, $homeimgfile, $homeimgthumb, $title, $a
 	{
 		$imghome = $thumb = NV_BASE_SITEURL . 'themes/dungcuytecantho/images/' . $module_file . '/no-image.jpg';
 	}
-
 	$xtpl->assign( 'ROW', array(
 		'id' => $id,
 		'link' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $global_array_shops_cat[$catid_i]['alias'] . '/' . $alias . $global_config['rewrite_exturl'],
@@ -426,8 +437,8 @@ while( list( $id, $listcatid, $admin_id, $homeimgfile, $homeimgthumb, $title, $a
 		'imghome' => $imghome,
 		'link_edit' => nv_link_edit_page( $id ),
 		'link_delete' => nv_link_delete_page( $id )
-	) );
-
+	));
+	
 	if( $num_sell > 0 )
 	{
 		$xtpl->parse( 'main.loop.seller' );
@@ -460,14 +471,15 @@ if( $pro_config['active_warehouse'] )
 	$array_list_action['warehouse'] = $lang_module['warehouse'];
 }
 
-while( list( $catid_i, $title_i ) = each( $array_list_action ) )
+//error_log("===list shop loaded OK ===");
+
+foreach( $array_list_action as $catid_i => $title_i )
 {
-	$xtpl->assign( 'ACTION', array(
-		'key' => $catid_i,
-		'title' => $title_i
-	) );
-	$xtpl->parse( 'main.action' );
+    $xtpl->assign( 'ACTION', array('key' => $catid_i,'title' => $title_i));
+    $xtpl->parse( 'main.action' );
 }
+
+//error_log("=== while list shops loaded OK ===");
 
 $xtpl->assign( 'ACTION_CHECKSESS', md5( $global_config['sitekey'] . session_id( ) ) );
 
@@ -480,6 +492,8 @@ if( !empty( $generate_page ) )
 
 $xtpl->parse( 'main' );
 $contents = $xtpl->text( 'main' );
+
+error_log("===main shops finish loaded OK ===");
 
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_admin_theme( $contents );

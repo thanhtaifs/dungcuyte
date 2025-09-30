@@ -10,6 +10,7 @@
 
 if( ! defined( 'NV_IS_FILE_ADMIN' ) ) die( 'Stop!!!' );
 
+error_log("=== START getcatalog.php ===");
 $pid = $nv_Request->get_int( 'pid', 'get', 0 );
 
 if( $pid == 0 )

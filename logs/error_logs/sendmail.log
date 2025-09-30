@@ -1,1 +1,2 @@
 [Mon, 22 Sep 2025 07:38:54 +0700] [Array] [User Error(256): GD not installed] [FILE: /includes/ini.php] [LINE: 80] [AGENT: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36]
+[Sat, 27 Sep 2025 08:18:02 +0700] [127.0.0.1] [User Error(256): Sorry! Could not connect to data server] [FILE: /mainfile.php] [LINE: 343] [AGENT: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36]

@@ -180,8 +180,12 @@ function nv_site_theme( $contents, $full = true )
 		// 	}
 		// }
 
+		// Đảm bảo biến $global_array_shops_cat được khai báo
+		if (!isset($global_array_shops_cat)) {
+			global $global_array_shops_cat;
+		}
 		// Lặp từ con lên cha
-		while ($catid_i > 0) {
+		while (isset($catid_i) && $catid_i > 0 && isset($global_array_shops_cat[$catid_i])) {
 			$array_mod_title[] = array(
 				'catid' => $catid_i,
 				'title' => $global_array_shops_cat[$catid_i]['title'],

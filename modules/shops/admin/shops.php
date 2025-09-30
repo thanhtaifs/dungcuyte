@@ -10,6 +10,8 @@
 
 if ( ! defined( 'NV_IS_FILE_ADMIN' ) ) die( 'Stop!!!' );
 
+//error_log("=== START shops page shops ===");
+
 if( $nv_Request->isset_request( 'ajax_action', 'post' ) )
 {
 	$id = $nv_Request->get_int( 'id', 'post', 0 );

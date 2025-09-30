@@ -292,7 +292,6 @@ function showSubBreadcrumbs(a, b) {
 $(function() {
 	winResize();
 	fix_banner_center();
-		
 	// Modify all empty link
 	$('a[href="#"], a[href=""]').attr("href", "javascript:void(0);");
 	// Smooth scroll to top
@@ -428,12 +427,30 @@ $(function() {
         $("body").removeClass("over_hid");
     });
     
-    $(".mobile-menu").slicknav({
+      $(".mobile-menu").slicknav({
         prependTo: '#mobile-menu-wrap',
         allowParentLinks: false
     });
 
+	// ========== Cart dropdown ==============
 
+	const toggleBtn = $("#cartToggle");
+	const dropdown = $(".cart-dropdown");
+
+	toggleBtn.on("click", function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		dropdown.toggleClass("open");
+	});
+
+	$(document).on("click", function (e) {
+        if (!$(e.target).closest(".cart-dropdown, .cart-toggle-btn").length) {
+            dropdown.removeClass("open");            
+        }
+
+    });
+
+	// ========== End Cart dropdown ==============
     
 });
 
@@ -454,16 +471,16 @@ $(document).on({
 		}
 	}
 }, '.modal');
-
 $(window).on("resize", function() {
 	winResize();
 	fix_banner_center();
-	nvbreadcrumbs();	
+	nvbreadcrumbs();
+	//if (150 < cRangeX || 150 < cRangeY) tipHide(), ftipHide()
 });
 
 
 // Load Social script - lasest
-$(window).on("load", function() {
+$(window).load(function() {
 	nvbreadcrumbs();
 	(0 < $(".fb-share-button").length || 0 < $(".fb-like").length) && (1 > $("#fb-root").length && $("body").append('<div id="fb-root"></div>'), function(a, b, c) {
 		var d = a.getElementsByTagName(b)[0];
@@ -506,8 +523,11 @@ $(window).on("load", function() {
 
     $('.hero__categories__all').on('click', function(){
         $('.hero__categories ul').slideToggle(200);
-    });  
+    });
     
+    
+    
+  
    /*-----------------------
         Categories Slider
     ------------------------*/
@@ -541,14 +561,6 @@ $(window).on("load", function() {
                 items: 4,
             }
         }
-    });	
-	
-    console.log("✅ Script loaded"); // test trước
-
-
-	$('.cart-icon-btn').click(function() {
-		console.log("✅ Bắt được click!");
-	});
+    });
+    
 });
-
-

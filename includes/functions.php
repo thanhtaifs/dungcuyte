@@ -284,8 +284,8 @@ function nv_check_valid_login( $login, $max, $min )
 	$login = trim( strip_tags( $login ) );
 
 	if( empty( $login ) ) return $lang_global['username_empty'];
-	if( isset( $login{$max} ) ) return sprintf( $lang_global['usernamelong'], $login, $max );
-	if( ! isset( $login{$min - 1} ) ) return sprintf( $lang_global['usernameadjective'], $login, $min );
+	if( isset( $login[$max]) ) return sprintf( $lang_global['usernamelong'], $login, $max );
+	if( ! isset( $login[$min - 1] ) ) return sprintf( $lang_global['usernameadjective'], $login, $min );
 
 	$type = $global_config['nv_unick_type'];
 	switch( $type )
@@ -333,8 +333,8 @@ function nv_check_valid_pass( $pass, $max, $min )
 	$pass = trim( strip_tags( $pass ) );
 
 	if( empty( $pass ) ) return $lang_global['password_empty'];
-	if( isset( $pass{$max} ) ) return sprintf( $lang_global['passwordlong'], $pass, $max );
-	if( ! isset( $pass{$min - 1} ) ) return sprintf( $lang_global['passwordadjective'], $pass, $min );
+	if( isset( $pass[$max] ) ) return sprintf( $lang_global['passwordlong'], $pass, $max );
+	if( ! isset( $pass[$min - 1] ) ) return sprintf( $lang_global['passwordadjective'], $pass, $min );
 
 	$type = $global_config['nv_upass_type'];
 	if( $type == 1 )
