@@ -135,7 +135,7 @@ function nv_set_status_module()
  */
 function nv_del_content_module($id)
 {
-    global $db, $module_name, $module_data, $title, $db_config;
+    global $db, $module_name, $module_data, $title, $db_config, $lang_module;
 
     $content_del = 'NO_' . $id;
     $title = '';
@@ -201,6 +201,7 @@ function nv_del_group($groupid)
         // Xoa chi tiet nhap kho, neu nhu chi tiet nhap kho co nhom nay, thi xoa luon chi tiet nhap kho
         $result = $db->query('SELECT * FROM ' . $db_config['prefix'] . '_' . $module_data . '_group_quantity');
         while ($row = $result->fetch()) {
+            $listgroup = $row['listgroup'];
             if (in_array($groupid, explode(',', $listgroup))) {
                 $db->query('DELETE FROM ' . $db_config['prefix'] . '_' . $module_data . '_group_quantity WHERE pro_id = ' . $row['pro_id'] . ' AND listgroup=' . $db->quote($row['listgroup']));
             }

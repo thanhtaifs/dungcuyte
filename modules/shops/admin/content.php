@@ -44,9 +44,9 @@ while( list( $bid_i, $adddefault_i, $title_i ) = $result->fetch( 3 ) )
 		$id_block_content[] = $bid_i;
 	}
 }
-//error_log('=== START content page shops result ===' );
+
 $catid = $nv_Request->get_int( 'catid', 'get', 0 );
-error_log("catid = " . $catid );
+
 $rowcontent = array(
 	'id' => 0,
 	'listcatid' => $catid,
@@ -107,19 +107,21 @@ $group_id_old = array( );
 //error_log('=== START content page shops rowcontent ===' );
 if( $rowcontent['id'] > 0 )
 {
+	
 	// Old group
-	$group_id_old = getGroupID( $rowcontent['id'] );
+	$group_id_old = getGroupID( $rowcontent['id'] );	
 
 	// Old keywords
 	$array_keywords_old = array( );
 	$_query = $db->query( 'SELECT tid, keyword FROM ' . $db_config['prefix'] . '_' . $module_data . '_tags_id_' . NV_LANG_DATA . ' WHERE id=' . $rowcontent['id'] . ' ORDER BY keyword ASC' );
+	;
 	while( $row = $_query->fetch( ) )
 	{
 		$array_keywords_old[$row['tid']] = $row['keyword'];
 	}
 	$rowcontent['keywords'] = implode( ', ', $array_keywords_old );
 	$rowcontent['keywords_old'] = $rowcontent['keywords'];
-
+	
 	// Old files
 	$result = $db->query( "SELECT id_files FROM " . $db_config['prefix'] . "_" . $module_data . "_files_rows WHERE id_rows=" . $rowcontent['id'] );
 	if( $result->rowCount() > 0 )
@@ -130,6 +132,7 @@ if( $rowcontent['id'] > 0 )
 		}
 		$rowcontent['files_old'] = $rowcontent['files'];
 	}
+	error_log("OK IF block check update" );
 }
 
 //error_log('=== START pass content page shops rowcontent[id] ===' );
@@ -137,7 +140,7 @@ if( $rowcontent['id'] > 0 )
 if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 {   
 	//error_log('=== START Add San Pham ===');
-	$field_lang = nv_file_table( $table_name );
+	$field_lang = nv_file_table( $table_name );	
 	$id_block_content = array_unique( $nv_Request->get_typed_array( 'bids', 'post', 'int', array( ) ) );
 	$rowcontent['listcatid'] = $nv_Request->get_int( 'catid', 'post', 0 );
 	$rowcontent['group_id'] = array_unique( $nv_Request->get_typed_array( 'groupids', 'post', 'int', array( ) ) );
@@ -145,7 +148,7 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 	$rowcontent['showorder'] = $nv_Request->get_int( 'showorder', 'post', 0 );
 	$publ_date = $nv_Request->get_title( 'publ_date', 'post', '' );
 	$exp_date = $nv_Request->get_title( 'exp_date', 'post', '' );
-
+	
 	if( !empty( $publ_date ) and !preg_match( '/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $publ_date ) )
 		$publ_date = '';
 	if( !empty( $exp_date ) and !preg_match( '/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $exp_date ) )
@@ -157,7 +160,7 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 	}
 	else
 	{
-		$phour = $nv_Request->get_int( 'phour', 'post', 0 );
+		$phour = $nv_Request->get_int( 'phour', 'post', default: 0 );
 		$pmin = $nv_Request->get_int( 'pmin', 'post', 0 );
 		unset( $m );
 		preg_match( '/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $publ_date, $m );
@@ -178,7 +181,7 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 	}
 
 	$rowcontent['archive'] = $nv_Request->get_int( 'archive', 'post', 0 );
-
+	
 	if( $rowcontent['archive'] > 0 )
 	{
 		$rowcontent['archive'] = ($rowcontent['exptime'] > NV_CURRENTTIME) ? 1 : 2;
@@ -192,6 +195,7 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 	$rowcontent['gift_content'] = $nv_Request->get_title( 'gift_content', 'post', '', 1 );
 	$rowcontent['gift_from'] = $nv_Request->get_title( 'gift_from', 'post', '' );
 	$rowcontent['gift_to'] = $nv_Request->get_title( 'gift_to', 'post', '' );
+	
 	if( !empty( $rowcontent['gift_content'] ) and preg_match( "/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/", $rowcontent['gift_from'], $m ) )
 	{
 		$gift_from_h = $nv_Request->get_int( 'gift_from_h', 'post', 0 );
@@ -214,9 +218,8 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 		$rowcontent['gift_to'] = 0;
 	}
 
-	$alias = nv_substr( $nv_Request->get_title( 'alias', 'post', '', 1 ), 0, 255 );
+	$alias = nv_substr( $nv_Request->get_title( 'alias', 'post', '', 1 ), 0, 255 );	
 	$rowcontent['alias'] = ($alias == '') ? change_alias( $rowcontent['title'] ) : change_alias( $alias );
-
 	$hometext = $nv_Request->get_string( 'hometext', 'post', '' );
 	$rowcontent['hometext'] = defined( 'NV_EDITOR' ) ? nv_nl2br( $hometext, '' ) : nv_nl2br( nv_htmlspecialchars( strip_tags( $hometext ) ), '<br />' );
 
@@ -235,42 +238,55 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 	$rowcontent['product_unit'] = $nv_Request->get_int( 'product_unit', 'post', 0 );
 	$rowcontent['homeimgfile'] = $nv_Request->get_title( 'homeimg', 'post', '' );
 	$rowcontent['homeimgalt'] = $nv_Request->get_title( 'homeimgalt', 'post', '', 1 );
-
+	
 	$typeprice = ($rowcontent['listcatid']) ? $global_array_shops_cat[$rowcontent['listcatid']]['typeprice'] : 0;
+	// $typeprice là cấu hình sản phảm có nhiều mức giá
+	$error_product_price = false;
 	if( $typeprice == 2 )
-	{
+	{		
 		$price_config = $nv_Request->get_array( 'price_config', 'post' );
-		$sortArray = array( );
-		foreach( $price_config as $price_config_i )
-		{
-			$sortArray['number_to'][] = intval( $price_config_i['number_to'] );
-			$sortArray['price'][] = floatval( preg_replace( '/[^0-9\.]/', '', $price_config_i['price'] ) );
+		$error_message_price = "";
+		if(empty($price_config))
+		{	
+			//error_log("Price config =====" . $price_config);
+			$error_message_price = "Nhóm sản phẩm có cấu hình giá không phù hợp !";
+			$error_product_price = true;
 		}
-		array_multisort( $sortArray['number_to'], SORT_ASC, $price_config );
-
-		$price_config_save = array( );
-		$i = 0;
-		foreach( $price_config as $key => $price_config_i )
-		{
-			$price_config_i['number_to'] = intval( $price_config_i['number_to'] );
-			$price_config_i['price'] = floatval( preg_replace( '/[^0-9\.]/', '', $price_config_i['price'] ) );
-			if( $price_config_i['number_to'] > 0 and $price_config_i['price'] >= 0 )
+		else
+		{	$sortArray = array( );
+			foreach( $price_config as $price_config_i )
 			{
-				$price_config_i['id'] = ++$i;
-				$price_config_save[$i] = $price_config_i;
+				$sortArray['number_to'][] = intval( $price_config_i['number_to'] );
+				$sortArray['price'][] = floatval( preg_replace( '/[^0-9\.]/', '', $price_config_i['price'] ) );
+			}		
+			array_multisort( $sortArray['number_to'], SORT_ASC, $price_config );
+
+			$price_config_save = array( );
+			$i = 0;
+			foreach( $price_config as $key => $price_config_i )
+			{
+				
+				$price_config_i['number_to'] = intval( $price_config_i['number_to'] );
+				$price_config_i['price'] = floatval( preg_replace( '/[^0-9\.]/', '', $price_config_i['price'] ) );
+				if( $price_config_i['number_to'] > 0 and $price_config_i['price'] >= 0 )
+				{
+					$price_config_i['id'] = ++$i;
+					$price_config_save[$i] = $price_config_i;
+				}
 			}
+			
+			$rowcontent['product_price'] = isset( $price_config_save[1] ) ? $price_config_save[1]['price'] : 0;
+			$rowcontent['price_config'] = serialize( $price_config_save );
 		}
-		$rowcontent['product_price'] = isset( $price_config_save[1] ) ? $price_config_save[1]['price'] : 0;
-		$rowcontent['price_config'] = serialize( $price_config_save );
 	}
 	else
 	{
+		
 		$rowcontent['product_price'] = $nv_Request->get_string( 'product_price', 'post', '' );
 		$rowcontent['product_price'] = floatval( preg_replace( '/[^0-9\.]/', '', $rowcontent['product_price'] ) );
-
 		$rowcontent['price_config'] = '';
 	}
-
+	
 	$bodytext = $nv_Request->get_string( 'bodytext', 'post', '' );
 	$rowcontent['bodytext'] = defined( 'NV_EDITOR' ) ? nv_nl2br( $bodytext, '' ) : nv_nl2br( nv_htmlspecialchars( strip_tags( $bodytext ) ), '<br />' );
 
@@ -289,8 +305,7 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 	$rowcontent['keywords'] = implode( ', ', $rowcontent['keywords'] );
 
 	$array_custom = $nv_Request->get_array( 'custom', 'post' );
-	$custom = $array_custom;
-
+	$custom = $array_custom;	
 	// Xu ly anh minh hoa khac
 	$otherimage = $nv_Request->get_typed_array( 'otherimage', 'post', 'string' );
 	$array_otherimage = array( );
@@ -310,13 +325,11 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 			$array_otherimage[] = $otherimage_i;
 		}
 	}
-	$rowcontent['otherimage'] = implode( '|', $array_otherimage );
 	
-	//file_put_contents(NV_ROOTDIR . '/menu_debug.log', "Run: truoc Kiem tra ma san pham trung\n", FILE_APPEND);
+	$rowcontent['otherimage'] = implode( '|', $array_otherimage );	
 
 	// Kiem tra ma san pham trung
 	$error_product_code = false;
-	//file_put_contents(NV_ROOTDIR . '/menu_debug.log', "product_code: " . $rowcontent['product_code']   . ":\n", FILE_APPEND);
 	if( !empty( $rowcontent['product_code'] ) )
 	{
 		$stmt = $db->prepare( 'SELECT id FROM ' . $db_config['prefix'] . '_' . $module_data . '_rows WHERE product_code= :product_code AND id!=' . $rowcontent['id'] );
@@ -351,9 +364,7 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
         		
         }
 
-		//error_log('===error_message ===' . $error_message);
-		
-		//file_put_contents(NV_ROOTDIR . '/menu_debug.log', "Run:" . $error_message . ":\n", FILE_APPEND);
+		//error_log('===error_message ===' . $error_message);		
 	}
 
 	if( empty( $rowcontent['title'] ) )
@@ -380,12 +391,16 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 	{
 		$error = $lang_module['error_bodytext'];
 	}
+	elseif($error_product_price)
+	{
+		//error_log("Error product price =====" . $error_product_price);
+		$error = $error_message_price;
+	}
 	elseif( $rowcontent['product_price'] <= 0 and $rowcontent['showprice'] )
 	{
 		$error = $lang_module['error_product_price'];
-	}
+	}	
 	
-    //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "title :" . $rowcontent['title'] . ":\n", FILE_APPEND);
     
 	// Kiem tra nhom bat buoc
 	$group_cat = array();
@@ -473,8 +488,7 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 				}
 			}
 			$rowcontent['keywords'] = implode( ',', $keywords );
-		}
-		//file_put_contents(NV_ROOTDIR . '/menu_debug.log', "keywords :" . $rowcontent['keywords'] . ":\n", FILE_APPEND);
+		}		
 		
 		$rowcontent['status'] = ($nv_Request->isset_request( 'status1', 'post' )) ? 1 : 0;
 		//error_log('=== Xu ly anh minh hoa ===' );
@@ -585,12 +599,16 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 			$rowcontent['id'] = $db->insert_id( $sql, 'catid', $data_insert );
 
 			if( $rowcontent['id'] > 0 )
-			{
+			{				
 				if( $global_array_shops_cat[$rowcontent['listcatid']]['form'] != '' )
 				{
 					$form = $db->query( 'SELECT form FROM ' . $db_config['prefix'] . '_' . $module_data . '_catalogs where catid=' . $rowcontent['listcatid'] )->fetchColumn( );
 
 					$idtemplate = $db->query( 'SELECT id FROM ' . $db_config['prefix'] . '_' . $module_data . '_template where alias = "' . preg_replace( "/[\_]/", "-", $global_array_shops_cat[$rowcontent['listcatid']]['form'] ) . '"' )->fetchColumn( );
+
+					$catid_check = isset($rowcontent['listcatid']) ? $rowcontent['listcatid'] : 'NULL';
+					$form_check = isset($global_array_shops_cat[$catid_check]['form']) ? $global_array_shops_cat[$catid_check]['form'] : 'NOT FOUND';
+					
 
 					$table_insert = $db_config['prefix'] . "_" . $module_data . "_info_" . $idtemplate;
 
@@ -648,6 +666,7 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 		}
 		else
 		{
+			
 			$rowcontent_old = $db->query( 'SELECT * FROM ' . $db_config['prefix'] . '_' . $module_data . '_rows where id=' . $rowcontent['id'] )->fetch( );
 
 			$rowcontent['user_id'] = $rowcontent_old['user_id'];
@@ -665,7 +684,7 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 			{
 				$rowcontent['status'] = 2;
 			}
-
+			
 			$stmt = $db->prepare( "UPDATE " . $db_config['prefix'] . "_" . $module_data . "_rows SET
 			 listcatid= :listcatid,
 			 user_id=" . intval( $rowcontent['user_id'] ) . ",
@@ -724,9 +743,9 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 			$stmt->bindParam( ':bodytext', $rowcontent['bodytext'], PDO::PARAM_STR, strlen( $rowcontent['bodytext'] ) );
 			$stmt->bindParam( ':gift_content', $rowcontent['gift_content'], PDO::PARAM_STR );
 			$stmt->bindParam( ':allowed_comm', $rowcontent['allowed_comm'], PDO::PARAM_STR );
-
+			
 			if( $stmt->execute( ) )
-			{
+			{				
 				// Cap nhat lai group neu co thay doi
 				if( $group_id_old != $rowcontent['group_id'] )
 				{
@@ -924,8 +943,7 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 }
 elseif( $rowcontent['id'] > 0 )
 {
-
-	error_log('=== START update San Pham ===' . $rowcontent['id']);	
+	//error_log('=== START update San Pham ===' . $rowcontent['id']);	
 	$files = $rowcontent['files'];
 	$keyword = $rowcontent['keywords'];
 	$rowcontent = $db->query( "SELECT * FROM " . $db_config['prefix'] . "_" . $module_data . "_rows where id=" . $rowcontent['id'] )->fetch( );
@@ -965,8 +983,9 @@ elseif( $rowcontent['id'] > 0 )
 	{
 		$id_block_content[] = $bid_i;
 	}
-	error_log(message: '=== end update San Pham ===');
+	//error_log(message: '=== end update San Pham ===');
 }
+
 
 if( !empty( $rowcontent['homeimgfile'] ) and file_exists( NV_UPLOADS_REAL_DIR . '/' . $module_upload . '/' . $rowcontent['homeimgfile'] ) )
 {
@@ -1037,7 +1056,7 @@ else
 {
 	$xtpl->parse( 'main.status0' );
 }
-error_log(message: '=== before Other image ===');
+
 
 // Other image
 $items = 0;
@@ -1351,14 +1370,8 @@ if( $rowcontent['listcatid'] AND !empty( $global_array_shops_cat[$rowcontent['li
 	$xtpl->assign( 'DATACUSTOM_FORM', $datacustom_form );
 }
 
-error_log('=== START content page shops finished ===' );
-
 $xtpl->parse( 'main' );
 $contents = $xtpl->text( 'main' );
-error_log('=== main content page shops finished ===' );
 include NV_ROOTDIR . '/includes/header.php';
-error_log('=== header content page shops finished ===' );
 echo nv_admin_theme( $contents );
-error_log('=== nv_admin_theme finished ===' );
 include NV_ROOTDIR . '/includes/footer.php';
-error_log('=== OK ===' );
