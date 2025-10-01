@@ -436,8 +436,17 @@ $(function() {
 
 	const toggleBtn = $("#cartToggle");
 	const dropdown = $(".cart-dropdown");
+	const toggleBtnmobile = $("#cart-mobile");
+
+	
 
 	toggleBtn.on("click", function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		dropdown.toggleClass("open");
+	});
+
+	toggleBtnmobile.on("click", function(e) {
 		e.preventDefault();
 		e.stopPropagation();
 		dropdown.toggleClass("open");
