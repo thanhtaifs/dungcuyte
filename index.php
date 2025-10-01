@@ -43,7 +43,7 @@ if (!defined('NV_ROOTDIR'))
 }
 else
 {
-	error_log("=== defined NV_ROOTDIR ===");
+	//error_log("=== defined NV_ROOTDIR ===");
 }
 
 $user_functions =  NV_ROOTDIR . '/includes/core/user_functions.php';
@@ -78,7 +78,7 @@ function init_system()
     $mainfile = __DIR__ . '/mainfile.php';
     if (!file_exists($mainfile) || !is_readable($mainfile)) 
 	{
-        error_log("CRITICAL: Missing mainfile.php");
+        //error_log("CRITICAL: Missing mainfile.php");
         header('HTTP/1.1 500 Internal Server Error');
         exit("Fatal: mainfile.php not found");
     }
@@ -90,7 +90,7 @@ function init_root()
     $root = realpath(__DIR__);
     if ($root === false) 
 	{
-        error_log('CRITICAL: Cannot resolve root directory via realpath(__DIR__)');
+        //error_log('CRITICAL: Cannot resolve root directory via realpath(__DIR__)');
         header('HTTP/1.1 500 Internal Server Error');
         //echo '<pre>Fatal error: Cannot resolve root directory.</pre>';
         exit;

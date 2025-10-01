@@ -46,7 +46,7 @@ while( list( $bid_i, $adddefault_i, $title_i ) = $result->fetch( 3 ) )
 }
 //error_log('=== START content page shops result ===' );
 $catid = $nv_Request->get_int( 'catid', 'get', 0 );
-
+error_log("catid = " . $catid );
 $rowcontent = array(
 	'id' => 0,
 	'listcatid' => $catid,
@@ -925,7 +925,7 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 elseif( $rowcontent['id'] > 0 )
 {
 
-	//error_log('=== START update San Pham ===');	
+	error_log('=== START update San Pham ===' . $rowcontent['id']);	
 	$files = $rowcontent['files'];
 	$keyword = $rowcontent['keywords'];
 	$rowcontent = $db->query( "SELECT * FROM " . $db_config['prefix'] . "_" . $module_data . "_rows where id=" . $rowcontent['id'] )->fetch( );
@@ -965,6 +965,7 @@ elseif( $rowcontent['id'] > 0 )
 	{
 		$id_block_content[] = $bid_i;
 	}
+	error_log(message: '=== end update San Pham ===');
 }
 
 if( !empty( $rowcontent['homeimgfile'] ) and file_exists( NV_UPLOADS_REAL_DIR . '/' . $module_upload . '/' . $rowcontent['homeimgfile'] ) )
@@ -1012,6 +1013,7 @@ if( $pro_config['download_active'] )
 	$array_files = nv_db_cache( $sql, 'id', $module_name );
 }
 
+
 $xtpl = new XTemplate( 'content.tpl', NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/modules/' . $module_file );
 $xtpl->assign( 'LANG', $lang_module );
 $xtpl->assign( 'rowcontent', $rowcontent );
@@ -1035,6 +1037,7 @@ else
 {
 	$xtpl->parse( 'main.status0' );
 }
+error_log(message: '=== before Other image ===');
 
 // Other image
 $items = 0;
@@ -1347,11 +1350,15 @@ if( $rowcontent['listcatid'] AND !empty( $global_array_shops_cat[$rowcontent['li
 	$datacustom_form = nv_show_custom_form( $rowcontent['id'], $global_array_shops_cat[$rowcontent['listcatid']]['form'], $custom );
 	$xtpl->assign( 'DATACUSTOM_FORM', $datacustom_form );
 }
-//error_log('=== START content page shops finished ===' );
+
+error_log('=== START content page shops finished ===' );
 
 $xtpl->parse( 'main' );
 $contents = $xtpl->text( 'main' );
-
+error_log('=== main content page shops finished ===' );
 include NV_ROOTDIR . '/includes/header.php';
+error_log('=== header content page shops finished ===' );
 echo nv_admin_theme( $contents );
+error_log('=== nv_admin_theme finished ===' );
 include NV_ROOTDIR . '/includes/footer.php';
+error_log('=== OK ===' );

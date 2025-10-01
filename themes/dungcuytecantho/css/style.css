@@ -643,7 +643,7 @@ ul, ol {
     font-size: 16px;
     color: #1c1c1c;
     padding-left: 20px;
-	background-color: #f0f0f0;
+	/* background-color: #f0f0f0; */
 }
 
 .hero__search__form form button {
@@ -1404,6 +1404,10 @@ input:focus, select:focus, button:focus, textarea:focus
 /* Wide Mobile = 480px */
 
 @media only screen and (max-width: 767px) {
+	.cart_postion {
+		padding-right: 10px;
+	}
+
      .cart-icon-btn {
         font-size: 0; /* ẩn text mà vẫn giữ icon */
         padding: 8px;
@@ -1878,8 +1882,7 @@ body
 {
 	height: 100%;
 	padding: 0;
-	margin: 0;
-	background-color:#f0f0f0;
+	margin: 0;	
 }
 a, a:link, a:active, a:visited
 {
@@ -2052,7 +2055,8 @@ header{
 }
 
 /* Body */
-#body{
+#body
+{
 	padding-top:10px;
 	background:#fff;
 }
