@@ -129,7 +129,7 @@
                                                     </div>
                                                     <button class="checkout-btn">
                                                         <i class="fa fa-credit-card mr-2"></i>
-                                                        Thanh toán ngay
+                                                        Xem giỏ hàng
                                                     </button>
                                                 </div>
                                             </div>

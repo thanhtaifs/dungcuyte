@@ -45,7 +45,7 @@
                                             <p class="current-price"> {PRICE.sale_format}</p>
                                        </div> 
                                        <div class="product-action">
-                                            <button class="btn-add-to-cart" onclick="addToCart(this)">
+                                            <button class="btn-add-to-cart" onclick="addToCart({ID})" data-id="{ID}">
                                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M5.5 13C5.5 13.8284 4.82843 14.5 4 14.5C3.17157 14.5 2.5 13.8284 2.5 13C2.5 12.1716 3.17157 11.5 4 11.5C4.82843 11.5 5.5 12.1716 5.5 13Z" fill="currentColor"/>
                                                     <path d="M13.5 13C13.5 13.8284 12.8284 14.5 12 14.5C11.1716 14.5 10.5 13.8284 10.5 13C10.5 12.1716 11.1716 11.5 12 11.5C12.8284 11.5 13.5 12.1716 13.5 13Z" fill="currentColor"/>
@@ -112,7 +112,7 @@
                         <p class="current-price"> {PRICE.sale_format}</p>
                   </div> 
                   <div class="product-action">
-                                            <button class="btn-add-to-cart" onclick="addToCart(this)">
+                                            <button class="btn-add-to-cart" onclick="addToCart({ID})" data-id="{ID}">
                                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M5.5 13C5.5 13.8284 4.82843 14.5 4 14.5C3.17157 14.5 2.5 13.8284 2.5 13C2.5 12.1716 3.17157 11.5 4 11.5C4.82843 11.5 5.5 12.1716 5.5 13Z" fill="currentColor"/>
                                                     <path d="M13.5 13C13.5 13.8284 12.8284 14.5 12 14.5C11.1716 14.5 10.5 13.8284 10.5 13C10.5 12.1716 11.1716 11.5 12 11.5C12.8284 11.5 13.5 12.1716 13.5 13Z" fill="currentColor"/>
@@ -171,7 +171,7 @@
                         <p class="current-price"> {PRICE.sale_format}</p>
                     </div>
                     <div class="product-action">
-                                            <button class="btn-add-to-cart" onclick="addToCart(this)">
+                                            <button class="btn-add-to-cart" onclick="addToCart({ID})" data-id="{ID}">
                                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M5.5 13C5.5 13.8284 4.82843 14.5 4 14.5C3.17157 14.5 2.5 13.8284 2.5 13C2.5 12.1716 3.17157 11.5 4 11.5C4.82843 11.5 5.5 12.1716 5.5 13Z" fill="currentColor"/>
                                                     <path d="M13.5 13C13.5 13.8284 12.8284 14.5 12 14.5C11.1716 14.5 10.5 13.8284 10.5 13C10.5 12.1716 11.1716 11.5 12 11.5C12.8284 11.5 13.5 12.1716 13.5 13Z" fill="currentColor"/>
@@ -179,7 +179,7 @@
                                                 </svg>
                                                 Thêm vào giỏ hàng
                                             </button>
-                    </div>
+                                        </div>
                   </div>
             </div>
             <!-- END: items -->
