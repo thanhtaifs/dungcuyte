@@ -218,7 +218,7 @@ if( ! empty( $_SESSION[$module_data . '_cart'] ) )
 			{
 				$discount_id = $product_price = 0;
 			}
-
+			error_log("SHOP DEBUG: product id {$id} => thumb={$thumb}, homeimgfile={$homeimgfile}, flag={$homeimgthumb},num={$number}, product_number={$product_number}, group={$group}");
 			$data_content[] = array(
 				'id' => $id,
 				'listcatid' => $listcatid,

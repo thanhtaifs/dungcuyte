@@ -354,7 +354,6 @@ function loadCart() {
     dataType: 'json',
     success: function (res) {
       console.log('getcart response:', res);
-
       let $cartContent = $('#cartContent');
       let $cartFooter = $('#cartFooter');
       if (res && res.status === 'success' && res.items.length > 0) {

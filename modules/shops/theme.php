@@ -1921,7 +1921,6 @@ function cart_product($data_content, $coupons_code, $order_info, $array_error_nu
             $xtpl->assign('title_pro', $data_row['title']);
             $xtpl->assign('link_pro', $data_row['link_pro']);
             $xtpl->assign('img_pro', $data_row['homeimgthumb']);
-
             $price = nv_get_price($data_row['id'], $pro_config['money_unit'], $data_row['num'], true);
             $xtpl->assign('PRICE', $price);
             $price = nv_get_price($data_row['id'], $pro_config['money_unit'], $data_row['num']);

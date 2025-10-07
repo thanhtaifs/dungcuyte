@@ -9,21 +9,34 @@
     <div class="row">
         <!-- Cột trái: danh sách sản phẩm -->
         <div class="col-md-8">
-            <div class="cart-products d-flex flex-wrap">
+            <div class="cart-products">
                 <!-- BEGIN: rows -->
-                <div class="card mb-3 mr-3" style="width: 180px; text-align:center;" id="{id}">
-                    <img src="{homeimgthumb}" class="card-img-top" alt="{title_pro}" style="height:150px; object-fit:contain;">
-                    <div class="card-body p-2">
-                        <h6 class="card-title"> {title_pro}</h6>
-                        <p class="card-text"><strong>{PRICE.sale_format}</strong></p>
+                <div class="cart-item" id="{id}">
+                    <!-- Ảnh sản phẩm -->
+                    <div class="cart-item-image">
+                        <img src="{img_pro}" alt="{title_pro}" class="img-fluid rounded" style="max-height: 150px; object-fit: contain;">
+                    </div>
 
-                        <div class="input-group mb-2">
-                            <button type="button" class="btn btn-sm btn-secondary qty-decrease">-</button>
-                            <input type="number" size="1" value="{pro_num}" name="listproid[{id}]" class="form-control text-center qty-input"/>
-                            <button type="button" class="btn btn-sm btn-secondary qty-increase">+</button>
+                    <!-- Thông tin sản phẩm -->
+                    <div class="cart-item-info">
+                        <!-- Tiêu đề -->
+                        <h6 class="cart-item-title">{title_pro}</h6>
+
+                        <!-- Ô tăng giảm số lượng -->
+                        <div class="quantity-control">
+                            <button type="button" class="qty-btn qty-decrease">-</button>
+                            <input type="number" value="{pro_num}" name="listproid[{id}]" class="qty-input" min="1">
+                            <button type="button" class="qty-btn qty-increase">+</button>
                         </div>
 
-                        <button type="button" class="btn btn-sm btn-danger remove_cart" title="{LANG.cart_remove_pro}" data-href="{link_remove}">
+                        <!-- Giá và thành tiền -->
+                        <div class="price-info">
+                            <div><strong>Giá:</strong> {PRICE.sale_format}</div>                            
+                            <div><strong>Thành tiền:</strong> <span class="text-danger">{PRICE.total_format}</span></div>
+                        </div>
+
+                        <!-- Nút xóa -->
+                        <button type="button" class="btn-remove" title="{LANG.cart_remove_pro}" data-href="{link_remove}">
                             <i class="fa fa-times-circle"></i> Xóa
                         </button>
                     </div>
@@ -37,7 +50,7 @@
             <div class="panel panel-default">
                 <div class="panel-body text-center">
                     <h4>Thông tin thanh toán</h4>
-                    <p><strong>{LANG.cart_total}:</strong> <span id="total"></span> {unit_config}</p>
+                    <p><span id="total"></span> {PRICE_TOTAL}</p>
                     <p><strong>Thời gian:</strong> <span id="cartTime"></span></p>
                     <button type="button" class="btn btn-success btn-block" id="goToPayment">
                         <i class="fa fa-credit-card mr-1"></i> Thanh toán
