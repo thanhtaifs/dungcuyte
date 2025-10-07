@@ -1890,7 +1890,7 @@ function print_product($data_content, $data_unit, $page_title)
  * @param mixed $array_error_number
  * @return
  */
-function cart_product($data_content, $coupons_code, $order_info, $array_error_number)
+function cart_product($data_content, $coupons_code, $order_info, $array_error_number, $total_cart='')
 {
     global $module_info, $lang_module, $module_config, $module_file, $module_name, $pro_config, $money_config, $global_array_group, $global_array_shops_cat;
 
@@ -1924,11 +1924,12 @@ function cart_product($data_content, $coupons_code, $order_info, $array_error_nu
             $price = nv_get_price($data_row['id'], $pro_config['money_unit'], $data_row['num'], true);
             $xtpl->assign('PRICE', $price);
             $price = nv_get_price($data_row['id'], $pro_config['money_unit'], $data_row['num']);
-            $xtpl->assign('PRICE_TOTAL', $price);
+            $total = nv_number_format($cart_total) . ' ' . $pro_config['money_unit'];
+            $xtpl->assign('PRICE_TOTAL', $price['sale_format']);
             $xtpl->assign('pro_num', $data_row['num']);
             $xtpl->assign('link_remove', $data_row['link_remove']);
             $xtpl->assign('product_unit', $data_row['product_unit']);
-
+            $xtpl->assign('TOTAL', $total_cart);
             // Tinh diem tich luy
             if ($pro_config['point_active'] and $global_array_shops_cat[$data_row['listcatid']]['cat_allow_point'] and ($global_array_shops_cat[$data_row['listcatid']]['cat_number_product'] == 0 or $data_row['num'] >= $global_array_shops_cat[$data_row['listcatid']]['cat_number_product'])) {
                 $cat_number_point = $global_array_shops_cat[$data_row['listcatid']]['cat_number_point'];

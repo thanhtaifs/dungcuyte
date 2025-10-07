@@ -77,6 +77,7 @@ if ($type == 'json') {
     ];
 
     header('Content-Type: application/json; charset=utf-8');
+    error_log("== DEBUG setcart.php == ID: $id | num: $num | POST: " . json_encode($_POST) . " | GET: " . json_encode($_GET));
     echo json_encode($response, JSON_UNESCAPED_UNICODE);
     exit();
 }

@@ -32,7 +32,7 @@
                         <!-- Giá và thành tiền -->
                         <div class="price-info">
                             <div><strong>Giá:</strong> {PRICE.sale_format}</div>                            
-                            <div><strong>Thành tiền:</strong> <span class="text-danger">{PRICE.total_format}</span></div>
+                            <div><strong>Thành tiền:</strong> <span class="text-danger">{PRICE_TOTAL.sale_format}</span></div>
                         </div>
 
                         <!-- Nút xóa -->
@@ -50,7 +50,7 @@
             <div class="panel panel-default">
                 <div class="panel-body text-center">
                     <h4>Thông tin thanh toán</h4>
-                    <p><span id="total"></span> {PRICE_TOTAL}</p>
+                    <p> {TOTAL}</p>
                     <p><strong>Thời gian:</strong> <span id="cartTime"></span></p>
                     <button type="button" class="btn btn-success btn-block" id="goToPayment">
                         <i class="fa fa-credit-card mr-1"></i> Thanh toán
