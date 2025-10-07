@@ -128,15 +128,15 @@
                                                         <span class="total-price" id="totalPrice">0đ</span>
                                                     </div>
                                                     <button class="checkout-btn">
-                                                        <i class="fas fa-credit-card mr-2"></i>
-                                                        Thanh toán ngay
+                                                        <i class="fa fa-credit-card mr-2"></i>
+                                                        Xem giỏ hàng
                                                     </button>
                                                 </div>
                                             </div>
                                         </div> 
                                     </div>         
                                 <!-- CART INTEGRATION END -->
-                </div>
+                    </div>
                                      
                 </div>               
             </div>

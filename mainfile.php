@@ -41,20 +41,20 @@ spl_autoload_register( function ( $classname )
 	include NV_ROOTDIR . '/includes/class/' . strtolower( $classname ) . '.class.php';
 } );
 
-error_log("=== mainfile before file constants, config ===");
+
 // Ket noi voi cac file constants, config
 require NV_ROOTDIR . '/includes/constants.php';
 
 if( file_exists( NV_ROOTDIR . '/' . NV_CONFIG_FILENAME ) )
 {
-	error_log("=== mainfile if file constants, config ===");
-	error_log(NV_ROOTDIR . ' 1111 ' . NV_CONFIG_FILENAME);
+	//error_log("=== mainfile if file constants, config ===");
+	//error_log(NV_ROOTDIR . ' 1111 ' . NV_CONFIG_FILENAME);
 	require realpath( NV_ROOTDIR . '/' . NV_CONFIG_FILENAME );
-	error_log("=== mainfile require realpath constants, config ===");
+	//error_log("=== mainfile require realpath constants, config ===");
 }
 else
 {
-	error_log("=== mainfile else file constants, config ===");
+	//error_log("=== mainfile else file constants, config ===");
 	if( file_exists( NV_ROOTDIR . '/install/index.php' ) )
 	{
 		$base_siteurl = pathinfo( $_SERVER['PHP_SELF'], PATHINFO_DIRNAME );
@@ -71,7 +71,7 @@ else
 	}
 	die();
 }
-error_log("=== mainfile before config_global ===");
+//error_log("=== mainfile before config_global ===");
 require NV_ROOTDIR . '/' . NV_DATADIR . '/config_global.php';
 
 if( defined( 'NV_CONFIG_DIR' ) )

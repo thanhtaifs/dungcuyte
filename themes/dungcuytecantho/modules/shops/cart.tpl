@@ -1,184 +1,95 @@
 <!-- BEGIN: main -->
 <div class="step_bar alert alert-success clearfix">
-	<a class="step step_current" title="{LANG.cart_check_cart}" href="#"><span>1</span>{LANG.cart_check_cart}</a>
-	<a class="step step_disable" title="{LANG.cart_order}" href="{link_order_all}" id="cart_next"><span>2</span>{LANG.cart_order}</a>
+    <a class="step step_current" title="{LANG.cart_check_cart}" href="#"><span>1</span>{LANG.cart_check_cart}</a>
+    <a class="step step_disable" title="{LANG.cart_order}" href="{link_order_all}" id="cart_next"><span>2</span>{LANG.cart_order}</a>
 </div>
-
-<!-- BEGIN: errortitle -->
-<ul class="alert alert-danger text-center">
-	<!-- BEGIN: errorloop -->
-	<li class="clearfix">
-		{ERROR_NUMBER_PRODUCT}
-	</li>
-	<!-- END: errorloop -->
-</ul>
-<!-- END: errortitle -->
-
-<!-- BEGIN: point_note -->
-<div class="alert alert-info">
-	{point_note}
-</div>
-<!-- END: point_note -->
-
-<!-- BEGIN: edit_order -->
-<div class="alert alert-warning">
-{EDIT_ORDER}
-</div>
-<!-- END: edit_order -->
 
 <form action="{LINK_CART}" method="post" id="fpro">
-	<input type="hidden" value="1" name="save"/>
-	<!-- BEGIN: price6 -->
-	<span class="text-right help-block"><strong>{LANG.product_unit_price}:</strong> {unit_config}</span>
-	<!-- END: price6 -->
-	<div class="table-responsive">
-		<table class="table table-striped table-bordered table-hover">
-			<thead>
-				<tr>
-					<th>{LANG.order_no_products}</th>
-					<th>{LANG.cart_products}</th>
+    <input type="hidden" value="1" name="save"/>
+    <div class="row">
+        <!-- Cột trái: danh sách sản phẩm -->
+        <div class="col-md-8">
+            <div class="cart-products d-flex flex-wrap">
+                <!-- BEGIN: rows -->
+                <div class="card mb-3 mr-3" style="width: 180px; text-align:center;" id="{id}">
+                    <img src="{homeimgthumb}" class="card-img-top" alt="{title_pro}" style="height:150px; object-fit:contain;">
+                    <div class="card-body p-2">
+                        <h6 class="card-title"> {title_pro}</h6>
+                        <p class="card-text"><strong>{PRICE.sale_format}</strong></p>
 
-					<!-- BEGIN: main_group -->
-					<th>{MAIN_GROUP.title}</th>
-					<!-- END: main_group -->
+                        <div class="input-group mb-2">
+                            <button type="button" class="btn btn-sm btn-secondary qty-decrease">-</button>
+                            <input type="number" size="1" value="{pro_num}" name="listproid[{id}]" class="form-control text-center qty-input"/>
+                            <button type="button" class="btn btn-sm btn-secondary qty-increase">+</button>
+                        </div>
 
-					<!-- BEGIN: price1 -->
-					<th class="text-right">
-						{LANG.cart_price}
-						<span class="info_icon" data-toggle="tooltip" title="" data-original-title="{LANG.cart_price_note}">&nbsp;</span>
-					</th>
-					<!-- END: price1 -->
-					<th style="width: 80px">{LANG.cart_numbers}</th>
-					<th>{LANG.cart_unit}</th>
-					<!-- BEGIN: price4 -->
-					<th class="text-right">{LANG.cart_price_total}</th>
-					<!-- END: price4 -->
-					<th>&nbsp;</th>
-				</tr>
-			</thead>
-			<tbody>
-				<!-- BEGIN: rows -->
-				<tr id="{id}">
-					<td align="center">{stt}</td>
-					<td>
-						<a title="{title_pro}" href="{link_pro}">{title_pro}</a>
-						<!-- BEGIN: display_group -->
-						<p>
-							<!-- BEGIN: group -->
-							<span class="show"><span class="text-muted">{group.parent_title}: <strong>{group.title}</strong></span></span>
-							<!-- END: group -->
-						</p>
-						<!-- END: display_group -->
-					</td>
+                        <button type="button" class="btn btn-sm btn-danger remove_cart" title="{LANG.cart_remove_pro}" data-href="{link_remove}">
+                            <i class="fa fa-times-circle"></i> Xóa
+                        </button>
+                    </div>
+                </div>
+                <!-- END: rows -->
+            </div>
+        </div>
 
-					<!-- BEGIN: sub_group -->
-	    			<td><a href="{SUB_GROUP.link}" title="{SUB_GROUP.title}">{SUB_GROUP.title}</a></td>
-	    			<!-- END: sub_group -->
-
-					<!-- BEGIN: price2 -->
-					<td class="money text-right"><strong>{PRICE.sale_format}</strong></td>
-					<!-- END: price2 -->
-					<td align="center"><input type="number" size="1" value="{pro_num}" name="listproid[{id}]" id="{id}" class="form-control"/></td>
-					<td>{product_unit}</td>
-					<!-- BEGIN: price5 -->
-					<td class="money text-right">{PRICE_TOTAL.sale_format}</td>
-					<!-- END: price5 -->
-					<td align="center"><a class="remove_cart" title="{LANG.cart_remove_pro}" href="{link_remove}"><em style="color: red" class="fa fa-times-circle">&nbsp;</em></a></td>
-				</tr>
-				<!-- END: rows -->
-			</tbody>
-		</table>
-	</div>
-
-	<!-- BEGIN: coupons_code -->
-	<div class="panel panel-primary">
-		<div class="panel-heading">
-			{LANG.coupons}
-		</div>
-		<div class="panel-body">
-			<div class="input-group">
-				<input type="text" name="coupons_code" value="{C_CODE}" id="coupons_code" placeholder="{LANG.coupons_fill}" class="form-control">
-				<span class="input-group-btn">
-					<input type="button" value="{LANG.coupons_check}" id="coupons_check" class="btn btn-primary">
-				</span>
-			</div>
-			<div id="coupons_info">
-				&nbsp;
-			</div>
-		</div>
-	</div>
-	<!-- END: coupons_code -->
-
-	<div>
-		<!-- BEGIN: price3 -->
-		<div class="clearfix">
-			<div class="pull-left">
-				{LANG.cart_total}: <span id="total"></span> {unit_config}
-			</div>
-			<div class="clear"></div>
-		</div>
-		<!-- END: price3 -->
-
-		<div class="row">
-			<div class="col-md-12 text-left" style="margin-top: 10px;">
-				<a title="{LANG.cart_back} {LANG.cart_page_product}" href="{LINK_PRODUCTS}"><em class="fa fa-arrow-circle-left">&nbsp;</em>{LANG.cart_back} <span>{LANG.cart_page_product}</span></a>
-			</div>
-			<div class="col-md-12 text-right" style="margin: 10px 0 10px 0">
-				<input type="submit" name="cart_update" title="{LANG.cart_update}" value="{LANG.cart_update}" class="btn btn-primary btn-sm">
-				<input type="submit" name="cart_order" title="{LANG.cart_order}" value="{LANG.cart_order}" class="btn btn-primary btn-sm">
-			</div>
-		</div>
-	</div>
+        <!-- Cột phải: tổng chi phí -->
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-body text-center">
+                    <h4>Thông tin thanh toán</h4>
+                    <p><strong>{LANG.cart_total}:</strong> <span id="total"></span> {unit_config}</p>
+                    <p><strong>Thời gian:</strong> <span id="cartTime"></span></p>
+                    <button type="button" class="btn btn-success btn-block" id="goToPayment">
+                        <i class="fa fa-credit-card mr-1"></i> Thanh toán
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
+
 <script type="text/javascript">
-	$(document).ready(function(){
-		$('[data-toggle="tooltip"]').tooltip();
-	});
+$(document).ready(function(){
+    // Load tổng tiền và thời gian
+    var urload = nv_siteroot + 'index.php?' + nv_lang_variable + '=' + nv_sitelang + '&' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=loadcart';
+    $("#total").load(urload + '&t=2');
+    var now = new Date();
+    $("#cartTime").text(now.toLocaleString());
 
-	var urload = nv_siteroot + 'index.php?' + nv_lang_variable + '=' + nv_sitelang + '&' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=loadcart';
-	$("#total").load(urload + '&t=2');
+    // Xóa sản phẩm
+    $(".remove_cart").click(function() {
+        var href = $(this).data('href');
+        var card = $(this).closest('.card');
+        $.ajax({
+            type: "GET",
+            url: href,
+            success: function(data){
+                card.remove();
+                $("#total").load(urload + '&t=2');
+            }
+        });
+    });
 
-	$(function() {
-		$("a.remove_cart").click(function() {
-			var href = $(this).attr("href");
-			$.ajax({
-				type : "GET",
-				url : href,
-				data : '',
-				success : function(data) {
-					if (data != '') {
-						$("#" + data).html('');
-						$("#cart_" + nv_module_name).load(urload);
-						$("#total").load(urload + '&t=2');
-					}
-				}
-			});
-			return false;
-		});
-	});
+    // Tăng giảm số lượng
+    $(".qty-increase").click(function(){
+        var input = $(this).siblings('.qty-input');
+        input.val(parseInt(input.val()) + 1).trigger('change');
+    });
+    $(".qty-decrease").click(function(){
+        var input = $(this).siblings('.qty-input');
+        var val = parseInt(input.val()) - 1;
+        if(val < 1) val = 1;
+        input.val(val).trigger('change');
+    });
+
+    $(".qty-input").change(function(){
+        $("#fpro").submit(); // submit form để cập nhật session
+    });
+
+    // Nút thanh toán
+    $("#goToPayment").click(function(){
+        window.location.href = '/index.php?nv=shops&op=payment';
+    });
+});
 </script>
-
-<!-- BEGIN: coupons_javascript -->
-<script type="text/javascript">
-	var coupons_code = $('input[name="coupons_code"]').val();
-	if (coupons_code != '') {
-		$.post(script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=cart&nocache=' + new Date().getTime(), 'coupons_check=1&coupons_code=' + coupons_code, function(res) {
-			$('#coupons_info').html(res);
-		});
-	}
-
-	$(function() {
-		$("#coupons_check").click(function() {
-			var coupons_code = $('input[name="coupons_code"]').val();
-			nv_settimeout_disable('coupons_code', 1000);
-			nv_settimeout_disable('coupons_check', 1000);
-			$.post(script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=cart&nocache=' + new Date().getTime(), 'coupons_check=1&coupons_code=' + coupons_code, function(res) {
-				$('#coupons_info').html(res);
-			});
-			return false;
-		});
-	});
-</script>
-<!-- END: coupons_javascript -->
-
 <!-- END: main -->

@@ -18,13 +18,11 @@ function nv_site_theme( $contents, $full = true )
 	//$layout_file = ( $full ) ? 'layout.' . $module_info['layout_funcs'][$op_file] . '.tpl' : 'simple.tpl';
 	if($module_name == 'shops' && $op == 'main')
     {
-        $layout_file = 'layout.home.tpl'; // layout dành riêng cho trang chủ
-        //file_put_contents(NV_ROOTDIR . '/log_theme.txt', 'op shops - layout: ' . $layout_file . PHP_EOL, FILE_APPEND);
+        $layout_file = 'layout.home.tpl';
     }
     else
     {
         $layout_file = ( $full ) ? 'layout.' . $module_info['layout_funcs'][$op_file] . '.tpl' : 'simple.tpl';
-        //file_put_contents(NV_ROOTDIR . '/log_theme.txt', 'Module khác - layout: ' . $layout_file . PHP_EOL, FILE_APPEND);
     }
 
 	if( ! file_exists( NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/layout/' . $layout_file ) )
