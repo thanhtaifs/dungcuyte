@@ -453,15 +453,14 @@ function updateCartUI(res) {
     $('.cart-badge, .cart-count, #cartBadge').text(res.cart_count || 0);
 
   } else {
-    $cartContent.html(`
-      <div class="empty-cart text-center">
+    $cartContent.html(`<div class="empty-cart text-center">
         <i class="fas fa-shopping-bag fa-2x mb-2"></i>
         <p class="mb-0">Giỏ hàng trống</p>
         <small>Thêm sản phẩm để bắt đầu mua sắm!</small>
       </div>
     `);
     $cartFooter.hide();
-    $('.cart-badge, .cart-count, #cartBadge').text(0);
+    $('.cart-badge, .cart-count, #cartBadge').text(0);    
   }
 }
 
@@ -729,16 +728,25 @@ $(document).ready(function() {
     const toggleBtn = $("#cartToggle");
     const dropdown = $(".cart-dropdown");
     const toggleBtnmobile = $("#cart-mobile");	
+	const currentURL = window.location.href;
 
-    toggleBtn.on("click", function(e) {
+    toggleBtn.on("click", function(e) {		
         e.preventDefault();
         e.stopPropagation();
+		if (currentURL.includes("/shops/cart") || (currentURL.includes("nv=shops") && currentURL.includes("op=cart"))) {
+    		//console.log("🛒 Đang ở trang giỏ hàng → vô hiệu popup mini.");
+			return false;
+		}
         dropdown.toggleClass("open");
     });
 
     toggleBtnmobile.on("click", function(e) {
         e.preventDefault();
         e.stopPropagation();
+		if (currentURL.includes("/shops/cart") || (currentURL.includes("nv=shops") && currentURL.includes("op=cart"))) {
+    		//console.log("🛒 Đang ở trang giỏ hàng → vô hiệu popup mini.");
+			return false;
+		}
         dropdown.toggleClass("open");
     });
 
@@ -748,14 +756,12 @@ $(document).ready(function() {
         }
     });
     // ========== End Cart dropdown ==============
-
 	$('#cartContent').on('click', '.cart-remove-btn', function() {
 		let id = $(this).data('id');	
 		removeCart(id);
 	});	
 
 	$('#cartContentWrapper').on('click', '.checkout-btn', function() {
-        // Chuyển hướng sang trang thanh toán
         window.location.href = '/index.php?nv=shops&op=cart';
     });
     

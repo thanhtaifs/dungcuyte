@@ -383,7 +383,7 @@ else
 	$nv_redirect = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name;
 	redict_link( $lang_module['detail_no_permission'], $lang_module['redirect_to_back_shops'], $nv_redirect );
 }
-error_log("=== if detail.php shops ===");
+//error_log("=== if detail.php shops ===");
 if( $popup )
 {
 	echo $contents;
