@@ -1,9 +1,24 @@
 <!-- BEGIN: main -->
-<div class="step_bar alert alert-success clearfix">
-    <a class="step" title="{LANG.cart_check_cart}" href="{LINK_CART}"><span>1</span>{LANG.cart_check_cart}</a>
-    <a class="step step_current" title="{LANG.cart_order}" href="#"><span>2</span>{LANG.cart_order}</a>
-</div>
-<form action="/index.php?nv=shops&op=order" method="post" name="fpost" id="fpost" id="paymentForm">
+<script type="text/javascript" src="{NV_BASE_SITEURL}modules/{MODULE_FILE}/js/select2/select2.min.js"></script>
+<link href="{NV_BASE_SITEURL}modules/{MODULE_FILE}/js/select2/select2.min.css" type="text/css" rel="stylesheet" />
+
+<div class="block clearfix">
+	<div class="step_bar alert alert-success clearfix">
+		<a class="step step_disable" title="{LANG.cart_check_cart}" href="{LINK_CART}"><span>1</span>{LANG.cart_check_cart}</a>
+		<a class="step step_current" title="{LANG.cart_order}" href="#"><span>2</span>{LANG.cart_order}</a>
+	</div>
+
+	<p class="alert alert-info">
+		{LANG.order_info}
+	</p>
+
+	<!-- BEGIN: edit_order -->
+	<div class="alert alert-warning">
+	{EDIT_ORDER}
+	</div>
+	<!-- END: edit_order -->
+
+	<form action="/index.php?nv=shops&op=order" method="post" name="fpost" id="fpost" id="paymentForm">
     <input type="hidden" value="1" name="postorder">    
     <div class="row">
         <!-- Cột trái: Thông tin khách hàng và giỏ hàng -->
@@ -51,7 +66,7 @@
             <!-- Giỏ hàng -->
             <div class="cart-products">
                 <h4 class="cart-title mb-3">Chi tiết đơn hàng</h4>                
-                <!-- BEGIN: loop -->
+                <!-- BEGIN: rows -->
                 <div class="cart-item">
                     <!-- Số thứ tự -->
                     <div class="cart-item-number">
@@ -61,16 +76,16 @@
                     <!-- Thông tin sản phẩm -->
                     <div class="cart-item-info">
                         <!-- Tiêu đề -->
-                        <h6 class="cart-item-title">{title}</h6>
+                        <h6 class="cart-item-title">{title_pro}</h6>
                         <!-- Giá và số lượng -->
                         <div class="price-info">
-                            <div><strong>Đơn giá:</strong> {product_price}</div>
-                            <div><strong>Số lượng:</strong> {product_number}</div>
-                            <div><strong>Thành tiền:</strong> <span class="text-danger">{product_price_total}</span></div>
+                            <div><strong>Đơn giá:</strong> {PRICE.sale_format}</div>
+                            <div><strong>Số lượng:</strong> {pro_num}</div>
+                            <div><strong>Thành tiền:</strong> <span class="text-danger">{PRICE_TOTAL.sale_format}</span></div>
                         </div>
                     </div>
                 </div>
-                <!-- END: loop -->
+                <!-- END: rows -->
             </div>
         </div>
 
@@ -122,58 +137,6 @@
         </div>
     </div>
 </form>
+</div>
 
-<script type="text/javascript">
-
-$(document).ready(function() {
-
-
-    let now = new Date();
-    $("#orderTime").text(now.toLocaleString('vi-VN'));
-    
-    $("#").on("submit", function(e) {
-        e.preventDefault();
-        // Nếu form hợp lệ
-        if (this.checkValidity()) {           
-            let formData = $(this).serialize() + "&postorder=1";
-            $.ajax({
-                type: "POST",
-                url: '/index.php?nv=shops&op=order&t=json',               
-                data: formData,
-                dataType: "json",
-                beforeSend: function() 
-                {
-                    $(".btn-success").prop("disabled", true).text("Đang xử lý...");
-                },
-                success: function(res) {
-                    console.log("Kết quả đặt hàng:", res);
-                    if (res.status === "success") {     
-                        // Chuyển hướng theo link mà PHP trả về
-                        window.location.href = res.redirect || 
-                            (nv_base_siteurl + "index.php?" + nv_lang_variable + "=" + nv_lang_data 
-                            + "&" + nv_name_variable + "=shops&" + nv_op_variable + "=complete");
-                    } 
-                    else if (res.status === "error") {
-                        $(".error-message").remove();
-                        $("#paymentForm").prepend(
-                            '<div class="alert alert-danger error-message">' + res.message + "</div>"
-                        );
-                        $('html, body').animate({ scrollTop: $("#paymentForm").offset().top - 100 }, 400);
-                    } else {
-                        alert(res.message || "Có lỗi xảy ra khi đặt hàng!");
-                    }
-                },
-                error: function(xhr) {
-                    alert("Không thể kết nối tới máy chủ. Mã lỗi: " + xhr.status);
-                },
-                complete: function() {
-                    $(".btn-success").prop("disabled", false).html('<i class="fa fa-credit-card mr-1"></i> Xác nhận đặt hàng');
-                }
-            });
-        } else {
-            alert("Vui lòng điền đầy đủ thông tin!");
-        }
-    });
-});
-</script>
 <!-- END: main -->

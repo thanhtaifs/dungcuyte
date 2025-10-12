@@ -323,10 +323,10 @@ function addToCart(id) {
     url: '/index.php?nv=shops&op=setcart&t=json', // đường dẫn chuẩn của bạn
     data: { id: id },
     dataType: 'json', // bắt buộc để jQuery parse JSON
-    success: function (res) {     
+    success: function (res) {    
 
       if (res && res.status === 'success') {
-        console.log('setcart response:', res);
+        //console.log('setcart response:', res);
 		// cập nhật UI
         if (typeof loadCart === 'function') loadCart();
         // hiển thị message server-returned
@@ -340,8 +340,8 @@ function addToCart(id) {
       }
     },
     error: function (xhr, status, error) {
-      console.error('AJAX Error:', status, error, 'responseText:', xhr.responseText);
-      alert('Không thể thêm vào giỏ. Kiểm tra console → Network → Response để xem server trả gì.');
+      //console.error('AJAX Error:', status, error, 'responseText:', xhr.responseText);
+      alert('Bạn thao thác quá nhanh. Vui lòng chờ vài giây sau đó thao tác thêm sản phẩm vào giỏ hàng');
     }
   });
 }
@@ -353,17 +353,17 @@ function loadCart() {
     url: '/index.php?nv=shops&op=loadcart&t=json',
     dataType: 'json',
     success: function (res) {
-      console.log('getcart response:', res);
+      //console.log('getcart response:', res);
       let $cartContent = $('#cartContent');
       let $cartFooter = $('#cartFooter');
       if (res && res.status === 'success' && res.items.length > 0) {
-        let html = '<ul class="cart-items list-unstyled mb-0">';
-        res.items.forEach(item => {
+        let html = '<ul class="cart-items-popup list-unstyled mb-0">';
+        res.items.forEach(item => {		
           html += `
-            <li class="cart-item d-flex align-items-center mb-2">
-              <img src="${item.image}" alt="${item.title}" class="cart-img mr-2" style="width:50px;height:50px;object-fit:cover;">
+            <li class="cart-item-popup d-flex align-items-center mb-2">
+              <img src="${item.img_pro}" alt="${item.title_pro}" class="cart-img mr-2" style="width:50px;height:50px;object-fit:cover;">
               <div class="cart-info flex-grow-1">
-                <a href="${item.link}" class="cart-title d-block">${item.title}</a>
+                <a href="${item.link_pro}" class="cart-title d-block">${item.title_pro}</a>
                 <small>${item.qty} x ${item.price}</small>
               </div>
               <div class="cart-subtotal text-nowrap">${item.subtotal}</div>
@@ -376,7 +376,6 @@ function loadCart() {
         $cartContent.html(html);
         $('#totalPrice').text(res.total + 'đ');
         $cartFooter.show();
-
         // cập nhật badge
         $('.cart-badge, .cart-count, #cartBadge').text(res.cart_count || 0);
 
@@ -412,43 +411,104 @@ function removeCart(id) {
     data: { id: id },
     dataType: 'json',
     success: function(res) {
-      if (res && res.status === 'success') {
+      if (res && res.status === 'success') 
+	{
         // Cập nhật giao diện giỏ hàng
         updateCartUI(res);
+		updateCartTotal(res);
       } else {
-        alert('Lỗi: ' + (res.message || 'Không thể xóa sản phẩm'));
+        showwMessage('Lỗi: ' + (res.message || 'Không thể xóa sản phẩm'));
       }
     },
     error: function(xhr, status, error) {
       //console.error('Remove cart AJAX error:', status, error);
-	  showwMessage('Lỗi xóa sản phẩm khỏi giỏ hàng trên hệ thống.');
+	  //showwMessage('Lỗi xóa sản phẩm khỏi giỏ hàng trên hệ thống.');
     }
   });
 }
 
+function updateCartTotal(res) {	
+    let $cartProducts = $('#cart-products'); // khu vực danh sách sản phẩm
+    let total = 0;
+    // --- Nếu có dữ liệu từ server ---
+    if (res && res.items && res.items.length > 0) {
+        let html = '';
+        res.items.forEach(item => {
+            total += item.price_raw * item.qty;
+            html += `
+                <div class="cart-item" id="${item.id}">
+                    <div class="cart-item-image">
+                        <img src="${item.img_pro}" alt="${item.title_pro}" class="img-fluid rounded" style="max-height: 150px; object-fit: contain;">
+                    </div>
+
+                    <div class="cart-item-info">
+                        <h6 class="cart-item-title">${item.title_pro}</h6>
+
+                        <div class="quantity-control">
+                            <button type="button" class="qty-btn qty-decrease">-</button>
+                            <input type="number" value="${item.qty}" name="listproid[${item.id}]" class="qty-input" min="1">
+                            <button type="button" class="qty-btn qty-increase">+</button>
+                        </div>
+
+                        <div class="price-info">
+                            <div><strong>Giá:</strong> ${item.price}</div>                            
+                            <div><strong>Thành tiền:</strong> <span class="text-danger">${item.subtotal}</span></div>
+                        </div>
+                        <button type="button" class="btn-remove mt-2" 
+                            title="Xóa sản phẩm"                             
+                            data-id="${item.id}">
+                            <i class="fa fa-times-circle"></i> Xóa
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+
+        // --- Cập nhật HTML giỏ hàng ---
+        $cartProducts
+            .hide()
+            .html(html)
+            .fadeIn(200);		
+
+        // --- Cập nhật tổng tiền ---
+        $('.cart-amount, #totalPrice').text(
+            res.total || total.toLocaleString('vi-VN') + ' ₫'
+        );	
+
+        // --- Nếu có counter giỏ hàng ---
+        if (res.count !== undefined) {
+            $('.cart-count').text(res.count);
+        }
+
+    } else {       
+        $cartProducts.fadeOut(200, function() {
+            $('#emptyCart').removeAttr('style').hide().fadeIn(300);
+        });
+
+        $('.cart-amount, #totalPrice').text('0 ₫');
+        $('.cart-count').text('0');
+    }
+}
 
 function updateCartUI(res) {
   let $cartContent = $('#cartContent');
   let $cartFooter = $('#cartFooter');
   if (res && res.items.length > 0) {
     let html = '<ul class="cart-items list-unstyled mb-0">';
-    res.items.forEach(item => {
-      html += `
-        <li class="cart-item d-flex align-items-center mb-2">
-          <img src="${item.image}" alt="${item.title}" class="cart-img mr-2" style="width:50px;height:50px;object-fit:cover;">
+    res.items.forEach(item => {	
+      html += `<li class="cart-item d-flex align-items-center mb-2">
+          <img src="${item.img_pro}" alt="${item.title_pro}" class="cart-img mr-2" style="width:50px;height:50px;object-fit:cover;">
           <div class="cart-info flex-grow-1">
-            <a href="${item.link}" class="cart-title d-block">${item.title}</a>
+            <a href="${item.link_pro}" class="cart-title d-block">${item.title_pro}</a>
             <small>${item.qty} x ${item.price}</small>
           </div>
           <div class="cart-subtotal text-nowrap">${item.subtotal}</div>
           <button class="cart-remove-btn btn btn-sm btn-danger ml-2" data-id="${item.id}" title="Xóa sản phẩm">&times;</button>
-        </li>
-      `;
+        </li>`;
     });
     html += '</ul>';
-
     $cartContent.html(html);
-    $('#totalPrice').text(res.total + 'đ');
+    $('#totalPrice-popup').text(res.total + 'đ');
     $cartFooter.show();
     $('.cart-badge, .cart-count, #cartBadge').text(res.cart_count || 0);
 
@@ -635,6 +695,23 @@ $(window).on("resize", function() {
 	//if (150 < cRangeX || 150 < cRangeY) tipHide(), ftipHide()
 });
 
+$(document).on('click', '.qty-decrease', function () {
+    let input = $(this).siblings('.qty-input');
+    let val = parseInt(input.val()) - 1;
+    if (val < 1) val = 1;
+    input.val(val).trigger('change');
+});
+
+$(document).on('click', '.qty-increase', function () {
+    let input = $(this).siblings('.qty-input');
+    let val = parseInt(input.val()) + 1;
+    input.val(val).trigger('change');
+});
+
+// === Khi thay đổi số lượng ===
+$(document).on('change', '.qty-input', function () {
+    $("#fpro").submit(); // Cập nhật lại session giỏ hàng
+});
 
 // Load Social script - lasest
 $(window).load(function() {
@@ -724,6 +801,7 @@ $(window).load(function() {
 
 $(document).ready(function() {
 	loadCart();
+	
 	// ========== Cart dropdown ==============
     const toggleBtn = $("#cartToggle");
     const dropdown = $(".cart-dropdown");
@@ -761,9 +839,19 @@ $(document).ready(function() {
 		removeCart(id);
 	});	
 
+	$("#cart-products").on("click", '.btn-remove', function() {
+		let id = $(this).data('id');	
+		removeCart(id);
+		
+	});
+
+
 	$('#cartContentWrapper').on('click', '.checkout-btn', function() {
         window.location.href = '/index.php?nv=shops&op=cart';
     });
-    
+	
+    $('#back_to_cart').on('click', function() {
+        window.location.href = '/index.php?nv=shops&op=cart';
+    });
 });
 

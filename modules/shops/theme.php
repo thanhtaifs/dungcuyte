@@ -1924,7 +1924,7 @@ function cart_product($data_content, $coupons_code, $order_info, $array_error_nu
             $price = nv_get_price($data_row['id'], $pro_config['money_unit'], $data_row['num'], true);
             $xtpl->assign('PRICE', $price);
             $price = nv_get_price($data_row['id'], $pro_config['money_unit'], $data_row['num']);
-            $total = nv_number_format($cart_total) . ' ' . $pro_config['money_unit'];
+            //$total = nv_number_format($cart_total) . ' ' . $pro_config['money_unit'];
             $xtpl->assign('PRICE_TOTAL', $price['sale_format']);
             $xtpl->assign('pro_num', $data_row['num']);
             $xtpl->assign('link_remove', $data_row['link_remove']);
@@ -2027,8 +2027,27 @@ function cart_product($data_content, $coupons_code, $order_info, $array_error_nu
     return $xtpl->text('main');
 }
 
+function nv_theme_shops_order_page($success, $error, $order_info)
+{
+    global $module_info, $module_file;
+    $xtpl = new XTemplate('order.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
+
+    if ($success) {
+        $xtpl->assign('ORDER', $order_info);
+        $xtpl->parse('main.success');
+    } elseif (!empty($error)) {
+        $xtpl->assign('ERROR', $error);
+        $xtpl->parse('main.error');
+    } else {
+        $xtpl->parse('main.empty');
+    }
+
+    $xtpl->parse('main');
+    return $xtpl->text('main');
+}
+
 /**
- * uers_order()
+ * users_order()
  *
  * @param mixed $data_content
  * @param mixed $data_order
@@ -2036,11 +2055,11 @@ function cart_product($data_content, $coupons_code, $order_info, $array_error_nu
  * @param mixed $error
  * @return
  */
-function uers_order($data_content, $data_order, $total_coupons, $order_info, $error)
+function users_order($data_content, $data_order, $total_coupons, $order_info, $error)
 {
     global $module_info, $lang_module, $lang_global, $module_config, $module_data, $module_file, $module_name, $pro_config, $money_config, $global_array_group, $shipping_data;
-
-    $xtpl = new XTemplate('order.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
+    error_log( 'cell users_order');
+    $xtpl = new XTemplate('order_check.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
     $xtpl->assign('LANG', $lang_module);
     $xtpl->assign('TEMPLATE', $module_info['template']);
     $xtpl->assign('NV_BASE_SITEURL', NV_BASE_SITEURL);

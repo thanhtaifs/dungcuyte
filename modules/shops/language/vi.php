@@ -492,3 +492,6 @@ $lang_module['select_content_download'] = 'Download tài liệu';
 $lang_module['select_content_comment'] = 'Bình luận';
 $lang_module['select_content_rate'] = 'Đánh giá sản phẩm';
 $lang_module['select_content_customdata'] = 'Dữ liệu tùy biến';
+
+$lang_module['cart_confirm_info'] = 'Tôi đã kiểm tra và xác nhận thông tin đặt hàng là chính xác';
+$lang_module['order_check_err'] = 'Bạn cần chọn mục xác nhận thông tin';

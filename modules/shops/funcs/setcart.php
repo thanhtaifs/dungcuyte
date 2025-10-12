@@ -49,9 +49,9 @@ if ($id > 0) {
                 'num' => $num,
                 'price' => $price,
                 'money_unit' => $row['money_unit'],
-                'title' => $row['title'],
-                'image' => $img, 
-                'link' => $link,
+                'title_pro' => $row['title'],
+                'img_pro' =>  $img,
+                'link_pro' => $link,
             ];
         } else {
             $_SESSION[$module_data . '_cart'][$id]['num'] += $num;
@@ -68,16 +68,14 @@ if ($id > 0) {
 // Xuất JSON khi gọi ?t=json
 if ($type == 'json') {
     $cart_count = !empty($_SESSION[$module_data . '_cart']) ? count($_SESSION[$module_data . '_cart']) : 0;
-
     $response = [
         'status' => (strpos($contents_msg, 'OK_') === 0) ? 'success' : 'error',
         'message' => substr($contents_msg, 3), // bỏ tiền tố OK_/ERR_
-        'cart_count' => $cart_count,
-        'image' => $img, // lưu URL đầy đủ
+        'cart_count' => $cart_count,       
     ];
 
     header('Content-Type: application/json; charset=utf-8');
-    error_log("== DEBUG setcart.php == ID: $id | num: $num | POST: " . json_encode($_POST) . " | GET: " . json_encode($_GET));
+    //error_log("== DEBUG setcart.php == ID: $id | num: $num | POST: " . json_encode($_POST) . " | GET: " . json_encode($_GET));
     echo json_encode($response, JSON_UNESCAPED_UNICODE);
     exit();
 }

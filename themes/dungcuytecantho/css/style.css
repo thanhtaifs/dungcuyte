@@ -944,6 +944,15 @@ input:focus, select:focus, button:focus, textarea:focus
     width: 50px;
     color: #fff;
 }
+.badge_no
+{
+    color: #28a745;
+	font-size: 14px;
+	font-weight: bold;
+	 display: flex;
+    align-items: center;
+}
+
 
 .product-image {
     position: relative;
@@ -1087,6 +1096,7 @@ input:focus, select:focus, button:focus, textarea:focus
     transform: translateX(0);
     opacity: 1;
 }
+
 		 /* Danh sách sản phẩm */
         .cart-products {
             background: white;
@@ -1095,9 +1105,26 @@ input:focus, select:focus, button:focus, textarea:focus
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
+		  .cart-products-total {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+		.cart-item-popup {
+            display: flex;
+			gap: 10px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            padding: 10px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
         .cart-item {
             display: flex;
-            gap: 20px;
+            gap: 12px;
             background: #f8f9fa;
             border: 2px solid #e9ecef;
             border-radius: 12px;
@@ -1138,11 +1165,11 @@ input:focus, select:focus, button:focus, textarea:focus
         }
 
         .cart-item-title {
-            font-size: 1.1em;
+            font-size: 14px;
             font-weight: 600;
             color: #2d3748;
-            margin: 0;
-            line-height: 1.4;
+            margin: 0;      
+			color: #28a745;      
         }
 
         /* Quantity controls */
@@ -1242,6 +1269,32 @@ input:focus, select:focus, button:focus, textarea:focus
         }
 
         /* Payment summary */
+		#back_to_cart button {
+			background-color: #dc3545 !important;
+			color: #fff !important;
+			border-color: #dc3545 !important;
+			display: inline-block;
+			font-weight: 400;
+			color: #212529;
+			text-align: center;
+			vertical-align: middle;
+			cursor: pointer;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			background-color: transparent;
+			border: 1px solid transparent;
+			padding: .375rem .75rem;
+			font-size: 1rem;
+			line-height: 1.5;
+			border-radius: .25rem;	
+		}
+
+		#back_to_cart button:hover {
+			background-color: #c82333 !important;
+			border-color: #bd2130 !important;
+		}
         .payment-summary {
             background: white;
             border-radius: 15px;
@@ -1251,7 +1304,83 @@ input:focus, select:focus, button:focus, textarea:focus
             top: 20px;
             height: fit-content;
         }
+		/* Phương thức thanh toán */
+		.payment-method {
+			background: #f8f9fa;
+			padding: 15px;
+			border-radius: 8px;
+			border: 1px solid #e9ecef;
+		}
 
+		.payment-method h6 {
+			margin-bottom: 12px;
+			color: #333;
+			font-size: 15px;
+		}
+
+		.payment-method .form-check {
+			padding: 12px 15px;
+			margin-bottom: 10px;
+			background: #fff;
+			border: 2px solid #dee2e6;
+			border-radius: 6px;
+			transition: all 0.3s ease;
+			cursor: pointer;
+		}
+
+		.payment-method .form-check:hover {
+			border-color: #28a745;
+			background: #f1f9f3;
+		}
+
+		.payment-method .form-check:last-child {
+			margin-bottom: 0;
+		}
+
+		.payment-method .form-check-input {
+			margin-top: 0.35rem;			
+			cursor: pointer;
+		}
+
+		.payment-method .form-check-input:checked {
+			background-color: #28a745;
+			border-color: #28a745;
+		}
+
+		.payment-method .form-check-label {
+			cursor: pointer;
+			font-size: 14px;
+			color: #495057;
+			padding-left: 8px;
+			margin-bottom: 0;
+			display: flex;
+			align-items: center;
+		}
+
+		/* Khi radio được chọn */
+		.payment-method .form-check:has(.form-check-input:checked) {
+			border-color: #28a745;
+			background: #e8f5e9;
+			box-shadow: 0 2px 4px rgba(40, 167, 69, 0.1);
+		}
+
+		.payment-method .form-check:has(.form-check-input:checked) .form-check-label {
+			color: #28a745;
+			font-weight: 500;
+		}
+
+		/* Icon cho phương thức thanh toán (tùy chọn) */
+		.payment-method .form-check-label::before {
+			content: '';
+			display: inline-block;
+			width: 24px;
+			height: 24px;
+			margin-right: 8px;
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+		}	
+	
         .summary-title {
             font-size: 1.5em;
             color: #2d3748;
@@ -1408,6 +1537,44 @@ input:focus, select:focus, button:focus, textarea:focus
             box-shadow: 0 6px 20px rgba(39, 174, 96, 0.3);
             transform: rotate(0deg);
             transition: transform 0.3s ease;
+        }
+
+		/* Order format page */
+		.success-container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .success-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .success-header {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: #fff;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        .success-icon i {
+            font-size: 40px;
+            color: #28a745;
         }
 
 /* --------------------- CHAT ZALO ------------------------ */

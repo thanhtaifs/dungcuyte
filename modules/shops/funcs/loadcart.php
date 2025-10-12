@@ -218,13 +218,12 @@ foreach ($cart as $pid => $row) {
     $qty = intval($row['num'] ?? 1);
     $price = floatval($row['price'] ?? 0);
     $subtotal = $qty * $price;
-    $total += $subtotal;
-
+    $total += $subtotal;  
     $items[] = [
         'id' => $pid,
-        'title' => $row['title'] ?? "Sản phẩm $pid",
-        'link' => isset($row['link']) ? $row['link'] : '#',
-        'image' => $row['image'] ? $row['image'] : '#',
+        'title_pro' => $row['title_pro'] ?? "Sản phẩm $pid",
+        'img_pro' => $row['img_pro'] ? $row['img_pro'] : '#',
+        'link_pro' => isset($row['link_pro']) ? $row['link_pro'] : '#',       
         'qty' => $qty,
         'price' => number_format($price, 0, ',', '.'),
         'subtotal' => number_format($subtotal, 0, ',', '.')

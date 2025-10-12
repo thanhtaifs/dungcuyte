@@ -16,23 +16,18 @@ if ($id > 0 && isset($_SESSION[$module_data . '_cart'][$id])) {
 $cart = $_SESSION[$module_data . '_cart'] ?? [];
 $items = [];
 $total = 0;
-
+//error_log('clicked delete item from cart');
 foreach ($cart as $pid => $row) {
     $qty = intval($row['num'] ?? 1);
     $price = floatval($row['price'] ?? 0);
     $subtotal = $qty * $price;
     $total += $subtotal;
-
     $items[] = [
         'id' => $pid,
-        'title' => $row['title'] ?? "Sản phẩm $pid",
-        'link' => isset($row['alias']) 
-                  ? NV_BASE_SITEURL . "index.php?" . NV_LANG_VARIABLE . "=" . NV_LANG_DATA
-                    . "&" . NV_NAME_VARIABLE . "=" . $module_name
-                    . "&" . NV_OP_VARIABLE . "=" . $row['alias']
-                  : '#',
-        'image' => $row['homeimgthumb'] ?? '#',
+        'title_pro' => $row['title_pro'] ?? "Sản phẩm $pid",
         'qty' => $qty,
+        'img_pro' => $row['img_pro'] ? $row['img_pro'] : '#',
+        'link_pro' => isset($row['link_pro']) ? $row['link_pro'] : '#',
         'price' => number_format($price, 0, ',', '.'),
         'subtotal' => number_format($subtotal, 0, ',', '.')
     ];

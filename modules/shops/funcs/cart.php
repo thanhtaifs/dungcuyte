@@ -10,8 +10,6 @@
 
 if( ! defined( 'NV_IS_MOD_SHOPS' ) ) die( 'Stop!!!' );
 
-
-
 $order_info = array();
 $order_old = array();
 $coupons_code = '';
@@ -133,20 +131,21 @@ if( isset( $_SESSION[$module_data . '_order_info'] ) and !empty( $_SESSION[$modu
 		$_SESSION[$module_data . '_order_info']['shipping'] = $shipping_old;
 	
 		//$_SESSION[$module_data . '_cart'] = $order_old;
-		if( !empty($order_old) && is_array($order_old) ) {
+		if( !empty($order_old) && is_array($order_old) ) 
+		{
+
 			$_SESSION[$module_data . '_cart'] = $order_old;
-		} else {
-			error_log("BỎ QUA ghi đè giỏ hàng vì order_old rỗng hoặc không hợp lệ");
+		} else 
+		{
+			//error_log("BỎ QUA ghi đè giỏ hàng vì order_old rỗng hoặc không hợp lệ");
 		}
 		
 	}
 }
 
-
-error_log("=== CART DEBUG START ===");
-error_log("POST: " . print_r($_POST, true));
-error_log("SESSION CART BEFORE: " . print_r($_SESSION[$module_data . '_cart'], true));
-
+// error_log("=== CART DEBUG START ===");
+// error_log("POST: " . print_r($_POST, true));
+// // error_log("SESSION CART BEFORE: " . print_r($_SESSION[$module_data . '_cart'], true));
 
 if( $nv_Request->get_int( 'save', 'post', 0 ) == 1 )
 {
@@ -160,8 +159,6 @@ if( $nv_Request->get_int( 'save', 'post', 0 ) == 1 )
 		{
 			if( ! empty( $_SESSION[$module_data . '_cart'][$pro_id] ) and $number >= 0 )
 			{
-				error_log("GHI ĐÈ SESSION_CART Ở DÒNG ". __LINE__);
-				error_log("Number trong forech ". $number);
 				$_SESSION[$module_data . '_cart'][$pro_id]['num'] = $number;
 			}
 		}
@@ -170,7 +167,6 @@ if( $nv_Request->get_int( 'save', 'post', 0 ) == 1 )
 
 $data_content = array();
 $array_error_product_number = array();
-
 if( ! empty( $_SESSION[$module_data . '_cart'] ) )
 {
 	$arrayid = array();
@@ -207,7 +203,7 @@ if( ! empty( $_SESSION[$module_data . '_cart'] ) )
 
 			$group = $_SESSION[$module_data . '_cart'][$id]['group'];
 			$number = $_SESSION[$module_data . '_cart'][$id]['num'];
-			error_log("Số lượng giỏ hàng (ID: $id) = " . print_r($_SESSION[$module_data . '_cart'][$id]['num'], true));
+			//error_log("Số lượng giỏ hàng (ID: $id) = " . print_r($_SESSION[$module_data . '_cart'][$id]['num'], true));
 			if( !empty( $order_info ) )
 			{
 				$product_number = $product_number + ( isset( $_SESSION[$module_data . '_cart'][$id]['num_old'] ) ? $_SESSION[$module_data . '_cart'][$id]['num_old'] : $_SESSION[$module_data . '_cart'][$id]['num'] );
@@ -272,7 +268,7 @@ if( ! empty( $_SESSION[$module_data . '_cart'] ) )
 			$total += $pro['price'] * $pro['num'];
 		}
 		$total_cart = nv_number_format($total) . ' ' . $pro_config['money_unit'];
-
+		//error_log("TỔNG GIỎ HÀNG =" . $total_cart);
 		if( empty( $array_error_product_number ) and $nv_Request->isset_request( 'cart_order', 'post' ) )
 		{
 			Header( 'Location: ' . nv_url_rewrite( NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=order', true ) );
@@ -287,10 +283,7 @@ else
 }
 
 $page_title = $lang_module['cart_title'];
-
 $contents = call_user_func( 'cart_product', $data_content, $coupons_code, $order_info, $array_error_product_number, $total_cart );
-
-//error_log("SESSION CART AFTER: " . print_r($_SESSION[$module_data . '_cart'], true));
 
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_site_theme( $contents );

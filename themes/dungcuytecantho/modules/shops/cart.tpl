@@ -9,7 +9,7 @@
     <div class="row">
         <!-- Cột trái: danh sách sản phẩm -->
         <div class="col-md-8">
-            <div class="cart-products">
+            <div class="cart-products" id="cart-products">
                 <!-- BEGIN: rows -->
                 <div class="cart-item" id="{id}">
                     <!-- Ảnh sản phẩm -->
@@ -36,33 +36,32 @@
                         </div>
 
                         <!-- Nút xóa -->
-                        <button type="button" class="btn-remove mt-2" title="{LANG.cart_remove_pro}" data-href="{link_remove}">
+                        <button type="button" class="btn-remove mt-2" title="{LANG.cart_remove_pro}" data-id={id}>
                             <i class="fa fa-times-circle"></i> Xóa
                         </button>
                     </div>
                 </div>
-                <!-- END: rows -->                
-            </div>
+                <!-- END: rows -->                               
+            </div> 
             <!-- Khi giỏ hàng trống -->
-                <div id="emptyCart" class="text-center py-5" style="display:none;">
-                    <h5 class="text-muted mb-3">🛍️ Giỏ hàng của bạn đang trống!</h5>
-                    <button type="button" class="btn btn-primary" id="continueShopping">
-                        <i class="fa fa-arrow-left mr-1"></i> Tiếp tục mua sắm
-                    </button>
-                </div>
+            <div id="emptyCart" class="text-center py-5" style="display:none;">
+                <h5 class="text-muted mb-3">🛍️ Giỏ hàng của bạn đang trống!</h5>
+                <button type="button" class="btn btn-primary" id="continueShopping">
+                    <i class="fa fa-arrow-left mr-1"></i> Tiếp tục mua sắm
+                </button>
+            </div>               
         </div>
-
         <!-- Cột phải: tổng chi phí -->
         <div class="col-md-4">
-              <div class="cart-products">
+              <div class="cart-products-total">
                     <h4 class="cart-title">Thông tin giỏ hàng</h4>
                     <p class="cart-total">
                         <strong>Tổng chi phí:</strong> 
-                        <span class="cart-amount">{TOTAL}</span> 
+                        <span id="totalPrice" class="cart-amount"></span> 
                     </p>                         
                      <p class="cart-time">
                         <strong>Thời gian:</strong> 
-                        <span id="cartTime">10/9/2025, 7:19:52 AM</span>
+                        <span id="cartTime"></span>
                     </p>
                     <button type="button" class="btn btn-success btn-block" id="goToPayment">
                         <i class="fa fa-credit-card mr-1"></i> Thanh toán
@@ -74,87 +73,10 @@
 </form>
 
 <script type="text/javascript">
-$(document).ready(function(){
-    // --- Hàm tính lại tổng chi phí ---
-    function updateCartTotal() {
-        let total = 0;
-        $('.cart-item').each(function() {
-            let price = parseFloat($(this).find('.price').data('price')) || 0;
-            let qty = parseInt($(this).find('.qty-input').val()) || 1;
-            total += price * qty;
-        });
-        $('.cart-amount').text(total.toLocaleString('vi-VN') + ' VND');
-        // --- Kiểm tra nếu không còn sản phẩm ---
-        if ($('.cart-item').length === 0) {
-            console.log("🧾 Không còn sản phẩm trong giỏ. Hiển thị #emptyCart...");
-            // Ẩn danh sách sản phẩm + phần tổng chi phí
-            $('.cart-products').fadeOut(200, function() {
-                // Sau khi ẩn xong thì hiển thị giỏ hàng trống
-                $('#emptyCart').removeAttr('style').hide().fadeIn(300);
-            });
-        }
-    }
-
-    // --- Cập nhật thời gian ---
-    let now = new Date();
-    $("#cartTime").text(now.toLocaleString('vi-VN'));
-
-    // --- Nút Xóa sản phẩm ---
-    $(".btn-remove").on("click", function() {
-        let btn = $(this);
-        let item = btn.closest(".cart-item");
-        let href = btn.data("href");
-
-        if(!confirm("Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?")) return;
-
-        $.ajax({
-            type: "GET",
-            url: href,
-            success: function(res){
-                // Nếu server trả JSON ok thì xử lý
-                try {
-                    let data = JSON.parse(res);
-                    if(data.status === 'ok'){
-                        item.fadeOut(300, function(){
-                            $(this).remove();
-                            updateCartTotal();
-                        });
-                    } else {
-                        item.fadeOut(300, function(){
-                            $(this).remove();
-                            updateCartTotal();
-                        });
-                    }
-                } catch (e) {
-                    // Nếu không trả JSON vẫn xóa
-                    item.fadeOut(300, function(){
-                        $(this).remove();
-                        updateCartTotal();
-                    });
-                }
-            },
-            error: function(){
-                alert("Lỗi kết nối, vui lòng thử lại!");
-            }
-        });
-    });
-
-    // --- Tăng giảm số lượng ---
-    $(".qty-increase").click(function(){
-        let input = $(this).siblings('.qty-input');
-        input.val(parseInt(input.val()) + 1).trigger('change');
-    });
-
-    $(".qty-decrease").click(function(){
-        let input = $(this).siblings('.qty-input');
-        let val = parseInt(input.val()) - 1;
-        if(val < 1) val = 1;
-        input.val(val).trigger('change');
-    });
-
-    $(".qty-input").change(function(){
-        $("#fpro").submit(); // Cập nhật lại session giỏ hàng
-    });
+$(document).ready(function()
+{
+   	let now = new Date();
+    $("#cartTime").text(now.toLocaleString('vi-VN'));	
 
     // --- Nút Tiếp tục mua sắm ---
     $("#continueShopping").click(function(){

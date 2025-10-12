@@ -330,7 +330,7 @@ foreach ($cart as $pid => $row) {
 
     $items[] = [
         'id' => $pid,
-        'title' => $row['title'] ?? "Sản phẩm $pid",
+        'title' => $row['title_pro'] ?? "Sản phẩm $pid",
         'link' => $row['link'] ?? '#',
         'image' => $row['image'] ?? '#',
         'qty' => $qty,
@@ -347,11 +347,13 @@ $xtpl->assign('dateup', date('d/m/Y'));
 $xtpl->assign('moment', date('H:i:s'));
 $xtpl->assign('order_total', number_format($total, 0, ',', '.'));
 
+
+
 // Parse sản phẩm
 $no = 1;
 foreach ($items as $product) {
     $xtpl->assign('pro_no', $no++);
-    $xtpl->assign('product_name', $product['title']);
+    $xtpl->assign('title', $product['title']);
     $xtpl->assign('link_pro', $product['link']);
     $xtpl->assign('product_number', $product['qty']);
     $xtpl->assign('product_unit', $pro_config['money_unit'] ?? 'VND');

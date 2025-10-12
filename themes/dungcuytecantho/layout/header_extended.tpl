@@ -125,7 +125,7 @@
                                                 <div class="cart-footer" id="cartFooter" style="display: none;">
                                                     <div class="cart-total">
                                                         <span>Tổng cộng:</span>
-                                                        <span class="total-price" id="totalPrice">0đ</span>
+                                                        <span class="total-price" id="totalPrice-popup">0đ</span>
                                                     </div>
                                                     <button class="checkout-btn">
                                                         <i class="fa fa-credit-card mr-2"></i>
