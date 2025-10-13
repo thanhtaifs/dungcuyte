@@ -15,7 +15,7 @@ $page_title = $lang_module['weight_unit'];
 
 $error = '';
 $savecat = 0;
-$data = array( );
+$data = array();
 
 $table_name = $db_config['prefix'] . '_' . $module_data . '_weight_' . NV_LANG_DATA;
 $savecat = $nv_Request->get_int( 'savecat', 'post', 0 );
