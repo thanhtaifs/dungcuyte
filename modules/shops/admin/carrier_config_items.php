@@ -11,7 +11,7 @@
 if( !defined( 'NV_IS_FILE_ADMIN' ) )
 	die( 'Stop!!!' );
 
-error_log('Debug: Entered carrier_config_items.php');
+//error_log('Debug: Entered carrier_config_items.php');
 $page_title = $lang_module['carrier_config_config'];
 
 $config_weight = array( );

@@ -492,8 +492,7 @@ if( !empty( $generate_page ) )
 
 $xtpl->parse( 'main' );
 $contents = $xtpl->text( 'main' );
-
-error_log("===main shops finish loaded OK ===");
+//error_log("===main shops finish loaded OK ===");
 
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_admin_theme( $contents );
