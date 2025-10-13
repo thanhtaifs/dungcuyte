@@ -649,7 +649,7 @@ if( $action == 0)
 			$price_info = nv_get_price($id, $money_unit);
 			$item_total = $price_info['price'] * $num;
 			$order_total += $item_total;	
-			error_log('order_total: ' . $order_total );
+			//error_log('order_total: ' . $order_total );
 			$data_content[] = array(
 				'id' => $id,
 				'publtime' => $publtime,

@@ -321,7 +321,7 @@ function nv_getCountry_from_file( $ip )
 function nv_getCountry_from_cookie( $ip )
 {
 	global $global_config, $countries;
-	error_log("=== DEBUG IP: " . var_export($ip, true));
+	//error_log("=== DEBUG IP: " . var_export($ip, true));
 	//$numbers = preg_split( '/\./', $ip );
 	//$code = ( $numbers[0] * 16777216 ) + ( $numbers[1] * 65536 ) + ( $numbers[2] * 256 ) + ( $numbers[3] );
 	

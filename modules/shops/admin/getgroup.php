@@ -10,7 +10,7 @@
 
 if( ! defined( 'NV_IS_FILE_ADMIN' ) ) die( 'Stop!!!' );
 
-error_log("=== START getgroup.php ===");
+//error_log("=== START getgroup.php ===");
 
 function getgroup_ckhtml( $subgroupid_i, $array_groupid_in_row )
 {
