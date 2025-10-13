@@ -65,9 +65,7 @@ if ($num_items > 0) {
         else
         {
             $title_alt  = 'no title';
-        }
-        
-        
+        }       
         
         //file_put_contents(NV_ROOTDIR . '/debug_seek.log', ">>> while loop \n", FILE_APPEND);
         if (empty($row['listcatid'])) {
@@ -92,8 +90,7 @@ if ($num_items > 0) {
         else//no image
         {
             $thumb_link = NV_BASE_SITEURL . 'themes/' . $module_info['template'] . '/images/' . $module_file . '/no-image.jpg';
-        }
-        
+        }        
         
         if(isset($row['homeimgfile'] ))
         {
@@ -102,8 +99,7 @@ if ($num_items > 0) {
         else
         {
             $name_image = '';
-        }
-        
+        }       
         
         //file_put_contents(NV_ROOTDIR . '/debug_seek.log', ">>> search php homeimgthumb: " .  $thumb . PHP_EOL, FILE_APPEND);
         

@@ -307,7 +307,7 @@ if( $nv_Request->isset_request( 'scaptcha', 'get' ) )
 try {
     $crypt = new nv_Crypt( $global_config['sitekey']);
 } catch (\Throwable $e) {
-    file_put_contents(__DIR__ . '/nv_mainfile_debug.log', $e->getMessage(), FILE_APPEND);
+    //file_put_contents(__DIR__ . '/nv_mainfile_debug.log', $e->getMessage(), FILE_APPEND);
     die('Crypt init error: check nv_mainfile_debug.log');
 }
 
@@ -360,7 +360,6 @@ define( 'NV_REFSTAT_TABLE', NV_PREFIXLANG . '_referer_stats' );
 
 
 //error_log("=== mainfile before sql excute ===");
-
 $sql = "SELECT lang, module, config_name, config_value FROM " . NV_CONFIG_GLOBALTABLE . " WHERE lang='" . NV_LANG_DATA . "' or (lang='sys' AND module='site') ORDER BY module ASC";
 //error_log("=== mainfile before sql query ===" . $sql);
 $list = nv_db_cache( $sql, '', 'settings' );
@@ -375,8 +374,6 @@ foreach( $list as $row )
 		$module_config[$row['module']][$row['config_name']] = $row['config_value'];
 	}
 }
-
-
 define( 'NV_MAIN_DOMAIN',  in_array( $global_config['site_domain'], $global_config['my_domains'] ) ? str_replace( NV_SERVER_NAME, $global_config['site_domain'], NV_MY_DOMAIN )  : NV_MY_DOMAIN );
 
 

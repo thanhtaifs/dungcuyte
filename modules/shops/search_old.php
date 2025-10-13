@@ -1,10 +1,8 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 
 if( ! defined( 'NV_IS_MOD_SEARCH' ) ) die( 'Stop!!!' );
-
-
 
 if( file_exists( NV_ROOTDIR . '/modules/' . $m_values['module_file'] . '/language/' . NV_LANG_DATA . '.php' ) )
 {

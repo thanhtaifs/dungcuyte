@@ -97,7 +97,7 @@
                 <div>
                     <p class="cart-total">
                         <strong>Tổng tiền hàng:</strong> 
-                        <span class="cart-amount text-danger">{order_total} {unit}</span>
+                        <span class="cart-amount text-danger">{DATA.order_total} {DATA.unit_total}</span>
                     </p>
                     
                     <p class="cart-time">
@@ -105,9 +105,7 @@
                         <span id="orderTime"></span>
                     </p>
                 </div>
-
                 <hr>
-
                 <div class="payment-method mb-3">
                     <h6><strong>Phương thức thanh toán:</strong></h6>
                     <div class="form-check">
@@ -138,5 +136,10 @@
     </div>
 </form>
 </div>
-
+<script type="text/javascript">
+$(document).ready(function() {
+    let now = new Date();
+    $("#orderTime").text(now.toLocaleString('vi-VN'));        
+});
+</script>
 <!-- END: main -->

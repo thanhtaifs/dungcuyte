@@ -34,8 +34,7 @@
 						{ADMINLINK}
 					</p>
 					<!-- END: adminlink -->
-					<!-- BEGIN: social_icon -->
-					
+					<!-- BEGIN: social_icon -->					
 					<script type="text/javascript">
 						window.___gcfg = {
 							lang : nv_sitelang
@@ -144,7 +143,6 @@
 						<!-- Twitter Share Button -->
 						<a class="button_share share twitter" href="https://twitter.com/share?text={TITLE}&url={SELFURL}" target="_blank"><i class="fa fa-twitter"></i> Tweet</a>
 						<a class="button_share share linkedin" href="https://www.linkedin.com/shareArticle?mini=true&title={TITLE}&url={SELFURL}"><i class="fa fa-linkedin"></i> LinkedIn</a>
-
 					</div>
 
 					<!-- BEGIN: gift -->

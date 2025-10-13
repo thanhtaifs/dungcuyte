@@ -9,7 +9,7 @@
  */
 
 if( ! defined( 'NV_SYSTEM' ) ) die( 'Stop!!!' );
-error_log("=== shop op = " . $op . " ===");
+//error_log("=== shop op = " . $op . " ===");
 $allow_func = array(
     'main',
     'detail',

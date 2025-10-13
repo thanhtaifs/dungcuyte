@@ -142,9 +142,6 @@ function nv_site_theme( $contents, $full = true )
 	// Only full theme
 	if( $full )
 	{
-
-
-
 		// Search form variables
 		$xtpl->assign( 'THEME_SEARCH_QUERY_MAX_LENGTH', NV_MAX_SEARCH_LENGTH );
 		$xtpl->assign( 'THEME_SEARCH_SUBMIT_ONCLICK', "nv_search_submit('topmenu_search_query', 'topmenu_search_submit', " . NV_MIN_SEARCH_LENGTH . ", " . NV_MAX_SEARCH_LENGTH . ");" );

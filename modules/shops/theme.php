@@ -2058,7 +2058,7 @@ function nv_theme_shops_order_page($success, $error, $order_info)
 function users_order($data_content, $data_order, $total_coupons, $order_info, $error)
 {
     global $module_info, $lang_module, $lang_global, $module_config, $module_data, $module_file, $module_name, $pro_config, $money_config, $global_array_group, $shipping_data;
-    error_log( 'cell users_order');
+    //error_log( 'cell users_order');
     $xtpl = new XTemplate('order_check.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
     $xtpl->assign('LANG', $lang_module);
     $xtpl->assign('TEMPLATE', $module_info['template']);

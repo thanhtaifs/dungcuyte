@@ -375,6 +375,7 @@ function loadCart() {
 
         $cartContent.html(html);
         $('#totalPrice').text(res.total + 'đ');
+		$('#totalPrice-popup').text(res.total + 'đ');
         $cartFooter.show();
         // cập nhật badge
         $('.cart-badge, .cart-count, #cartBadge').text(res.cart_count || 0);
@@ -403,7 +404,7 @@ function loadCart() {
 }
 
 
-function removeCart(id) {
+function removeCart(id,position) {
   if (!id) return;  
   $.ajax({
     type: 'POST',
@@ -414,8 +415,17 @@ function removeCart(id) {
       if (res && res.status === 'success') 
 	{
         // Cập nhật giao diện giỏ hàng
-        updateCartUI(res);
-		updateCartTotal(res);
+		if(position == 1)
+		{			
+			updateCartUI(res);
+		}
+		else
+		{
+			
+			updateCartTotal(res);
+		}
+        
+		
       } else {
         showwMessage('Lỗi: ' + (res.message || 'Không thể xóa sản phẩm'));
       }
@@ -479,6 +489,7 @@ function updateCartTotal(res) {
         if (res.count !== undefined) {
             $('.cart-count').text(res.count);
         }
+		$('.cart-badge, .cart-count, #cartBadge').text(res.cart_count || 0);
 
     } else {       
         $cartProducts.fadeOut(200, function() {
@@ -508,6 +519,7 @@ function updateCartUI(res) {
     });
     html += '</ul>';
     $cartContent.html(html);
+	
     $('#totalPrice-popup').text(res.total + 'đ');
     $cartFooter.show();
     $('.cart-badge, .cart-count, #cartBadge').text(res.cart_count || 0);
@@ -836,15 +848,16 @@ $(document).ready(function() {
     // ========== End Cart dropdown ==============
 	$('#cartContent').on('click', '.cart-remove-btn', function() {
 		let id = $(this).data('id');	
-		removeCart(id);
+		position = 1
+		removeCart(id, position);
 	});	
 
 	$("#cart-products").on("click", '.btn-remove', function() {
-		let id = $(this).data('id');	
-		removeCart(id);
+		let id = $(this).data('id');
+		position = 2	
+		removeCart(id , position);
 		
 	});
-
 
 	$('#cartContentWrapper').on('click', '.checkout-btn', function() {
         window.location.href = '/index.php?nv=shops&op=cart';

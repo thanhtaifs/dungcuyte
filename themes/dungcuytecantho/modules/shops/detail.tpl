@@ -41,8 +41,7 @@
 						{ADMINLINK}
 					</p>
 					<!-- END: adminlink -->
-					<!-- BEGIN: social_icon -->
-					
+					<!-- BEGIN: social_icon -->					
 					<script type="text/javascript">
 						window.___gcfg = {
 							lang : nv_sitelang
@@ -83,7 +82,6 @@
 								<span class="discounts_money">{PRICE.price_format} </span>
 								<span class="money">{product_discounts} {money_unit}</span>
 								<!-- END: discounts -->
-
 								<!-- BEGIN: no_discounts -->
 								<span class="money t">{PRICE.price_format} </span>
 								<!-- END: no_discounts -->
@@ -145,13 +143,15 @@
 						<!-- END: warranty -->
 					</ul>
 
-					<div class="socaial-share">
-						<!-- Facebook Share Button -->
-						<a class="button_share share facebook" href="https://www.facebook.com/sharer/sharer.php?u={SELFURL}" target="framename"><i class="fa fa-facebook"></i> Share</a>
-						<!-- Twitter Share Button -->
-						<a class="button_share share twitter" href="https://twitter.com/share?text={TITLE}&url={SELFURL}" target="framename"><i class="fa fa-twitter"></i> Tweet</a>
-						<a class="button_share share linkedin" href="https://www.linkedin.com/shareArticle?mini=true&title={TITLE}&url={SELFURL}" target="framename"><i class="fa fa-linkedin"></i> LinkedIn</a>
-
+					<div class="order-buttons" style="margin-top: 10px;">
+						<button class="btn btn-danger btn-block btn-order" onclick="addToCart({proid})" data-id="{proid}" style="margin-bottom: 10px;">
+							<em class="fa fa-shopping-cart fa-lg">&nbsp;</em>
+							{LANG.add_cart}
+						</button>
+						<button class="btn btn-success btn-block btn-order" data-id="{proid}">
+							<em class="fa fa-paper-plane-o fa-lg">&nbsp;</em>
+							{LANG.buy_now}
+						</button>
 					</div>
 
 					<!-- BEGIN: gift -->

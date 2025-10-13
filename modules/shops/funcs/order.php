@@ -618,6 +618,7 @@ if( $action == 0)
 		$sql = 'SELECT t1.id, t1.listcatid, t1.publtime, t1.' . NV_LANG_DATA . '_title, t1.' . NV_LANG_DATA . '_alias, t1.' . NV_LANG_DATA . '_hometext, t1.homeimgalt, t1.homeimgfile, t1.homeimgthumb, t1.product_price, t2.' . NV_LANG_DATA . '_title, t1.money_unit, t1.discount_id, t1.product_weight, t1.weight_unit FROM ' . $db_config['prefix'] . '_' . $module_data . '_rows AS t1 LEFT JOIN ' . $db_config['prefix'] . '_' . $module_data . '_units AS t2 ON t1.product_unit = t2.id WHERE t1.id IN (' . $listid . ') AND t1.status =1';
 		$result = $db->query( $sql );
 		$weight_total = 0;
+		$order_total = 0;
 		while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_price, $unit, $money_unit, $discount_id, $product_weight, $weight_unit ) = $result->fetch( 3 ) )
 		{
 			if( $homeimgthumb == 1 )//image thumb
@@ -645,7 +646,10 @@ if( $action == 0)
 			$num = $_SESSION[$module_data . '_cart'][$id]['num'];
 			$weight_total += nv_weight_conversion( $product_weight, $weight_unit, $pro_config['weight_unit'], $num );
 			$group = $_SESSION[$module_data . '_cart'][$id]['group'];
-
+			$price_info = nv_get_price($id, $money_unit);
+			$item_total = $price_info['price'] * $num;
+			$order_total += $item_total;	
+			error_log('order_total: ' . $order_total );
 			$data_content[] = array(
 				'id' => $id,
 				'publtime' => $publtime,
@@ -660,13 +664,14 @@ if( $action == 0)
 				'money_unit' => $money_unit,
 				'group' => $group,
 				'link_pro' => $link . $global_array_shops_cat[$listcatid]['alias'] . '/' . $alias . $global_config['rewrite_exturl'],
-				'num' => $num
+				'num' => $num,			
 			);
 			++$i;
 		}
 	}
 
 	$data_order['weight_total'] = $weight_total;
+	$data_order['order_total'] = $order_total;
 	// Cảnh báo đang sửa đơn hàng
 	if( isset( $_SESSION[$module_data . '_order_info'] ) and !empty( $_SESSION[$module_data . '_order_info'] ) )
 	{
