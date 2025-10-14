@@ -347,8 +347,6 @@ $xtpl->assign('dateup', date('d/m/Y'));
 $xtpl->assign('moment', date('H:i:s'));
 $xtpl->assign('order_total', number_format($total, 0, ',', '.'));
 
-
-
 // Parse sản phẩm
 $no = 1;
 foreach ($items as $product) {

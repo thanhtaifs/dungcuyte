@@ -16,7 +16,7 @@
                     <!-- END: breadcrumbs -->
         		 </div>
                  
-                <div class="col-lg-12 p-1">
+                <div class="col-lg-12 p-2">
                     {MODULE_CONTENT}
                 </div>
         	</div>

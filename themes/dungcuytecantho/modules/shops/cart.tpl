@@ -1,9 +1,4 @@
 <!-- BEGIN: main -->
-<div class="step_bar alert alert-success clearfix">
-    <a class="step step_current" title="{LANG.cart_check_cart}" href="#"><span>1</span>{LANG.cart_check_cart}</a>
-    <a class="step step_disable" title="{LANG.cart_order}" href="{link_order_all}" id="cart_next"><span>2</span>{LANG.cart_order}</a>
-</div>
-
 <form action="{LINK_CART}" method="post" id="fpro">
     <input type="hidden" value="1" name="save"/>
     <div class="row">
