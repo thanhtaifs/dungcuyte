@@ -1,8 +1,4 @@
 <!-- BEGIN: main -->
-<div class="step_bar alert alert-success clearfix">
-    <a class="step" title="{LANG.cart_check_cart}" href="{LINK_CART}"><span>1</span>{LANG.cart_check_cart}</a>
-    <a class="step step_current" title="{LANG.cart_order}" href="#"><span>2</span>{LANG.cart_order}</a>
-</div>
 <form action="/index.php?nv=shops&op=order" method="post" name="fpost" id="fpost" id="paymentForm">
     <input type="hidden" value="1" name="postorder">    
     <div class="row">
@@ -125,54 +121,9 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-
-
     let now = new Date();
-    $("#orderTime").text(now.toLocaleString('vi-VN'));
+    $("#orderTime").text(now.toLocaleString('vi-VN'));   
     
-    $("#").on("submit", function(e) {
-        e.preventDefault();
-        // Nếu form hợp lệ
-        if (this.checkValidity()) {           
-            let formData = $(this).serialize() + "&postorder=1";
-            $.ajax({
-                type: "POST",
-                url: '/index.php?nv=shops&op=order&t=json',               
-                data: formData,
-                dataType: "json",
-                beforeSend: function() 
-                {
-                    $(".btn-success").prop("disabled", true).text("Đang xử lý...");
-                },
-                success: function(res) {
-                    console.log("Kết quả đặt hàng:", res);
-                    if (res.status === "success") {     
-                        // Chuyển hướng theo link mà PHP trả về
-                        window.location.href = res.redirect || 
-                            (nv_base_siteurl + "index.php?" + nv_lang_variable + "=" + nv_lang_data 
-                            + "&" + nv_name_variable + "=shops&" + nv_op_variable + "=complete");
-                    } 
-                    else if (res.status === "error") {
-                        $(".error-message").remove();
-                        $("#paymentForm").prepend(
-                            '<div class="alert alert-danger error-message">' + res.message + "</div>"
-                        );
-                        $('html, body').animate({ scrollTop: $("#paymentForm").offset().top - 100 }, 400);
-                    } else {
-                        alert(res.message || "Có lỗi xảy ra khi đặt hàng!");
-                    }
-                },
-                error: function(xhr) {
-                    alert("Không thể kết nối tới máy chủ. Mã lỗi: " + xhr.status);
-                },
-                complete: function() {
-                    $(".btn-success").prop("disabled", false).html('<i class="fa fa-credit-card mr-1"></i> Xác nhận đặt hàng');
-                }
-            });
-        } else {
-            alert("Vui lòng điền đầy đủ thông tin!");
-        }
-    });
 });
 </script>
 <!-- END: main -->

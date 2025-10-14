@@ -221,7 +221,7 @@ function view_home_group($data_content, $compare_id, $html_pages = '', $sort = 0
  * @param string $html_pages
  * @return
  */
-function view_home_blockcat($data_content, $compare_id, $html_pages = '', $data_title, $description, $image_group)
+function view_home_blockcat($data_content, $compare_id, $data_title, $description, $image_group,$html_pages = '')
 {
     global $module_info, $lang_module, $module_name, $module_file, $pro_config, $array_wishlist_id, $global_array_shops_cat, $global_array_blockcat, $my_head;
 

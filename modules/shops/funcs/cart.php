@@ -201,7 +201,10 @@ if( ! empty( $_SESSION[$module_data . '_cart'] ) )
 				$thumb = NV_BASE_SITEURL . 'themes/' . $module_info['template'] . '/images/' . $module_file . '/no-image.jpg';
 			}
 
-			$group = $_SESSION[$module_data . '_cart'][$id]['group'];
+			$group = isset($_SESSION[$module_data . '_cart'][$id]['group'])
+			? $_SESSION[$module_data . '_cart'][$id]['group']
+			: '';
+
 			$number = $_SESSION[$module_data . '_cart'][$id]['num'];
 			//error_log("Số lượng giỏ hàng (ID: $id) = " . print_r($_SESSION[$module_data . '_cart'][$id]['num'], true));
 			if( !empty( $order_info ) )
