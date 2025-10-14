@@ -82,7 +82,7 @@
                 <div>
                     <p class="cart-total">
                         <strong>Tổng tiền hàng:</strong> 
-                        <span class="cart-amount text-danger">{PRICE_TOTAL} {unit}</span>
+                        <span class="cart-amount text-danger">{order_total} {unit}</span>
                     </p>
                     
                     <p class="cart-time">

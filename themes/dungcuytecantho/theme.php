@@ -56,7 +56,7 @@ function nv_site_theme( $contents, $full = true )
 	    		$css_content .= nv_css_setproperties( '#header, #banner', $config_theme['header'] );
 	    		$css_content .= nv_css_setproperties( '#footer', $config_theme['footer'] );
 	    		$css_content .= nv_css_setproperties( '.panel, .well, .nv-block-banners', $config_theme['block'] );
-	   // 		$css_content .= nv_css_setproperties( '.panel-default>.panel-heading', $config_theme['block_heading'] );
+	    		//$css_content .= nv_css_setproperties( '.panel-default>.panel-heading', $config_theme['block_heading'] );
 	    		$css_content .= nv_css_setproperties( 'generalcss', $config_theme['generalcss'] ); // Không nên thay đổi "generalcss"
 	
 	    		file_put_contents( NV_ROOTDIR . '/' . SYSTEM_FILES_DIR . '/css/theme_' . $global_config['module_theme'] . '_' . $global_config['idsite'] . '.css', $css_content );
