@@ -5,7 +5,7 @@ if (!defined('NV_IS_MOD_SHOPS')) die('Stop!!!');
 $id  = $nv_Request->get_int('id', 'post,get', 0);
 $num = $nv_Request->get_int('num', 'post,get', 1);
 $type = $nv_Request->get_string('t', 'get', 'text'); // text | json
-
+$buy_now = $nv_Request->get_int('buy_now', 'post,get', 0); // 0 = thêm giỏ, 1 = mua ngay
 $contents_msg = '';
 
 if ($id > 0) {
@@ -52,9 +52,17 @@ if ($id > 0) {
                 'title_pro' => $row['title'],
                 'img_pro' =>  $img,
                 'link_pro' => $link,
+                'group' => [],
+                'order' => $buy_now ? 1 : 0
             ];
         } else {
             $_SESSION[$module_data . '_cart'][$id]['num'] += $num;
+            if (!isset($_SESSION[$module_data . '_cart'][$id]['group'])) {
+                $_SESSION[$module_data . '_cart'][$id]['group'] = [];
+            }
+            if ($buy_now) {
+                $_SESSION[$module_data . '_cart'][$id]['order'] = 1;
+            }
         }
 
         $contents_msg = 'OK_Đã thêm ' . $row['title'] . ' vào giỏ hàng';

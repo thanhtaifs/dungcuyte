@@ -39,6 +39,7 @@ if (empty($pro_config['timecheckstatus'])) {
 
 // Tu dong xoa don hang sau tgian khong duoc xac nhan
 if (!empty($pro_config['order_day']) and $pro_config['order_nexttime'] < NV_CURRENTTIME) {
+    global $nv_Cache;
     $result = $db->query('SELECT order_id, order_time FROM ' . $db_config['prefix'] . '_' . $module_data . '_orders WHERE transaction_status=0 AND order_time < ' . (NV_CURRENTTIME - (int)$pro_config['order_day'] * 86400));
     while (list($order_id, $order_time) = $result->fetch(3)) {
         $result_del = $db->query('DELETE FROM ' . $db_config['prefix'] . '_' . $module_data . '_orders WHERE order_id=' . $order_id);

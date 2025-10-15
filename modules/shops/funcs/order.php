@@ -11,7 +11,7 @@
 if( !defined( 'NV_IS_MOD_SHOPS' ) )
 	die( 'Stop!!!' );
 
-//error_log('call order page');
+//error_log('Running order page');
 
 if( !defined( 'NV_IS_USER' ) and !$pro_config['active_guest_order'] )
 {
@@ -32,7 +32,7 @@ $first_name = $user_info['first_name'] ?? '';
 $last_name  = $user_info['last_name'] ?? '';
 
 $user_info['full_name'] = trim($first_name . ' ' . $last_name);
-
+//error_log('fullname: '. $user_info['full_name']);
 $data_order = array(
 	'user_id' => $user_info['userid'],
 	'order_name' => (!empty( $user_info['full_name'] )) ? $user_info['full_name'] : $user_info['username'],
@@ -58,7 +58,6 @@ $data_order = array(
 );
 
 
-
 if( isset( $_SESSION[$module_data . '_order_info'] ) and !empty( $_SESSION[$module_data . '_order_info'] ) )
 {
 	$order_info = $_SESSION[$module_data . '_order_info'];
@@ -75,6 +74,7 @@ if( isset( $_SESSION[$module_data . '_order_info'] ) and !empty( $_SESSION[$modu
 }
 
 
+//error_log('check sesion ok');
 $shipping_data = array( 'list_location' => array(), 'list_carrier' => array(), 'list_shops' => array() );
 
 // Ma giam gia
@@ -98,13 +98,14 @@ if( !empty( $array_counpons['code'] ) and $array_counpons['check'] )
 
 if( $post_order == 1 )
 {	
+	//error_log('post_order is 1');
 	$total = 0;
 	$total_point = 0;
 	$total_weight = 0;
 	$total_weight_price = 0;
 	$i = 0;
 	$listid = $listnum = $listprice = $listgroup = $listid_old = $listnum_old = array();
-
+	//error_log(print_r($_SESSION[$module_data . '_cart'], true));
 	foreach( $_SESSION[$module_data . '_cart'] as $pro_id => $info )
 	{
 		if( $pro_config['active_price'] == '0' )
@@ -113,6 +114,7 @@ if( $post_order == 1 )
 		}
 		if( $_SESSION[$module_data . '_cart'][$pro_id]['order'] == 1 )
 		{
+			//error_log('SESSION order = 1');
 			$price = nv_get_price( $pro_id, $pro_config['money_unit'], ( int )$info['num'] );
 
 			// Ap dung giam gia cho tung san pham dac biet
@@ -145,9 +147,10 @@ if( $post_order == 1 )
 			$i++;
 		}
 	}
+
 	$total_point += intval( $pro_config['point_new_order'] );
 	$total_old = $total;
-
+	
 	$data_order['order_name'] = nv_substr( $nv_Request->get_title( 'order_name', 'post', '', 1 ), 0, 200 );
 	$data_order['order_email'] = nv_substr( $nv_Request->get_title( 'order_email', 'post', '', 1 ), 0, 250 );
 	$data_order['order_phone'] = nv_substr( $nv_Request->get_title( 'order_phone', 'post', '', 1 ), 0, 20 );
@@ -168,8 +171,8 @@ if( $post_order == 1 )
 		$price_ship = nv_shipping_price( $total_weight, $pro_config['weight_unit'], $data_order['shipping']['ship_location_id'], $data_order['shipping']['ship_shops_id'], $data_order['shipping']['ship_carrier_id'] );
 		$total_weight_price = empty( $price_ship ) ? 0 : $price_ship;
 	}
-	$total += $total_weight_price;
-
+	//error_log('total' . $total);
+	$total += $total_weight_price;	
 	if( ( $total > $counpons['total_amount'] or empty( $total ) ) and NV_CURRENTTIME >= $counpons['date_start'] and ( $counpons['uses_per_coupon_count'] < $counpons['uses_per_coupon'] or empty( $counpons['uses_per_coupon'] ) ) and ( empty( $counpons['date_end'] ) or NV_CURRENTTIME < $counpons['date_end'] ) )
 	{
 		// Ap dung giam gia cho tung san pham dac biet
@@ -196,7 +199,7 @@ if( $post_order == 1 )
 			}
 		}
 	}
-
+	
 	$data_order['order_total'] = $total;
 	if( empty( $data_order['order_name'] ) )
 		$error['order_name'] = $lang_module['order_name_err'];
@@ -214,13 +217,15 @@ if( $post_order == 1 )
 		$error['order_shipping_carrier_id'] = $lang_module['shipping_carrier_chose'];
 	if( $check == 0 )
 		$error['order_check'] = $lang_module['order_check_err'];
-
-	if( empty( $error ) and $i > 0 )
+	//error_log('pass check data order');
+	if( empty($error) and $i > 0 )
 	{
-
+		//error_log('is > 0');
+		$sth = false; // đảm bảo biến tồn tại, tránh warning
+		$order_id = 0; // luôn nên khởi tạo
 		if( !empty( $order_info ) ) // Sua don hang
 		{			
-			//error_log(message: 'sua don hang');
+			//error_log(message: 'Sua don hang');
 			$sth = $db->prepare( 'UPDATE ' . $db_config['prefix'] . '_' . $module_data . '_orders SET
 			order_name = :order_name, order_email = :order_email,
 			order_phone = :order_phone, order_note = :order_note, order_total = ' . doubleval( $data_order['order_total'] ) . ',
@@ -235,7 +240,7 @@ if( $post_order == 1 )
 		}
 		else
 		{
-			//error_log('thêm dữ liệu đơn hàng');
+			//error_log('SHOW TABLE  thêm dữ liệu đơn hàng ');
 			$result = $db->query( "SHOW TABLE STATUS WHERE Name='" . $db_config['prefix'] . "_" . $module_data . "_orders'" );			
 			$item = $result->fetch();			
 			$result->closeCursor();
@@ -265,7 +270,8 @@ if( $post_order == 1 )
 		}
 
 		if( $sth or $order_id > 0 )
-		{			
+		{		
+			//error_log('Bat dau them don hang');
 			if( empty( $order_info ) ) // Them don hang
 			{				
 				// Cap nhat lai ma don hang
@@ -297,7 +303,7 @@ if( $post_order == 1 )
 				}
 				product_number_sell( $listid_old, $listnum_old, '-' );
 			}
-
+			//error_log('Bat dau them chi tiet don hang');
 			//Them chi tiet don hang
 			foreach( $_SESSION[$module_data . '_cart'] as $pro_id => $info)
 			{				
@@ -357,7 +363,7 @@ if( $post_order == 1 )
 					$listgroup[] = $list;
 				}
 			}
-
+			//error_log('duyet chi tiet san pham thanh cong');
 			// Neu khong tat chuc nang dat hang vo han thi tru so sp trong kho
 			if( $pro_config['active_order_number'] == '0' )
 			{
@@ -370,7 +376,7 @@ if( $post_order == 1 )
 
 			$checkss = md5( $order_id . $global_config['sitekey'] . session_id() );
 			$review_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=payment&order_id=' . $order_id . '&checkss=' . $checkss;
-
+			//error_log('order_info check');
 			if( empty( $order_info ) ) // Them don hang
 			{				
 				// Cap nhat lich su su dung ma giam gia
@@ -583,7 +589,7 @@ if( $post_order == 1 )
 		}
 	}
 }
-
+//error_log('post_order is 0');
 // Lay dia diem
 $sql = "SELECT id, parentid, title, lev FROM " . $db_config['prefix'] . '_' . $module_data . "_location ORDER BY sort ASC";
 $result = $db->query( $sql );

@@ -346,6 +346,28 @@ function addToCart(id) {
   });
 }
 
+function buyNow(btn) {
+  let id = $(btn).data('id') || 0;
+  addToCartAndGo(id);
+}
+
+function addToCartAndGo(id) {
+  $.ajax({
+    type: 'POST',
+    url: '/index.php?nv=shops&op=setcart&buy_now=1&t=json',
+    data: { id: id },
+    dataType: 'json',
+    success: function (res) {
+      if (res && res.status === 'success') {
+        window.location.href = '/index.php?nv=shops&op=order';
+      } else {
+        showMessage('Không thể thêm sản phẩm vào giỏ hàng');
+      }
+    }
+  });
+}
+
+
 // Load giỏ hàng
 function loadCart() {
   $.ajax({
@@ -529,8 +551,7 @@ function updateCartUI(res) {
         <i class="fas fa-shopping-bag fa-2x mb-2"></i>
         <p class="mb-0">Giỏ hàng trống</p>
         <small>Thêm sản phẩm để bắt đầu mua sắm!</small>
-      </div>
-    `);
+      </div>`);
     $cartFooter.hide();
     $('.cart-badge, .cart-count, #cartBadge').text(0);    
   }

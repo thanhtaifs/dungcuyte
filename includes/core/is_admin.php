@@ -9,7 +9,7 @@
  */
 
 if( ! defined( 'NV_MAINFILE' ) ) die( 'Stop!!!' );
-error_log("=== mainfile Vào is admin ===");
+//error_log("=== mainfile Vào is admin ===");
 $admin_cookie = $nv_Request->get_string( 'admin', 'session' );
 $admin_online = $nv_Request->get_string( 'online', 'session' );
 
@@ -43,7 +43,7 @@ if( ! empty( $admin_cookie ) )
 	}
 
 	$admin_info = nv_admin_checkdata( $admin_cookie );
-	error_log("===  admin nv_admin_checkdata ===");
+	//error_log("===  admin nv_admin_checkdata ===");
 	if( $admin_info == array() )
 	{
 		$nv_Request->unset_request( 'admin,online', 'session' );
@@ -169,5 +169,5 @@ if( ! empty( $admin_cookie ) )
 	}
 	$admin_info['full_name'] = nv_show_name_user( $admin_info['first_name'], $admin_info['last_name'] );
 }
-error_log("=== mainfile hoàn thành is admin ===");
+//error_log("=== mainfile hoàn thành is admin ===");
 unset( $admin_cookie, $admin_online );

@@ -144,14 +144,15 @@
 					</ul>
 
 					<div class="order-buttons" style="margin-top: 10px;">
-						<button class="btn btn-danger btn-block btn-order" onclick="addToCart({proid})" data-id="{proid}" style="margin-bottom: 10px;">
-							<em class="fa fa-shopping-cart fa-lg">&nbsp;</em>
-							{LANG.add_cart}
-						</button>
-						<button class="btn btn-success btn-block btn-order" data-id="{proid}">
+						<button class="btn btn-danger btn-block btn-order" data-id="{proid}" onclick="buyNow(this)">
 							<em class="fa fa-paper-plane-o fa-lg">&nbsp;</em>
 							{LANG.buy_now}
 						</button>
+						<button class="btn btn-success btn-block btn-order" onclick="addToCart({proid})" data-id="{proid}" style="margin-bottom: 10px;">
+							<em class="fa fa-shopping-cart fa-lg">&nbsp;</em>
+							{LANG.add_cart}
+						</button>
+					
 					</div>
 
 					<!-- BEGIN: gift -->
