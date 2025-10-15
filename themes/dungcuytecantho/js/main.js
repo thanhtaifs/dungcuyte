@@ -417,10 +417,10 @@ function loadCart() {
     error: function (xhr, status, error) 
 	{
 		showMessage('Lỗi tải giỏ hàng trên hệ thống.');
-		// console.log('HTTP status:', xhr.status); 
-		// console.log('status text:', status);              
-		// console.log('error text:', error);               
-		// console.log('Raw responseText:', xhr.responseText);
+		console.log('HTTP status:', xhr.status); 
+		console.log('status text:', status);              
+		console.log('error text:', error);               
+		console.log('Raw responseText:', xhr.responseText);
 	}
   });
 }

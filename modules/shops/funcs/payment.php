@@ -310,11 +310,20 @@
 // 	die();
 // }
 
-if (!defined('NV_IS_MOD_SHOPS')) die('Stop!!!');
 
 if (!defined('NV_IS_MOD_SHOPS')) die('Stop!!!');
 
 global $module_data, $module_name, $pro_config;
+
+// Kiểm tra giỏ hàng rỗng → chuyển hướng về giỏ hàng
+if (empty($_SESSION[$module_data . '_cart'])) {
+    nv_redirect_location(NV_BASE_SITEURL . 'index.php?' 
+        . NV_LANG_VARIABLE . '=vi&' . NV_NAME_VARIABLE . '=' . $module_name 
+        . '&' . NV_OP_VARIABLE . '=cart');
+}
+// error_log(NV_BASE_SITEURL . 'index.php?' 
+//         . NV_LANG_VARIABLE . '=vi&' . NV_NAME_VARIABLE . '=' . $module_name 
+//         . '&' . NV_OP_VARIABLE . '=cart');
 
 // Lấy giỏ hàng từ session
 $cart = $_SESSION[$module_data . '_cart'] ?? [];
