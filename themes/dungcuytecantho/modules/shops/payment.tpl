@@ -25,8 +25,8 @@
                 
                 <div class="form-group row mb-3">
                     <label class="col-md-3 col-form-label"><strong>Số điện thoại:</strong></label>
-                    <div class="col-md-9">
-                        <input type="text" name="order_phone" class="form-control" placeholder="Nhập số điện thoại" required>
+                     <div class="col-md-9">
+                        <input type="text" name="order_phone" class="form-control" placeholder="Nhập số điện thoại" required  minlength="10"   maxlength="12">
                     </div>
                 </div>
                 

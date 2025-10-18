@@ -3192,9 +3192,6 @@ a{
 	background: rgba(101, 170, 0,0.2);
 	padding: 8px;
 }
-.shop-detail .content-detail{
-	width: calc(58.33333333% - 24px) !important;
-}
 
 .shop-detail .images-thumb .tab-pane a
 {

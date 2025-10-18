@@ -4,7 +4,7 @@
     <div class="row pt-1">
         <div class="col-lg-12 p-1">         
             <div class="hero__item set-bg">
-                <img src="{NV_BASE_SITEURL}images/Banner.jpg" alt="thiết bị y tế huỳnh gia alpha"/>
+                <img src="{NV_BASE_SITEURL}images/Banner.webp" alt="thiết bị y tế huỳnh gia alpha"/>
             </div>
         </div>
      </div>

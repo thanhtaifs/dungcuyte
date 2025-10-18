@@ -643,7 +643,7 @@ if( $action == 0)
 			{
 				$thumb = $homeimgfile;
 			}
-			else//no image
+			else
 			{
 				$thumb = NV_BASE_SITEURL . 'themes/' . $module_info['template'] . '/images/' . $module_file . '/no-image.jpg';
 			}

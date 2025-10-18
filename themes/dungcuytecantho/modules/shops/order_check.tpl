@@ -1,17 +1,9 @@
 <!-- BEGIN: main -->
 <script type="text/javascript" src="{NV_BASE_SITEURL}modules/{MODULE_FILE}/js/select2/select2.min.js"></script>
 <link href="{NV_BASE_SITEURL}modules/{MODULE_FILE}/js/select2/select2.min.css" type="text/css" rel="stylesheet" />
-
-<div class="block clearfix">
-	<div class="step_bar alert alert-success clearfix">
-		<a class="step step_disable" title="{LANG.cart_check_cart}" href="{LINK_CART}"><span>1</span>{LANG.cart_check_cart}</a>
-		<a class="step step_current" title="{LANG.cart_order}" href="#"><span>2</span>{LANG.cart_order}</a>
-	</div>
-
 	<p class="alert alert-info">
 		{LANG.order_info}
 	</p>
-
 	<!-- BEGIN: edit_order -->
 	<div class="alert alert-warning">
 	{EDIT_ORDER}
@@ -45,7 +37,7 @@
                 <div class="form-group row mb-3">
                     <label class="col-md-3 col-form-label"><strong>Số điện thoại:</strong></label>
                     <div class="col-md-9">
-                        <input type="text" name="order_phone" class="form-control" placeholder="Nhập số điện thoại" required>
+                        <input type="text" name="order_phone" class="form-control" placeholder="Nhập số điện thoại" required  minlength="10"   maxlength="12">
                     </div>
                 </div>
                 
