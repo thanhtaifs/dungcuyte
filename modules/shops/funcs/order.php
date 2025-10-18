@@ -33,10 +33,14 @@ $last_name  = $user_info['last_name'] ?? '';
 
 $user_info['full_name'] = trim($first_name . ' ' . $last_name);
 //error_log('fullname: '. $user_info['full_name']);
+
+
 $data_order = array(
-	'user_id' => $user_info['userid'],
-	'order_name' => (!empty( $user_info['full_name'] )) ? $user_info['full_name'] : $user_info['username'],
-	'order_email' => $user_info['email'],
+	'user_id' => $user_info['userid'] ?? 0,
+	'order_name' => (!empty($user_info['full_name'])) 
+		? $user_info['full_name'] 
+		: ($user_info['username'] ?? 'Khách hàng'),
+	'order_email' => $user_info['email'] ?? 'noemail@gmail.com',
 	'order_phone' => '',
 	'order_note' => '',
 	'admin_id' => 0,
