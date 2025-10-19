@@ -303,13 +303,15 @@
 /* pager bubbles */
 .sy-pager {
   overflow: hidden;
-  *zoom: 1;
+  zoom: 1;
   display: block;
   width: 100%;
   margin: 1em 0 0;
   padding: 0;
   list-style: none;
-  text-align: center; }
+  text-align: center; 
+}
+
   .sy-pager li {
     display: inline-block;
     width: 1.2em;

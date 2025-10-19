@@ -18,7 +18,6 @@
 	position: relative;
 	margin: 0 auto 60px;
 	padding: 0;
-	*zoom: 1;
 }
 
 .bx-wrapper img {
@@ -36,8 +35,7 @@
 	border:  5px solid #fff;
 	left: -5px;
 	background: #fff;
-	height:auto!important;
-	
+	height:auto!important;	
 	/*fix other elements on the page moving (on Chrome)*/
 	-webkit-transform: translatez(0);
 	-moz-transform: translatez(0);
@@ -80,8 +78,6 @@
 .bx-wrapper .bx-pager .bx-pager-item,
 .bx-wrapper .bx-controls-auto .bx-controls-auto-item {
 	display: inline-block;
-	*zoom: 1;
-	*display: inline;
 }
 
 .bx-wrapper .bx-pager.bx-default-pager a {
@@ -195,7 +191,7 @@
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	background: #666\9;
+	background: #666;
 	background: rgba(80, 80, 80, 0.75);
 	width: 100%;
 }

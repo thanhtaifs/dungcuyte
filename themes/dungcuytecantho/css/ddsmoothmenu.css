@@ -1,13 +1,13 @@
 ﻿.ddsmoothmenu-v ul li a {
 	color:#202020;
-display:block;
-overflow:auto;
-text-decoration:none;
-padding:10px 30px;
-background:url(../images/menu-icon.png) no-repeat;
-font-style:normal;
-border-bottom:1px dotted #eee;
-font-weight:bold;
+	display:block;
+	overflow:auto;
+	text-decoration:none;
+	padding:10px 30px;
+	background:url(../images/menu-icon.png) no-repeat;
+	font-style:normal;
+	border-bottom:1px dotted #eee;
+	font-weight:bold;
 }
 .ddsmoothmenu-v ul li a:hover{
 	color:#F00;

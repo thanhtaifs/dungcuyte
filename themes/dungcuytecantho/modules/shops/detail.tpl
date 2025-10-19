@@ -141,19 +141,45 @@
 							<strong>{LANG.detail_warranty}:</strong> {warranty}
 						</li>
 						<!-- END: warranty -->
-					</ul>
+					</ul>			
 
-					<div class="order-buttons" style="margin-top: 10px;">
-						<button class="btn btn-danger btn-block btn-order" data-id="{proid}" onclick="buyNow(this)">
-							<em class="fa fa-paper-plane-o fa-lg">&nbsp;</em>
-							{LANG.buy_now}
-						</button>
-						<button class="btn btn-success btn-block btn-order" onclick="addToCart({proid})" data-id="{proid}" style="margin-bottom: 10px;">
-							<em class="fa fa-shopping-cart fa-lg">&nbsp;</em>
-							{LANG.add_cart}
-						</button>
-					
+
+					<div class="socaial-share row g-2" style="margin-top: 15px;">
+					<div class="col-6 col-md-4">
+						<a class="button_share share facebook w-100 btn btn-primary text-white"
+						href="https://www.facebook.com/sharer/sharer.php?u={SELFURL}" target="_blank">
+						<i class="fa fa-facebook"></i> Share
+						</a>
 					</div>
+					<div class="col-6 col-md-4">
+						<a class="button_share share twitter w-100 btn btn-info text-white"
+						href="https://twitter.com/share?text={TITLE}&url={SELFURL}" target="_blank">
+						<i class="fa fa-twitter"></i> Tweet
+						</a>
+					</div>
+					<div class="col-12 col-md-4 mt-2 mt-md-0">
+						<a class="button_share share linkedin w-100 btn btn-secondary text-white"
+						href="https://www.linkedin.com/shareArticle?mini=true&title={TITLE}&url={SELFURL}" target="_blank">
+						<i class="fa fa-linkedin"></i> LinkedIn
+						</a>
+					</div>
+					</div>
+
+					<div class="order-buttons row" style="margin-top: 10px;">
+						<div class="col-12 col-md-6 mb-2 mb-md-0">
+							<button class="btn btn-danger btn-block btn-order w-100" data-id="{proid}" onclick="buyNow(this)">
+							<em class="fa fa-paper-plane-o fa-lg">&nbsp;</em>
+							Mua ngay
+							</button>
+						</div>
+						<div class="col-12 col-md-6">
+							<button class="btn btn-success btn-block btn-order w-100" onclick="addToCart({proid})" data-id="{proid}" >
+							<em class="fa fa-shopping-cart fa-lg">&nbsp;</em>
+							Thêm vào giỏ
+							</button>
+						</div>
+					</div>
+					
 
 					<!-- BEGIN: gift -->
 					<div class="alert alert-info">
