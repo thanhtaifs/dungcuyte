@@ -134,6 +134,11 @@ function Referer($client_info)
 	{
 		require NV_ROOTDIR . '/includes/core/referer.php';
 	}
+	else
+	{
+		return false;
+	}
+	
 }
 
 

@@ -199,14 +199,13 @@
     </div>
 <script>
 $(document).ready(function() {
-    // Initialize tooltips
     $('[data-toggle="tooltip"]').tooltip({
         html: true,
         placement: 'top',
         container: 'body'
     });
-    // Lazy loading for images
-    if ('IntersectionObserver' in window) {
+    if ('IntersectionObserver' in window) 
+    {
         const imageObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -220,5 +219,6 @@ $(document).ready(function() {
 
         document.querySelectorAll('img[data-src]').forEach(img => imageObserver.observe(img));
     }
+});
 </script>
 <!-- END: main -->

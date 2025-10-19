@@ -1191,7 +1191,7 @@ function viewcat_page_gird($data_content, $compare_id, $pages, $sort = 0, $viewt
         $i = 1;
         $num_row = 24 / $pro_config['per_row'];
         $xtpl->assign('SUM', count($data_content['data']));
-        file_put_contents(NV_ROOTDIR . '/debug_seek.log', "So SP: " . count($data_content['data']) . "\n", FILE_APPEND);
+        //file_put_contents(NV_ROOTDIR . '/debug_seek.log', "So SP: " . count($data_content['data']) . "\n", FILE_APPEND);
         foreach ($data_content['data'] as $data_row) {
             $xtpl->assign('ID', $data_row['id']);
             $xtpl->assign('title_pro', $data_row['title']);

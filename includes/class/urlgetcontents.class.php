@@ -112,6 +112,7 @@ class UrlGetContents
 		if( function_exists( 'get_headers' ) and !in_array( 'get_headers', $this->disable_functions ) and $allow_url_fopen == 1 )
 		{
 			$res = get_headers( $this->url_info['uri'] );
+			error_log($res);
 		}
 		elseif( function_exists( 'curl_init' ) and !in_array( 'curl_init', $this->disable_functions ) and function_exists( 'curl_exec' ) and !in_array( 'curl_exec', $this->disable_functions ) )
 		{

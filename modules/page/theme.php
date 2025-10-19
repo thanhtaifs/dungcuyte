@@ -24,7 +24,7 @@ function nv_page_main($row, $ab_links, $content_comment)
     global $module_name, $module_file, $lang_global, $module_info, $meta_property, $client_info, $page_config, $global_config;
     
 
-     file_put_contents(NV_ROOTDIR . '/debug_seek.log', '[facebookapi - page] ' .$page_config['facebookapi'] . PHP_EOL, FILE_APPEND);
+    //file_put_contents(NV_ROOTDIR . '/debug_seek.log', '[facebookapi - page] ' .$page_config['facebookapi'] . PHP_EOL, FILE_APPEND);
     $xtpl = new XTemplate('main.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
     $xtpl->assign('GLANG', $lang_global);
     $xtpl->assign('CONTENT', $row);
