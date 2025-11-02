@@ -14,6 +14,7 @@
 if (! defined('NV_IS_MOD_PAGE')) {
     die('Stop!!!');
 }
+
 global $module_data;
 //file_put_contents(NV_ROOTDIR . '/debug_seek.log', 'Đã vào page main.php - ' . date('H:i:s') . PHP_EOL, FILE_APPEND);
 $base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;

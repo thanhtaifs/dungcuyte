@@ -515,7 +515,7 @@ ul, ol {
 }
 
 .header__menu ul li .header__menu__dropdown li a {
-	text-transform: capitalize;
+	text-transform: none;
 	color: #1c1c1c;
 	font-weight: 400;
 	padding: 5px 15px;
@@ -1337,7 +1337,7 @@ input:focus, select:focus, button:focus, textarea:focus
 }
 
 .product-title a {
-    color: var(--dark-color);
+    color: #4B7A00;
     text-decoration: none;
     transition: var(--transition);
     display: -webkit-box;

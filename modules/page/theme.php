@@ -11,7 +11,6 @@
 if (! defined('NV_IS_MOD_PAGE')) {
     die('Stop!!!');
 }
-
 /**
  * nv_page_main()
  *

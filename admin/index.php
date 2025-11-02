@@ -41,7 +41,7 @@ ob_start();
 // Admin dang nhap
 if( ! defined( 'NV_IS_ADMIN' ) or ! isset( $admin_info ) or empty( $admin_info ) )
 {
-	error_log("=== ADMIN START Admin dang nhap ===");
+	//error_log("=== ADMIN START Admin dang nhap ===");
 	require NV_ROOTDIR . '/includes/core/admin_access.php';
 	require NV_ROOTDIR . '/includes/core/admin_login.php';
 	exit();

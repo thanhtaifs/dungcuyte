@@ -12,6 +12,8 @@ if (! defined('NV_IS_MOD_SEARCH')) {
     die('Stop!!!');
 }
 
+error_log('seek theme.php loaded');
+
 /**
  * search_main_theme()
  *
@@ -22,6 +24,7 @@ if (! defined('NV_IS_MOD_SEARCH')) {
  */
 function search_main_theme($is_search, $search, $array_modul)
 {
+    error_log('search_main_theme loaded');
     global $module_info, $module_file, $global_config, $lang_global, $lang_module, $module_name;
 
     $xtpl = new XTemplate('form.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
@@ -97,6 +100,7 @@ function urlencode_rfc_3986($string)
  */
 function search_result_theme($result_array, $mod, $mod_custom_title, $search, $is_generate_page, $limit, $num_items)
 {
+     error_log(message: 'search_result_theme loaded');
     global $module_info, $module_file, $global_config, $lang_global, $lang_module, $db, $module_name;
     $xtpl = new XTemplate('result.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
     $xtpl->assign('LANG', $lang_module);
@@ -141,5 +145,6 @@ function search_result_theme($result_array, $mod, $mod_custom_title, $search, $i
     }
     
     $xtpl->parse('main');
+    error_log('ok search_result_theme loaded');
     return $xtpl->text('main');
 }

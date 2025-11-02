@@ -12,18 +12,19 @@ if (! defined('NV_IS_MOD_SEARCH')) {
     die('Stop!!!');
 }
 //file_put_contents(NV_ROOTDIR . '/debug_seek.log', 'Đã vào main.php - ' . date('H:i:s') . PHP_EOL, FILE_APPEND);
+//error_log('seek main.php loaded');
 
 $array_mod = LoadModulesSearch();
 
 // Bỏ qua các module không có search.php hoặc không cần thiết
-$modules_to_skip = ['about', 'dich-vu', 'khuyen-mai','page','news'];
+$modules_to_skip = ['about', 'dich-vu', 'khuyen-mai','page','news','chinh-sach'];
 
 foreach ($modules_to_skip as $mod_skip) {
     if (isset($array_mod[$mod_skip])) {
         unset($array_mod[$mod_skip]);
     }
 }
-
+//error_log(message: 'modules_to_skip' . $modules_to_skip);
 //file_put_contents(NV_ROOTDIR . '/debug_seek.log', 'array_mod: ' . var_export($array_mod, true) . PHP_EOL, FILE_APPEND);
 $is_search = false;
 $search = array(
@@ -86,7 +87,7 @@ if ($nv_Request->isset_request('q', 'get')) {
         Header('Location: ' . $base_url_rewrite);
         die();
     } */
-
+    //error_log(message: 'empty search key');
     if (! empty($search['key'])) {
         //file_put_contents(NV_ROOTDIR . '/debug_seek.log', 'Đi qua đoạn xử lý từ khóa, len_key: ' . $search['len_key'] . PHP_EOL, FILE_APPEND);
         if (! $search['logic']) {
@@ -121,14 +122,16 @@ if ($nv_Request->isset_request('q', 'get')) {
         $dbkeywordhtml = $db->dblikeescape(nv_htmlspecialchars($search['key']));
         $logic = $search['logic'] ? 'AND' : 'OR';
         $key = $search['key'];
-
+        //error_log(message: 'before foreach m_values');
         foreach ($mods as $m_name => $m_values) {
             //file_put_contents(NV_ROOTDIR . '/debug_seek.log', ">> Bắt đầu vòng foreach, có " . count($mods) . " module\n", FILE_APPEND);
             $page = $search['page'];
             $num_items = 0;
             $result_array = array();
+            //error_log(message: 'num_items' . $num_items  );
             //file_put_contents(NV_ROOTDIR . '/debug_seek.log', ">> Đang xử lý module: $m_name - file: $search_file\n", FILE_APPEND);
             $search_file = NV_ROOTDIR . '/modules/' . $m_values['module_file'] . '/search.php';
+            //error_log(message: 'search_file' . $search_file  );
             //file_put_contents(NV_ROOTDIR . '/debug_seek.log', ">> Đang xử lý module: $m_name - file: $search_file\n", FILE_APPEND);
             if (file_exists($search_file)) {
                 //file_put_contents(NV_ROOTDIR . '/debug_seek.log', "  - File search.php TỒN TẠI, chuẩn bị include...\n", FILE_APPEND);
@@ -158,12 +161,13 @@ if ($nv_Request->isset_request('q', 'get')) {
                 $search['content'] .= search_result_theme($result_array, $m_name, $m_values['custom_title'], $search, $is_generate_page, $limit, $num_items);
             }
         }
+            //error_log(message: 'before search content');
         if (empty($search['content'])) {
             $search['content'] = $lang_module['search_none'] . ' &quot;' . $search['key'] . '&quot;';
         }
     }
 }
-
+//error_log(message: 'before search_main_theme');
 $contents = search_main_theme($is_search, $search, $array_mod);
 
 $page_title = $module_info['custom_title'];
@@ -176,6 +180,8 @@ if (! empty($search['key'])) {
     }
 }
 
+
+//error_log(message: 'ok seek main.php loaded');
 $key_words = $description = 'no';
 $mod_title = isset($lang_module['main_title']) ? $lang_module['main_title'] : $module_info['custom_title'];
 

@@ -10,8 +10,7 @@
 
 if( ! defined( 'NV_IS_MOD_NEWS' ) ) die( 'Stop!!!' );
 
-error_log("=== Main modules news ===");
-
+//error_log("=== Main modules news ===");
 
 $page_title = $module_info['custom_title'];
 $key_words = $module_info['keywords'];
@@ -19,7 +18,7 @@ $key_words = $module_info['keywords'];
 $contents = '';
 $cache_file = '';
 
-error_log("=== Main modules news before base_url===");
+//error_log("=== Main modules news before base_url===");
 
 
 $base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name;
@@ -27,21 +26,21 @@ $base_url_rewrite = nv_url_rewrite( $base_url, true );
 $page_url_rewrite = $page ? nv_url_rewrite( $base_url . '/page-' . $page, true ) : $base_url_rewrite;
 $request_uri = $_SERVER['REQUEST_URI'];
 
-error_log("home=" . var_export($home, true));
-error_log("request_uri=" . $request_uri);
-error_log("base_url_rewrite=" . $base_url_rewrite);
-error_log("page_url_rewrite=" . $page_url_rewrite);
-error_log("NV_MAIN_DOMAIN=" . NV_MAIN_DOMAIN);
+// error_log("home=" . var_export($home, true));
+// error_log("request_uri=" . $request_uri);
+// error_log("base_url_rewrite=" . $base_url_rewrite);
+// error_log("page_url_rewrite=" . $page_url_rewrite);
+// error_log("NV_MAIN_DOMAIN=" . NV_MAIN_DOMAIN);
 
 if( ! ( $home OR $request_uri == $base_url_rewrite OR $request_uri == $page_url_rewrite OR NV_MAIN_DOMAIN . $request_uri == $base_url_rewrite OR NV_MAIN_DOMAIN . $request_uri == $page_url_rewrite ) )
 {
 	error_log("=== Main modules news check if home in news ===");
 
 	$redirect = '<meta http-equiv="Refresh" content="3;URL=' . $base_url_rewrite . '" />';
-	error_log("=== Main modules news check before nv_info_die ===");
+	//error_log("=== Main modules news check before nv_info_die ===");
 	nv_info_die( $lang_global['error_404_title'], $lang_global['error_404_title'], $lang_global['error_404_content'] . $redirect );
 }
-error_log("=== Main modules news before check NV_IS_MODADMIN ===");
+//error_log("=== Main modules news before check NV_IS_MODADMIN ===");
 if( ! defined( 'NV_IS_MODADMIN' ) and $page < 5 )
 {
 	$cache_file = NV_LANG_DATA . '_' . $module_info['template'] . '-' . $op . '-' . $page . '-' . NV_CACHE_PREFIX . '.cache';
@@ -51,11 +50,9 @@ if( ! defined( 'NV_IS_MODADMIN' ) and $page < 5 )
 	}
 }
 
-error_log("=== Main modules news before contents ===");
-
 if( empty( $contents ) )
 {
-	error_log("=== Main check empty modules news contents ===");
+	//error_log("=== Main check empty modules news contents ===");
 	$viewcat = $module_config[$module_name]['indexfile'];
 	$show_no_image = $module_config[$module_name]['show_no_image'];
 	$array_catpage = array();
@@ -63,12 +60,12 @@ if( empty( $contents ) )
 
 	if(  $viewcat == 'viewcat_none' )
 	{
-		error_log("=== Main check empty modules viewcat_none contents ===");
+		//error_log("=== Main check empty modules viewcat_none contents ===");
 		$contents = '';
 	}
 	elseif( $viewcat == 'viewcat_page_new' or $viewcat == 'viewcat_page_old' )
 	{
-		error_log("=== Main check empty modules viewcat_page_new and viewcat_page_old contents ===");
+		//error_log("=== Main check empty modules viewcat_page_new and viewcat_page_old contents ===");
 		$order_by = ( $viewcat == 'viewcat_page_new' ) ? 'publtime DESC' : 'publtime ASC';
 		$db->sqlreset()
 			->select( 'COUNT(*)' )
@@ -85,7 +82,7 @@ if( empty( $contents ) )
 		$end_publtime = 0;
 
 		$result = $db->query( $db->sql() );
-		error_log("=== Main news num_items ===" .$num_items);
+		//error_log("=== Main news num_items ===" .$num_items);
 		while( $item = $result->fetch() )
 		{
 			if( $item['homeimgthumb'] == 1 ) //image thumb
@@ -114,12 +111,12 @@ if( empty( $contents ) )
 			$array_catpage[] = $item;
 			$end_publtime = $item['publtime'];
 		}
-		error_log("=== Main news pass  while loop  ===");
+		//error_log("=== Main news pass  while loop  ===");
 		$db->sqlreset()
 			->select('id, catid, addtime, edittime, publtime, title, alias, hitstotal')
 			->from( NV_PREFIXLANG . '_' . $module_data . '_rows' );
 
-		error_log("=== Main news pass  sql reset() ===");
+		//error_log("=== Main news pass  sql reset() ===");
 
 		if( $viewcat == 'viewcat_page_new' )
 		{
@@ -138,14 +135,14 @@ if( empty( $contents ) )
 			$item['link'] = $global_array_cat[$item['catid']]['link'] . '/' . $item['alias'] . '-' . $item['id'] . $global_config['rewrite_exturl'];
 			$array_cat_other[] = $item;
 		}
-		error_log("=== Main end fetch ===");
+		//error_log("=== Main end fetch ===");
 		$viewcat = 'viewcat_page_new';
 		$generate_page = nv_alias_page( $page_title, $base_url, $num_items, $per_page, $page );
 		$contents = call_user_func( $viewcat, $array_catpage, $array_cat_other, $generate_page );
 	}
 	elseif( $viewcat == 'viewcat_main_left' or $viewcat == 'viewcat_main_right' or $viewcat == 'viewcat_main_bottom' )
 	{
-		error_log("=== Main check empty modules viewcat_main_left and viewcat_main_right contents ===");
+		//error_log("=== Main check empty modules viewcat_main_left and viewcat_main_right contents ===");
 		$array_cat = array();
 
 		$key = 0;
@@ -238,7 +235,7 @@ if( empty( $contents ) )
 	}
 	elseif( $viewcat == 'viewcat_two_column' )
 	{
-		error_log("=== Main check empty modules viewcat_two_column contents ===");
+		//error_log("=== Main check empty modules viewcat_two_column contents ===");
 		// Cac bai viet phan dau
 		$array_content = $array_catpage = array();
 
@@ -334,7 +331,7 @@ if( empty( $contents ) )
 	}
 	elseif( $viewcat == 'viewcat_grid_new' or $viewcat == 'viewcat_grid_old' )
 	{
-		error_log("=== Main check empty modules viewcat_grid_new and viewcat_grid_old contents ===");
+		//error_log("=== Main check empty modules viewcat_grid_new and viewcat_grid_old contents ===");
 		$order_by = ( $viewcat == 'viewcat_grid_new' ) ? ' publtime DESC' : ' publtime ASC';
 		$db->sqlreset()
 			->select( 'COUNT(*) ')
@@ -383,7 +380,7 @@ if( empty( $contents ) )
 	}
 	elseif( $viewcat == 'viewcat_list_new' or $viewcat == 'viewcat_list_old' ) // Xem theo tieu de
 	{
-		error_log("=== Main check empty modules viewcat_list_new and viewcat_list_old contents ===");
+		//error_log("=== Main check empty modules viewcat_list_new and viewcat_list_old contents ===");
 		$order_by = ( $viewcat == 'viewcat_list_new' ) ? 'publtime DESC' : 'publtime ASC';
 
 		$db->sqlreset()
@@ -443,10 +440,7 @@ if( $page > 1 )
 	$page_title .= ' ' . NV_TITLEBAR_DEFIS . ' ' . $lang_global['page'] . ' ' . $page;
 }
 
-error_log("=== CONTENTS === " . var_export($contents, true));
-error_log("=== Main modules news before nv_site_theme ===");
+
 include NV_ROOTDIR . '/includes/header.php';
-error_log("=== Main modules news header nv_site_theme ===");
 echo  nv_site_theme($contents);
-error_log("=== Main modules news contents OK===");
 include NV_ROOTDIR . '/includes/footer.php';

@@ -14,6 +14,12 @@ function nv_site_theme( $contents, $full = true )
 {
 	global $home, $array_mod_title, $lang_global, $language_array, $global_config, $site_mods, $module_name, $module_info, $op_file, $mod_title, $my_head, $my_footer, $client_info, $module_config, $op;
 
+	//error_log('===== DEBUG nv_site_theme =====');
+	//error_log('Layout funcs: ' . print_r($module_info['layout_funcs'], true));
+	//error_log('op_file: ' . $op_file);
+	//error_log('Layout file: ' . (isset($module_info['layout_funcs'][$op_file]) ? 'layout.' . $module_info['layout_funcs'][$op_file] . '.tpl' : 'layout.default.tpl'));
+
+
 	// Determine tpl file, check exists tpl file
 	//$layout_file = ( $full ) ? 'layout.' . $module_info['layout_funcs'][$op_file] . '.tpl' : 'simple.tpl';
 	if($module_name == 'shops' && $op == 'main')
