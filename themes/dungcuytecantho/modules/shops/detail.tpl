@@ -141,9 +141,18 @@
 							<strong>{LANG.detail_warranty}:</strong> {warranty}
 						</li>
 						<!-- END: warranty -->
-					</ul>			
-
-
+					
+						<li class="hotline-box">
+							<h3> <i class="fa fa-phone"></i> Liên hệ tư vấn </h3>
+							<ul class="hotline-list">
+								<li><a href="tel:0907694868"> <i class="fa fa-phone danger"> </i>  0907 694 868 (Mr. Nguyên)</a></li>
+								<li><a href="tel:0906377086"> <i class="fa fa-phone danger"> </i> 0906 377 086 (Ms. Mỹ)</a></li>
+								<li><a href="tel:0937037770"> <i class="fa fa-phone danger"> </i> 0937 037 770 (Mr. Nguyên)</a></li>
+								<li><a href="tel:0939310467"> <i class="fa fa-phone danger"> </i> 0939 310 467 (Ms. Duyên)</a></li>
+							</ul>
+						</li>
+					</ul>		
+					
 					<div class="socaial-share row g-2" style="margin-top: 15px;">
 					<div class="col-6 col-md-4">
 						<a class="button_share share facebook w-100 btn btn-primary text-white"
