@@ -116,7 +116,7 @@ $contents = '';
     $per_page = $page_config['per_page'];
    
     $array_data = array();
-    file_put_contents(NV_ROOTDIR . '/debug_seek.log', 'module_data: ' . $module_data . PHP_EOL, FILE_APPEND);
+    //file_put_contents(NV_ROOTDIR . '/debug_seek.log', 'module_data: ' . $module_data . PHP_EOL, FILE_APPEND);
     //$db_slave->sqlreset()->select('COUNT(*)')->from(NV_PREFIXLANG . '_' . $module_data)->where('status=1
     $db->sqlreset()->select( 'COUNT(*)' )->from( NV_PREFIXLANG . '_' . $module_data );
     //file_put_contents(NV_ROOTDIR . '/debug_seek.log', 'SQL COUNT: ' . $sql . PHP_EOL, FILE_APPEND);
@@ -133,7 +133,7 @@ $contents = '';
 		$array_data[$row['id']] = $row;
 	}
 	$generate_page = nv_alias_page( $page_title, $base_url, $num_items, $per_page, $page);
-	file_put_contents(NV_ROOTDIR . '/debug_seek.log', 'Đã vào page $generate_page', FILE_APPEND);
+	//file_put_contents(NV_ROOTDIR . '/debug_seek.log', 'Đã vào page $generate_page', FILE_APPEND);
 	
 	if( $page > 1 )
 	{
