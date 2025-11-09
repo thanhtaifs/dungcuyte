@@ -47,19 +47,20 @@ function nv_page_main($row, $ab_links, $content_comment)
     
 
     if (! empty($row['image'])) {
-    	if ($row['imageposition'] > 0) {
-    		if ($row['imageposition'] == 1) {
-		        if (! empty($row['imagealt'])) {
-		            $xtpl->parse('main.imageleft.alt');
-		        }
-    			$xtpl->parse('main.imageleft');
-    		} else {
-		        if (! empty($row['imagealt'])) {
-		            $xtpl->parse('main.imagecenter.alt');
-		        }
-    			$xtpl->parse('main.imagecenter');
-    		}
-    	}
+        if (isset($row['imageposition']) && $row['imageposition'] > 0) 
+        {
+            if ($row['imageposition'] == 1) {
+                if (! empty($row['imagealt'])) {
+                    $xtpl->parse('main.imageleft.alt');
+                }
+                $xtpl->parse('main.imageleft');
+            } else {
+                if (! empty($row['imagealt'])) {
+                    $xtpl->parse('main.imagecenter.alt');
+                }
+                $xtpl->parse('main.imagecenter');
+            }
+        }
     }
 
     if (defined('NV_IS_MODADMIN')) {

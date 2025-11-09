@@ -10,7 +10,7 @@
 
 if( ! defined( 'NV_IS_MOD_NEWS' ) ) die( 'Stop!!!' );
 
-error_log("=== news theme.php loaded OK ===");
+//error_log("=== news theme.php loaded OK ===");
 
 function viewcat_grid_new( $array_catpage, $catid, $generate_page )
 {

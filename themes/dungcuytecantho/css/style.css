@@ -2026,7 +2026,10 @@ iframe[src*="youtube.com"] {
 /* Medium Device = 992- 1200px */
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {	
-
+	.header__logo {       
+        display: block;
+		padding: 12px 0px;
+    }
 	.header__menu ul li {
 		margin-right: 45px;
 	}	
@@ -2148,14 +2151,13 @@ iframe[src*="youtube.com"] {
 	}
 	
 	.header__logo {
-        padding : 0px 0px;
+       
         display: block;
     }
     .header__logo a img {
             width: 320px;
             display: block;
-    }
-    
+    } 
 	.hero__categories {
 		margin-bottom: 30px;
 	}
@@ -2569,14 +2571,14 @@ iframe[src*="youtube.com"] {
         top: 0;
         right: -5px;
     }
-	.header__logo {
-        padding : 0px 0px;
+	.header__logo {       
         display: block;
     }
     
-     .header__logo a img {
-            width: 250px;
-            display: block;
+    .header__logo a img 
+	{
+        width: 320px;
+        display: block;
     }
   
 	.hero__categories {
@@ -2648,6 +2650,7 @@ iframe[src*="youtube.com"] {
 		overflow: hidden;
 		margin-bottom: 25px;
 	}
+
 	.humberger__open {
 		display: block;
 		font-size: 22px;
@@ -2660,9 +2663,8 @@ iframe[src*="youtube.com"] {
 		cursor: pointer;
 		position: absolute;		
 		top: 12px;
-		left: 20px;
-	}
-	
+		left: 12px;
+	}	
 
 	.header .container {
 		position: relative;
@@ -2867,20 +2869,41 @@ iframe[src*="youtube.com"] {
 	#body #category .col-sm-12:nth-of-type(3n), #products .col-sm-12:nth-of-type(3n){
 		margin-right: 0;
 	}
-	.copyright{
+	.copyright {
 		padding:10px 16px;
 	}
 	.copyright span{
 		display: block;
 	}
 	.copyright span,
-	.copyright a{
+	.copyright a
+	{
 		font-size:11px;
 		line-height: 1.4;
 	}
+
+	.hotline-header 
+	{  
+		display: inline !important;
+        
+    }
+
+    .hotline-top {
+        flex-direction: column;
+        gap: 6px;
+        margin-top: 5px;
+    }
+
+    .hotline-inline {
+        justify-content: flex-start;		
+    }
+	.hotline-inline li {
+        margin-top: 5px;		
+    }
 }
 /* Extra Small Device = up to 479px */
 @media only screen and (max-width: 479px) {
+	
 	.hero__search__form form .hero__search__categories {
 		display: none;
 	}
@@ -2925,9 +2948,19 @@ iframe[src*="youtube.com"] {
 	.blog__details__hero__text h2 {
 		font-size: 24px;
 	}
+
 }
 
 @media (max-width:550px) {
+	.header__logo
+	{
+		padding: 15px 0;
+	}
+	.header__logo a img 
+	{
+        width: 230px;
+        display: block;
+    }
 	#top .hidden{
 		display: block !important;
 	}
@@ -2965,10 +2998,15 @@ iframe[src*="youtube.com"] {
 	}
 	.support-ol .name-phone span.name{
 		font-size:13px !important;
-	}
+	}	
 }
 
 @media (max-width:480px) {
+	.hotline-list li 
+	{
+    	min-width: 100%; 
+    }
+
 	#body #category .col-sm-12{
 		width: 100%;
 		border-bottom: 0;
@@ -3205,24 +3243,18 @@ iframe[src*="youtube.com"] {
 .panel-body p{
 	margin: 0px;
 }
-.panel-body ul{
+.panel-body ul {
 	margin: 0px;
 	padding: 0px;
 }
-.panel-body ul li{
-}
-.panel-body img{
-	margin-right: 5px
-}
-.panel-body ul li:last-child{
-	margin-bottom: 0px;
+
+.panel-body img {
+	margin-right: 5px;
 }
 
 .nv-infodie .logo{
 	max-width: 90%!important;
 }
-
-
 
 /* Form */
 input[type="checkbox"],
@@ -3537,44 +3569,52 @@ a{
 }
 
 
-/* ====== Khối Hotline sản phẩm ====== */
+
 .hotline-box {
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 12px 16px;
-    margin-top: 15px;
+  list-style: none;
+  margin: 0;
 }
 
 .hotline-box h3 {
-    color: #d00;
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 8px;
-    text-transform: uppercase;
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .hotline-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-size: 15px;
-    line-height: 1.6;
+  display: flex;
+  flex-wrap: wrap;                /* Cho phép xuống dòng */
+  justify-content: space-between; /* Canh đều mỗi hàng */
+  gap: 8px;                       /* Khoảng cách giữa các số */
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .hotline-list li {
-    margin-bottom: 4px;
+  flex: 1 1 auto;                /* Mỗi số tự co giãn */
+  min-width: 150px;              /* Đảm bảo không bị quá nhỏ */
+  text-align: center;
 }
 
 .hotline-list a {
-    color: rgb(255, 0, 0);
-    text-decoration: none;
-    font-weight: 600;
+  display: inline-block;
+  width: 100%;
+  text-decoration: none;
+  padding: 6px 10px;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
 .hotline-list a:hover {
-    text-decoration: underline;
+  color: #dc3545;
 }
+
+
 
 .socaial-share {
 	padding: 20px 0;

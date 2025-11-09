@@ -17,7 +17,7 @@ if (! defined('NV_IS_MOD_SEARCH')) {
 $array_mod = LoadModulesSearch();
 
 // Bỏ qua các module không có search.php hoặc không cần thiết
-$modules_to_skip = ['about', 'dich-vu', 'khuyen-mai','page','news','chinh-sach'];
+$modules_to_skip = ['gioi-thieu', 'dich-vu', 'khuyen-mai','page','news','chinh-sach','tuyen-dung'];
 
 foreach ($modules_to_skip as $mod_skip) {
     if (isset($array_mod[$mod_skip])) {
