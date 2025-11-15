@@ -147,9 +147,9 @@
 								<li><a href="tel:0937037770"><i class="fa fa-phone danger"></i> Hotline 2: 0937 037 770</a></li>
 							</ul>
 						</li>
-					</ul>		
+					</ul>
 					
-					<div class="socaial-share row g-2" style="margin-top: 15px;">
+					<div class="socaial-share row g-2">
 					<div class="col-6 col-md-4">
 						<a class="button_share share facebook w-100 btn btn-primary text-white"
 						href="https://www.facebook.com/sharer/sharer.php?u={SELFURL}" target="_blank">

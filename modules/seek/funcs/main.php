@@ -53,7 +53,7 @@ if ($nv_Request->isset_request('q', 'get')) {
     $search['logic'] = $nv_Request->get_int('l', 'get', $search['logic']);
     //file_put_contents(NV_ROOTDIR . '/debug_seek.log', 'logic: ' . $search['logic'] . PHP_EOL, FILE_APPEND);
     $search['page'] = $nv_Request->get_int('page', 'get', 1);
-    file_put_contents(NV_ROOTDIR . '/debug_seek.log', 'page: ' . $search['page'] . PHP_EOL, FILE_APPEND);
+    //file_put_contents(NV_ROOTDIR . '/debug_seek.log', 'page: ' . $search['page'] . PHP_EOL, FILE_APPEND);
 
     if ($search['logic'] != 1) {
         $search['logic'] = 0;
