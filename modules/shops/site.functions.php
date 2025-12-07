@@ -200,17 +200,24 @@ function nv_get_price( $pro_id, $currency_convert, $number = 1, $per_pro = false
 
 	$price = nv_currency_conversion($price, $product['money_unit'], $currency_convert );
 
-	$return['price'] = $price; // Giá sản phẩm chưa format
-	$return['price_format'] = nv_number_format( $price, $decimals ); // Giá sản phẩm đã format
-
+	$return['price'] = $price; // Giá sản phẩm chưa format	
 	$return['discount'] = $discount;// Số tiền giảm giá sản phẩm chưa format
 	$return['discount_format'] = nv_number_format( $discount, $decimals ); // Số tiền giảm giá sản phẩm đã format
 	$return['discount_percent'] = $discount_unit == '%' ? $discount_percent : nv_number_format( $discount_percent, $decimals );// Giảm giá theo phần trăm
 	$return['discount_unit'] = $discount_unit;// Đơn vị giảm giá
-
-	$return['sale'] = $price - $discount;// Giá bán thực tế của sản phẩm
-	$return['sale_format'] = nv_number_format( $return['sale'], $decimals );// Giá bán thực tế của sản phẩm đã format
+	$return['sale'] = $price - $discount;// Giá bán thực tế của sản phẩm	
 	$return['unit'] = $currency_convert;
+
+	if( $price > 100 )
+	{
+		$return['price_format'] = nv_number_format( $price, $decimals ); // Giá sản phẩm đã format
+		$return['sale_format'] = nv_number_format( $return['sale'], $decimals );// Giá bán thực tế của sản phẩm đã format
+	}
+	else
+	{
+		$return['price_format'] = 'Liên hệ';
+		$return['sale_format'] = 'Liên hệ';
+	}
 
 	return $return;
 }

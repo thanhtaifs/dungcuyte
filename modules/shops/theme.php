@@ -720,6 +720,8 @@ function display_product_item(&$xtpl, $data_row, $num_row, $pro_config, $global_
     }
 
     $price = nv_get_price($data_row['id'], $pro_config['money_unit']);
+    //error_log("=== theme.php loaded OK ===". $price['sale']);
+    //error_log("=== theme.php loaded OK ===". $price['sale_format']);
 
     if ($pro_config['active_price'] == '1') {
         if ($data_row['showprice'] == '1') {
@@ -873,10 +875,8 @@ function view_home_all($data_content, $compare_id, $html_pages = '', $sort = 0, 
                 }
             }
 
-            $price = nv_get_price($data_row['id'], $pro_config['money_unit']);
-          
+            $price = nv_get_price($data_row['id'], $pro_config['money_unit']);          
             //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "PRo config: " .  $pro_config['money_unit'] . "\n", FILE_APPEND);
-
             //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "active_price :" . $pro_config['active_price'] . "\n", FILE_APPEND);
             //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "showprice :" . $data_row['showprice'] . "\n", FILE_APPEND);
 

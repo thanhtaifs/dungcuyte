@@ -8,87 +8,219 @@ $type = $nv_Request->get_string('t', 'get', 'text'); // text | json
 $buy_now = $nv_Request->get_int('buy_now', 'post,get', 0); // 0 = thêm giỏ, 1 = mua ngay
 $contents_msg = '';
 
-if ($id > 0) {
-    // Lấy sản phẩm
-    $row = $db->query("
-        SELECT id, listcatid, " . NV_LANG_DATA . "_title AS title," . NV_LANG_DATA . "_alias AS alias,homeimgfile, product_price, money_unit, discount_id
-        FROM " . $db_config['prefix'] . "_" . $module_data . "_rows 
-        WHERE id = " . intval($id)
-    )->fetch();
+$row = $db->query("
+    SELECT id, listcatid, " . NV_LANG_DATA . "_title AS title," . NV_LANG_DATA . "_alias AS alias,homeimgfile, product_price, money_unit, discount_id
+    FROM " . $db_config['prefix'] . "_" . $module_data . "_rows 
+    WHERE id = " . intval($id)
+)->fetch();
 
-    if ($row) {
-        $price = $row['product_price'];
-        $img = $row['homeimgfile'] 
-        ? NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_name . '/' . $row['homeimgfile']
-        : NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_name . '/' . $row['homeimgthumb'] ?? '';
-       $listcatid = $row['listcatid'];
-       $alias = $row['alias'];
-       $link = NV_BASE_SITEURL
-        . 'index.php?'
-        . NV_LANG_VARIABLE . '=' . NV_LANG_DATA
-        . '&' . NV_NAME_VARIABLE . '=' . $module_name
-        . '&' . NV_OP_VARIABLE . '='
-        . $global_array_shops_cat[$listcatid]['alias'] . '/' 
-        . $alias
-        . $global_config['rewrite_exturl'];
-        // Áp dụng giảm giá nếu có
-        if (!empty($row['discount_id'])) {
-            $discount = $db->query("
-                SELECT discount_percent 
-                FROM " . $db_config['prefix'] . "_" . $module_data . "_discounts 
-                WHERE id = " . intval($row['discount_id'])
-            )->fetchColumn();
-            if ($discount > 0) {
-                $price -= ($price * $discount / 100);
-            }
-        }
+// if ($id > 0) {
+//     // Lấy sản phẩm
+//     $row = $db->query("
+//         SELECT id, listcatid, " . NV_LANG_DATA . "_title AS title," . NV_LANG_DATA . "_alias AS alias,homeimgfile, product_price, money_unit, discount_id
+//         FROM " . $db_config['prefix'] . "_" . $module_data . "_rows 
+//         WHERE id = " . intval($id)
+//     )->fetch();
 
-        // Cập nhật session giỏ hàng
-        if (!isset($_SESSION[$module_data . '_cart'][$id])) {
-            $_SESSION[$module_data . '_cart'][$id] = [
-                'num' => $num,
-                'price' => $price,
-                'money_unit' => $row['money_unit'],
-                'title_pro' => $row['title'],
-                'img_pro' =>  $img,
-                'link_pro' => $link,
-                'group' => [],
-                'order' => $buy_now ? 1 : 0
-            ];
-        } else {
-            $_SESSION[$module_data . '_cart'][$id]['num'] += $num;
-            if (!isset($_SESSION[$module_data . '_cart'][$id]['group'])) {
-                $_SESSION[$module_data . '_cart'][$id]['group'] = [];
-            }
-            if ($buy_now) {
-                $_SESSION[$module_data . '_cart'][$id]['order'] = 1;
-            }
-        }
+//     if ($row) {
+//         $price = $row['product_price'];
 
-        $contents_msg = 'OK_Đã thêm ' . $row['title'] . ' vào giỏ hàng';
-    } else {
-        $contents_msg = 'ERR_Sản phẩm không tồn tại';
-    }
-} else {
-    $contents_msg = 'ERR_Tham số không hợp lệ';
+//         if (intval($price) < 101) {
+//             $contents_msg = 'ERR_Sản phẩm cần liên hệ để đặt hàng.';
+            
+//             if ($type == 'json') {
+//                 $response = [
+//                     'status' => 'error',
+//                     'message' => 'Sản phẩm này không có giá. Vui lòng liên hệ để được tư vấn.',
+//                     'cart_count' => !empty($_SESSION[$module_data . '_cart']) ? count($_SESSION[$module_data . '_cart']) : 0,
+//                 ];
+//                 header('Content-Type: application/json; charset=utf-8');
+//                 echo json_encode($response, JSON_UNESCAPED_UNICODE);
+//                 exit();
+//             }
+
+//             include NV_ROOTDIR . '/includes/header.php';
+//             echo nv_unhtmlspecialchars($contents_msg);
+//             include NV_ROOTDIR . '/includes/footer.php';
+//             exit();
+//         }
+        
+
+//         $img = $row['homeimgfile'] 
+//         ? NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_name . '/' . $row['homeimgfile']
+//         : NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_name . '/' . $row['homeimgthumb'] ?? '';
+//        $listcatid = $row['listcatid'];
+//        $alias = $row['alias'];
+//        $link = NV_BASE_SITEURL
+//         . 'index.php?'
+//         . NV_LANG_VARIABLE . '=' . NV_LANG_DATA
+//         . '&' . NV_NAME_VARIABLE . '=' . $module_name
+//         . '&' . NV_OP_VARIABLE . '='
+//         . $global_array_shops_cat[$listcatid]['alias'] . '/' 
+//         . $alias
+//         . $global_config['rewrite_exturl'];
+//         // Áp dụng giảm giá nếu có
+//         if (!empty($row['discount_id'])) {
+//             $discount = $db->query("
+//                 SELECT discount_percent 
+//                 FROM " . $db_config['prefix'] . "_" . $module_data . "_discounts 
+//                 WHERE id = " . intval($row['discount_id'])
+//             )->fetchColumn();
+//             if ($discount > 0) {
+//                 $price -= ($price * $discount / 100);
+//             }
+//         }
+
+//         // Cập nhật session giỏ hàng
+//         if (!isset($_SESSION[$module_data . '_cart'][$id])) {
+//             $_SESSION[$module_data . '_cart'][$id] = [
+//                 'num' => $num,
+//                 'price' => $price,
+//                 'money_unit' => $row['money_unit'],
+//                 'title_pro' => $row['title'],
+//                 'img_pro' =>  $img,
+//                 'link_pro' => $link,
+//                 'group' => [],
+//                 'order' => $buy_now ? 1 : 0
+//             ];
+//         } else {
+//             $_SESSION[$module_data . '_cart'][$id]['num'] += $num;
+//             if (!isset($_SESSION[$module_data . '_cart'][$id]['group'])) {
+//                 $_SESSION[$module_data . '_cart'][$id]['group'] = [];
+//             }
+//             if ($buy_now) {
+//                 $_SESSION[$module_data . '_cart'][$id]['order'] = 1;
+//             }
+//         }
+
+//         $contents_msg = 'OK_Đã thêm ' . $row['title'] . ' vào giỏ hàng';
+//     } else {
+//         $contents_msg = 'ERR_Sản phẩm không tồn tại';
+//     }
+// } else {
+//     $contents_msg = 'ERR_Tham số không hợp lệ';
+// }
+
+// // Xuất JSON khi gọi ?t=json
+// if ($type == 'json') {
+//     $cart_count = !empty($_SESSION[$module_data . '_cart']) ? count($_SESSION[$module_data . '_cart']) : 0;
+//     $response = [
+//         'status' => (strpos($contents_msg, 'OK_') === 0) ? 'success' : 'error',
+//         'message' => substr($contents_msg, 3), // bỏ tiền tố OK_/ERR_
+//         'cart_count' => $cart_count,       
+//     ];
+
+//     header('Content-Type: application/json; charset=utf-8');
+//     //error_log("== DEBUG setcart.php == ID: $id | num: $num | POST: " . json_encode($_POST) . " | GET: " . json_encode($_GET));
+//     echo json_encode($response, JSON_UNESCAPED_UNICODE);
+//     exit();
+// }
+
+// // Mặc định trả về HTML text
+// include NV_ROOTDIR . '/includes/header.php';
+// echo nv_unhtmlspecialchars($contents_msg);
+// include NV_ROOTDIR . '/includes/footer.php';
+
+
+if (!$row) {
+    $contents_msg = 'ER_Sản phẩm không tồn tại';
+    return_output($contents_msg, $type);
 }
 
-// Xuất JSON khi gọi ?t=json
-if ($type == 'json') {
-    $cart_count = !empty($_SESSION[$module_data . '_cart']) ? count($_SESSION[$module_data . '_cart']) : 0;
-    $response = [
-        'status' => (strpos($contents_msg, 'OK_') === 0) ? 'success' : 'error',
-        'message' => substr($contents_msg, 3), // bỏ tiền tố OK_/ERR_
-        'cart_count' => $cart_count,       
-    ];
+// ==========================
+//  CHẶN SẢN PHẨM LIÊN HỆ
+// ==========================
+$price = intval($row['product_price']);
 
-    header('Content-Type: application/json; charset=utf-8');
-    //error_log("== DEBUG setcart.php == ID: $id | num: $num | POST: " . json_encode($_POST) . " | GET: " . json_encode($_GET));
-    echo json_encode($response, JSON_UNESCAPED_UNICODE);
+if ($price < 101) {
+    $contents_msg = 'ER_Sản phẩm cần liên hệ để được tư vấn.';
+    return_output($contents_msg, $type);
+}
+
+// ==========================
+//  ÁP DỤNG GIẢM GIÁ (NẾU CÓ)
+// ==========================
+if (!empty($row['discount_id'])) {
+    $discount = $db->query("
+        SELECT discount_percent 
+        FROM " . $db_config['prefix'] . "_" . $module_data . "_discounts 
+        WHERE id = " . intval($row['discount_id'])
+    )->fetchColumn();
+
+    if ($discount > 0) {
+        $price -= ($price * $discount / 100);
+    }
+}
+
+// ==========================
+//  LẤY THÔNG TIN ẢNH & LINK
+// ==========================
+$img = !empty($row['homeimgfile'])
+    ? NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_name . '/' . $row['homeimgfile']
+    : NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_name . '/' . ($row['homeimgthumb'] ?? '');
+
+$listcatid = $row['listcatid'];
+$alias     = $row['alias'];
+
+$link = NV_BASE_SITEURL
+    . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA
+    . '&' . NV_NAME_VARIABLE . '=' . $module_name
+    . '&' . NV_OP_VARIABLE . '='
+    . $global_array_shops_cat[$listcatid]['alias'] . '/' 
+    . $alias
+    . $global_config['rewrite_exturl'];
+
+// ==========================
+//  CẬP NHẬT SESSION GIỎ HÀNG
+// ==========================
+$cart_key = $module_data . '_cart';
+
+if (!isset($_SESSION[$cart_key][$id])) {
+    $_SESSION[$cart_key][$id] = [
+        'num'        => $num,
+        'price'      => $price,
+        'money_unit' => $row['money_unit'],
+        'title_pro'  => $row['title'],
+        'img_pro'    => $img,
+        'link_pro'   => $link,
+        'group'      => [],
+        'order'      => 0
+    ];
+} else {
+    $_SESSION[$cart_key][$id]['num'] += $num;
+}
+
+$contents_msg = 'OK_Đã thêm ' . $row['title'] . ' vào giỏ hàng';
+
+// ==========================
+//  TRẢ OUTPUT (JSON / HTML)
+// ==========================
+return_output($contents_msg, $type);
+
+
+
+function return_output($contents_msg, $type = '')
+{
+    global $module_data;
+
+    $cart_count = !empty($_SESSION[$module_data . '_cart'])
+        ? count($_SESSION[$module_data . '_cart'])
+        : 0;
+
+    if ($type === 'json') {
+        $response = [
+            'status' => (strpos($contents_msg, 'OK_') === 0) ? 'success' : 'error',
+            'message' => substr($contents_msg, 3),
+            'cart_count' => $cart_count
+        ];
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($response, JSON_UNESCAPED_UNICODE);
+        exit();
+    }
+
+    include NV_ROOTDIR . '/includes/header.php';
+    echo nv_unhtmlspecialchars($contents_msg);
+    include NV_ROOTDIR . '/includes/footer.php';
     exit();
 }
-
-// Mặc định trả về HTML text
-include NV_ROOTDIR . '/includes/header.php';
-echo nv_unhtmlspecialchars($contents_msg);
-include NV_ROOTDIR . '/includes/footer.php';

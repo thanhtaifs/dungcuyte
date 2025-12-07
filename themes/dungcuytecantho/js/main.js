@@ -311,7 +311,6 @@ function addToCart(id) {
   if (typeof id === 'object' && id !== null) {
     id = $(id).data('id') || $(id).attr('data-id') || 0;
   }
-
   if (!Number.isInteger(id) || id <= 0) {
 	showMessage('ID sản phẩm không hợp lệ. Vui lòng kiểm tra button có data-id hoặc onclick đúng.');
     //alert('ID sản phẩm không hợp lệ: ' + id + '\nVui lòng kiểm tra button có data-id hoặc onclick đúng.');
@@ -324,7 +323,6 @@ function addToCart(id) {
     data: { id: id },
     dataType: 'json', // bắt buộc để jQuery parse JSON
     success: function (res) {    
-
       if (res && res.status === 'success') {
         //console.log('setcart response:', res);
 		// cập nhật UI

@@ -25,8 +25,7 @@
                             </div>
                              <div class="caption text-center">
                                 <h3>
-                                    <a href="{LINK}" title="{TITLE}">{TITLE0}</a>
-                                    
+                                    <a href="{LINK}" title="{TITLE}">{TITLE0}</a>                                    
                                 </h3>
                                 <p class="price">
                                     <span class="money"> {PRICE.sale_format}  </span>
