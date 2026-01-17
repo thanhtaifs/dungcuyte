@@ -74,19 +74,30 @@
 						<!-- END: product_code -->
 
 						<!-- BEGIN: price -->
-						<li class="price">
-							<p>
-								{LANG.detail_pro_price}:
-								<!-- BEGIN: discounts -->
-								<span class="money">{PRICE.sale_format} </span>
-								<span class="discounts_money">{PRICE.price_format} </span>
-								<span class="money">{product_discounts} {money_unit}</span>
-								<!-- END: discounts -->
-								<!-- BEGIN: no_discounts -->
-								<span class="money t">{PRICE.price_format} </span>
-								<!-- END: no_discounts -->
-							</p>
+						
+
+						<li class="price-stock-row">
+							<div class="price">
+								<p>
+									{LANG.detail_pro_price}:
+									<!-- BEGIN: discounts -->
+									<span class="money">{PRICE.sale_format} </span>
+									<span class="discounts_money">{PRICE.price_format} </span>
+									<span class="money">{product_discounts} {money_unit}</span>
+									<!-- END: discounts -->
+									<!-- BEGIN: no_discounts -->
+									<span class="money t">{PRICE.price_format} </span>
+									<!-- END: no_discounts -->
+								</p>
+							</div>							
+							<div class="stock-status">								
+								<button class="stock-status-btn {STOCK_CLASS}">
+									<i class="fa {STOCK_ICON}"></i>
+									<span>{STOCK_TEXT}</span>
+								</button>							
+							</div>
 						</li>
+
 						<!-- END: price -->
 
 						<!-- BEGIN: contact -->
@@ -140,8 +151,9 @@
 						<li>
 							<strong>{LANG.detail_warranty}:</strong> {warranty}
 						</li>
-						<!-- END: warranty -->					
-						<li class="hotline-box">							
+						<!-- END: warranty -->										
+						<li class="hotline-box">
+
 							<ul class="hotline-list hotline-inline">
 								<li><a href="tel:0907694868"><i class="fa fa-phone danger"></i> Hotline 1: 0907 694 868</a></li>
 								<li><a href="tel:0937037770"><i class="fa fa-phone danger"></i> Hotline 2: 0937 037 770</a></li>

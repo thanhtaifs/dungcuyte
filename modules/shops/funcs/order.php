@@ -42,6 +42,7 @@ $data_order = array(
 		: ($user_info['username'] ?? 'Khách hàng'),
 	'order_email' => $user_info['email'] ?? 'noemail@gmail.com',
 	'order_phone' => '',
+	'order_address' => '',
 	'order_note' => '',
 	'admin_id' => 0,
 	'shop_id' => 0,
@@ -65,6 +66,7 @@ $data_order = array(
 if( isset( $_SESSION[$module_data . '_order_info'] ) and !empty( $_SESSION[$module_data . '_order_info'] ) )
 {
 	$order_info = $_SESSION[$module_data . '_order_info'];
+
 	$data_order = array(
 		'order_name' => $order_info['order_name'],
 		'order_email' => $order_info['order_email'],
@@ -157,11 +159,11 @@ if( $post_order == 1 )
 	
 	$data_order['order_name'] = nv_substr( $nv_Request->get_title( 'order_name', 'post', '', 1 ), 0, 200 );
 	$data_order['order_email'] = nv_substr( $nv_Request->get_title( 'order_email', 'post', '', 1 ), 0, 250 );
+	$data_order['order_address'] = nv_substr( $nv_Request->get_title( 'order_address', 'post', '', 1 ), 0, 250 );
 	$data_order['order_phone'] = nv_substr( $nv_Request->get_title( 'order_phone', 'post', '', 1 ), 0, 20 );
 	$data_order['order_note'] = nv_substr( $nv_Request->get_title( 'order_note', 'post', '', 1 ), 0, 2000 );
 	$data_order['order_shipping'] = $nv_Request->get_int( 'order_shipping', 'post', 0 );
 	$check = $nv_Request->get_int( 'check', 'post', 0 );
-
 
 	if( $data_order['order_shipping'] )
 	{
@@ -232,12 +234,13 @@ if( $post_order == 1 )
 			//error_log(message: 'Sua don hang');
 			$sth = $db->prepare( 'UPDATE ' . $db_config['prefix'] . '_' . $module_data . '_orders SET
 			order_name = :order_name, order_email = :order_email,
-			order_phone = :order_phone, order_note = :order_note, order_total = ' . doubleval( $data_order['order_total'] ) . ',
+			order_phone = :order_phone, order_address = :order_address, order_note = :order_note, order_total = ' . doubleval( $data_order['order_total'] ) . ',
 			unit_total = :unit_total, edit_time = ' . NV_CURRENTTIME . ' WHERE order_id=' . $order_info['order_id'] );
 
 			$sth->bindParam( ':order_name', $data_order['order_name'], PDO::PARAM_STR );
 			$sth->bindParam( ':order_email', $data_order['order_email'], PDO::PARAM_STR );
 			$sth->bindParam( ':order_phone', $data_order['order_phone'], PDO::PARAM_STR );
+			$sth->bindParam( ':order_address', $data_order['order_address'], PDO::PARAM_STR );
 			$sth->bindParam( ':order_note', $data_order['order_note'], PDO::PARAM_STR );
 			$sth->bindParam( ':unit_total', $data_order['unit_total'], PDO::PARAM_STR );
 			$sth->execute();
@@ -254,11 +257,11 @@ if( $post_order == 1 )
 			$transaction_status = ( empty( $pro_config['auto_check_order'] )) ? -1 : 0;			
 
 			$sql = "INSERT INTO " . $db_config['prefix'] . "_" . $module_data . "_orders (
-				lang, order_code, order_name, order_email, order_phone, order_note,
+				lang, order_code, order_name, order_email, order_phone, order_address,order_note,
 				user_id, admin_id, shop_id, who_is, unit_total, order_total, order_time, postip, order_view,
 				transaction_status, transaction_id, transaction_count
 			) VALUES (
-				'" . NV_LANG_DATA . "', :order_code, :order_name, :order_email, :order_phone, :order_note,
+				'" . NV_LANG_DATA . "', :order_code, :order_name, :order_email, :order_phone, :order_address, :order_note,
 				" . intval( $data_order['user_id'] ) . ", " . intval( $data_order['admin_id'] ) . ", " . intval( $data_order['shop_id'] ) . ",
 				" . intval( $data_order['who_is'] ) . ", :unit_total, " . doubleval( $data_order['order_total'] ) . ",
 				" . intval( $data_order['order_time'] ) . ", :ip, 0, " . $transaction_status . ", 0, 0)";			
@@ -267,6 +270,7 @@ if( $post_order == 1 )
 			$data_insert['order_name'] = $data_order['order_name'];
 			$data_insert['order_email'] = $data_order['order_email'];
 			$data_insert['order_phone'] = $data_order['order_phone'];
+			$data_insert['order_address'] = $data_order['order_address'];
 			$data_insert['order_note'] = $data_order['order_note'];
 			$data_insert['ip'] = $client_info['ip'];
 			$data_insert['unit_total'] = $data_order['unit_total'];

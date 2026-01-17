@@ -211,13 +211,16 @@ function nv_get_price( $pro_id, $currency_convert, $number = 1, $per_pro = false
 	if( $price > 100 )
 	{
 		$return['price_format'] = nv_number_format( $price, $decimals ); // Giá sản phẩm đã format
-		$return['sale_format'] = nv_number_format( $return['sale'], $decimals );// Giá bán thực tế của sản phẩm đã format
-	}
+		$return['sale_format'] = nv_number_format( $return['sale'], $decimals );// Giá bán thực tế của sản phẩm đã format	
+	}	
 	else
 	{
 		$return['price_format'] = 'Liên hệ';
 		$return['sale_format'] = 'Liên hệ';
+	
 	}
+	//file_put_contents(NV_ROOTDIR . '/menu_debug.log', "status_sale :" .$return['status_sale'] . " " . $price . "\n", FILE_APPEND);
+	
 
 	return $return;
 }

@@ -60,7 +60,7 @@
                                                 </div>
                                                
                                         </div>
-                                    </div>
+                                    </div>                                    
                                 </div> 
                                 
                                 <!-- End .row -->
@@ -71,17 +71,26 @@
                     <div class="col-md-3 col-sm-12">
                         <div class="support">
                 			[TRUYCAP]
-                		</div>
+                		</div>                        
                         <div class="support">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     Kết nối với chúng tôi
                                 </div>
                             </div>   
+                        
                             <div class="social-icons">
-                                [SOCIAL_ICONS]                            
-                            </div>                    
+                                [SOCIAL_ICONS]                                                            
+                            </div>                                          
+                		</div>                     
+                        <div class="support">                         
+                            <div class="cert-icons">
+                                <a href="http://online.gov.vn/Home/WebDetails/139158" target="_blank"> 
+                                    <img src="/images/logobct.png" alt="thiết bị y tế huỳnh gia alpha"> 
+                                </a>                  
+                            </div>                                          
                 		</div>
+                        
                     </div>
                 </div>
                 <div class="row">

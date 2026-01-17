@@ -107,7 +107,7 @@
                         <a href="{LINK}" title="{TITLE}">{TITLE0}</a>
                       </h3>
                   </div>
-                   <div class="product-price">
+                   <div class="product-price">     
                         <p class="current-price"> {PRICE.sale_format}</p>
                   </div> 
                   <div class="product-action">

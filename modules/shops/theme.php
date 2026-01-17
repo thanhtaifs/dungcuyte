@@ -880,9 +880,9 @@ function view_home_all($data_content, $compare_id, $html_pages = '', $sort = 0, 
             //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "active_price :" . $pro_config['active_price'] . "\n", FILE_APPEND);
             //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "showprice :" . $data_row['showprice'] . "\n", FILE_APPEND);
 
-            if ($pro_config['active_price'] == '1') {
-                
+            if ($pro_config['active_price'] == '1') {                
                 if ($data_row['showprice'] == '1') {
+                    //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "showprice :" . $data_row['showprice'] . "\n", FILE_APPEND);
                     $xtpl->assign('PRICE', $price);
                     if ($data_row['discount_id'] and $price['discount_percent'] > 0) {
                         $xtpl->parse('main.items.price.discounts');
@@ -1547,11 +1547,30 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
         $xtpl->assign('DETAIL', $data_content[NV_LANG_DATA . '_bodytext']);
         $xtpl->assign('LINK_ORDER', $link2 . 'setcart&id=' . $data_content['id']);
         $price = nv_get_price($data_content['id'], $pro_config['money_unit']);
+
+
         $xtpl->assign('PRICE', $price);
         $xtpl->assign('PRODUCT_CODE', $data_content['product_code']);
         $xtpl->assign('PRODUCT_NUMBER', $data_content['product_number']);
 
         $xtpl->assign('pro_unit', $data_unit['title']);
+        //file_put_contents(NV_ROOTDIR . '/menu_debug.log', $price['price'], FILE_APPEND);
+
+
+        // Kiểm tra tình trạng hàng hóa
+        if( $price['price'] < 100)
+        {
+            $xtpl->assign('STOCK_TEXT', 'Hết hàng');
+            $xtpl->assign('STOCK_CLASS', 'out-of-stock');
+            $xtpl->assign('STOCK_ICON', 'fa-times-circle');
+            
+        } else {
+            $xtpl->assign('STOCK_TEXT', 'Còn hàng');
+            $xtpl->assign('STOCK_CLASS', 'in-stock');
+            $xtpl->assign('STOCK_ICON', 'fa-check-circle');
+        } 
+
+        //$xtpl->assign('STATUS_SALE', $STATUS_SALE);
 
         if ($pro_config['active_gift'] and !empty($data_content[NV_LANG_DATA . '_gift_content']) and NV_CURRENTTIME >= $data_content['gift_from'] and NV_CURRENTTIME <= $data_content['gift_to']) {
             $xtpl->assign('gift_content', $data_content[NV_LANG_DATA . '_gift_content']);

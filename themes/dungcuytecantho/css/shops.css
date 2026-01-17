@@ -65,11 +65,6 @@ table.table tr.bg {
   display: inline-block;
 }
 
-.price {
-  height: auto;
-  margin-top: 5px;
-}
-
 #category .col-sm-6 .price .money {
   display: block;
   vertical-align: middle;
@@ -318,7 +313,7 @@ div.step_bar a.step_current {
   padding: 0;
 }
 #detail ul.product_info li {
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 }
 /* TAB */
 
@@ -549,17 +544,10 @@ a.pro_order:hover {
 
 #detail .info_product p {
   padding: 2px;
-
   margin: 0;
 }
 
 #detail h2 {
-  color: #004080;
-
-  font-size: 14px;
-
-  font-weight: bold;
-
   text-align: justify;
 }
 
@@ -1232,14 +1220,9 @@ img.calendar {
 
 .tabs {
   position: relative;
-
   width: 100%;
-
   overflow: hidden;
-
   margin: 1em 0 1em;
-
-  font-weight: 300;
 }
 
 /* Nav */

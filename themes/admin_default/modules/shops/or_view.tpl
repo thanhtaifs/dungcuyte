@@ -17,6 +17,10 @@
 						<td>{DATA.order_phone}</td>
 					</tr>
 					<tr>
+						<td>{LANG.order_address}:</td>
+						<td>{DATA.order_address}</td>
+					</tr>
+					<tr>
 						<td>{LANG.order_date}:</td>
 						<td>{dateup} {LANG.order_moment} {moment}</td>
 					</tr>

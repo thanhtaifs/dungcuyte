@@ -234,7 +234,6 @@ header {
 }
 
 .social-icons {
-  display: inline-block;
   vertical-align: middle;
   font-size: 16px;
   color: #999;
@@ -245,12 +244,15 @@ header {
   background-color: currentColor !important;
   border-color: currentColor !important;
 }
+
 .social-icons ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  text-align: right;
+  text-align: center;
 }
+
+
 .social-icons ul li {
   display: inline-block;
 }
@@ -942,13 +944,20 @@ ol {
   margin-bottom: 0px;
 }
 
+
+.content__footer {
+  padding: 6px 0px;
+}
+
 .content__footer span {
   margin-bottom: 0.25rem !important;
   color: #4b7a00;
+  padding: 6px 0px;
 }
 
 .panel-body h3 {
   color: #f00;
+  padding: 6px 0px;
 }
 
 .hero__search {
@@ -3153,6 +3162,11 @@ iframe[src*="youtube.com"] {
   .pagination.flex-wrap {
     flex-wrap: wrap;
   }
+   .price-stock-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }          
+
 }
 
 @media (max-width: 395px) {
@@ -3261,7 +3275,7 @@ iframe[src*="youtube.com"] {
   color: #4b7a00;
 }
 .nv-list-item li {
-  padding: 4px;
+  padding: 1px;
   margin: 0;
 }
 .nv-list-item.sm li {
@@ -3449,7 +3463,7 @@ input[type="radio"]:checked:before {
   border-bottom: 1px solid rgba(0, 0, 0, 0);
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
-  padding: 10px;
+  padding: 5px;
 }
 .panel-primary > .panel-heading > a {
   color: #fff;
@@ -3680,6 +3694,76 @@ a {
   font-weight: 700;
 }
 
+.price-stock-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .price-stock-row .price {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .price-stock-row .stock-status {
+            margin-bottom: 0;
+        }
+
+        .price p {
+            margin: 0;
+        }
+
+        .money {
+            color: #e74c3c;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Stock Status Button Style */
+        .stock-status {
+            display: flex;
+            align-items: center;
+        }
+
+        .stock-status-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 10px;
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: default;
+            box-shadow: 0 2px 8px rgba(46, 204, 113, 0.3);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .stock-status-btn:hover {
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .stock-status-btn i {
+            font-size: 16px;
+        }
+
+        /* Out of Stock Style */
+        .stock-status-btn.out-of-stock {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+        }
+
+        .stock-status-btn.out-of-stock:hover {
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+        }
+
+
 .hotline-box {
   list-style: none;
   margin: 0;
@@ -3758,9 +3842,9 @@ a {
 }
 
 .tabs .nav-tabs li a {
-  padding: 12px 12px;
   outline: none;
   font-size: 14px;
+  color:#4b7a00;
 }
 
 .tabs .tab-content {
@@ -4184,6 +4268,18 @@ a {
   margin-right: 0;
 }
 
+.cert-icons {   
+  text-align: center;
+  padding-top: 6px;
+}
+
+
+.cert-icons img {  
+  height: 50px;
+  width: 130px;
+
+}
+
 .home-page a {
   background: rgb(255, 122, 0);
 }
@@ -4203,11 +4299,6 @@ a {
 .support-ol .name-phone span.name,
 .support-ol .name-phone span.phone {
   font-size: 14px !important;
-}
-
-.support-ol > div,
-.support-ol .email-support div {
-  padding: 0 !important;
 }
 
 #category .row > [class^="col-"] {
