@@ -133,8 +133,8 @@ while( $row = $query->fetch() )
 	{
 		$row['status_payment'] = "ERROR";
 	}
-
-	$row['link_user'] = NV_BASE_ADMINURL . "index.php?" . NV_NAME_VARIABLE . "=users&" . NV_OP_VARIABLE . "=edit&userid=" . $row['user_id'];
+	// Get link user
+	//$row['link_user'] = NV_BASE_ADMINURL . "index.php?" . NV_NAME_VARIABLE . "=users&" . NV_OP_VARIABLE . "=edit&userid=" . $row['user_id'];	
 	$row['order_time'] = nv_date( "H:i d/m/y", $row['order_time'] );
 	$row['order_total'] = nv_number_format( $price );
 

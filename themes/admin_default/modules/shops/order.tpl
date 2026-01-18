@@ -90,7 +90,9 @@
 				<td><input type="checkbox" class="ck" value="{order_id}" {DIS} /></td>
 				<td><a href="{link_view}" title="">{DATA.order_code}</a></td>
 				<td>{DATA.order_time}</td>
-				<td><a href="{DATA.link_user}" style="text-decoration:underline" target="_blank">{DATA.order_email}</a></td>
+				<td>
+				<a href="mailto:{DATA.order_email}" style="text-decoration:underline" target="_blank">{DATA.order_email}</a>
+				</td>
 				<td align="right">{DATA.order_total} {DATA.unit_total}</td>
 				<td>{DATA.status_payment}</td>
 				<td class="text-center"><em class="fa fa-edit fa-lg">&nbsp;</em><a href="{link_view}" title="">{LANG.view}</a><!-- BEGIN: delete --> &nbsp;-&nbsp;<em class="fa fa-trash-o fa-lg">&nbsp;</em><a href="{link_del}" class="delete" title="">{LANG.del}</a><!-- END: delete --></td>
