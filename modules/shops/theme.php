@@ -678,8 +678,20 @@ function display_product_item(&$xtpl, $data_row, $num_row, $pro_config, $global_
     $xtpl->assign('PRODUCT_CODE', $data_row['product_code']);
     
     //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "homeimgfile: " . $data_row['homeimgfile']  . "\n", FILE_APPEND);
-    //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "homeimgthumb: " .$data_row['homeimgthumb'] . "\n", FILE_APPEND);
-    
+    //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "homeimgthumb: " .$data_row['homeimgthumb'] . "\n", FILE_APPEND);    
+
+    if (!empty($data_row['listcatid'])) {
+        $cat_ids = explode(',', $data_row['listcatid']);
+        $main_cat_id = trim($cat_ids[0]); // Lấy category chính (đầu tiên)
+        
+        if (isset($global_array_shops_cat[$main_cat_id])) {
+            $xtpl->assign('CATEGORY_NAME', $global_array_shops_cat[$main_cat_id]['title']);
+            $xtpl->assign('CATEGORY_LINK', $global_array_shops_cat[$main_cat_id]['link']);
+            $xtpl->assign('CATEGORY_ALIAS', $global_array_shops_cat[$main_cat_id]['alias']);
+            $xtpl->parse('main.items.category');
+        }
+    }
+
     // Thêm class để phân biệt loại sản phẩm
     if (isset($data_row['product_type'])) {
         $xtpl->assign('PRODUCT_TYPE_CLASS', 'product-' . $data_row['product_type']);

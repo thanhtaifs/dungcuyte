@@ -41,6 +41,11 @@
                                                 <a href="{LINK}" title="{TITLE}">{TITLE0}</a>
                                               </h3>
                                         </div>
+                                          <div class="product-category-badge">
+                                            <a href="{CATEGORY_LINK}" title="Xem tất cả sản phẩm {CATEGORY_NAME}">
+                                                <i class="fa fa-tag"></i> {CATEGORY_NAME}
+                                            </a>
+                                        </div>
                                         <div class="product-price">                              
                                             <p class="current-price">{PRICE.sale_format}</p>                                                                             
                                        </div> 
@@ -106,7 +111,14 @@
                       <h3 class="product-title">
                         <a href="{LINK}" title="{TITLE}">{TITLE0}</a>
                       </h3>
-                  </div>
+                  </div>                  
+               
+                    <div class="product-category-badge">
+                        <a href="{CATEGORY_LINK}" title="Xem tất cả sản phẩm {CATEGORY_NAME}">
+                            <i class="fa fa-tag"></i> {CATEGORY_NAME}
+                        </a>
+                    </div>
+             
                    <div class="product-price">     
                         <p class="current-price"> {PRICE.sale_format}</p>
                   </div> 
@@ -162,9 +174,14 @@
                           </div>
                     </div>
                      <div class="product-info">
-                               <h3 class="product-title">
-                                    <a href="{LINK}" title="{TITLE}">{TITLE0}</a>
-                                </h3>
+                        <h3 class="product-title">
+                            <a href="{LINK}" title="{TITLE}">{TITLE0}</a>
+                        </h3>
+                    </div>
+                    <div class="product-category-badge">
+                        <a href="{CATEGORY_LINK}" title="Xem tất cả sản phẩm {CATEGORY_NAME}">
+                            <i class="fa fa-tag"></i> {CATEGORY_NAME}
+                        </a>
                     </div>
                     <div class="product-price">
                         <p class="current-price"> {PRICE.sale_format}</p>
