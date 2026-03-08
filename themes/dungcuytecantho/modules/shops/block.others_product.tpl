@@ -6,8 +6,10 @@
         <div class="col-12 col-sm-6 col-md-3">
             <div class="thumbnail">
                 <div class="image_center">
-                    <a href="{link}" title="{title}"><img src="{src_img}" alt="{title}" data-content='{intro}' data-rel="tooltip" class="img-thumbnail" style="max-height:160px;max-width:160px"></a>
-                    <div class="new">New</div>
+                    <a href="{link}" title="{title}">
+						<img src="{src_img}" alt="{title}" data-content='{intro}' data-rel="tooltip" class="img-thumbnail">
+					</a>
+                <div class="new">New</div>
                 </div>
                 <div class="info_pro">
                 	<!-- BEGIN: new -->
@@ -23,8 +25,8 @@
                 	<span class="label label-success">+<em class="fa fa-gift fa-lg">&nbsp;</em></span>
                 	<!-- END: gift -->
                 </div>
-                <div class="caption text-center">
-                    <h3><a href="{link}" title="{title_pro}">{title}</a></h3>
+                <div class="caption text-center">                 
+					<a href="{link}" title="{title_pro}"> {title} </a>			
     
                     <!-- BEGIN: product_code -->
                     <p class="label label-default">{PRODUCT_CODE}</p>

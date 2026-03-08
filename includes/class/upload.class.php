@@ -399,6 +399,10 @@ class upload
 		    IMAGETYPE_TIFF_II => 'tiff',
 		    IMAGETYPE_TIFF_MM => 'tiff'
 		);
+		if( defined( 'IMAGETYPE_WEBP' ) )
+		{
+			$img_exts[IMAGETYPE_WEBP] = 'webp';
+		}
 		if( in_array( $this->file_extension, $img_exts ) )
 		{
 			if( ( $img_info = @getimagesize( $userfile['tmp_name'] ) ) !== false )

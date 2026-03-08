@@ -83,6 +83,10 @@ class image
 		$typeflag[14] = array( 'type' => IMAGETYPE_IFF, 'ext' => 'aiff' );
 		$typeflag[15] = array( 'type' => IMAGETYPE_WBMP, 'ext' => 'wbmp' );
 		$typeflag[16] = array( 'type' => IMAGETYPE_XBM, 'ext' => 'xbm' );
+		if( defined( 'IMAGETYPE_WEBP' ) )
+		{
+			$typeflag[18] = array( 'type' => IMAGETYPE_WEBP, 'ext' => 'webp' );
+		}
 
 		$imageinfo = array();
 		$file = @getimagesize( $img );
@@ -151,6 +155,12 @@ class image
 			case IMAGETYPE_PNG:
 				$this->createImage = ImageCreateFromPng( $this->filename );
 				break;
+			case ( defined( 'IMAGETYPE_WEBP' ) ? IMAGETYPE_WEBP : -1 ):
+				if( function_exists( 'ImageCreateFromWebp' ) )
+				{
+					$this->createImage = ImageCreateFromWebp( $this->filename );
+				}
+				break;
 		}
 
 		if( ! $this->createImage )
@@ -194,8 +204,13 @@ class image
 		if( $this->fileinfo == array() ) return ERROR_IMAGE1;
 		if( ! is_readable( $this->filename ) ) return ERROR_IMAGE2;
 		if( $this->fileinfo['src'] == '' || $this->fileinfo['width'] == 0 || $this->fileinfo['height'] == 0 || $this->fileinfo['mime'] == '' ) return ERROR_IMAGE3;
-		if( ! in_array( $this->fileinfo['type'], array( IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG ) ) ) return ERROR_IMAGE4;
-		if( ! preg_match( "#image\/[x\-]*(jpg|jpeg|pjpeg|gif|png)#is", $this->fileinfo['mime'] ) ) return ERROR_IMAGE5;
+		$allow_types = array( IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG );
+		if( defined( 'IMAGETYPE_WEBP' ) and function_exists( 'ImageCreateFromWebp' ) )
+		{
+			$allow_types[] = IMAGETYPE_WEBP;
+		}
+		if( ! in_array( $this->fileinfo['type'], $allow_types ) ) return ERROR_IMAGE4;
+		if( ! preg_match( "#image\/[x\-]*(jpg|jpeg|pjpeg|gif|png|webp)#is", $this->fileinfo['mime'] ) ) return ERROR_IMAGE5;
 		return '';
 	}
 
@@ -578,7 +593,12 @@ class image
 			}
 
 			$logo_info = $this->is_image( $logo );
-			if( $logo_info != array() and $logo_info['width'] != 0 and $logo_info['height'] != 0 and in_array( $logo_info['type'], array( IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG ) ) and preg_match( "#image\/[x\-]*(jpg|jpeg|pjpeg|gif|png)#is", $logo_info['mime'] ) )
+			$logo_allow_types = array( IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG );
+			if( defined( 'IMAGETYPE_WEBP' ) and function_exists( 'ImageCreateFromWebp' ) )
+			{
+				$logo_allow_types[] = IMAGETYPE_WEBP;
+			}
+			if( $logo_info != array() and $logo_info['width'] != 0 and $logo_info['height'] != 0 and in_array( $logo_info['type'], $logo_allow_types ) and preg_match( "#image\/[x\-]*(jpg|jpeg|pjpeg|gif|png|webp)#is", $logo_info['mime'] ) )
 			{
 				$this->set_memory_limit();
 
@@ -650,6 +670,12 @@ class image
 							break;
 						case IMAGETYPE_PNG:
 							$this->logoimg = ImageCreateFromPng( $logo );
+							break;
+						case ( defined( 'IMAGETYPE_WEBP' ) ? IMAGETYPE_WEBP : -1 ):
+							if( function_exists( 'ImageCreateFromWebp' ) )
+							{
+								$this->logoimg = ImageCreateFromWebp( $logo );
+							}
 							break;
 					}
 
@@ -764,6 +790,12 @@ class image
 
 					ImagePng( $this->createImage, $quality );
 					break;
+				case ( defined( 'IMAGETYPE_WEBP' ) ? IMAGETYPE_WEBP : -1 ):
+					if( function_exists( 'ImageWebp' ) )
+					{
+						ImageWebp( $this->createImage, null, $quality );
+					}
+					break;
 			}
 			$this->close();
 		}
@@ -826,6 +858,12 @@ class image
 
 					case IMAGETYPE_PNG:
 						ImagePng( $this->createImage, $newname );
+						break;
+					case ( defined( 'IMAGETYPE_WEBP' ) ? IMAGETYPE_WEBP : -1 ):
+						if( function_exists( 'ImageWebp' ) )
+						{
+							ImageWebp( $this->createImage, $newname, $quality );
+						}
 				}
 
 				$this->create_Image_info['src'] = $newname;

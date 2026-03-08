@@ -25,7 +25,7 @@ foreach ( $columns_array as $row )
 {
 	if( substr( $row['field'], 0, 7 ) == 'author_' )
 	{
-		$array_lang_exit[] .= trim( substr( $row['field'], 7, 2 ) );
+		$array_lang_exit[] = trim( substr( $row['field'], 7, 2 ) );
 	}
 }
 

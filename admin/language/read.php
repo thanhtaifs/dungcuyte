@@ -15,9 +15,9 @@ if( ! defined( 'NV_IS_FILE_LANG' ) ) die( 'Stop!!!' );
  *
  * @param mixed $dirlang
  * @param mixed $idfile
- * @return error read file
+ * @return string error read file
  */
-function nv_admin_read_lang( $dirlang, $module, $admin_file = 1 )
+function nv_admin_read_lang( $dirlang, $module, $admin_file = 1 ): string
 {
 	global $db, $global_config, $include_lang, $lang_module;
 
@@ -167,47 +167,91 @@ function nv_admin_read_lang( $dirlang, $module, $admin_file = 1 )
 		$sth_is = $db->prepare( 'INSERT INTO ' . NV_LANGUAGE_GLOBALTABLE . ' (idfile, lang_key, lang_' . $dirlang . ', update_' . $dirlang . ') VALUES (:idfile, :lang_key, :lang_value, ' . NV_CURRENTTIME . ')');
 		$sth_ud = $db->prepare( 'UPDATE ' . NV_LANGUAGE_GLOBALTABLE . ' SET lang_' . $dirlang . ' = :lang_value, update_' . $dirlang . ' = ' . NV_CURRENTTIME . ' WHERE idfile = :idfile AND lang_key = :lang_key');
 
-		while( list( $lang_key, $lang_value ) = each( $temp_lang ) )
+		// while(list( $lang_key, $lang_value ) = each( $temp_lang ) )
+		// {
+		// 	$check_type_update = false;
+		// 	$lang_key = trim( $lang_key );
+		// 	$lang_value = nv_nl2br( $lang_value );
+		// 	$lang_value = preg_replace( "/<br\s*\/>/", '<br />', $lang_value );
+		// 	$lang_value = preg_replace( "/<\/\s*br\s*>/", '<br />', $lang_value );
+
+		// 	if( $read_type == 0 or $read_type == 1 )
+		// 	{
+		// 		try
+		// 		{
+		// 			$sth_is->bindParam( ':idfile', $idfile, PDO::PARAM_INT );
+		// 			$sth_is->bindParam( ':lang_key', $lang_key, PDO::PARAM_STR );
+		// 			$sth_is->bindParam( ':lang_value', $lang_value, PDO::PARAM_STR );
+		// 			$sth_is->execute();
+		// 			if( $read_type == 0 and ! $sth_is->rowCount() )
+		// 			{
+		// 				$check_type_update = true;
+		// 			}
+		// 		}
+		// 		catch( PDOException $e )
+		// 		{
+		// 			if( $read_type == 0 )
+		// 			{
+		// 				$check_type_update = true;
+		// 			}
+		// 		}
+		// 	}
+
+		// 	if( $read_type == 2 or $check_type_update )
+		// 	{
+		// 		$sth_ud->bindParam( ':idfile', $idfile, PDO::PARAM_INT );
+		// 		$sth_ud->bindParam( ':lang_key', $lang_key, PDO::PARAM_STR );
+		// 		$sth_ud->bindParam( ':lang_value', $lang_value, PDO::PARAM_STR );
+		// 		$sth_ud->execute();
+		// 	}
+		// }
+
+		
+		foreach ($temp_lang as $lang_key => $lang_value)
 		{
 			$check_type_update = false;
-			$lang_key = trim( $lang_key );
-			$lang_value = nv_nl2br( $lang_value );
-			$lang_value = preg_replace( "/<br\s*\/>/", '<br />', $lang_value );
-			$lang_value = preg_replace( "/<\/\s*br\s*>/", '<br />', $lang_value );
 
-			if( $read_type == 0 or $read_type == 1 )
+			$lang_key = trim($lang_key);
+			$lang_value = nv_nl2br($lang_value);
+			$lang_value = preg_replace("/<br\s*\/>/", '<br />', $lang_value);
+			$lang_value = preg_replace("/<\/\s*br\s*>/", '<br />', $lang_value);
+
+			if ($read_type == 0 || $read_type == 1)
 			{
 				try
 				{
-					$sth_is->bindParam( ':idfile', $idfile, PDO::PARAM_INT );
-					$sth_is->bindParam( ':lang_key', $lang_key, PDO::PARAM_STR );
-					$sth_is->bindParam( ':lang_value', $lang_value, PDO::PARAM_STR );
+					$sth_is->bindParam(':idfile', $idfile, PDO::PARAM_INT);
+					$sth_is->bindParam(':lang_key', $lang_key, PDO::PARAM_STR);
+					$sth_is->bindParam(':lang_value', $lang_value, PDO::PARAM_STR);
+
 					$sth_is->execute();
-					if( $read_type == 0 and ! $sth_is->rowCount() )
+
+					if ($read_type == 0 && !$sth_is->rowCount())
 					{
 						$check_type_update = true;
 					}
 				}
-				catch( PDOException $e )
+				catch (PDOException $e)
 				{
-					if( $read_type == 0 )
+					if ($read_type == 0)
 					{
 						$check_type_update = true;
 					}
 				}
 			}
 
-			if( $read_type == 2 or $check_type_update )
+			if ($read_type == 2 || $check_type_update)
 			{
-				$sth_ud->bindParam( ':idfile', $idfile, PDO::PARAM_INT );
-				$sth_ud->bindParam( ':lang_key', $lang_key, PDO::PARAM_STR );
-				$sth_ud->bindParam( ':lang_value', $lang_value, PDO::PARAM_STR );
+				$sth_ud->bindParam(':idfile', $idfile, PDO::PARAM_INT);
+				$sth_ud->bindParam(':lang_key', $lang_key, PDO::PARAM_STR);
+				$sth_ud->bindParam(':lang_value', $lang_value, PDO::PARAM_STR);
 				$sth_ud->execute();
 			}
+
 		}
 
 		$lang_module = $lang_module_temp;
-		return '';
+		return "";
 	}
 	else
 	{
@@ -265,7 +309,8 @@ if( $nv_Request->get_string( 'checksess', 'get' ) == md5( 'readallfile' . sessio
 
 		$nv_Request->set_Cookie( 'dirlang', $dirlang, NV_LIVE_COOKIE_TIME );
 
-		$xtpl = new XTemplate( 'read.tpl', NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/modules/' . $module_file );
+		#$xtpl = new XTemplate( 'read.tpl', NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/modules/' . $module_file );
+		$xtpl = new XTemplate(['file' => 'read.tpl', 'path' => NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/modules/' . $module_file]);
 		$xtpl->assign( 'LANG', $lang_module );
 		$xtpl->assign( 'GLANG', $lang_global );
 		$xtpl->assign( 'URL', NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=interface' );

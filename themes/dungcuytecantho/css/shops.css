@@ -1595,9 +1595,6 @@ img.calendar {
   display: none;
 }
 
-.thumbnail .caption h3 {
-  font-size: 14px;
-}
 
 .info_icon:before {
   font-family: FontAwesome;

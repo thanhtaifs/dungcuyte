@@ -11,7 +11,7 @@
                         <div class="thumbnail">
         	<div class="hot">Hot</div>
             <div class="image_center">
-                <a href="{LINK}" title="{TITLE}"><img src="{SRC_IMG}" width="{WIDTH}" alt="{TITLE}"/></a>
+                <a href="{LINK}" title="{TITLE}"><img src="{SRC_IMG}" alt="{TITLE}"/></a>
             </div>
             <div class="info_pro">
             	<!-- BEGIN: new -->

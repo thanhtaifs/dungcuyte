@@ -29,8 +29,7 @@ $(document).ready(function(){
 			<!-- BEGIN: discounts -->
 			<span class="money show">{PRICE.sale_format} </span>
 			<span class="discounts_money">{PRICE.price_format} </span>
-			<!-- END: discounts -->
-
+			<!-- END: discounts -->			
 			<!-- BEGIN: no_discounts -->
 			<span class="money">{PRICE.price_format} </span>
 			<!-- END: no_discounts -->

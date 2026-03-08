@@ -21,12 +21,12 @@
                 <div class="col-12 col-sm-6 col-md-3">
                         <div class="thumbnail">
                             <div class="image_center">
-                                <a href="{LINK}" title="{TITLE}"><img src="{IMG_SRC}" alt="{TITLE}" data-content='{hometext}' data-rel="tooltip" class="img-thumbnail" style="max-height:160px;max-width:160px"></a>
+                                <a href="{LINK}" title="{TITLE}"><img src="{IMG_SRC}" alt="{TITLE}" data-content='{hometext}' data-rel="tooltip" class="img-thumbnail" style="max-height:220px"></a>
                             </div>
                              <div class="caption text-center">
                                 <h3>
                                     <a href="{LINK}" title="{TITLE}">{TITLE0}</a>                                    
-                                </h3>
+                                </h3>                               
                                 <p class="price">
                                     <span class="money"> {PRICE.sale_format}  </span>
                                 </p>

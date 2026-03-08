@@ -51,9 +51,14 @@
                                     <a href="{link_pro}" title="{title_pro0}">{title_pro0}</a>
                                 </h3>
                     </div>
-                         <div class="product-price">
-                             <p class="current-price"> {PRICE.sale_format}</p>
-                          </div>
+                     <div class="product-category-badge">
+                        <a href="{CATEGORY_LINK}" title="Xem tất cả sản phẩm {CATEGORY_NAME}">
+                            <i class="fa fa-tag"></i> {CATEGORY_NAME}
+                        </a>
+                    </div>
+                    <div class="product-price">
+                        <p class="current-price"> {PRICE.sale_format}</p>
+                    </div>
                   </div>
         </div>
     	<!-- END: grid_rows -->

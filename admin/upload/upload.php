@@ -10,7 +10,7 @@
 
 if( ! defined( 'NV_IS_FILE_ADMIN' ) ) die( 'Stop!!!' );
 
-error_log("=== START upload page shops ===");
+#error_log("=== START upload page shops ===");
 
 $path = nv_check_path_upload( $nv_Request->get_string( 'path', 'post,get', NV_UPLOADS_DIR ) );
 $check_allow_upload_dir = nv_check_allow_upload_dir( $path );
@@ -167,7 +167,7 @@ else
 	}
 }
 
-error_log("=== editor upload page shops ===");
+#error_log("=== editor upload page shops ===");
 
 $editor = $nv_Request->get_string( 'editor', 'post,get' );
 $CKEditorFuncNum = $nv_Request->get_string( 'CKEditorFuncNum', 'post,get', 0 );
@@ -262,9 +262,9 @@ if( empty( $error ) )
 			}	
 				
 	}
-	error_log("=== nv_insert_logs upload page shops ===");
+	#error_log("=== nv_insert_logs upload page shops ===");
 	nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['upload_file'], $path . '/' . $upload_info['basename'], $admin_info['userid'] );
-	error_log("=== nv_insert_logs ok upload page shops ===");
+	#error_log("=== nv_insert_logs ok upload page shops ===");
 	if( $editor == 'ckeditor' )
 	{
 		echo "<script type=\"text/javascript\">window.parent.CKEDITOR.tools.callFunction(" . $CKEditorFuncNum . ", '" . NV_BASE_SITEURL . $path . "/" . $upload_info['basename'] . "', '');</script>";
@@ -286,5 +286,5 @@ else
 		echo 'ERROR_' . $error;
 	}
 }
-error_log("=== finished upload page shops ===");
+#error_log("=== finished upload page shops ===");
 exit();

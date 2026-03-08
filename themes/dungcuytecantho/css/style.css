@@ -3932,8 +3932,6 @@ a {
 .thumbnail a > img {
   width: auto !important;
   max-width: 100% !important;
-  max-height: none !important;
-  padding: 0;
   -webkit-border-radius: 0;
   border-radius: 0;
 }

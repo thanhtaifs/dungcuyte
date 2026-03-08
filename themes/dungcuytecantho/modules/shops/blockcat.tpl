@@ -1,7 +1,7 @@
 <!-- BEGIN: main -->
 <div id="category">
 	<div class="page-header">
-		<h1>{TITLE_BLOCKCAT}</h1>
+		<h1>{TITLE_BLOCKCAT}</h1>	
 	</div>
 	<!-- BEGIN: loop -->
 	<div class="panel panel-default">
@@ -28,7 +28,7 @@
     			<br />
     			<!-- END: product_code -->
     			<em class="text-muted">{TIME}</em>
-    			<br />
+    			<br />				
     			<span>
     				<!-- BEGIN: price -->
 	    				{LANG.title_price} :

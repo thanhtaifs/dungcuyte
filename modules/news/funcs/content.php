@@ -20,11 +20,17 @@ elseif( ! nv_function_exists( 'nv_aleditor' ) and file_exists( NV_ROOTDIR . '/' 
 	define( 'NV_IS_CKEDITOR', true );
 	$my_head .= '<script type="text/javascript" src="' . NV_BASE_SITEURL . NV_EDITORSDIR . '/ckeditor/ckeditor.js"></script>';
 
+	// Ensure $module_data is initialized
+	if (!isset($module_data)) {
+		$module_data = isset($module_name) ? $module_name : 'news';
+	}
+
 	function nv_aleditor( $textareaname, $width = '100%', $height = '450px', $val = '', $customtoolbar = '' )
 	{
+		global $module_data;
 		$return = '<textarea style="width: ' . $width . '; height:' . $height . ';" id="' . $module_data . '_' . $textareaname . '" name="' . $textareaname . '">' . $val . '</textarea>';
 		$return .= "<script type=\"text/javascript\" data-show=\"after\">
-		CKEDITOR.replace( '" . $module_data . "_" . $textareaname . "', {" . ( ! empty( $customtoolbar ) ? 'toolbar : "' . $customtoolbar . '",' : '' ) . " width: '" . $width . "',height: '" . $height . "',});
+		CKEDITOR.replace( '" . $module_data . "_" . $textareaname . "', {" . ( ! empty( $customtoolbar ) ? 'toolbar : \"" . $customtoolbar . "\",' : '' ) . " width: '" . $width . "',height: '" . $height . "'});
 		</script>";
 		return $return;
 	}

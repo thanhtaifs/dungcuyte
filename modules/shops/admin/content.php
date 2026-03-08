@@ -132,7 +132,7 @@ if( $rowcontent['id'] > 0 )
 		}
 		$rowcontent['files_old'] = $rowcontent['files'];
 	}
-	error_log("OK IF block check update" );
+	//error_log("OK IF block check update" );
 }
 
 //error_log('=== START pass content page shops rowcontent[id] ===' );

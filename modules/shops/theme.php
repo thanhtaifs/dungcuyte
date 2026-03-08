@@ -1216,6 +1216,18 @@ function viewcat_page_gird($data_content, $compare_id, $pages, $sort = 0, $viewt
             $xtpl->assign('height', $pro_config['homeheight']);
             $xtpl->assign('width', $pro_config['homewidth']);
 
+            if (!empty($data_row['listcatid'])) {
+                $cat_ids = explode(',', $data_row['listcatid']);
+                $main_cat_id = trim($cat_ids[0]); // Lấy category chính (đầu tiên)
+                
+                if (isset($global_array_shops_cat[$main_cat_id])) {
+                    $xtpl->assign('CATEGORY_NAME', $global_array_shops_cat[$main_cat_id]['title']);
+                    $xtpl->assign('CATEGORY_LINK', $global_array_shops_cat[$main_cat_id]['link']);
+                    $xtpl->assign('CATEGORY_ALIAS', $global_array_shops_cat[$main_cat_id]['alias']);
+                    $xtpl->parse('main.grid_rows.category');
+                }
+            }
+
             $newday = $data_row['publtime'] + (86400 * $data_row['newday']);
             if ($newday >= NV_CURRENTTIME) {
                 $xtpl->parse('main.grid_rows.new');
