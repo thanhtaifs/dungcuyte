@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  * @Project NUKEVIET 4.x
@@ -51,8 +51,10 @@ elseif( ! empty( $alias ) )
 	$rowdetail = $sth->fetch();
 	if( empty( $rowdetail ) )
 	{
-		Header( 'Location: ' . nv_url_rewrite( $base_url, true ) );
-		die();
+		//Header( 'Location: ' . nv_url_rewrite( $base_url, true ) );
+		//die();
+		nv_info_die('404 - Trang không tồn tại | ' . $global_config['site_name'], 'Không tìm thấy trang', 'Trang bạn tìm kiếm không tồn tại hoặc đã bị xóa.');
+		
 	}
 	$id = $rowdetail['id'];
 }

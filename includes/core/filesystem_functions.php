@@ -258,25 +258,46 @@ function nv_get_mime_type( $filename, $magic_path = '' )
 		}
 	}
 
+	// if( preg_match( '/^application\/(?:x-)?zip(?:-compressed)?$/is', $mime ) )
+	// {
+	// 	if( $this->file_extension == 'docx' ) $mime = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+	// 	elseif( $this->file_extension == 'dotx' ) $mime = 'application/vnd.openxmlformats-officedocument.wordprocessingml.template';
+	// 	elseif( $this->file_extension == 'potx' ) $mime = 'application/vnd.openxmlformats-officedocument.presentationml.template';
+	// 	elseif( $this->file_extension == 'ppsx' ) $mime = 'application/vnd.openxmlformats-officedocument.presentationml.slideshow';
+	// 	elseif( $this->file_extension == 'pptx' ) $mime = 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
+	// 	elseif( $this->file_extension == 'xlsx' ) $mime = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+	// 	elseif( $this->file_extension == 'xltx' ) $mime = 'application/vnd.openxmlformats-officedocument.spreadsheetml.template';
+	// 	elseif( $this->file_extension == 'docm' ) $mime = 'application/vnd.ms-word.document.macroEnabled.12';
+	// 	elseif( $this->file_extension == 'dotm' ) $mime = 'application/vnd.ms-word.template.macroEnabled.12';
+	// 	elseif( $this->file_extension == 'potm' ) $mime = 'application/vnd.ms-powerpoint.template.macroEnabled.12';
+	// 	elseif( $this->file_extension == 'ppam' ) $mime = 'application/vnd.ms-powerpoint.addin.macroEnabled.12';
+	// 	elseif( $this->file_extension == 'ppsm' ) $mime = 'application/vnd.ms-powerpoint.slideshow.macroEnabled.12';
+	// 	elseif( $this->file_extension == 'pptm' ) $mime = 'application/vnd.ms-powerpoint.presentation.macroEnabled.12';
+	// 	elseif( $this->file_extension == 'xlam' ) $mime = 'application/vnd.ms-excel.addin.macroEnabled.12';
+	// 	elseif( $this->file_extension == 'xlsb' ) $mime = 'application/vnd.ms-excel.sheet.binary.macroEnabled.12';
+	// 	elseif( $this->file_extension == 'xlsm' ) $mime = 'application/vnd.ms-excel.sheet.macroEnabled.12';
+	// 	elseif( $this->file_extension == 'xltm' ) $mime = 'application/vnd.ms-excel.template.macroEnabled.12';
+	// }
+
 	if( preg_match( '/^application\/(?:x-)?zip(?:-compressed)?$/is', $mime ) )
 	{
-		if( $this->file_extension == 'docx' ) $mime = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
-		elseif( $this->file_extension == 'dotx' ) $mime = 'application/vnd.openxmlformats-officedocument.wordprocessingml.template';
-		elseif( $this->file_extension == 'potx' ) $mime = 'application/vnd.openxmlformats-officedocument.presentationml.template';
-		elseif( $this->file_extension == 'ppsx' ) $mime = 'application/vnd.openxmlformats-officedocument.presentationml.slideshow';
-		elseif( $this->file_extension == 'pptx' ) $mime = 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
-		elseif( $this->file_extension == 'xlsx' ) $mime = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-		elseif( $this->file_extension == 'xltx' ) $mime = 'application/vnd.openxmlformats-officedocument.spreadsheetml.template';
-		elseif( $this->file_extension == 'docm' ) $mime = 'application/vnd.ms-word.document.macroEnabled.12';
-		elseif( $this->file_extension == 'dotm' ) $mime = 'application/vnd.ms-word.template.macroEnabled.12';
-		elseif( $this->file_extension == 'potm' ) $mime = 'application/vnd.ms-powerpoint.template.macroEnabled.12';
-		elseif( $this->file_extension == 'ppam' ) $mime = 'application/vnd.ms-powerpoint.addin.macroEnabled.12';
-		elseif( $this->file_extension == 'ppsm' ) $mime = 'application/vnd.ms-powerpoint.slideshow.macroEnabled.12';
-		elseif( $this->file_extension == 'pptm' ) $mime = 'application/vnd.ms-powerpoint.presentation.macroEnabled.12';
-		elseif( $this->file_extension == 'xlam' ) $mime = 'application/vnd.ms-excel.addin.macroEnabled.12';
-		elseif( $this->file_extension == 'xlsb' ) $mime = 'application/vnd.ms-excel.sheet.binary.macroEnabled.12';
-		elseif( $this->file_extension == 'xlsm' ) $mime = 'application/vnd.ms-excel.sheet.macroEnabled.12';
-		elseif( $this->file_extension == 'xltm' ) $mime = 'application/vnd.ms-excel.template.macroEnabled.12';
+		if( $ext == 'docx' ) $mime = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+		elseif( $ext == 'dotx' ) $mime = 'application/vnd.openxmlformats-officedocument.wordprocessingml.template';
+		elseif( $ext == 'potx' ) $mime = 'application/vnd.openxmlformats-officedocument.presentationml.template';
+		elseif( $ext == 'ppsx' ) $mime = 'application/vnd.openxmlformats-officedocument.presentationml.slideshow';
+		elseif( $ext == 'pptx' ) $mime = 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
+		elseif( $ext == 'xlsx' ) $mime = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+		elseif( $ext == 'xltx' ) $mime = 'application/vnd.openxmlformats-officedocument.spreadsheetml.template';
+		elseif( $ext == 'docm' ) $mime = 'application/vnd.ms-word.document.macroEnabled.12';
+		elseif( $ext == 'dotm' ) $mime = 'application/vnd.ms-word.template.macroEnabled.12';
+		elseif( $ext == 'potm' ) $mime = 'application/vnd.ms-powerpoint.template.macroEnabled.12';
+		elseif( $ext == 'ppam' ) $mime = 'application/vnd.ms-powerpoint.addin.macroEnabled.12';
+		elseif( $ext == 'ppsm' ) $mime = 'application/vnd.ms-powerpoint.slideshow.macroEnabled.12';
+		elseif( $ext == 'pptm' ) $mime = 'application/vnd.ms-powerpoint.presentation.macroEnabled.12';
+		elseif( $ext == 'xlam' ) $mime = 'application/vnd.ms-excel.addin.macroEnabled.12';
+		elseif( $ext == 'xlsb' ) $mime = 'application/vnd.ms-excel.sheet.binary.macroEnabled.12';
+		elseif( $ext == 'xlsm' ) $mime = 'application/vnd.ms-excel.sheet.macroEnabled.12';
+		elseif( $ext == 'xltm' ) $mime = 'application/vnd.ms-excel.template.macroEnabled.12';
 	}
 
 	return $mime;
@@ -761,39 +782,50 @@ function nv_gz_put_contents( $filename, $content )
  */
 function nv_is_image( $img )
 {
-	$typeflag = array();
-	$typeflag[1] = array( 'type' => IMAGETYPE_GIF, 'ext' => 'gif' );
-	$typeflag[2] = array( 'type' => IMAGETYPE_JPEG, 'ext' => 'jpg' );
-	$typeflag[3] = array( 'type' => IMAGETYPE_PNG, 'ext' => 'png' );
-	$typeflag[4] = array( 'type' => IMAGETYPE_SWF, 'ext' => 'swf' );
-	$typeflag[5] = array( 'type' => IMAGETYPE_PSD, 'ext' => 'psd' );
-	$typeflag[6] = array( 'type' => IMAGETYPE_BMP, 'ext' => 'bmp' );
-	$typeflag[7] = array( 'type' => IMAGETYPE_TIFF_II, 'ext' => 'tiff' );
-	$typeflag[8] = array( 'type' => IMAGETYPE_TIFF_MM, 'ext' => 'tiff' );
-	$typeflag[9] = array( 'type' => IMAGETYPE_JPC, 'ext' => 'jpc' );
-	$typeflag[10] = array( 'type' => IMAGETYPE_JP2, 'ext' => 'jp2' );
-	$typeflag[11] = array( 'type' => IMAGETYPE_JPX, 'ext' => 'jpf' );
-	$typeflag[12] = array( 'type' => IMAGETYPE_JB2, 'ext' => 'jb2' );
-	$typeflag[13] = array( 'type' => IMAGETYPE_SWC, 'ext' => 'swc' );
-	$typeflag[14] = array( 'type' => IMAGETYPE_IFF, 'ext' => 'aiff' );
-	$typeflag[15] = array( 'type' => IMAGETYPE_WBMP, 'ext' => 'wbmp' );
-	$typeflag[16] = array( 'type' => IMAGETYPE_XBM, 'ext' => 'xbm' );
+    $typeflag = array();
+    $typeflag[1]  = array( 'type' => IMAGETYPE_GIF,     'ext' => 'gif' );
+    $typeflag[2]  = array( 'type' => IMAGETYPE_JPEG,    'ext' => 'jpg' );
+    $typeflag[3]  = array( 'type' => IMAGETYPE_PNG,     'ext' => 'png' );
+    $typeflag[4]  = array( 'type' => IMAGETYPE_SWF,     'ext' => 'swf' );
+    $typeflag[5]  = array( 'type' => IMAGETYPE_PSD,     'ext' => 'psd' );
+    $typeflag[6]  = array( 'type' => IMAGETYPE_BMP,     'ext' => 'bmp' );
+    $typeflag[7]  = array( 'type' => IMAGETYPE_TIFF_II, 'ext' => 'tiff' );
+    $typeflag[8]  = array( 'type' => IMAGETYPE_TIFF_MM, 'ext' => 'tiff' );
+    $typeflag[9]  = array( 'type' => IMAGETYPE_JPC,     'ext' => 'jpc' );
+    $typeflag[10] = array( 'type' => IMAGETYPE_JP2,     'ext' => 'jp2' );
+    $typeflag[11] = array( 'type' => IMAGETYPE_JPX,     'ext' => 'jpf' );
+    $typeflag[12] = array( 'type' => IMAGETYPE_JB2,     'ext' => 'jb2' );
+    $typeflag[13] = array( 'type' => IMAGETYPE_SWC,     'ext' => 'swc' );
+    $typeflag[14] = array( 'type' => IMAGETYPE_IFF,     'ext' => 'aiff' );
+    $typeflag[15] = array( 'type' => IMAGETYPE_WBMP,    'ext' => 'wbmp' );
+    $typeflag[16] = array( 'type' => IMAGETYPE_XBM,     'ext' => 'xbm' );
+    if( defined( 'IMAGETYPE_ICO' ) )  $typeflag[17] = array( 'type' => IMAGETYPE_ICO,  'ext' => 'ico' );
+    if( defined( 'IMAGETYPE_WEBP' ) ) $typeflag[18] = array( 'type' => IMAGETYPE_WEBP, 'ext' => 'webp' );
+    if( defined( 'IMAGETYPE_AVIF' ) ) $typeflag[19] = array( 'type' => IMAGETYPE_AVIF, 'ext' => 'avif' );
 
-	$imageinfo = array();
-	$file = @getimagesize( $img );
-	if( $file )
-	{
-		$imageinfo['src'] = $img;
-		$imageinfo['width'] = $file[0];
-		$imageinfo['height'] = $file[1];
-		$imageinfo['mime'] = $file['mime'];
-		$imageinfo['type'] = $typeflag[$file[2]]['type'];
-		$imageinfo['ext'] = $typeflag[$file[2]]['ext'];
-		$imageinfo['bits'] = $file['bits'];
-		$imageinfo['channels'] = isset( $file['channels'] ) ? intval( $file['channels'] ) : 0;
-	}
+    $imageinfo = array();
+    $file = @getimagesize( $img );
+    if( $file )
+    {
+        $imageinfo['src']    = $img;
+        $imageinfo['width']  = $file[0];
+        $imageinfo['height'] = $file[1];
+        $imageinfo['mime']   = $file['mime'];
+        if( isset( $typeflag[$file[2]] ) )
+        {
+            $imageinfo['type'] = $typeflag[$file[2]]['type'];
+            $imageinfo['ext']  = $typeflag[$file[2]]['ext'];
+        }
+        else
+        {
+            $imageinfo['type'] = $file[2];
+            $imageinfo['ext']  = ltrim( image_type_to_extension( $file[2] ), '.' );
+        }
+        $imageinfo['bits']     = isset( $file['bits'] ) ? $file['bits'] : 0;
+        $imageinfo['channels'] = isset( $file['channels'] ) ? intval( $file['channels'] ) : 0;
+    }
 
-	return $imageinfo;
+    return $imageinfo;
 }
 
 /**

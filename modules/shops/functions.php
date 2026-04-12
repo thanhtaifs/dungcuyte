@@ -98,6 +98,11 @@ if( $op == 'main' )
 	}
 }
 
+// if( !empty($array_op) and sizeof($array_op) == 2 and empty($catid) )
+// {
+//     nv_info_die( '404 - Trang không tìm thấy', 'Trang không tìm thấy', 'Xin lỗi, trang bạn đang tìm kiếm không tồn tại hoặc đã bị di chuyển.<br /><br /><a href="' . NV_BASE_SITEURL . '" class="btn btn-primary">Về trang chủ</a>' );
+// }
+
 // Wishlist
 if( defined( 'NV_IS_USER' ) and $pro_config['active_wishlist'] )
 {

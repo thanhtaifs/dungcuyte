@@ -82,11 +82,11 @@ $publtime = 0;
 
 $sql = $db->query( 'SELECT * FROM ' . $db_config['prefix'] . '_' . $module_data . '_rows WHERE ' . NV_LANG_DATA . '_alias = ' . $db->quote( $alias_url ) . ' AND status=1' );
 $data_content = $sql->fetch();
-if( empty( $data_content ) )
+if( empty( $data_content ))
 {
-	$nv_redirect = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name;
-	redict_link( $lang_module['detail_do_not_view'], $lang_module['redirect_to_back_shops'], $nv_redirect );
+	nv_info_die('404 - Trang không tồn tại | ' . $global_config['site_name'],'Không tìm thấy trang','Trang bạn tìm kiếm không tồn tại hoặc đã bị xóa.');
 }
+
 $id = $data_content['id'];
 
 $data_content['array_custom'] = array();
@@ -383,7 +383,7 @@ else
 	$nv_redirect = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name;
 	redict_link( $lang_module['detail_no_permission'], $lang_module['redirect_to_back_shops'], $nv_redirect );
 }
-//error_log("=== if detail.php shops ===");
+
 if( $popup )
 {
 	echo $contents;

@@ -107,6 +107,17 @@ class UrlGetContents
 	 */
 	private function check_url( $is_200 = 0 )
 	{
+
+		$host = $this->url_info['host'] ?? '';
+		if ( empty($host) || gethostbyname($host) === $host ) {
+			// gethostbyname trả về chính hostname nếu không resolve được
+			// Thử kiểm tra thêm để chắc chắn
+			if ( ! filter_var( $host, FILTER_VALIDATE_IP ) ) {
+				return false; // Host không tồn tại
+			}
+		}
+
+
 		$allow_url_fopen = (ini_get( 'allow_url_fopen' ) == '1' || strtolower( ini_get( 'allow_url_fopen' ) ) == 'on') ? 1 : 0;
 
 		if( function_exists( 'get_headers' ) and !in_array( 'get_headers', $this->disable_functions ) and $allow_url_fopen == 1 )

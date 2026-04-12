@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  * @Project NUKEVIET 4.x
@@ -43,15 +43,14 @@ elseif( empty( $alias ) and empty( $page_config['viewtype'] ) )
 }
 elseif( ! empty( $alias ) )
 {
-	$sth = $db->prepare( 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE status=1 AND alias=:alias' );
-	$sth->bindParam( ':alias', $alias, PDO::PARAM_STR );
-	$sth->execute();
-	$rowdetail = $sth->fetch();
-	if( empty( $rowdetail ) )
-	{
-		Header( 'Location: ' . nv_url_rewrite( $base_url, true ) );
-		die();
-	}
-	$id = $rowdetail['id'];
+    $sth = $db->prepare( 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE status=1 AND alias=:alias' );
+    $sth->bindParam( ':alias', $alias, PDO::PARAM_STR );
+    $sth->execute();
+    $rowdetail = $sth->fetch();
+    if( empty( $rowdetail ) )
+    {
+        nv_info_die('404 - Trang không tồn tại | ' . $global_config['site_name'], 'Không tìm thấy trang', 'Trang bạn tìm kiếm không tồn tại hoặc đã bị xóa.');
+    }
+    $id = $rowdetail['id'];
 }
 //error_log('ok services module fuctions loaded?');

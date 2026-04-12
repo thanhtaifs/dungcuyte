@@ -593,7 +593,6 @@ if( empty( $contents ) )
 	}
 
 	$contents = call_user_func( $pro_config['home_view'], $data_content, $compare_id, $html_pages, $sorts );
-	
 
 	if( ! defined( 'NV_IS_MODADMIN' ) and $contents != '' and $cache_file != '' )
 	{

@@ -16,6 +16,8 @@ CKEDITOR.editorConfig = function( config ) {
 	config.youtube_privacy = false;
 	config.youtube_autoplay = true;
 	config.codeSnippet_theme = 'github';
+	config.font_names = 'Roboto/Roboto, Arial, Helvetica, sans-serif;Arial/Arial, Helvetica, sans-serif;Comic Sans MS/Comic Sans MS, cursive;Courier New/Courier New, Courier, monospace;Georgia/Georgia, serif;Lucida Sans Unicode/Lucida Sans Unicode, Lucida Grande, sans-serif;Tahoma/Tahoma, Geneva, sans-serif;Times New Roman/Times New Roman, Times, serif;Trebuchet MS/Trebuchet MS, Helvetica, sans-serif;Verdana/Verdana, Geneva, sans-serif';
+	config.font_defaultLabel = 'Roboto';
 	// Default setting.
 	config.toolbarGroups = [
 		{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
@@ -45,3 +47,4 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'tools', items : ['SwitchBar',  'Maximize'] }
 	];
 };;
+

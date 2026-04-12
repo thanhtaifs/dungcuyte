@@ -3,10 +3,23 @@ Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto Regular'), local('Roboto-Regular'), url('../../themes/dungcuytecantho/fonts/roboto-400.woff') format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Roboto Bold'), local('Roboto-Bold'), url('../../themes/dungcuytecantho/fonts/roboto-700.woff') format('woff');
+}
+
 body
 {
 	/* Font */
-	font-family: sans-serif, Arial, Verdana, "Trebuchet MS";
+	font-family: 'Roboto', Arial, Helvetica, sans-serif;
 	font-size: 12px;
 
 	/* Text color */
@@ -56,7 +69,7 @@ a
 ol,ul,dl
 {
 	/* IE7: reset rtl list margin. (#7334) */
-	*margin-right: 0px;
+	margin-right: 0px;
 	/* preserved spaces for list items with text direction other than the list. (#6249,#8049)*/
 	padding: 0 40px;
 }
@@ -132,3 +145,5 @@ a > img {
 	border: none;
 	outline: 1px solid #0782C1;
 }
+
+

@@ -95,93 +95,119 @@ function nv_error_info()
  */
 function nv_info_die( $page_title = '', $info_title = '', $info_content = '', $admin_link = NV_BASE_ADMINURL, $admin_title = '', $site_link = NV_BASE_SITEURL, $site_title = '')
 {
-	global $lang_global, $global_config;
+    global $lang_global, $global_config, $module_info, $op_file;
 
-	if( empty( $page_title ) ) $page_title = $global_config['site_description'];
+    if( empty( $page_title ) ) $page_title = $global_config['site_description'];
 
-	// Get theme
-	$template = '';
+    // ── Nếu đang ở admin thì giữ nguyên flow cũ ──────────────────────────
+    if( defined( 'NV_ADMIN' ) )
+    {
+        if( isset( $global_config['admin_theme'] ) and file_exists( NV_ROOTDIR . '/themes/' . $global_config['admin_theme'] . '/system/info_die.tpl' ) )
+        {
+            $tpl_path = NV_ROOTDIR . '/themes/' . $global_config['admin_theme'] . '/system';
+            $template = $global_config['admin_theme'];
+        }
+        else
+        {
+            $tpl_path = NV_ROOTDIR . '/themes/admin_default/system';
+            $template = 'admin_default';
+        }
+        // render admin info_die như cũ...
+        _nv_render_info_die_tpl( $tpl_path, $template, $page_title, $info_title, $info_content, $admin_link, $admin_title, $site_link, $site_title );
+        die();
+    }
 
-	if( defined( 'NV_ADMIN' ) and isset( $global_config['admin_theme'] ) and file_exists( NV_ROOTDIR . '/themes/' . $global_config['admin_theme'] . '/system/info_die.tpl' ) )
-	{
-		$tpl_path = NV_ROOTDIR . '/themes/' . $global_config['admin_theme'] . '/system';
-		$template = $global_config['admin_theme'];
-	}
-	elseif( defined( 'NV_ADMIN' ) and file_exists( NV_ROOTDIR . '/themes/admin_default/system/info_die.tpl' ) )
-	{
-		$tpl_path = NV_ROOTDIR . '/themes/admin_default/system';
-		$template = 'admin_default';
-	}
-	elseif( isset( $global_config['module_theme'] ) and file_exists( NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/system/info_die.tpl' ) )
-	{
-		$tpl_path = NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/system';
-		$template = $global_config['module_theme'];
-	}
-	elseif( isset( $global_config['site_theme'] ) and file_exists( NV_ROOTDIR . '/themes/' . $global_config['site_theme'] . '/system/info_die.tpl' ) )
-	{
-		$tpl_path = NV_ROOTDIR . '/themes/' . $global_config['site_theme'] . '/system';
-		$template = $global_config['site_theme'];
-	}
-	else
-	{
-		$tpl_path = NV_ROOTDIR . '/themes/dungcuytecantho/system';
-		$template = 'default';
-	}
+    // ── Frontend: dùng layout của theme ───────────────────────────────────
+    $theme = isset( $global_config['module_theme'] ) ? $global_config['module_theme'] : $global_config['site_theme'];
 
-	$size = @getimagesize( NV_ROOTDIR . '/' . $global_config['site_logo'] );
+    // Kiểm tra layout nào tồn tại để dùng nv_site_theme()
+    $can_use_theme = isset( $module_info['layout_funcs'][$op_file] )
+        && file_exists( NV_ROOTDIR . '/themes/' . $theme . '/layout/layout.' . $module_info['layout_funcs'][$op_file] . '.tpl' );
 
-	$xtpl = new XTemplate( 'info_die.tpl', $tpl_path );
-	$xtpl->assign( 'SITE_CHARSET', $global_config['site_charset'] );
-	$xtpl->assign( 'PAGE_TITLE', $page_title );
-	$xtpl->assign( 'HOME_LINK', $global_config['site_url'] );
-	$xtpl->assign( 'LANG', $lang_global );
-	$xtpl->assign( 'TEMPLATE', $template );
-	$xtpl->assign( 'NV_BASE_SITEURL', NV_BASE_SITEURL );
-	$xtpl->assign( 'SITE_NAME', $global_config['site_name'] );
+    if( $can_use_theme )
+    {
+        // Build content 404 dạng HTML thuần
+        $content_404 = '
+        <div class="container nv-error-404" style="text-align:center; padding: 60px 20px;">
+            <h1 style="font-size:50px; margin:0; color:#f00;">404 -  ' . htmlspecialchars( $info_title ) . '</h1>
+			<br/>
+            <div>' . $info_content . '</div>  
+			<br/>          
+            <p><a href="' . $site_link . '" class="btn btn-primary">'
+                . ( empty( $site_title ) ? $lang_global['go_homepage'] : htmlspecialchars($site_title) )
+            . '</a></p>
+        </div>';
 
-	if( isset( $size[1] ) )
-	{
-		if( $size[0] > 490 )
-		{
-			$size[1] = ceil( 490 * $size[1] / $size[0] );
-			$size[0] = 490;
-		}
-		$xtpl->assign( 'LOGO', NV_BASE_SITEURL . $global_config['site_logo'] );
-		$xtpl->assign( 'WIDTH', $size[0] );
-		$xtpl->assign( 'HEIGHT', $size[1] );
-		if( isset( $size['mime'] ) and $size['mime'] == 'application/x-shockwave-flash' )
-		{
-			$xtpl->parse( 'main.swf' );
-		}
-		else
-		{
-			$xtpl->parse( 'main.image' );
-		}
-	}
-	$xtpl->assign( 'INFO_TITLE', $info_title );
-	$xtpl->assign( 'INFO_CONTENT', $info_content );
+        header( 'HTTP/1.1 404 Not Found' );
+		header( 'Status: 404 Not Found' );
+        echo nv_site_theme( $content_404 );
+        die();
+    }
 
-	if( defined( 'NV_IS_ADMIN' ) and ! empty( $admin_link ) )
-	{
-		$xtpl->assign( 'ADMIN_LINK', $admin_link );
-		$xtpl->assign( 'GO_ADMINPAGE', empty( $admin_title ) ? $lang_global['admin_page'] : $admin_title );
-		$xtpl->parse( 'main.adminlink' );
-	}
-	if( ! empty( $site_link ) )
-	{
-		$xtpl->assign( 'SITE_LINK', $site_link );
-		$xtpl->assign( 'GO_SITEPAGE', empty( $site_title ) ? $lang_global['go_homepage'] : $site_title );
-		$xtpl->parse( 'main.sitelink' );
-	}
+    // ── Fallback: dùng info_die.tpl trong system (như cũ) ─────────────────
+    $tpl_path = file_exists( NV_ROOTDIR . '/themes/' . $theme . '/system/info_die.tpl' )
+        ? NV_ROOTDIR . '/themes/' . $theme . '/system'
+        : NV_ROOTDIR . '/themes/dungcuytecantho/layout';
 
-	$xtpl->parse( 'main' );
+    _nv_render_info_die_tpl( $tpl_path, $theme, $page_title, $info_title, $info_content, $admin_link, $admin_title, $site_link, $site_title );
+    die();
+}
 
-	$global_config['mudim_active'] = 0;
 
-	include NV_ROOTDIR . '/includes/header.php';
-	$xtpl->out( 'main' );
-	include NV_ROOTDIR . '/includes/footer.php';
-	die();
+// ── Hàm phụ: render info_die.tpl thuần (giữ logic cũ gọn lại) ────────────
+function _nv_render_info_die_tpl( $tpl_path, $template, $page_title, $info_title, $info_content, $admin_link, $admin_title, $site_link, $site_title )
+{
+    global $lang_global, $global_config;
+
+    $size = @getimagesize( NV_ROOTDIR . '/' . $global_config['site_logo'] );
+
+    $xtpl = new XTemplate( 'info_die.tpl', $tpl_path );
+    $xtpl->assign( 'SITE_CHARSET', $global_config['site_charset'] );
+    $xtpl->assign( 'PAGE_TITLE', $page_title );
+    $xtpl->assign( 'HOME_LINK', $global_config['site_url'] );
+    $xtpl->assign( 'LANG', $lang_global );
+    $xtpl->assign( 'TEMPLATE', $template );
+    $xtpl->assign( 'NV_BASE_SITEURL', NV_BASE_SITEURL );
+    $xtpl->assign( 'SITE_NAME', $global_config['site_name'] );
+
+    if( isset( $size[1] ) )
+    {
+        if( $size[0] > 490 )
+        {
+            $size[1] = ceil( 490 * $size[1] / $size[0] );
+            $size[0] = 490;
+        }
+        $xtpl->assign( 'LOGO', NV_BASE_SITEURL . $global_config['site_logo'] );
+        $xtpl->assign( 'WIDTH', $size[0] );
+        $xtpl->assign( 'HEIGHT', $size[1] );
+        if( isset( $size['mime'] ) and $size['mime'] == 'application/x-shockwave-flash' )
+            $xtpl->parse( 'main.swf' );
+        else
+            $xtpl->parse( 'main.image' );
+    }
+
+    $xtpl->assign( 'INFO_TITLE', $info_title );
+    $xtpl->assign( 'INFO_CONTENT', $info_content );
+
+    if( defined( 'NV_IS_ADMIN' ) and ! empty( $admin_link ) )
+    {
+        $xtpl->assign( 'ADMIN_LINK', $admin_link );
+        $xtpl->assign( 'GO_ADMINPAGE', empty( $admin_title ) ? $lang_global['admin_page'] : $admin_title );
+        $xtpl->parse( 'main.adminlink' );
+    }
+    if( ! empty( $site_link ) )
+    {
+        $xtpl->assign( 'SITE_LINK', $site_link );
+        $xtpl->assign( 'GO_SITEPAGE', empty( $site_title ) ? $lang_global['go_homepage'] : $site_title );
+        $xtpl->parse( 'main.sitelink' );
+    }
+
+    $xtpl->parse( 'main' );
+    $global_config['mudim_active'] = 0;
+
+    include NV_ROOTDIR . '/includes/header.php';
+    $xtpl->out( 'main' );
+    include NV_ROOTDIR . '/includes/footer.php';
 }
 
 /**

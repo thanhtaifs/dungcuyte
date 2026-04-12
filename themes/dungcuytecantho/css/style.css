@@ -137,6 +137,7 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 a,
 a:link,
@@ -320,8 +321,10 @@ header {
 
 /* Body */
 #body {
-  padding-top: 10px;
-  background: #fff;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 #body .col-md-18 {
   float: right;
@@ -2199,9 +2202,11 @@ iframe[src*="youtube.com"] {
 
   .body-content .panel-default:last-child,
   .body-content .panel-default:last-child .panel-body {
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
   .pc {
     display: none;
   }
@@ -3359,8 +3364,10 @@ iframe[src*="youtube.com"] {
   display: table;
 }
 .nv-infodie .panel-body {
-  display: table-cell;
-  vertical-align: middle;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 
 .panel-body p {
@@ -3663,7 +3670,10 @@ button.close {
 }
 
 #body {
-  padding: 24px 16px 0 !important;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 #header #logo a {
   outline: none;
@@ -4200,7 +4210,10 @@ a {
 }
 
 .news_column .panel .panel-body {
+  height: 100%;
   padding: 0;
+  margin: 0;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 
 .news_column .panel a.images {
@@ -4327,3 +4340,9 @@ a {
   font-size: 16px !important;
   font-weight: bold;
 }
+
+/* Keep Font Awesome icons */
+.fa, .fa:before, .fa:after, [class^='fa-']:before, [class*=' fa-']:before {
+  font-family: 'FontAwesome' !important;
+}
+
