@@ -620,3 +620,9 @@ hr{
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+
+/* Keep Font Awesome icons */
+.fa, .fa:before, .fa:after, [class^='fa-']:before, [class*=' fa-']:before {
+  font-family: 'FontAwesome' !important;
+}
+
