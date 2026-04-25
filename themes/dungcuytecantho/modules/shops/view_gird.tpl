@@ -56,9 +56,17 @@
                             <i class="fa fa-tag"></i> {CATEGORY_NAME}
                         </a>
                     </div>
+                    <!-- BEGIN: price -->
                     <div class="product-price">
-                        <p class="current-price"> {PRICE.sale_format}</p>
+                        <!-- BEGIN: discounts -->
+                        <p class="current-price">{PRICE.sale_format}</p>
+                        <p class="old-price discounts_money">{PRICE.price_format}</p>
+                        <!-- END: discounts -->
+                        <!-- BEGIN: no_discounts -->
+                        <p class="current-price">{PRICE.price_format}</p>
+                        <!-- END: no_discounts -->
                     </div>
+                    <!-- END: price -->
                   </div>
         </div>
     	<!-- END: grid_rows -->

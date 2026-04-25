@@ -12,6 +12,11 @@ if (!defined('NV_IS_MOD_SHOPS')) {
     die('Stop!!!');
 }
 
+function nv_shops_can_show_price($data_row)
+{
+    return !empty($data_row['showprice']) && empty($data_row['contact_price']);
+}
+
 //error_log("=== theme.php loaded OK ===");
 /**
  * redict_link()
@@ -106,7 +111,7 @@ function view_home_group($data_content, $compare_id, $html_pages = '', $sort = 0
 
                     $price = nv_get_price($data_row_i['id'], $pro_config['money_unit']);
                     if ($pro_config['active_price'] == '1') {
-                        if ($data_row_i['showprice'] == '1') {
+                        if (nv_shops_can_show_price($data_row_i)) {
                             $xtpl->assign('PRICE', $price);
                             if ($data_row_i['discount_id'] and $price['discount_percent'] > 0) {
                                 $xtpl->parse('main.catalogs.items.price.discounts');
@@ -123,7 +128,7 @@ function view_home_group($data_content, $compare_id, $html_pages = '', $sort = 0
                     $xtpl->assign('num', $num_row);
 
                     if ($pro_config['active_order'] == '1' and $pro_config['active_order_non_detail'] == '1') {
-                        if ($data_row_i['showprice'] == '1') {
+                        if (nv_shops_can_show_price($data_row_i)) {
                             if ($data_row_i['product_number'] > 0) {
                                 // Kiem tra nhom bat buoc chon khi dat hang
                                 $listgroupid = GetGroupID($data_row_i['id']);
@@ -183,7 +188,7 @@ function view_home_group($data_content, $compare_id, $html_pages = '', $sort = 0
                     }
 
                     // Hien thi bieu tuong giam gia
-                    if ($data_row_i['discount_id'] and $price['discount_percent'] > 0 and $data_row_i['showprice']) {
+                    if ($data_row_i['discount_id'] and $price['discount_percent'] > 0 and nv_shops_can_show_price($data_row_i)) {
                         $xtpl->parse('main.catalogs.items.discounts');
                     }
 
@@ -264,7 +269,7 @@ function view_home_blockcat($data_content, $compare_id, $data_title, $descriptio
 
             $price = nv_get_price($data_row['id'], $pro_config['money_unit']);
             if ($pro_config['active_price'] == '1') {
-                if ($data_row['showprice'] == '1') {
+                if (nv_shops_can_show_price($data_row)) {
                     $xtpl->assign('PRICE', $price);
                     if ($data_row['discount_id'] and $price['discount_percent'] > 0) {
                         $xtpl->parse('main.loop.price.discounts');
@@ -281,7 +286,7 @@ function view_home_blockcat($data_content, $compare_id, $data_title, $descriptio
             $xtpl->assign('num', $num_row);
 
             if ($pro_config['active_order'] == '1' and $pro_config['active_order_non_detail'] == '1') {
-                if ($data_row['showprice'] == '1') {
+                if (nv_shops_can_show_price($data_row)) {
                     if ($data_row['product_number'] > 0) {
                         // Kiem tra nhom bat buoc chon khi dat hang
                         $listgroupid = GetGroupID($data_row['id']);
@@ -341,7 +346,7 @@ function view_home_blockcat($data_content, $compare_id, $data_title, $descriptio
             }
 
             // Hien thi bieu tuong giam gia
-            if ($data_row['discount_id'] and $price['discount_percent'] > 0 and $data_row['showprice']) {
+            if ($data_row['discount_id'] and $price['discount_percent'] > 0 and nv_shops_can_show_price($data_row)) {
                 $xtpl->parse('main.loop.discounts');
             }
 
@@ -422,7 +427,7 @@ function view_home_cat($data_content, $compare_id, $html_pages = '', $sort = 0)
                     $price = nv_get_price($data_row_i['id'], $pro_config['money_unit']);
 
                     if ($pro_config['active_price'] == '1') {
-                        if ($data_row_i['showprice'] == '1') {
+                        if (nv_shops_can_show_price($data_row_i)) {
                             $xtpl->assign('PRICE', $price);
                             if ($data_row_i['discount_id'] and $price['discount_percent'] > 0) {
                                 $xtpl->parse('main.catalogs.items.price.discounts');
@@ -439,7 +444,7 @@ function view_home_cat($data_content, $compare_id, $html_pages = '', $sort = 0)
                     $xtpl->assign('num', $num_row);
 
                     if ($pro_config['active_order'] == '1' and $pro_config['active_order_non_detail'] == '1') {
-                        if ($data_row_i['showprice'] == '1') {
+                        if (nv_shops_can_show_price($data_row_i)) {
                             if ($data_row_i['product_number'] > 0) {
                                 // Kiem tra nhom bat buoc chon khi dat hang
                                 $listgroupid = GetGroupID($data_row_i['id']);
@@ -496,7 +501,7 @@ function view_home_cat($data_content, $compare_id, $html_pages = '', $sort = 0)
                     }
 
                     // Hien thi bieu tuong giam gia
-                    if ($data_row_i['discount_id'] and $price['discount_percent'] > 0 and $data_row_i['showprice']) {
+                    if ($data_row_i['discount_id'] and $price['discount_percent'] > 0 and nv_shops_can_show_price($data_row_i)) {
                         $xtpl->parse('main.catalogs.items.discounts');
                     }
 
@@ -554,6 +559,9 @@ function view_home_cat($data_content, $compare_id, $html_pages = '', $sort = 0)
  */
 function view_home_blocks($data_content, $compare_id, $html_pages, $sorts) 
 {
+    // DEBUG: Log which function is being called
+    //("=== view_home_blocks called with " . count($data_content) . " sections ===");
+    
     global $module_info, $lang_module, $module_file, $module_name, $global_config , $pro_config, $op, $array_displays, $array_wishlist_id, $global_array_shops_cat, $global_array_group;
     
     $xtpl = new XTemplate('main_view_home.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
@@ -586,14 +594,14 @@ function view_home_blocks($data_content, $compare_id, $html_pages, $sorts)
 
     if ($is_categorized) 
     {
+        //error_log("Hiển thị sản phẩm");
         // Hiển thị sản phẩm nổi bật
         if (!empty($data_content['featured'])) {
             $xtpl->assign('SECTION_TITLE', 'Sản phẩm nổi bật');
-            $xtpl->parse('main.section_title');
             $i = 1;
             $num_row = 24 / $pro_config['per_row'];
             foreach ($data_content['featured'] as $data_row) {
-                display_product_item($xtpl, $data_row, $num_row, $pro_config, $global_array_shops_cat, $global_array_group, $compare_id, $array_wishlist_id, $lang_module);
+                display_product_item($xtpl, $data_row, $num_row, $pro_config, $global_array_shops_cat, $global_array_group, $compare_id, $array_wishlist_id, $lang_module, 'featured_section');
                 $xtpl->parse('main.featured_section.items');
                 ++$i;
             }
@@ -603,12 +611,10 @@ function view_home_blocks($data_content, $compare_id, $html_pages, $sorts)
         // Hiển thị sản phẩm mới
         if (!empty($data_content['new'])) {
             $xtpl->assign('SECTION_TITLE', 'Sản phẩm mới');
-            $xtpl->parse('main.section_title');
             $i = 1;
             $num_row = 24 / $pro_config['per_row'];
             foreach ($data_content['new'] as $data_row) {
-                //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "Processing featured item " . $i . ": " . $data_row['title']  . "\n", FILE_APPEND);
-                display_product_item($xtpl, $data_row, $num_row, $pro_config, $global_array_shops_cat, $global_array_group, $compare_id, $array_wishlist_id, $lang_module);
+                display_product_item($xtpl, $data_row, $num_row, $pro_config, $global_array_shops_cat, $global_array_group, $compare_id, $array_wishlist_id, $lang_module, 'new_section');
                 $xtpl->parse('main.new_section.items');
                 ++$i;
             }
@@ -618,11 +624,10 @@ function view_home_blocks($data_content, $compare_id, $html_pages, $sorts)
         // Hiển thị các sản phẩm khác
         if (!empty($data_content['other'])) {
             $xtpl->assign('SECTION_TITLE', 'Sẩn phẩm phổ biến');
-            $xtpl->parse('main.section_title');
             $i = 1;
             $num_row = 24 / $pro_config['per_row'];
             foreach ($data_content['other'] as $data_row) {
-                display_product_item($xtpl, $data_row, $num_row, $pro_config, $global_array_shops_cat, $global_array_group, $compare_id, $array_wishlist_id, $lang_module);
+                display_product_item($xtpl, $data_row, $num_row, $pro_config, $global_array_shops_cat, $global_array_group, $compare_id, $array_wishlist_id, $lang_module, 'other_section');
                 $xtpl->parse('main.other_section.items');
                 ++$i;
             }
@@ -640,7 +645,7 @@ function view_home_blocks($data_content, $compare_id, $html_pages, $sorts)
             }
 
             foreach ($data_content as $data_row) {
-                display_product_item($xtpl, $data_row, $num_row, $pro_config, $global_array_shops_cat, $global_array_group, $compare_id, $array_wishlist_id, $lang_module);
+                display_product_item($xtpl, $data_row, $num_row, $pro_config, $global_array_shops_cat, $global_array_group, $compare_id, $array_wishlist_id, $lang_module, 'items');
                 $xtpl->parse('main.items');
                 ++$i;
             }
@@ -656,14 +661,14 @@ function view_home_blocks($data_content, $compare_id, $html_pages, $sorts)
         $xtpl->assign('generate_page', $html_pages);
         $xtpl->parse('main.pages');
     }
-
+    //error_log("parse('main')" . count($data_content) . " sections ===");
     $xtpl->parse('main');
     return $xtpl->text('main');
 }
 
 
 // Hàm helper để hiển thị từng sản phẩm
-function display_product_item(&$xtpl, $data_row, $num_row, $pro_config, $global_array_shops_cat, $global_array_group, $compare_id, $array_wishlist_id, $lang_module)
+function display_product_item(&$xtpl, $data_row, $num_row, $pro_config, $global_array_shops_cat, $global_array_group, $compare_id, $array_wishlist_id, $lang_module, $section = 'items')
 {
     $xtpl->assign('ID', $data_row['id']);
     $xtpl->assign('LINK', $data_row['link_pro']);
@@ -676,10 +681,7 @@ function display_product_item(&$xtpl, $data_row, $num_row, $pro_config, $global_
     $xtpl->assign('width', $pro_config['homewidth']);
     $xtpl->assign('hometext', $data_row['hometext']);
     $xtpl->assign('PRODUCT_CODE', $data_row['product_code']);
-    
-    //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "homeimgfile: " . $data_row['homeimgfile']  . "\n", FILE_APPEND);
-    //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "homeimgthumb: " .$data_row['homeimgthumb'] . "\n", FILE_APPEND);    
-
+    //error_log("display_product_item");
     if (!empty($data_row['listcatid'])) {
         $cat_ids = explode(',', $data_row['listcatid']);
         $main_cat_id = trim($cat_ids[0]); // Lấy category chính (đầu tiên)
@@ -688,115 +690,22 @@ function display_product_item(&$xtpl, $data_row, $num_row, $pro_config, $global_
             $xtpl->assign('CATEGORY_NAME', $global_array_shops_cat[$main_cat_id]['title']);
             $xtpl->assign('CATEGORY_LINK', $global_array_shops_cat[$main_cat_id]['link']);
             $xtpl->assign('CATEGORY_ALIAS', $global_array_shops_cat[$main_cat_id]['alias']);
-            $xtpl->parse('main.items.category');
-        }
-    }
-
-    // Thêm class để phân biệt loại sản phẩm
-    if (isset($data_row['product_type'])) {
-        $xtpl->assign('PRODUCT_TYPE_CLASS', 'product-' . $data_row['product_type']);
-    }
-    
-    if ($pro_config['active_gift'] and !empty($data_row['gift_content'])) {
-        $xtpl->parse('main.items.gift_content');
-    }
-    $xtpl->assign('num', $num_row);
-
-    $newday = $data_row['publtime'] + (86400 * $data_row['newday']);
-    if ($newday >= NV_CURRENTTIME) {
-        $xtpl->parse('main.items.new');
-    }
-
-    if ($pro_config['active_order'] == '1' and $pro_config['active_order_non_detail'] == '1') {
-        if ($data_row['showprice'] == '1') {
-            if ($data_row['product_number'] > 0) {
-                // Kiem tra nhom bat buoc chon khi dat hang
-                $listgroupid = GetGroupID($data_row['id']);
-                $group_requie = 0;
-                if (!empty($listgroupid) and !empty($global_array_group)) {
-                    foreach ($global_array_group as $groupinfo) {
-                        if ($groupinfo['in_order']) {
-                            $group_requie = 1;
-                            break;
-                        }
-                    }
-                }
-                $group_requie = $pro_config['active_order_popup'] ? 1 : $group_requie;
-                $xtpl->assign('GROUP_REQUIE', $group_requie);
-
-                $xtpl->parse('main.items.order');
-            } else {
-                $xtpl->parse('main.items.product_empty');
-            }
         }
     }
 
     $price = nv_get_price($data_row['id'], $pro_config['money_unit']);
-    //error_log("=== theme.php loaded OK ===". $price['sale']);
-    //error_log("=== theme.php loaded OK ===". $price['sale_format']);
-
+    //error_log("price = " . print_r($price, true));
     if ($pro_config['active_price'] == '1') {
-        if ($data_row['showprice'] == '1') {
+        if (nv_shops_can_show_price($data_row)) {
+            //error_log("nv_shops_can_show_price");
             $xtpl->assign('PRICE', $price);
             if ($data_row['discount_id'] and $price['discount_percent'] > 0) {
-                $xtpl->parse('main.items.price.discounts');
-                $xtpl->parse('main.items.price.discounts.standard');
+                $xtpl->parse('main.' . $section . '.items.price.discounts');
             } else {
-                $xtpl->parse('main.items.price.no_discounts');
+                $xtpl->parse('main.' . $section . '.items.price.no_discounts');
             }
-            $xtpl->parse('main.items.price');
-        } else {
-            $xtpl->parse('main.items.contact');
+            $xtpl->parse('main.' . $section . '.items.price');
         }
-    }
-    
-    if ($pro_config['active_tooltip'] == 1) {
-        $xtpl->parse('main.items.tooltip_js');
-    }
-
-    if (!empty($pro_config['show_product_code']) and !empty($data_row['product_code'])) {
-        $xtpl->parse('main.items.product_code');
-    }
-
-    if (defined('NV_IS_MODADMIN')) {
-        $xtpl->assign('ADMINLINK', nv_link_edit_page($data_row['id']) . '&nbsp;-&nbsp;' . nv_link_delete_page($data_row['id']));
-        $xtpl->parse('main.items.adminlink');
-    }
-
-    // Qua tang
-    if ($pro_config['active_gift'] and !empty($data_row['gift_content']) and NV_CURRENTTIME >= $data_row['gift_from'] and NV_CURRENTTIME <= $data_row['gift_to']) {
-        $xtpl->parse('main.items.gift');
-    }
-
-    // So sanh san pham
-    if ($pro_config['show_compare'] == 1) {
-        if (!empty($compare_id)) {
-            $ch = (in_array($data_row['id'], $compare_id)) ? ' checked="checked"' : '';
-            $xtpl->assign('ch', $ch);
-        }
-        $xtpl->parse('main.items.compare');
-    }
-
-    // San pham yeu thich
-    if ($pro_config['active_wishlist']) {
-        if (!empty($array_wishlist_id)) {
-            if (in_array($data_row['id'], $array_wishlist_id)) {
-                $xtpl->parse('main.items.wishlist.disabled');
-            }
-        }
-        $xtpl->parse('main.items.wishlist');
-    }
-
-    // Hien thi bieu tuong giam gia
-    if ($data_row['discount_id'] and $price['discount_percent'] > 0 and $data_row['showprice']) {
-        $xtpl->parse('main.items.discounts');
-    }
-
-    // Hien thi bieu tuong tich luy diem
-    if ($pro_config['point_active'] and $global_array_shops_cat[$data_row['listcatid']]['cat_allow_point'] and !empty($global_array_shops_cat[$data_row['listcatid']]['cat_number_point'])) {
-        $xtpl->assign('point', $global_array_shops_cat[$data_row['listcatid']]['cat_number_point']);
-        $xtpl->assign('point_note', sprintf($lang_module['point_product_note'], $global_array_shops_cat[$data_row['listcatid']]['cat_number_point']));
-        $xtpl->parse('main.items.point');
     }
 }
 
@@ -864,7 +773,7 @@ function view_home_all($data_content, $compare_id, $html_pages = '', $sort = 0, 
             }
 
             if ($pro_config['active_order'] == '1' and $pro_config['active_order_non_detail'] == '1') {
-                if ($data_row['showprice'] == '1') {
+                if (nv_shops_can_show_price($data_row)) {
                     if ($data_row['product_number'] > 0) {
                         // Kiem tra nhom bat buoc chon khi dat hang
                         $listgroupid = GetGroupID($data_row['id']);
@@ -893,7 +802,7 @@ function view_home_all($data_content, $compare_id, $html_pages = '', $sort = 0, 
             //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "showprice :" . $data_row['showprice'] . "\n", FILE_APPEND);
 
             if ($pro_config['active_price'] == '1') {                
-                if ($data_row['showprice'] == '1') {
+                if (nv_shops_can_show_price($data_row)) {
                     //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "showprice :" . $data_row['showprice'] . "\n", FILE_APPEND);
                     $xtpl->assign('PRICE', $price);
                     if ($data_row['discount_id'] and $price['discount_percent'] > 0) {
@@ -948,7 +857,7 @@ function view_home_all($data_content, $compare_id, $html_pages = '', $sort = 0, 
             }
 
             // Hien thi bieu tuong giam gia
-            if ($data_row['discount_id'] and $price['discount_percent'] > 0 and $data_row['showprice']) {
+            if ($data_row['discount_id'] and $price['discount_percent'] > 0 and nv_shops_can_show_price($data_row)) {
                 $xtpl->parse('main.items.discounts');
             }
 
@@ -1021,7 +930,7 @@ function view_search_all($data_content, $compare_id, $html_pages = '')
             $xtpl->assign('num', $num_row);
 
             if ($pro_config['active_order'] == '1' and $pro_config['active_order_non_detail'] == '1') {
-                if ($data_row['showprice'] == '1') {
+                if (nv_shops_can_show_price($data_row)) {
                     if ($data_row['product_number'] > 0) {
                         // Kiem tra nhom bat buoc chon khi dat hang
                         $listgroupid = GetGroupID($data_row['id']);
@@ -1047,7 +956,7 @@ function view_search_all($data_content, $compare_id, $html_pages = '')
             $price = nv_get_price($data_row['id'], $pro_config['money_unit']);
 
             if ($pro_config['active_price'] == '1') {
-                if ($data_row['showprice'] == '1') {
+                if (nv_shops_can_show_price($data_row)) {
                     $xtpl->assign('PRICE', $price);
                     if ($data_row['discount_id'] and $price['discount_percent'] > 0) {
                         $xtpl->parse('main.items.price.discounts');
@@ -1093,7 +1002,7 @@ function view_search_all($data_content, $compare_id, $html_pages = '')
                 $xtpl->parse('main.items.wishlist');
             }
 
-            if ($data_row['discount_id'] and $price['discount_percent'] > 0 and $data_row['showprice']) {
+            if ($data_row['discount_id'] and $price['discount_percent'] > 0 and nv_shops_can_show_price($data_row)) {
                 $xtpl->parse('main.items.discounts');
             }
 
@@ -1236,7 +1145,7 @@ function viewcat_page_gird($data_content, $compare_id, $pages, $sort = 0, $viewt
             $price = nv_get_price($data_row['id'], $pro_config['money_unit']);
 
             if ($pro_config['active_price'] == '1') {
-                if ($data_row['showprice'] == '1') {
+                if (nv_shops_can_show_price($data_row)) {
                     $xtpl->assign('PRICE', $price);
                     if ($data_row['discount_id'] and $price['discount_percent'] > 0) {
                         $xtpl->parse('main.grid_rows.price.discounts');
@@ -1255,7 +1164,7 @@ function viewcat_page_gird($data_content, $compare_id, $pages, $sort = 0, $viewt
             $xtpl->assign('width', $pro_config['homewidth']);
 
             if ($pro_config['active_order'] == '1' and $pro_config['active_order_non_detail'] == '1') {
-                if ($data_row['showprice'] == '1') {
+                if (nv_shops_can_show_price($data_row)) {
                     if ($data_row['product_number'] > 0) {
                         // Kiem tra nhom bat buoc chon khi dat hang
                         $listgroupid = GetGroupID($data_row['id']);
@@ -1314,7 +1223,7 @@ function viewcat_page_gird($data_content, $compare_id, $pages, $sort = 0, $viewt
                 $xtpl->parse('main.grid_rows.wishlist');
             }
 
-            if ($data_row['discount_id'] and $price['discount_percent'] > 0 and $data_row['showprice']) {
+            if ($data_row['discount_id'] and $price['discount_percent'] > 0 and nv_shops_can_show_price($data_row)) {
                 $xtpl->parse('main.grid_rows.discounts');
             }
 
@@ -1426,7 +1335,7 @@ function viewcat_page_list($data_content, $compare_id, $pages, $sort = 0, $viewt
             $price = nv_get_price($data_row['id'], $pro_config['money_unit']);
 
             if ($pro_config['active_price'] == '1') {
-                if ($data_row['showprice'] == '1') {
+                if (nv_shops_can_show_price($data_row)) {
                     $xtpl->assign('PRICE', $price);
                     if ($data_row['discount_id'] and $price['discount_percent'] > 0) {
                         $xtpl->parse('main.row.price.discounts');
@@ -1444,7 +1353,7 @@ function viewcat_page_list($data_content, $compare_id, $pages, $sort = 0, $viewt
             $xtpl->assign('publtime', $lang_module['detail_dateup'] . ' ' . nv_date('d-m-Y h:i:s A', $data_row['publtime']));
 
             if ($pro_config['active_order'] == '1' and $pro_config['active_order_non_detail'] == '1') {
-                if ($data_row['showprice'] == '1') {
+                if (nv_shops_can_show_price($data_row)) {
                     if ($data_row['product_number'] > 0) {
                         // Kiem tra nhom bat buoc chon khi dat hang
                         $listgroupid = GetGroupID($data_row['id']);
@@ -1499,7 +1408,7 @@ function viewcat_page_list($data_content, $compare_id, $pages, $sort = 0, $viewt
                 }
             }
 
-            if ($data_row['discount_id'] and $price['discount_percent'] > 0 and $data_row['showprice']) {
+            if ($data_row['discount_id'] and $price['discount_percent'] > 0 and nv_shops_can_show_price($data_row)) {
                 $xtpl->parse('main.row.discounts');
             }
 
@@ -1574,11 +1483,17 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
 
 
         $xtpl->assign('PRICE', $price);
+        $xtpl->assign('product_discounts', $price['discount_percent']);
+        $xtpl->assign('discount_unit', $price['discount_unit']);
+        $xtpl->assign('money_unit', $price['unit']);
         $xtpl->assign('PRODUCT_CODE', $data_content['product_code']);
         $xtpl->assign('PRODUCT_NUMBER', $data_content['product_number']);
 
         $xtpl->assign('pro_unit', $data_unit['title']);
-        //file_put_contents(NV_ROOTDIR . '/menu_debug.log', $price['price'], FILE_APPEND);
+        
+        // Debug discount info
+        #$debug_msg = "PRO_ID: {$data_content['id']} | DISCOUNT_ID: {$data_content['discount_id']} | DISCOUNT_PERCENT: {$price['discount_percent']} | TYPEPRICE: {$global_array_shops_cat[$data_content['listcatid']]['typeprice']}\n";
+        #file_put_contents(NV_ROOTDIR . '/discount_debug.log', $debug_msg, FILE_APPEND);
 
 
         // Kiểm tra tình trạng hàng hóa
@@ -1820,7 +1735,7 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
     }
 
     if ($pro_config['active_price'] == '1') {
-        if ($data_content['showprice'] == '1') {
+        if (nv_shops_can_show_price($data_content)) {
             if ($data_content['discount_id'] and $price['discount_percent'] > 0) {
                 $xtpl->parse('main.price.discounts');
             } else {
@@ -1834,7 +1749,7 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
     }
 
     if ($pro_config['active_order'] == '1') {
-        if ($data_content['showprice'] == '1') {
+        if (nv_shops_can_show_price($data_content)) {
             if ($data_content['product_number'] > 0 or $pro_config['active_order_number']) {
                 if (!$pro_config['active_order_number']) {
                     $xtpl->parse('main.order_number.product_number');
@@ -1933,7 +1848,7 @@ function print_product($data_content, $data_unit, $page_title)
  * @param mixed $array_error_number
  * @return
  */
-function cart_product($data_content, $coupons_code, $order_info, $array_error_number, $total_cart='')
+function cart_product($data_content, $coupons_code, $order_info, $array_error_number, $total_cart = '', $coupon_data = array())
 {
     global $module_info, $lang_module, $module_config, $module_file, $module_name, $pro_config, $money_config, $global_array_group, $global_array_shops_cat;
 
@@ -1968,7 +1883,7 @@ function cart_product($data_content, $coupons_code, $order_info, $array_error_nu
             $xtpl->assign('PRICE', $price);
             $price = nv_get_price($data_row['id'], $pro_config['money_unit'], $data_row['num']);
             //$total = nv_number_format($cart_total) . ' ' . $pro_config['money_unit'];
-            $xtpl->assign('PRICE_TOTAL', $price['sale_format']);
+            $xtpl->assign('PRICE_TOTAL', $price);
             $xtpl->assign('pro_num', $data_row['num']);
             $xtpl->assign('link_remove', $data_row['link_remove']);
             $xtpl->assign('product_unit', $data_row['product_unit']);
@@ -2015,6 +1930,15 @@ function cart_product($data_content, $coupons_code, $order_info, $array_error_nu
                 $xtpl->parse('main.rows.price5');
             }
 
+            if ($price['discount_percent'] > 0) {
+                $xtpl->parse('main.rows.total_discounts');
+            }
+
+            $price_unit = nv_get_price($data_row['id'], $pro_config['money_unit'], $data_row['num'], true);
+            if ($price_unit['discount_percent'] > 0) {
+                $xtpl->parse('main.rows.discounts');
+            }
+
             $xtpl->parse('main.rows');
             $price_total = $price_total + $price['sale'];
             $j++;
@@ -2044,6 +1968,9 @@ function cart_product($data_content, $coupons_code, $order_info, $array_error_nu
 
     $xtpl->assign('price_total', nv_number_format($price_total, nv_get_decimals($pro_config['money_unit'])));
     $xtpl->assign('unit_config', $pro_config['money_unit']);
+    $xtpl->assign('SUBTOTAL', nv_number_format($coupon_data['subtotal'] ?? $price_total, nv_get_decimals($pro_config['money_unit'])) . ' ' . $pro_config['money_unit']);
+    $xtpl->assign('COUPON_DISCOUNT', nv_number_format($coupon_data['discount_amount'] ?? 0, nv_get_decimals($pro_config['money_unit'])) . ' ' . $pro_config['money_unit']);
+    $xtpl->assign('TOTAL', $total_cart);
     $xtpl->assign('LINK_DEL_ALL', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=remove');
     $xtpl->assign('LINK_CART', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=cart');
     $xtpl->assign('LINK_PRODUCTS', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '');
@@ -2060,9 +1987,17 @@ function cart_product($data_content, $coupons_code, $order_info, $array_error_nu
         $xtpl->assign('EDIT_ORDER', sprintf($lang_module['cart_edit_warning'], $order_info['order_url'], $order_info['order_code'], $order_info['order_edit']));
         $xtpl->parse('main.edit_order');
     } else {
-        if ($module_config[$module_name]['use_coupons']) {
-            $xtpl->parse('main.coupons_code');
-            $xtpl->parse('main.coupons_javascript');
+        $xtpl->parse('main.coupons_code');
+        if (!empty($coupon_data['error'])) {
+            $xtpl->assign('COUPON_ERROR', $coupon_data['error']);
+            $xtpl->parse('main.coupon_error');
+        }
+        if (!empty($coupon_data['success'])) {
+            $xtpl->assign('COUPON_SUCCESS', $coupon_data['success']);
+            $xtpl->parse('main.coupon_success');
+        }
+        if (!empty($coupon_data['discount_amount'])) {
+            $xtpl->parse('main.coupon_summary');
         }
     }
 
@@ -2168,6 +2103,13 @@ function users_order($data_content, $data_order, $total_coupons, $order_info, $e
                 $xtpl->parse('main.rows.price2');
                 $xtpl->parse('main.rows.price5');
             }
+            if ($price['discount_percent'] > 0) {
+                $xtpl->parse('main.rows.total_discounts');
+            }
+            $price_unit = nv_get_price($data_row['id'], $pro_config['money_unit'], $data_row['num'], true);
+            if ($price_unit['discount_percent'] > 0) {
+                $xtpl->parse('main.rows.discounts');
+            }
             $xtpl->parse('main.rows');
             $price_total = $price_total + $price['sale'];
             ++$j;
@@ -2176,6 +2118,9 @@ function users_order($data_content, $data_order, $total_coupons, $order_info, $e
 
     $xtpl->assign('price_coupons', nv_number_format($total_coupons, nv_get_decimals($pro_config['money_unit'])));
     $xtpl->assign('price_total', nv_number_format($price_total - $total_coupons, nv_get_decimals($pro_config['money_unit'])));
+    $xtpl->assign('ORDER_SUBTOTAL', nv_number_format($price_total, nv_get_decimals($pro_config['money_unit'])) . ' ' . $pro_config['money_unit']);
+    $xtpl->assign('ORDER_COUPON_DISCOUNT', nv_number_format($total_coupons, nv_get_decimals($pro_config['money_unit'])) . ' ' . $pro_config['money_unit']);
+    $xtpl->assign('ORDER_TOTAL_FINAL', nv_number_format($price_total - $total_coupons, nv_get_decimals($pro_config['money_unit'])) . ' ' . $pro_config['money_unit']);
     $xtpl->assign('unit_config', $pro_config['money_unit']);
     $xtpl->assign('weight_unit', $pro_config['weight_unit']);
     $xtpl->assign('DATA', $data_order);
@@ -2188,7 +2133,7 @@ function users_order($data_content, $data_order, $total_coupons, $order_info, $e
     if ($pro_config['active_price'] == '1') {
         $xtpl->parse('main.price1');
         if ($total_coupons > 0) {
-            $xtpl->parse('main.price3.total_coupons');
+            $xtpl->parse('main.coupon_summary');
         }
         $xtpl->parse('main.price3');
         $xtpl->parse('main.price4');
@@ -2798,7 +2743,7 @@ function compare($data_pro)
         $xtpl->assign('id', $data_row['id']);
 
         if ($pro_config['active_order'] == '1' and $pro_config['active_order_non_detail'] == '1') {
-            if ($data_row['showprice'] == '1') {
+            if (nv_shops_can_show_price($data_row)) {
                 if ($data_row['product_number'] > 0) {
                     // Kiem tra nhom bat buoc chon khi dat hang
                     $listgroupid = GetGroupID($data_row['id']);
@@ -2824,9 +2769,9 @@ function compare($data_pro)
 
         $price = nv_get_price($data_row['id'], $pro_config['money_unit']);
         if ($pro_config['active_price'] == '1') {
-            if ($data_row['showprice'] == '1') {
+            if (nv_shops_can_show_price($data_row)) {
                 $xtpl->assign('PRICE', $price);
-                if ($data_row['discount_id'] and $price['discount_percent'] > 0 and $data_row['showprice']) {
+                if ($data_row['discount_id'] and $price['discount_percent'] > 0 and nv_shops_can_show_price($data_row)) {
                     $xtpl->parse('main.price.discounts');
                 } else {
                     $xtpl->parse('main.price.no_discounts');
@@ -2881,7 +2826,7 @@ function wishlist($data_content, $compare_id, $html_pages = '')
             }
 
             if ($pro_config['active_order'] == '1' and $pro_config['active_order_non_detail'] == '1') {
-                if ($data_row['showprice'] == '1') {
+                if (nv_shops_can_show_price($data_row)) {
                     if ($data_row['product_number'] > 0) {
                         // Kiem tra nhom bat buoc chon khi dat hang
                         $listgroupid = GetGroupID($data_row['id']);
@@ -2905,7 +2850,7 @@ function wishlist($data_content, $compare_id, $html_pages = '')
             }
 
             if ($pro_config['active_price'] == '1') {
-                if ($data_row['showprice'] == '1') {
+                if (nv_shops_can_show_price($data_row)) {
                     $price = nv_get_price($data_row['id'], $pro_config['money_unit']);
                     $xtpl->assign('PRICE', $price);
                     if ($data_row['discount_id'] and $price['discount_percent'] > 0) {
@@ -2947,7 +2892,7 @@ function wishlist($data_content, $compare_id, $html_pages = '')
                 $xtpl->parse('main.items.compare');
             }
 
-            if ($data_row['discount_id'] and $price['discount_percent'] > 0 and $data_row['showprice']) {
+            if ($data_row['discount_id'] and $price['discount_percent'] > 0 and nv_shops_can_show_price($data_row)) {
                 $xtpl->parse('main.items.discounts');
             }
 

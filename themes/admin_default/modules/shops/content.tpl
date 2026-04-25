@@ -400,6 +400,12 @@
 							<input type="checkbox" name="showprice" value="1" {ck_showprice}/>{LANG.content_showprice}
 						</div></td>
 					</tr>
+					<tr>
+						<td>
+						<div style="margin-bottom: 2px;">
+							<input type="checkbox" name="contact_price" value="1" {ck_contact_price}/> Hiển thị trạng thái giá "Liên hệ"
+						</div></td>
+					</tr>
 				</tbody>
 			</table>
 			<table class="table table-striped table-bordered table-hover">

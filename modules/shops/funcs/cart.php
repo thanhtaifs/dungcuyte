@@ -14,6 +14,8 @@ $order_info = array();
 $order_old = array();
 $coupons_code = '';
 $coupons_check = 0;
+$coupon_error = '';
+$coupon_success = '';
 
 if( isset( $_SESSION[$module_data . '_coupons']['code'] ) and isset( $_SESSION[$module_data . '_coupons']['check'] ) )
 {
@@ -21,6 +23,40 @@ if( isset( $_SESSION[$module_data . '_coupons']['code'] ) and isset( $_SESSION[$
 	$coupons_check = $_SESSION[$module_data . '_coupons']['check'];
 }
 $link = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=';
+
+if( $nv_Request->isset_request( 'coupon_apply_submit', 'post' ) )
+{
+	$coupons_code = $nv_Request->get_title( 'coupons_code', 'post', '' );
+	if( empty( $coupons_code ) )
+	{
+		$coupon_error = $lang_module['coupons_empty'];
+	}
+	else
+	{
+		$coupon_data = nv_shops_get_coupon_info( $coupons_code );
+		if( empty( $coupon_data ) )
+		{
+			$coupon_error = $lang_module['coupons_no_exist'];
+			unset( $_SESSION[$module_data . '_coupons'] );
+			$coupons_code = '';
+			$coupons_check = 0;
+		}
+		else
+		{
+			$coupons_check = 1;
+			$_SESSION[$module_data . '_coupons'] = array( 'check' => 1, 'code' => $coupons_code, 'discount' => 0 );
+			$coupon_success = 'Đã áp dụng mã giảm giá: ' . $coupons_code;
+		}
+	}
+}
+
+if( $nv_Request->isset_request( 'coupon_clear_submit', 'post' ) )
+{
+	unset( $_SESSION[$module_data . '_coupons'] );
+	$coupons_code = '';
+	$coupons_check = 0;
+	$coupon_success = 'Đã xóa mã giảm giá khỏi giỏ hàng';
+}
 
 // Coupons
 if( $nv_Request->isset_request( 'coupons_check', 'post' ) )
@@ -45,7 +81,7 @@ if( $nv_Request->isset_request( 'coupons_check', 'post' ) )
 
 	if( empty( $error ) )
 	{
-		$_SESSION[$module_data . '_coupons'] = array( 'check' => $coupons_check, 'code' => $coupons_code );
+		$_SESSION[$module_data . '_coupons'] = array( 'check' => 1, 'code' => $coupons_code, 'discount' => 0 );
 	}
 
 	$contents = call_user_func( 'coupons_info', $data_content, $coupons_check, $error );
@@ -167,6 +203,14 @@ if( $nv_Request->get_int( 'save', 'post', 0 ) == 1 )
 
 $data_content = array();
 $array_error_product_number = array();
+$coupon_data = array(
+	'code' => $coupons_code,
+	'discount_amount' => 0,
+	'subtotal' => 0,
+	'final_total' => 0,
+	'error' => $coupon_error,
+	'success' => $coupon_success
+);
 if( ! empty( $_SESSION[$module_data . '_cart'] ) )
 {
 	$arrayid = array();
@@ -267,10 +311,42 @@ if( ! empty( $_SESSION[$module_data . '_cart'] ) )
 
 		// === TÍNH TỔNG GIÁ TRỊ GIỎ HÀNG ===
 		$total = 0;
-		foreach ($_SESSION[$module_data . '_cart'] as $pid => $pro) {
-			$total += $pro['price'] * $pro['num'];
+		$total_coupons = 0;
+		$coupon_info = array();
+		if( !empty( $coupons_code ) and $coupons_check )
+		{
+			$coupon_info = nv_shops_get_coupon_info( $coupons_code );
 		}
-		$total_cart = nv_number_format($total) . ' ' . $pro_config['money_unit'];
+		foreach( $data_content as $product )
+		{
+			$price = nv_get_price( $product['id'], $pro_config['money_unit'], $product['num'] );
+			$total += $price['sale'];
+			if( !empty( $coupon_info['product'] ) and in_array( intval( $product['id'] ), $coupon_info['product'] ) )
+			{
+				$total_coupons += $price['sale'];
+			}
+		}
+		$coupon_data['subtotal'] = $total;
+		$coupon_data['final_total'] = $total;
+		if( !empty( $coupon_info ) and $coupons_check )
+		{
+			$coupon_calc = nv_shops_get_coupon_discount( $coupon_info, $total, $total_coupons );
+			if( $coupon_calc['is_valid'] and $coupon_calc['discount_amount'] > 0 )
+			{
+				$coupon_data['discount_amount'] = $coupon_calc['discount_amount'];
+				$coupon_data['final_total'] = $coupon_calc['final_total'];
+				$_SESSION[$module_data . '_coupons']['discount'] = $coupon_calc['discount_amount'];
+			}
+			else
+			{
+				$_SESSION[$module_data . '_coupons']['discount'] = 0;
+				if( empty( $coupon_data['error'] ) )
+				{
+					$coupon_data['error'] = 'Mã giảm giá hiện không áp dụng được cho giỏ hàng này';
+				}
+			}
+		}
+		$total_cart = nv_number_format($coupon_data['final_total']) . ' ' . $pro_config['money_unit'];
 		//error_log("TỔNG GIỎ HÀNG =" . $total_cart);
 		if( empty( $array_error_product_number ) and $nv_Request->isset_request( 'cart_order', 'post' ) )
 		{
@@ -286,7 +362,7 @@ else
 }
 
 $page_title = $lang_module['cart_title'];
-$contents = call_user_func( 'cart_product', $data_content, $coupons_code, $order_info, $array_error_product_number, $total_cart );
+$contents = call_user_func( 'cart_product', $data_content, $coupons_code, $order_info, $array_error_product_number, $total_cart, $coupon_data );
 
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_site_theme( $contents );

@@ -552,7 +552,7 @@ figure.image > figcaption{
 .list-inline .hidden-xs a {
 	color: #848484
 }
-.list-inline .hidden-xs a : hover {
+.list-inline .hidden-xs a:hover {
 	color: #0066cc
 }
 .panel-heading {
@@ -568,7 +568,7 @@ figure.image > figcaption{
 	color: #ddd;
 }
 table caption{
-	color: #0066CC
+	color: #0066CC;
 	text-align: left;
 	font-size: 13px;
 	font-weight: bold;

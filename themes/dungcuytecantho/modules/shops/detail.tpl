@@ -72,19 +72,18 @@
 							{LANG.product_code}: <strong>{PRODUCT_CODE}</strong>
 						</li>
 						<!-- END: product_code -->
-
-						<!-- BEGIN: price -->
-						
+						<!-- BEGIN: price -->						
 
 						<li class="price-stock-row">
 							<div class="price">
 								<p>
 									{LANG.detail_pro_price}:
+									
 									<!-- BEGIN: discounts -->
-									<span class="money">{PRICE.sale_format} </span>
-									<span class="discounts_money">{PRICE.price_format} </span>
-									<span class="money">{product_discounts} {money_unit}</span>
+									<span class="money">{PRICE.sale_format}</span>
+									<span>(<del>{PRICE.price_format}</del>)</span>
 									<!-- END: discounts -->
+
 									<!-- BEGIN: no_discounts -->
 									<span class="money t">{PRICE.price_format} </span>
 									<!-- END: no_discounts -->

@@ -91,7 +91,7 @@ if( empty( $contents ) )
     
         // Lấy 24 sản phẩm nổi bật (JOIN với bảng shops_block, bid = 2)
         $db->sqlreset()
-            ->select( 't1.id, t1.listcatid, t1.publtime, t1.' . NV_LANG_DATA . '_title, t1.' . NV_LANG_DATA . '_alias, t1.' . NV_LANG_DATA . '_hometext, t1.homeimgalt, t1.homeimgfile, t1.homeimgthumb, t1.product_code, t1.product_number, t1.product_price, t1.money_unit, t1.discount_id, t1.showprice, t1.' . NV_LANG_DATA . '_gift_content, t1.gift_from, t1.gift_to, t1.hitstotal' )
+            ->select( 't1.id, t1.listcatid, t1.publtime, t1.' . NV_LANG_DATA . '_title, t1.' . NV_LANG_DATA . '_alias, t1.' . NV_LANG_DATA . '_hometext, t1.homeimgalt, t1.homeimgfile, t1.homeimgthumb, t1.product_code, t1.product_number, t1.product_price, t1.money_unit, t1.discount_id, t1.showprice, t1.contact_price, t1.' . NV_LANG_DATA . '_gift_content, t1.gift_from, t1.gift_to, t1.hitstotal' )
             ->from( $db_config['prefix'] . '_' . $module_data . '_rows t1' )
             ->join( 'INNER JOIN ' . $db_config['prefix'] . '_' . $module_data . '_block t2 ON t1.id = t2.id' )
             ->where( 't1.inhome=1 AND t1.status =1 AND t2.bid = 2' )
@@ -105,7 +105,7 @@ if( empty( $contents ) )
         
         $featured_ids = array();
         
-        while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $gift_content, $gift_from, $gift_to ) = $result_featured->fetch( 3 ) )
+        while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $contact_price, $gift_content, $gift_from, $gift_to ) = $result_featured->fetch( 3 ) )
         {
             $featured_ids[] = $id;
             
@@ -172,7 +172,7 @@ if( empty( $contents ) )
         }
         
         $db->sqlreset()
-            ->select( 't1.id, t1.listcatid, t1.publtime, t1.' . NV_LANG_DATA . '_title, t1.' . NV_LANG_DATA . '_alias, t1.' . NV_LANG_DATA . '_hometext, t1.homeimgalt, t1.homeimgfile, t1.homeimgthumb, t1.product_code, t1.product_number, t1.product_price, t1.money_unit, t1.discount_id, t1.showprice, t1.' . NV_LANG_DATA . '_gift_content, t1.gift_from, t1.gift_to' )
+            ->select( 't1.id, t1.listcatid, t1.publtime, t1.' . NV_LANG_DATA . '_title, t1.' . NV_LANG_DATA . '_alias, t1.' . NV_LANG_DATA . '_hometext, t1.homeimgalt, t1.homeimgfile, t1.homeimgthumb, t1.product_code, t1.product_number, t1.product_price, t1.money_unit, t1.discount_id, t1.showprice, t1.contact_price, t1.' . NV_LANG_DATA . '_gift_content, t1.gift_from, t1.gift_to' )
             ->from( $db_config['prefix'] . '_' . $module_data . '_rows t1' )
             ->join( 'INNER JOIN ' . $db_config['prefix'] . '_' . $module_data . '_block t2 ON t1.id = t2.id' )
             ->where( $where_new )
@@ -183,7 +183,7 @@ if( empty( $contents ) )
         $new_ids = array();
         
         
-        while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $gift_content, $gift_from, $gift_to ) = $result_new->fetch( 3 ) )
+        while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $contact_price, $gift_content, $gift_from, $gift_to ) = $result_new->fetch( 3 ) )
         {
             $new_ids[] = $id;
         
@@ -257,14 +257,14 @@ if( empty( $contents ) )
         $db->sqlreset()->select( 'COUNT(*)' )->from( $db_config['prefix'] . '_' . $module_data . '_rows t1' )->where( $where_other );
         $num_other_items = $db->query( $db->sql() )->fetchColumn();
         
-        $db->select( 'id, listcatid, publtime, ' . NV_LANG_DATA . '_title, ' . NV_LANG_DATA . '_alias, ' . NV_LANG_DATA . '_hometext, homeimgalt, homeimgfile, homeimgthumb, product_code, product_number, product_price, money_unit, discount_id, showprice,' . NV_LANG_DATA . '_gift_content, gift_from, gift_to' )
+        $db->select( 'id, listcatid, publtime, ' . NV_LANG_DATA . '_title, ' . NV_LANG_DATA . '_alias, ' . NV_LANG_DATA . '_hometext, homeimgalt, homeimgfile, homeimgthumb, product_code, product_number, product_price, money_unit, discount_id, showprice, contact_price,' . NV_LANG_DATA . '_gift_content, gift_from, gift_to' )
             ->order( $orderby )
             ->limit( $per_page )
             ->offset( ( $page - 1 ) * $per_page );
         
         $result_other = $db->query( $db->sql() );
         
-        while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $gift_content, $gift_from, $gift_to ) = $result_other->fetch( 3 ) )
+        while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $contact_price, $gift_content, $gift_from, $gift_to ) = $result_other->fetch( 3 ) )
         {
             if(isset($homeimgfile))
             {
@@ -344,7 +344,7 @@ if( empty( $contents ) )
         //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "db: " . $db . "\n", FILE_APPEND);
 		$num_items = $db->query( $db->sql() )->fetchColumn();
 
-		$db->select( 'id, listcatid, publtime, ' . NV_LANG_DATA . '_title, ' . NV_LANG_DATA . '_alias, ' . NV_LANG_DATA . '_hometext, homeimgalt, homeimgfile, homeimgthumb, product_code, product_number, product_price, money_unit, discount_id, showprice,' . NV_LANG_DATA . '_gift_content, gift_from, gift_to' )
+		$db->select( 'id, listcatid, publtime, ' . NV_LANG_DATA . '_title, ' . NV_LANG_DATA . '_alias, ' . NV_LANG_DATA . '_hometext, homeimgalt, homeimgfile, homeimgthumb, product_code, product_number, product_price, money_unit, discount_id, showprice, contact_price,' . NV_LANG_DATA . '_gift_content, gift_from, gift_to' )
 			->order( $orderby )
 			->limit( $per_page )
 			->offset( ( $page - 1 ) * $per_page );
@@ -353,7 +353,7 @@ if( empty( $contents ) )
         //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "SQL: " . $sql . "\n", FILE_APPEND);
         $result = $db->query($sql);
 
-		while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $gift_content, $gift_from, $gift_to ) = $result->fetch( 3 ) )
+		while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $contact_price, $gift_content, $gift_from, $gift_to ) = $result->fetch( 3 ) )
 		{
 			if( $homeimgthumb == 1 )//image thumb
 			{
@@ -427,7 +427,7 @@ if( empty( $contents ) )
 				$result = $db->query( $db->sql() );
 				$data_pro = array();
 
-				while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $gift_content, $gift_from, $gift_to ) = $result->fetch( 3 ) )
+				while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $contact_price, $gift_content, $gift_from, $gift_to ) = $result->fetch( 3 ) )
 				{
 					if( $homeimgthumb == 1 )//image thumb
 					{
@@ -516,7 +516,7 @@ if( empty( $contents ) )
 
 				$num_pro = $db->query( $db->sql() )->rowCount();
 
-				$db->select( 'DISTINCT t1.id, t1.listcatid, t1.publtime, t1.' . NV_LANG_DATA . '_title, t1.' . NV_LANG_DATA . '_alias, t1.' . NV_LANG_DATA . '_hometext, t1.homeimgalt, t1.homeimgfile, t1.homeimgthumb, t1.product_code, t1.product_number, t1.product_price, t1.money_unit, t1.discount_id, t1.showprice, t1.' . NV_LANG_DATA . '_gift_content, t1.gift_from, t1.gift_to' )
+				$db->select( 'DISTINCT t1.id, t1.listcatid, t1.publtime, t1.' . NV_LANG_DATA . '_title, t1.' . NV_LANG_DATA . '_alias, t1.' . NV_LANG_DATA . '_hometext, t1.homeimgalt, t1.homeimgfile, t1.homeimgthumb, t1.product_code, t1.product_number, t1.product_price, t1.money_unit, t1.discount_id, t1.showprice, t1.contact_price, t1.' . NV_LANG_DATA . '_gift_content, t1.gift_from, t1.gift_to' )
 					->order( 't1.id DESC' )
 					->limit( $num_links );
 
@@ -524,7 +524,7 @@ if( empty( $contents ) )
 
 				$data_pro = array();
 
-				while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $gift_content, $gift_from, $gift_to ) = $result->fetch( 3 ) )
+				while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $contact_price, $gift_content, $gift_from, $gift_to ) = $result->fetch( 3 ) )
 				{
 					if( $homeimgthumb == 1 )//image thumb
 					{

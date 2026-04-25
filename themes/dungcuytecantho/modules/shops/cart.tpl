@@ -26,8 +26,8 @@
 
                         <!-- Giá và thành tiền -->
                         <div class="price-info">
-                            <div><strong>Giá:</strong> {PRICE.sale_format}</div>                            
-                            <div><strong>Thành tiền:</strong> <span class="text-danger">{PRICE_TOTAL.sale_format}</span></div>
+                            <div><strong>Giá:</strong> <span class="text-danger">{PRICE.sale_format}</span><!-- BEGIN: discounts --> <small class="text-muted"><del>{PRICE.price_format}</del></small><!-- END: discounts --></div>
+                            <div><strong>Thành tiền:</strong> <span class="text-danger">{PRICE_TOTAL.sale_format}</span><!-- BEGIN: total_discounts --> <small class="text-muted"><del>{PRICE_TOTAL.price_format}</del></small><!-- END: total_discounts --></div>
                         </div>
 
                         <!-- Nút xóa -->
@@ -50,9 +50,35 @@
         <div class="col-md-4">
               <div class="cart-products-total">
                     <h4 class="cart-title">Thông tin giỏ hàng</h4>
+                    <div class="coupon-box mb-3">
+                        <form action="{LINK_CART}" method="post">
+                            <div class="form-group">
+                                <label for="coupons_code"><strong>Mã giảm giá</strong></label>
+                                <input type="text" class="form-control" id="coupons_code" name="coupons_code" value="{C_CODE}" placeholder="Nhập mã giảm giá">
+                            </div>
+                            <button type="submit" name="coupon_apply_submit" value="1" class="btn btn-primary btn-block">Áp dụng mã</button>
+                            <button type="submit" name="coupon_clear_submit" value="1" class="btn btn-default btn-block">Xóa mã</button>
+                        </form>
+                    </div>
+                    <!-- BEGIN: coupon_error -->
+                    <div class="alert alert-danger">{COUPON_ERROR}</div>
+                    <!-- END: coupon_error -->
+                    <!-- BEGIN: coupon_success -->
+                    <div class="alert alert-success">{COUPON_SUCCESS}</div>
+                    <!-- END: coupon_success -->
+                    <p class="cart-total">
+                        <strong>Tạm tính:</strong>
+                        <span class="cart-amount">{SUBTOTAL}</span>
+                    </p>
+                    <!-- BEGIN: coupon_summary -->
+                    <p class="cart-total">
+                        <strong>Giảm giá:</strong>
+                        <span class="cart-amount text-success">- {COUPON_DISCOUNT}</span>
+                    </p>
+                    <!-- END: coupon_summary -->
                     <p class="cart-total">
                         <strong>Tổng chi phí:</strong> 
-                        <span id="totalPrice" class="cart-amount"></span> 
+                        <span id="totalPrice" class="cart-amount">{TOTAL}</span> 
                     </p>                         
                      <p class="cart-time">
                         <strong>Thời gian:</strong> 

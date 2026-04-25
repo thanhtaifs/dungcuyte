@@ -81,6 +81,7 @@ $rowcontent = array(
 	'hitscm' => 0,
 	'hitslm' => 0,
 	'showprice' => 1,
+	'contact_price' => 0,
 	'com_id' => 0,
 	'title' => '',
 	'alias' => '',
@@ -103,7 +104,9 @@ $groups_list = nv_groups_list( );
 $is_copy = $nv_Request->isset_request( 'copy', 'get' );
 $rowcontent['id'] = $nv_Request->get_int( 'id', 'get,post', 0 );
 
-$group_id_old = array( );
+
+
+$group_id_old = array();
 //error_log('=== START content page shops rowcontent ===' );
 if( $rowcontent['id'] > 0 )
 {
@@ -146,6 +149,10 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 	$rowcontent['group_id'] = array_unique( $nv_Request->get_typed_array( 'groupids', 'post', 'int', array( ) ) );
 	$rowcontent['showprice'] = $nv_Request->get_int( 'showprice', 'post', 0 );
 	$rowcontent['showorder'] = $nv_Request->get_int( 'showorder', 'post', 0 );
+
+
+	$rowcontent['contact_price'] = $nv_Request->get_int('contact_price', 'post', 0);
+
 	$publ_date = $nv_Request->get_title( 'publ_date', 'post', '' );
 	$exp_date = $nv_Request->get_title( 'exp_date', 'post', '' );
 	
@@ -396,7 +403,7 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 		//error_log("Error product price =====" . $error_product_price);
 		$error = $error_message_price;
 	}
-	elseif( $rowcontent['product_price'] <= 0 and $rowcontent['showprice'] )
+	elseif( $rowcontent['product_price'] <= 0 and $rowcontent['showprice'] and empty( $rowcontent['contact_price'] ) )
 	{
 		$error = $lang_module['error_product_price'];
 	}	
@@ -535,7 +542,7 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 				$rowcontent['status'] = 2;
 			}
 
-			$sql = "INSERT INTO " . $db_config['prefix'] . "_" . $module_data . "_rows (id, listcatid, user_id, addtime, edittime, status, publtime, exptime, archive, product_code, product_number, product_price, price_config, money_unit, product_unit, product_weight, weight_unit, discount_id, homeimgfile, homeimgthumb, homeimgalt,otherimage,imgposition, copyright, inhome, allowed_comm, allowed_rating, ratingdetail, allowed_send, allowed_print, allowed_save, hitstotal, hitscm, hitslm, showprice " . $listfield . ")
+			$sql = "INSERT INTO " . $db_config['prefix'] . "_" . $module_data . "_rows (id, listcatid, user_id, addtime, edittime, status, publtime, exptime, archive, product_code, product_number, product_price, price_config, money_unit, product_unit, product_weight, weight_unit, discount_id, homeimgfile, homeimgthumb, homeimgalt,otherimage,imgposition, copyright, inhome, allowed_comm, allowed_rating, ratingdetail, allowed_send, allowed_print, allowed_save, hitstotal, hitscm, hitslm, showprice, contact_price " . $listfield . ")
 				 VALUES ( NULL ,
 				 :listcatid,
 				 " . intval( $rowcontent['user_id'] ) . ",
@@ -570,7 +577,8 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 				 " . intval( $rowcontent['hitstotal'] ) . ",
 				 " . intval( $rowcontent['hitscm'] ) . ",
 				 " . intval( $rowcontent['hitslm'] ) . ",
-				 " . intval( $rowcontent['showprice'] ) . "
+				                  " . intval( $rowcontent['showprice'] ) . ",
+                 " . intval( $rowcontent['contact_price'] ) . "
 				" . $listvalue . "
 			)";
 
@@ -717,6 +725,7 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 			 allowed_print=" . intval( $rowcontent['allowed_print'] ) . ",
 			 allowed_save=" . intval( $rowcontent['allowed_save'] ) . ",
 			 showprice = " . intval( $rowcontent['showprice'] ) . ",
+			 contact_price = " . intval( $rowcontent['contact_price'] ) . ",
 			 " . NV_LANG_DATA . "_title= :title,
 			  " . NV_LANG_DATA . "_address= :address,
 			 " . NV_LANG_DATA . "_alias= :alias,
@@ -1315,6 +1324,9 @@ $xtpl->assign( 'allowed_save_checked', $allowed_save_checked );
 
 $showprice_checked = ($rowcontent['showprice']) ? " checked=\"checked\"" : "";
 $xtpl->assign( 'ck_showprice', $showprice_checked );
+
+$contact_price_checked = (!empty( $rowcontent['contact_price'] )) ? " checked=\"checked\"" : "";
+$xtpl->assign( 'ck_contact_price', $contact_price_checked );
 
 if( !empty( $money_config ) )
 {

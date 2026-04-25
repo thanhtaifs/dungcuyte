@@ -126,7 +126,7 @@ else
  */
 function nv_get_price( $pro_id, $currency_convert, $number = 1, $per_pro = false, $module = '' )
 {
-	global $db, $db_config, $site_mods, $module_data, $global_array_shops_cat, $pro_config, $money_config, $discounts_config;
+	global $db, $db_config, $site_mods, $module_data, $global_array_shops_cat, $pro_config, $money_config, $discounts_config, $lang_module;
 
 	$return = array();
 	$discount_percent = 0;
@@ -134,7 +134,23 @@ function nv_get_price( $pro_id, $currency_convert, $number = 1, $per_pro = false
 	$discount = 0;
 
 	$module_data = !empty( $module ) ? $site_mods[$module]['module_data'] : $module_data;
-	$product = $db->query( 'SELECT listcatid, product_price, money_unit, price_config, discount_id FROM ' . $db_config['prefix'] . '_' . $module_data . '_rows WHERE id = ' . $pro_id )->fetch();
+	$product = $db->query( 'SELECT listcatid, product_price, money_unit, price_config, discount_id, contact_price FROM ' . $db_config['prefix'] . '_' . $module_data . '_rows WHERE id = ' . $pro_id )->fetch();
+	
+	// Kiểm tra sản phẩm có tồn tại không
+	if( empty( $product ) )
+	{
+		$return['price'] = 0;
+		$return['discount'] = 0;
+		$return['discount_format'] = '0';
+		$return['discount_percent'] = 0;
+		$return['discount_unit'] = '';
+		$return['sale'] = 0;
+		$return['unit'] = $currency_convert;
+		$return['price_format'] = 'N/A';
+		$return['sale_format'] = 'N/A';
+		return $return;
+	}
+	
 	$price = $product['product_price'];
 
 	if( !$per_pro )
@@ -171,46 +187,106 @@ function nv_get_price( $pro_id, $currency_convert, $number = 1, $per_pro = false
 	}
 	elseif( $global_array_shops_cat[$product['listcatid']]['typeprice'] == 1 )
 	{
+		$debug_log = "PRO_ID: {$pro_id} | DISCOUNT_ID: {$product['discount_id']} | Number: {$number} | ";
+		
 		if( isset( $discounts_config[$product['discount_id']] ) )
 		{
 			$_config = $discounts_config[$product['discount_id']];
+			$debug_log .= "Found in config | Begin: {$_config['begin_time']} | End: {$_config['end_time']} | Now: " . NV_CURRENTTIME . " | ";
+			
 			if( $_config['begin_time'] < NV_CURRENTTIME and ($_config['end_time'] > NV_CURRENTTIME or empty( $_config['end_time'] )) )
 			{
-				foreach( $_config['config'] as $_d )
+				$debug_log .= "Date OK | ";
+				
+				// Check if config array has tiers
+				if( empty($_config['config']) )
 				{
-					if( $_d['discount_from'] <= $number and $_d['discount_to'] >= $number )
+					$debug_log .= "ERROR: No tiers configured in discount group! ";
+				}
+				else
+				{
+					$debug_log .= "Tiers count: " . count($_config['config']) . " | ";
+					foreach( $_config['config'] as $_d )
 					{
-						$discount_percent = $_d['discount_number'];
-						if( $_d['discount_unit'] == 'p' )
+						$debug_log .= "Tier[{$_d['discount_from']}-{$_d['discount_to']}:{$_d['discount_number']}{$_d['discount_unit']}] ";
+						if( $_d['discount_from'] <= $number and $_d['discount_to'] >= $number )
 						{
-							$discount_unit = '%';
-							$discount = ($price * ($discount_percent / 100));
+							$discount_percent = $_d['discount_number'];
+							if( $_d['discount_unit'] == 'p' )
+							{
+								$discount_unit = '%';
+								$discount = ($price * ($discount_percent / 100));
+							}
+							else
+							{
+								$discount_unit = ' ' . $pro_config['money_unit'];
+								$discount = $discount_percent * $number;
+							}
+							$debug_log .= "MATCHED[{$_d['discount_number']}{$_d['discount_unit']}]! ";
+							break;
 						}
-						else
-						{
-							$discount_unit = ' ' . $pro_config['money_unit'];
-							$discount = $discount_percent * $number;
-						}
-						break;
 					}
 				}
 			}
+			else
+			{
+				$debug_log .= "Date check FAILED (Begin: {$_config['begin_time']} must be < " . NV_CURRENTTIME . ", End: {$_config['end_time']} must be > " . NV_CURRENTTIME . " or empty) | ";
+			}
 		}
+		else
+		{
+			$debug_log .= "NOT FOUND in config | ";
+		}
+		
+		#$debug_log .= "FINAL: {$discount_percent}{$discount_unit}\n";
+		#file_put_contents(NV_ROOTDIR . '/discount_debug_detailed.log', $debug_log, FILE_APPEND);
 	}
 
 	$price = nv_currency_conversion($price, $product['money_unit'], $currency_convert );
 
-	$return['price'] = $price; // Giá sản phẩm chưa format	
+	// Cấu trúc lại logic giá: product_price giờ là "giá bán thực", không phải "giá gốc"
+	$price_sale = $price; // Giá bán thực (product_price được nhập)
+	$price_original = $price; // Mặc định giá gốc = giá bán
+	
+	// Nếu có discount, tính giá gốc = giá bán / (1 - discount%)
+	if( $discount_percent > 0 )
+	{
+		if( $discount_unit == '%' )
+		{
+			// Tính giá gốc: price_original = sale / (1 - percent/100)
+			$price_original = $price_sale / (1 - ($discount_percent / 100));
+			$discount = $price_original - $price_sale; // Số tiền giảm
+		}
+		else
+		{
+			// Với đơn vị tiền tệ cố định: giảm = discount_number, giá gốc = giá bán + giảm
+			$price_original = $price_sale + $discount;
+		}
+	}
+
+	$return['price'] = $price_original; // Giá gốc (cũ) - hiển thị với gạch chéo
 	$return['discount'] = $discount;// Số tiền giảm giá sản phẩm chưa format
 	$return['discount_format'] = nv_number_format( $discount, $decimals ); // Số tiền giảm giá sản phẩm đã format
 	$return['discount_percent'] = $discount_unit == '%' ? $discount_percent : nv_number_format( $discount_percent, $decimals );// Giảm giá theo phần trăm
 	$return['discount_unit'] = $discount_unit;// Đơn vị giảm giá
-	$return['sale'] = $price - $discount;// Giá bán thực tế của sản phẩm	
+	$return['sale'] = $price_sale;// Giá bán thực tế của sản phẩm	
 	$return['unit'] = $currency_convert;
 
-	if( $price > 100 )
+	// Kiểm tra xem có giá hay không (nếu giá = 0 là "Liên hệ")
+	if( !empty( $product['contact_price'] ) )
 	{
-		$return['price_format'] = nv_number_format( $price, $decimals ); // Giá sản phẩm đã format
+		$return['price'] = 0;
+		$return['discount'] = 0;
+		$return['discount_format'] = '0';
+		$return['discount_percent'] = 0;
+		$return['discount_unit'] = '';
+		$return['sale'] = 0;
+		$return['price_format'] = $lang_module['price_contact'];
+		$return['sale_format'] = $lang_module['price_contact'];
+	}
+	elseif( $product['product_price'] > 0 )
+	{
+		$return['price_format'] = nv_number_format( $price_original, $decimals ); // Giá gốc đã format
 		$return['sale_format'] = nv_number_format( $return['sale'], $decimals );// Giá bán thực tế của sản phẩm đã format	
 	}	
 	else
@@ -223,6 +299,109 @@ function nv_get_price( $pro_id, $currency_convert, $number = 1, $per_pro = false
 	
 
 	return $return;
+}
+
+/**
+ * nv_shops_get_coupon_info()
+ *
+ * @param string $coupon_code
+ * @return array
+ */
+function nv_shops_get_coupon_info( $coupon_code )
+{
+	global $db, $db_config, $module_data;
+
+	$coupon_code = trim( $coupon_code );
+	if( empty( $coupon_code ) )
+	{
+		return array();
+	}
+
+	$result = $db->query( 'SELECT * FROM ' . $db_config['prefix'] . '_' . $module_data . '_coupons WHERE code = ' . $db->quote( $coupon_code ) );
+	$coupon = $result->fetch();
+
+	if( empty( $coupon ) )
+	{
+		return array();
+	}
+
+	$coupon['product'] = array();
+	$result = $db->query( 'SELECT pid FROM ' . $db_config['prefix'] . '_' . $module_data . '_coupons_product WHERE cid = ' . intval( $coupon['id'] ) );
+	while( list( $pid ) = $result->fetch( 3 ) )
+	{
+		$coupon['product'][] = intval( $pid );
+	}
+
+	return $coupon;
+}
+
+/**
+ * nv_shops_get_coupon_discount()
+ *
+ * @param array $coupon
+ * @param float $order_total
+ * @param float $eligible_total
+ * @return array
+ */
+function nv_shops_get_coupon_discount( $coupon, $order_total, $eligible_total = 0 )
+{
+	$order_total = ( double )$order_total;
+	$eligible_total = ( double )$eligible_total;
+	$has_product_limit = !empty( $coupon['product'] );
+	$discount_amount = 0;
+	$is_valid = false;
+
+	if( empty( $coupon ) or $order_total <= 0 )
+	{
+		return array(
+			'is_valid' => false,
+			'discount_amount' => 0,
+			'eligible_total' => $eligible_total,
+			'final_total' => max( 0, $order_total )
+		);
+	}
+
+	if( isset( $coupon['status'] ) and intval( $coupon['status'] ) !== 1 )
+	{
+		return array(
+			'is_valid' => false,
+			'discount_amount' => 0,
+			'eligible_total' => $eligible_total,
+			'final_total' => max( 0, $order_total )
+		);
+	}
+
+	$is_valid = ( empty( $coupon['total_amount'] ) or $order_total >= $coupon['total_amount'] );
+	$is_valid = $is_valid and NV_CURRENTTIME >= intval( $coupon['date_start'] );
+	$is_valid = $is_valid and ( empty( $coupon['uses_per_coupon'] ) or intval( $coupon['uses_per_coupon_count'] ) < intval( $coupon['uses_per_coupon'] ) );
+	$is_valid = $is_valid and ( empty( $coupon['date_end'] ) or NV_CURRENTTIME < intval( $coupon['date_end'] ) );
+
+	$discount_base = !empty( $coupon['product'] ) ? $eligible_total : $order_total;
+	if( $has_product_limit and $eligible_total <= 0 )
+	{
+		$is_valid = false;
+	}
+
+	if( $is_valid and $discount_base > 0 )
+	{
+		if( $coupon['type'] == 'p' )
+		{
+			$discount_amount = ( $discount_base * ( double )$coupon['discount'] ) / 100;
+		}
+		else
+		{
+			$discount_amount = min( $discount_base, ( double )$coupon['discount'] );
+		}
+	}
+
+	$discount_amount = min( $order_total, max( 0, $discount_amount ) );
+
+	return array(
+		'is_valid' => $is_valid,
+		'discount_amount' => $discount_amount,
+		'eligible_total' => $discount_base,
+		'final_total' => max( 0, $order_total - $discount_amount )
+	);
 }
 
 /**

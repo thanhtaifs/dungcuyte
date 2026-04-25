@@ -86,20 +86,14 @@ $shipping_data = array( 'list_location' => array(), 'list_carrier' => array(), '
 // Ma giam gia
 $array_counpons = array( 'code' => '', 'discount' => 0, 'check' => 0 );
 $counpons = array( 'id' => 0, 'total_amount' => 0, 'date_start' => 0, 'uses_per_coupon_count' => 0, 'uses_per_coupon' => 0, 'type' => 0, 'discount' => 0 );
-if( ! empty( $_SESSION[$module_data . '_coupons'] ) and $_SESSION[$module_data . '_coupons']['discount'] > 0 )
+if( ! empty( $_SESSION[$module_data . '_coupons'] ) and !empty( $_SESSION[$module_data . '_coupons']['code'] ) )
 {
 	$array_counpons = $_SESSION[$module_data . '_coupons'];
 }
 $total_coupons = 0;
 if( !empty( $array_counpons['code'] ) and $array_counpons['check'] )
 {
-	$result = $db->query( 'SELECT * FROM ' . $db_config['prefix'] . '_' . $module_data . '_coupons WHERE code = ' . $db->quote( $array_counpons['code'] ) );
-	$counpons = $result->fetch();
-	$result = $db->query( 'SELECT pid FROM ' . $db_config['prefix'] . '_' . $module_data . '_coupons_product WHERE cid = ' . $counpons['id'] );
-	while( list( $pid ) = $result->fetch( 3 ) )
-	{
-		$counpons['product'][] = $pid;
-	}
+	$counpons = nv_shops_get_coupon_info( $array_counpons['code'] );
 }
 
 if( $post_order == 1 )
@@ -178,33 +172,14 @@ if( $post_order == 1 )
 		$total_weight_price = empty( $price_ship ) ? 0 : $price_ship;
 	}
 	//error_log('total' . $total);
-	$total += $total_weight_price;	
-	if( ( $total > $counpons['total_amount'] or empty( $total ) ) and NV_CURRENTTIME >= $counpons['date_start'] and ( $counpons['uses_per_coupon_count'] < $counpons['uses_per_coupon'] or empty( $counpons['uses_per_coupon'] ) ) and ( empty( $counpons['date_end'] ) or NV_CURRENTTIME < $counpons['date_end'] ) )
+	$total += $total_weight_price;
+	$coupon_calc = nv_shops_get_coupon_discount( $counpons, $total, $total_coupons );
+	$total_coupons = $coupon_calc['discount_amount'];
+	if( $coupon_calc['is_valid'] and $coupon_calc['discount_amount'] > 0 )
 	{
-		// Ap dung giam gia cho tung san pham dac biet
-		if( $total_coupons > 0 )
-		{
-			if( $counpons['type'] == 'p' )
-			{
-				$total = $total  - ( ( $total_coupons * $counpons['discount'] ) / 100 );
-			}
-			else
-			{
-				$total = ( $total_coupons - $counpons['discount'] );
-			}
-		}
-		else // Ap dung cho don hang
-		{
-			if( $counpons['type'] == 'p' )
-			{
-				$total = $total  - ( ( $total * $counpons['discount'] ) / 100 );
-			}
-			else
-			{
-				$total = $total - $counpons['discount'];
-			}
-		}
+		$total = $coupon_calc['final_total'];
 	}
+	$_SESSION[$module_data . '_coupons']['discount'] = $total_coupons;
 	
 	$data_order['order_total'] = $total;
 	if( empty( $data_order['order_name'] ) )
@@ -665,7 +640,8 @@ if( $action == 0)
 			$weight_total += nv_weight_conversion( $product_weight, $weight_unit, $pro_config['weight_unit'], $num );
 			$group = $_SESSION[$module_data . '_cart'][$id]['group'];
 			$price_info = nv_get_price($id, $money_unit);
-			$item_total = $price_info['price'] * $num;
+			// Sử dụng giá bán (sale price) để tính tổng, không phải giá gốc
+			$item_total = $price_info['sale'] * $num;
 			$order_total += $item_total;	
 			//error_log('order_total: ' . $order_total );
 			$data_content[] = array(

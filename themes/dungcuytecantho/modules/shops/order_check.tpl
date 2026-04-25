@@ -71,9 +71,9 @@
                         <h6 class="cart-item-title">{title_pro}</h6>
                         <!-- Giá và số lượng -->
                         <div class="price-info">
-                            <div><strong>Đơn giá:</strong> {PRICE.sale_format}</div>
+                            <div><strong>Đơn giá:</strong> <span class="text-danger">{PRICE.sale_format}</span><!-- BEGIN: discounts --><span class="discounts_money">{PRICE.price_format}</span><!-- END: discounts --></div>
                             <div><strong>Số lượng:</strong> {pro_num}</div>
-                            <div><strong>Thành tiền:</strong> <span class="text-danger">{PRICE_TOTAL.sale_format}</span></div>
+                            <div><strong>Thành tiền:</strong> <span class="text-danger">{PRICE_TOTAL.sale_format}</span><!-- BEGIN: total_discounts --><span class="discounts_money">{PRICE_TOTAL.price_format}</span><!-- END: total_discounts --></div>
                         </div>
                     </div>
                 </div>
@@ -88,8 +88,18 @@
                 
                 <div>
                     <p class="cart-total">
+                        <strong>Tạm tính:</strong> 
+                        <span class="cart-amount">{ORDER_SUBTOTAL}</span>
+                    </p>
+                    <!-- BEGIN: coupon_summary -->
+                    <p class="cart-total">
+                        <strong>Giảm giá:</strong>
+                        <span class="cart-amount text-success">- {ORDER_COUPON_DISCOUNT}</span>
+                    </p>
+                    <!-- END: coupon_summary -->
+                    <p class="cart-total">
                         <strong>Tổng tiền hàng:</strong> 
-                        <span class="cart-amount text-danger">{DATA.order_total} {DATA.unit_total}</span>
+                        <span class="cart-amount text-danger">{ORDER_TOTAL_FINAL}</span>
                     </p>
                     
                     <p class="cart-time">

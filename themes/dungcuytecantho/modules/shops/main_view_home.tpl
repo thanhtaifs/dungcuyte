@@ -46,9 +46,17 @@
                                                 <i class="fa fa-tag"></i> {CATEGORY_NAME}
                                             </a>
                                         </div>
-                                        <div class="product-price">                              
-                                            <p class="current-price">{PRICE.sale_format}</p>                                                                             
-                                       </div> 
+                                        <!-- BEGIN: price -->
+                                        <div class="product-price">
+                                            <!-- BEGIN: discounts -->
+                                            <p class="current-price">{PRICE.sale_format}</p>
+                                            <p class="old-price discounts_money">{PRICE.price_format}</p>
+                                            <!-- END: discounts -->
+                                            <!-- BEGIN: no_discounts -->
+                                            <p class="current-price">{PRICE.price_format}</p>
+                                            <!-- END: no_discounts -->
+                                       </div>
+                                       <!-- END: price -->
                                        <div class="product-action">
                                             <button class="btn-add-to-cart" onclick="addToCart(this)" data-id="{ID}" data-price="{PRICE.sale}>
                                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -119,9 +127,17 @@
                         </a>
                     </div>
              
-                   <div class="product-price">     
-                        <p class="current-price"> {PRICE.sale_format}</p>
-                  </div> 
+                   <!-- BEGIN: price -->
+                   <div class="product-price">
+                        <!-- BEGIN: discounts -->
+                        <p class="current-price">{PRICE.sale_format}</p>
+                        <p class="old-price discounts_money">{PRICE.price_format}</p>
+                        <!-- END: discounts -->
+                        <!-- BEGIN: no_discounts -->
+                        <p class="current-price">{PRICE.price_format}</p>
+                        <!-- END: no_discounts -->
+                  </div>
+                  <!-- END: price -->
                   <div class="product-action">
                                             <button class="btn-add-to-cart" onclick="addToCart({ID})" data-id="{ID}">
                                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -183,9 +199,23 @@
                             <i class="fa fa-tag"></i> {CATEGORY_NAME}
                         </a>
                     </div>
+                    <!-- BEGIN: price -->
                     <div class="product-price">
-                        <p class="current-price"> {PRICE.sale_format}</p>
+                        <!-- BEGIN: discounts -->
+                        <p class="current-price">
+                            {PRICE.sale_format}
+                        </p>
+                        <p class="old-price discounts_money">
+                            {PRICE.price_format}
+                        </p>
+                        <!-- END: discounts -->
+                        <!-- BEGIN: no_discounts -->
+                        <p class="current-price">
+                            {PRICE.price_format}
+                        </p>
+                        <!-- END: no_discounts -->
                     </div>
+                    <!-- END: price -->
                     <div class="product-action">
                                             <button class="btn-add-to-cart" onclick="addToCart({ID})" data-id="{ID}">
                                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

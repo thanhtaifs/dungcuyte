@@ -9,7 +9,7 @@ $buy_now = $nv_Request->get_int('buy_now', 'post,get', 0); // 0 = thêm giỏ, 1
 $contents_msg = '';
 
 $row = $db->query("
-    SELECT id, listcatid, " . NV_LANG_DATA . "_title AS title," . NV_LANG_DATA . "_alias AS alias,homeimgfile, product_price, money_unit, discount_id
+    SELECT id, listcatid, " . NV_LANG_DATA . "_title AS title," . NV_LANG_DATA . "_alias AS alias,homeimgfile, product_price, money_unit, discount_id, contact_price
     FROM " . $db_config['prefix'] . "_" . $module_data . "_rows 
     WHERE id = " . intval($id)
 )->fetch();
@@ -17,7 +17,7 @@ $row = $db->query("
 // if ($id > 0) {
 //     // Lấy sản phẩm
 //     $row = $db->query("
-//         SELECT id, listcatid, " . NV_LANG_DATA . "_title AS title," . NV_LANG_DATA . "_alias AS alias,homeimgfile, product_price, money_unit, discount_id
+//         SELECT id, listcatid, " . NV_LANG_DATA . "_title AS title," . NV_LANG_DATA . "_alias AS alias,homeimgfile, product_price, money_unit, discount_id, contact_price
 //         FROM " . $db_config['prefix'] . "_" . $module_data . "_rows 
 //         WHERE id = " . intval($id)
 //     )->fetch();
@@ -25,7 +25,7 @@ $row = $db->query("
 //     if ($row) {
 //         $price = $row['product_price'];
 
-//         if (intval($price) < 101) {
+//         if (!empty($row['contact_price']) || intval($price) < 101) {
 //             $contents_msg = 'ERR_Sản phẩm cần liên hệ để đặt hàng.';
             
 //             if ($type == 'json') {
@@ -130,26 +130,21 @@ if (!$row) {
 // ==========================
 //  CHẶN SẢN PHẨM LIÊN HỆ
 // ==========================
-$price = intval($row['product_price']);
+// Sử dụng hàm nv_get_price() để lấy giá đã áp dụng discount
+$price_info = nv_get_price($id, $row['money_unit'], $num);
 
-if ($price < 101) {
+// $price_info trả về:
+// - 'price' = giá gốc (original)
+// - 'sale' = giá bán thực (sale price) 
+// - 'discount_percent' = % hoặc số tiền giảm
+// - 'discount_unit' = '%' hoặc currency
+
+// Lưu giá bán vào giỏ hàng (đây là giá người dùng trả)
+$price = $price_info['sale'];
+
+if (!empty($row['contact_price']) || intval($price) < 101) {
     $contents_msg = 'ER_Sản phẩm cần liên hệ để được tư vấn.';
     return_output($contents_msg, $type);
-}
-
-// ==========================
-//  ÁP DỤNG GIẢM GIÁ (NẾU CÓ)
-// ==========================
-if (!empty($row['discount_id'])) {
-    $discount = $db->query("
-        SELECT discount_percent 
-        FROM " . $db_config['prefix'] . "_" . $module_data . "_discounts 
-        WHERE id = " . intval($row['discount_id'])
-    )->fetchColumn();
-
-    if ($discount > 0) {
-        $price -= ($price * $discount / 100);
-    }
 }
 
 // ==========================
