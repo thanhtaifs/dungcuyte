@@ -62,7 +62,7 @@
 						</tr>
 						<tr id="priceproduct">
 							<!-- BEGIN: typeprice2 -->
-								<td colspan="3">
+								<td colspan="2">
 									<table id="id_price_config" class="table table-striped table-bordered table-hover">
 										<thead>
 											<tr>
@@ -86,6 +86,17 @@
 											<!-- END: loop -->
 										</tbody>
 									</table>
+								</td>
+								<td>
+									<!-- BEGIN: typeprice2.discount -->
+									{LANG.content_product_discounts}
+									<select class="form-control" name="discount_id">
+										<option value="0"> --- </option>
+										<!-- BEGIN: discount -->
+										<option value="{DISCOUNT.did}" {DISCOUNT.selected} >{DISCOUNT.title}</option>
+										<!-- END: discount -->
+									</select>
+									<!-- END: typeprice2.discount -->
 								</td>
 							<!-- END: typeprice2 -->
 							<!-- BEGIN: product_price -->
@@ -119,6 +130,39 @@
 							</td>
 						</tr>
 						<!-- END: warehouse -->
+					</tbody>
+				</table>
+			</div>
+
+			<div class="table-responsive">
+				<table class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr>
+							<th colspan="6">Biến thể sản phẩm</th>
+						</tr>
+						<tr>
+							<th>Tùy chọn 1</th>
+							<th>Tùy chọn 2</th>
+							<th>Giá</th>
+							<th>Tồn kho</th>
+							<th>Trạng thái</th>
+							<th><button type="button" class="btn btn-success btn-sm" onclick="addVariant()">Thêm biến thể</button></th>
+						</tr>
+					</thead>
+					<tbody id="variantsTable">
+						<!-- BEGIN: variant -->
+						<tr>
+							<td><input class="form-control" type="text" name="variants[{VARIANT.id}][option_1]" value="{VARIANT.option_1}" /></td>
+							<td><input class="form-control" type="text" name="variants[{VARIANT.id}][option_2]" value="{VARIANT.option_2}" /></td>
+							<td><input class="form-control" type="text" name="variants[{VARIANT.id}][price]" value="{VARIANT.price}" onkeyup="this.value=FormatNumber(this.value);" /></td>
+							<td><input class="form-control" type="number" name="variants[{VARIANT.id}][stock]" value="{VARIANT.stock}" /></td>
+							<td><select class="form-control" name="variants[{VARIANT.id}][status]">
+								<option value="1" {VARIANT.status_1}>Hoạt động</option>
+								<option value="0" {VARIANT.status_0}>Tạm dừng</option>
+							</select></td>
+							<td><button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)">Xóa</button></td>
+						</tr>
+						<!-- END: variant -->
 					</tbody>
 				</table>
 			</div>
@@ -500,6 +544,28 @@
 			$("#listgroupid").html( data );
 		}
 	});
+
+	var variantCount = {VARIANT_COUNT};
+
+	function addVariant() {
+		var id = variantCount++;
+		var html = '<tr>' +
+			'<td><input class="form-control" type="text" name="variants[' + id + '][option_1]" /></td>' +
+			'<td><input class="form-control" type="text" name="variants[' + id + '][option_2]" /></td>' +
+			'<td><input class="form-control" type="text" name="variants[' + id + '][price]" onkeyup="this.value=FormatNumber(this.value);" /></td>' +
+			'<td><input class="form-control" type="number" name="variants[' + id + '][stock]" /></td>' +
+			'<td><select class="form-control" name="variants[' + id + '][status]">' +
+				'<option value="1">Hoạt động</option>' +
+				'<option value="0">Tạm dừng</option>' +
+			'</select></td>' +
+			'<td><button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)">Xóa</button></td>' +
+		'</tr>';
+		$('#variantsTable').append(html);
+	}
+
+	function removeVariant(btn) {
+		$(btn).closest('tr').remove();
+	}
 </script>
 
 <!-- BEGIN: files_js -->

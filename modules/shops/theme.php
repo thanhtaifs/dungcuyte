@@ -12,6 +12,8 @@ if (!defined('NV_IS_MOD_SHOPS')) {
     die('Stop!!!');
 }
 
+global $db, $db_config, $module_data;
+
 function nv_shops_can_show_price($data_row)
 {
     return !empty($data_row['showprice']) && empty($data_row['contact_price']);
@@ -1446,7 +1448,7 @@ function viewcat_page_list($data_content, $compare_id, $pages, $sort = 0, $viewt
  */
 function detail_product($data_content, $data_unit, $data_others, $array_other_view, $content_comment, $compare_id, $popup, $idtemplate, $array_keyword)
 {
-    global $module_info, $lang_module, $module_file, $module_name, $module_upload, $pro_config, $global_config, $global_array_group, $array_wishlist_id, $client_info, $global_array_shops_cat, $meta_property, $pro_config, $user_info, $discounts_config, $my_head, $my_footer;
+    global $module_info, $lang_module, $module_file, $module_name, $module_upload, $pro_config, $global_config, $global_array_group, $array_wishlist_id, $client_info, $global_array_shops_cat, $meta_property, $pro_config, $user_info, $discounts_config, $my_head, $my_footer, $db, $db_config, $module_data;
 
     $link = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=';
     $link2 = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=';
@@ -1490,6 +1492,120 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
         $xtpl->assign('PRODUCT_NUMBER', $data_content['product_number']);
 
         $xtpl->assign('pro_unit', $data_unit['title']);
+        
+        // Load variants
+        $variants = array();
+        $default_price = $price['sale_format'];
+        $default_stock = $data_content['product_number'];
+        try {
+            $result = $db->query( 'SELECT * FROM ' . $db_config['prefix'] . '_' . $module_data . '_product_variants WHERE product_id = ' . $data_content['id'] . ' ORDER BY id ASC' );
+            if( $result )
+            {
+                while( $variant = $result->fetch() )
+                {
+                    $variant_price = floatval( $variant['price'] );
+                    $variant_original_price = $variant_price;
+                    $discount_percent = floatval( str_replace( array( ',', ' ' ), array( '.', '' ), $price['discount_percent'] ) );
+                    $discount_unit = trim( $price['discount_unit'] );
+
+                    if( $discount_percent > 0 )
+                    {
+                        if( $discount_unit == '%' )
+                        {
+                            $variant_price = $variant_price * ( 1 - ( $discount_percent / 100 ) );
+                        }
+                        else
+                        {
+                            $variant_price = $variant_price - $discount_percent;
+                        }
+                    }
+
+                    if( $variant_price < 0 )
+                    {
+                        $variant_price = 0;
+                    }
+
+                    $variant['price_format'] = nv_number_format( $variant_original_price, nv_get_decimals( $pro_config['money_unit'] ) );
+                    $variant['sale_price_format'] = nv_number_format( $variant_price, nv_get_decimals( $pro_config['money_unit'] ) );
+                    $variant['price_raw'] = $variant_original_price;
+                    $variant['sale_price_raw'] = $variant_price;
+                    $variants[] = $variant;
+                }
+            }
+            #error_log( 'Loaded variants for product ' . $data_content['id'] . ': ' . count($variants) );
+        } catch( Exception $e ) {
+            // Table may not exist for old products, use default price
+            error_log( 'Variants table not available: ' . $e->getMessage() );
+        }
+        
+        // If typeprice == 2, create variants from price_config (overwrite if exists)
+        if ($global_array_shops_cat[$data_content['listcatid']]['typeprice'] == 2) {
+            $price_config = unserialize($data_content['price_config']);
+            if (!empty($price_config) && sizeof($price_config) > 1) {
+                $variants = array(); // Reset variants
+                $before = 1;
+                foreach ($price_config as $key => $items) {
+                    $variant_price = nv_currency_conversion($items['price'], $data_content['money_unit'], $pro_config['money_unit']);
+                    $variant_original_price = $variant_price;
+                    $discount_percent = floatval( str_replace( array( ',', ' ' ), array( '.', '' ), $price['discount_percent'] ) );
+                    $discount_unit = trim( $price['discount_unit'] );
+
+                    if( $discount_percent > 0 )
+                    {
+                        if( $discount_unit == '%' )
+                        {
+                            $variant_price = $variant_price * ( 1 - ( $discount_percent / 100 ) );
+                        }
+                        else
+                        {
+                            $variant_price = $variant_price - $discount_percent;
+                        }
+                    }
+
+                    if( $variant_price < 0 )
+                    {
+                        $variant_price = 0;
+                    }
+
+                    $variant = array(
+                        'id' => 'typeprice_' . $key,
+                        'option_1' => $before . ' - ' . $items['number_to'] . ' ' . $data_unit['title'],
+                        'option_2' => '',
+                        'price' => $variant_original_price,
+                        'stock' => $items['number_to'],
+                        'price_format' => nv_number_format( $variant_original_price, nv_get_decimals( $pro_config['money_unit'] ) ),
+                        'sale_price_format' => nv_number_format( $variant_price, nv_get_decimals( $pro_config['money_unit'] ) ),
+                        'price_raw' => $variant_original_price,
+                        'sale_price_raw' => $variant_price
+                    );
+                    $variants[] = $variant;
+                    $before = $items['number_to'] + 1;
+                }
+            }
+        }
+        
+        error_log( 'DEBUG: Total variants loaded for product ' . $data_content['id'] . ': ' . count($variants) );
+        if( !empty( $variants ) )
+        {
+            foreach( $variants as $variant )
+            {
+                error_log( 'DEBUG: Assigning variant - ID: ' . $variant['id'] . ', Option1: ' . $variant['option_1'] . ', Option2: ' . $variant['option_2'] . ', Price: ' . $variant['price_format'] );
+                $xtpl->assign( 'VARIANT', $variant );
+                $xtpl->parse( 'main.variants.variant' );
+            }
+            $xtpl->parse( 'main.variants' );
+            // Set default price to first variant
+            $first_variant = $variants[0];
+            $price['sale_format'] = $first_variant['sale_price_format'];
+            $price['price_format'] = $first_variant['price_format'];
+            $xtpl->assign('PRODUCT_NUMBER', $first_variant['stock']);
+            $default_price = $first_variant['sale_price_format'];
+            $default_stock = $first_variant['stock'];
+            error_log( 'DEBUG: Parsed variants for product ' . $data_content['id'] );
+        }
+        $xtpl->assign('PRICE', $price); // Re-assign after possible update
+        $xtpl->assign('DEFAULT_PRICE', $default_price);
+        $xtpl->assign('DEFAULT_STOCK', $default_stock);
         
         // Debug discount info
         #$debug_msg = "PRO_ID: {$data_content['id']} | DISCOUNT_ID: {$data_content['discount_id']} | DISCOUNT_PERCENT: {$price['discount_percent']} | TYPEPRICE: {$global_array_shops_cat[$data_content['listcatid']]['typeprice']}\n";
@@ -1716,7 +1832,7 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
         $xtpl->parse('main.group_detail');
     }
 
-    if ($global_array_shops_cat[$data_content['listcatid']]['typeprice'] == 2) {
+    if ($global_array_shops_cat[$data_content['listcatid']]['typeprice'] == 2 && empty($variants)) {
         $price_config = unserialize($data_content['price_config']);
         if (!empty($price_config) and sizeof($price_config) > 1) {
             $before = 1;

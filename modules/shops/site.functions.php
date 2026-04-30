@@ -184,6 +184,36 @@ function nv_get_price( $pro_id, $currency_convert, $number = 1, $per_pro = false
 				}
 			}
 		}
+		
+		// Áp dụng discount cho sản phẩm có nhiều giá
+		if( isset( $discounts_config[$product['discount_id']] ) )
+		{
+			$_config = $discounts_config[$product['discount_id']];
+			if( $_config['begin_time'] < NV_CURRENTTIME and ($_config['end_time'] > NV_CURRENTTIME or empty( $_config['end_time'] )) )
+			{
+				if( !empty($_config['config']) )
+				{
+					foreach( $_config['config'] as $_d )
+					{
+						if( $_d['discount_from'] <= $number and $_d['discount_to'] >= $number )
+						{
+							$discount_percent = $_d['discount_number'];
+							if( $_d['discount_unit'] == 'p' )
+							{
+								$discount_unit = '%';
+								$discount = ($price * ($discount_percent / 100));
+							}
+							else
+							{
+								$discount_unit = ' ' . $pro_config['money_unit'];
+								$discount = $discount_percent * $number;
+							}
+							break;
+						}
+					}
+				}
+			}
+		}
 	}
 	elseif( $global_array_shops_cat[$product['listcatid']]['typeprice'] == 1 )
 	{
@@ -244,23 +274,23 @@ function nv_get_price( $pro_id, $currency_convert, $number = 1, $per_pro = false
 
 	$price = nv_currency_conversion($price, $product['money_unit'], $currency_convert );
 
-	// Cấu trúc lại logic giá: product_price giờ là "giá bán thực", không phải "giá gốc"
-	$price_sale = $price; // Giá bán thực (product_price được nhập)
-	$price_original = $price; // Mặc định giá gốc = giá bán
+	// Cấu trúc lại logic giá: product_price giờ là "giá gốc", không phải "giá bán thực"
+	$price_original = $price; // Giá gốc (product_price được nhập)
+	$price_sale = $price; // Mặc định giá bán = giá gốc
 	
-	// Nếu có discount, tính giá gốc = giá bán / (1 - discount%)
+	// Áp dụng discount nếu có
 	if( $discount_percent > 0 )
 	{
 		if( $discount_unit == '%' )
 		{
-			// Tính giá gốc: price_original = sale / (1 - percent/100)
-			$price_original = $price_sale / (1 - ($discount_percent / 100));
+			// Tính giá bán: price_sale = price_original * (1 - percent/100)
+			$price_sale = $price_original * (1 - ($discount_percent / 100));
 			$discount = $price_original - $price_sale; // Số tiền giảm
 		}
 		else
 		{
-			// Với đơn vị tiền tệ cố định: giảm = discount_number, giá gốc = giá bán + giảm
-			$price_original = $price_sale + $discount;
+			// Với đơn vị tiền tệ cố định: giảm = discount_number, giá bán = giá gốc - giảm
+			$price_sale = $price_original - $discount;
 		}
 	}
 

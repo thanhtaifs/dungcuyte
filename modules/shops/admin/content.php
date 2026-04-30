@@ -13,6 +13,8 @@ if( !defined( 'NV_IS_FILE_ADMIN' ) )
 
 //error_log('=== START content page shops ===');
 
+global $db, $db_config, $module_data;
+
 if( defined( 'NV_EDITOR' ) )
 {
 	require_once NV_ROOTDIR . '/' . NV_EDITORSDIR . '/' . NV_EDITOR . '/nv.php';
@@ -94,7 +96,8 @@ $rowcontent = array(
 	'files_old' => array(),
 	'gift_content' => '',
 	'gift_from' => NV_CURRENTTIME,
-	'gift_to' => 0
+	'gift_to' => 0,
+	'variants' => array()
 );
 
 $page_title = $lang_module['content_add'];
@@ -292,6 +295,26 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 		$rowcontent['product_price'] = $nv_Request->get_string( 'product_price', 'post', '' );
 		$rowcontent['product_price'] = floatval( preg_replace( '/[^0-9\.]/', '', $rowcontent['product_price'] ) );
 		$rowcontent['price_config'] = '';
+	}
+	
+	// Get variants
+	$rowcontent['variants'] = array();
+	$variants = $nv_Request->get_array( 'variants', 'post' );
+	if( !empty( $variants ) )
+	{
+		foreach( $variants as $variant )
+		{
+			if( !empty( $variant['option_1'] ) || !empty( $variant['option_2'] ) )
+			{
+				$rowcontent['variants'][] = array(
+					'option_1' => nv_substr( $variant['option_1'], 0, 100 ),
+					'option_2' => nv_substr( $variant['option_2'], 0, 100 ),
+					'price' => floatval( preg_replace( '/[^0-9\.]/', '', $variant['price'] ) ),
+					'stock' => intval( $variant['stock'] ),
+					'status' => intval( $variant['status'] )
+				);
+			}
+		}
 	}
 	
 	$bodytext = $nv_Request->get_string( 'bodytext', 'post', '' );
@@ -666,6 +689,15 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 
 				nv_fix_group_count( $rowcontent['group_id'] );
 				nv_insert_logs( NV_LANG_DATA, $module_name, 'Add A Product', 'ID: ' . $rowcontent['id'], $admin_info['userid'] );
+
+				// Insert variants
+				if( !empty( $rowcontent['variants'] ) )
+				{
+					foreach( $rowcontent['variants'] as $variant )
+					{
+						$db->query( 'INSERT INTO ' . $db_config['prefix'] . '_' . $module_data . '_product_variants (product_id, option_1, option_2, price, stock, status) VALUES (' . $rowcontent['id'] . ', ' . $db->quote( $variant['option_1'] ) . ', ' . $db->quote( $variant['option_2'] ) . ', ' . floatval( $variant['price'] ) . ', ' . intval( $variant['stock'] ) . ', ' . intval( $variant['status'] ) . ')' );
+					}
+				}
 			}
 			else
 			{
@@ -821,6 +853,16 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 					}
 				}
 				nv_insert_logs( NV_LANG_DATA, $module_name, 'Edit A Product', 'ID: ' . $rowcontent['id'], $admin_info['userid'] );
+
+				// Update variants
+				$db->query( 'DELETE FROM ' . $db_config['prefix'] . '_' . $module_data . '_product_variants WHERE product_id = ' . $rowcontent['id'] );
+				if( !empty( $rowcontent['variants'] ) )
+				{
+					foreach( $rowcontent['variants'] as $variant )
+					{
+						$db->query( 'INSERT INTO ' . $db_config['prefix'] . '_' . $module_data . '_product_variants (product_id, option_1, option_2, price, stock, status) VALUES (' . $rowcontent['id'] . ', ' . $db->quote( $variant['option_1'] ) . ', ' . $db->quote( $variant['option_2'] ) . ', ' . floatval( $variant['price'] ) . ', ' . intval( $variant['stock'] ) . ', ' . intval( $variant['status'] ) . ')' );
+					}
+				}
 			}
 			else
 			{
@@ -991,6 +1033,23 @@ elseif( $rowcontent['id'] > 0 )
 	while( list( $bid_i ) = $result->fetch( 3 ) )
 	{
 		$id_block_content[] = $bid_i;
+	}
+
+	// Load variants
+	$rowcontent['variants'] = array();
+	try {
+		$result = $db->query( 'SELECT * FROM ' . $db_config['prefix'] . '_' . $module_data . '_product_variants WHERE product_id = ' . $rowcontent['id'] . ' ORDER BY id ASC' );
+		if( $result )
+		{
+			while( $variant = $result->fetch() )
+			{
+				$rowcontent['variants'][] = $variant;
+			}
+		}
+		error_log( 'Loaded variants for edit product ' . $rowcontent['id'] . ': ' . count($rowcontent['variants']) );
+	} catch( Exception $e ) {
+		// Table may not exist for old products
+		error_log( 'Variants table not available: ' . $e->getMessage() );
 	}
 	//error_log(message: '=== end update San Pham ===');
 }
@@ -1223,6 +1282,16 @@ if( $typeprice == 1 )
 }
 elseif( $typeprice == 2 )
 {
+	// List discount
+	$sql = 'SELECT * FROM ' . $db_config['prefix'] . '_' . $module_data . '_discounts';
+	$_result = $db->query( $sql );
+	while( $_discount = $_result->fetch( ) )
+	{
+		$_discount['selected'] = ($_discount['did'] == $rowcontent['discount_id']) ? "selected=\"selected\"" : "";
+		$xtpl->assign( 'DISCOUNT', $_discount );
+		$xtpl->parse( 'main.typeprice2.discount' );
+	}
+	
 	$_arr_price_config = (empty( $rowcontent['price_config'] )) ? array( ) : unserialize( $rowcontent['price_config'] );
 	$i = sizeof( $_arr_price_config );
 	++$i;
@@ -1244,6 +1313,19 @@ else
 {
 	$xtpl->parse( 'main.product_price' );
 }
+
+// Parse variants
+if( !empty( $rowcontent['variants'] ) )
+{
+	foreach( $rowcontent['variants'] as $variant )
+	{
+		$variant['status_1'] = $variant['status'] == 1 ? 'selected' : '';
+		$variant['status_0'] = $variant['status'] == 0 ? 'selected' : '';
+		$xtpl->assign( 'VARIANT', $variant );
+		$xtpl->parse( 'main.variant' );
+	}
+}
+$xtpl->assign( 'VARIANT_COUNT', count( $rowcontent['variants'] ) );
 
 // List discount
 $sql = 'SELECT * FROM ' . $db_config['prefix'] . '_' . $module_data . '_discounts';

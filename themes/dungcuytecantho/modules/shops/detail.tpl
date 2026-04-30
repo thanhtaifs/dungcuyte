@@ -72,32 +72,49 @@
 							{LANG.product_code}: <strong>{PRODUCT_CODE}</strong>
 						</li>
 						<!-- END: product_code -->
+
 						<!-- BEGIN: price -->						
+							<li class="price-stock-row">
+								<div class="price">
+									<p>
+										{LANG.detail_pro_price}:
+										
+										<!-- BEGIN: discounts -->
+										<span class="money" id="product_sale_price">{PRICE.sale_format}</span>
+										<span>(<del id="product_original_price">{PRICE.price_format}</del>)</span>
+										<!-- END: discounts -->
 
-						<li class="price-stock-row">
-							<div class="price">
-								<p>
-									{LANG.detail_pro_price}:
-									
-									<!-- BEGIN: discounts -->
-									<span class="money">{PRICE.sale_format}</span>
-									<span>(<del>{PRICE.price_format}</del>)</span>
-									<!-- END: discounts -->
+										<!-- BEGIN: no_discounts -->
+										<span class="money t" id="product_sale_price">{PRICE.price_format}</span>
+										<!-- END: no_discounts -->
+									</p>
+								</div>							
+								<div class="stock-status">								
+									<button class="stock-status-btn {STOCK_CLASS}">
+										<i class="fa {STOCK_ICON}"></i>
+										<span>{STOCK_TEXT}</span>
+									</button>							
+								</div>
+							</li>
+							<!-- END: price -->
 
-									<!-- BEGIN: no_discounts -->
-									<span class="money t">{PRICE.price_format} </span>
-									<!-- END: no_discounts -->
-								</p>
-							</div>							
-							<div class="stock-status">								
-								<button class="stock-status-btn {STOCK_CLASS}">
-									<i class="fa {STOCK_ICON}"></i>
-									<span>{STOCK_TEXT}</span>
-								</button>							
-							</div>
-						</li>
-
-						<!-- END: price -->
+							<!-- BEGIN: variants -->
+							<li>
+								<strong>Chọn biến thể:</strong>
+								<div class="variants">
+									<!-- BEGIN: variant -->
+									<button type="button" 
+										class="btn btn-outline-primary variant-btn" 
+										data-id="{VARIANT.id}" 
+										data-original-price-format="{VARIANT.price_format}" 
+										data-price-format="{VARIANT.sale_price_format}" 
+										data-stock="{VARIANT.stock}">
+										{VARIANT.option_1} - {VARIANT.option_2} ({VARIANT.price_format})
+									</button>
+									<!-- END: variant -->
+								</div>
+							</li>
+							<!-- END: variants -->
 
 						<!-- BEGIN: contact -->
 						<li>
@@ -349,6 +366,34 @@
 </div>
 
 <div class="msgshow" id="msgshow"></div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.variant-btn').click(function() {
+        $('.variant-btn').removeClass('btn-primary').addClass('btn-outline-primary');
+        $(this).removeClass('btn-outline-primary').addClass('btn-primary');
+        var salePriceFormat = $(this).data('price-format');
+        var originalPriceFormat = $(this).data('original-price-format');
+        var stock = $(this).data('stock');
+        if (salePriceFormat) {
+            $('#product_sale_price').text(salePriceFormat);
+            if (originalPriceFormat) {
+                $('#product_original_price').text(originalPriceFormat);
+            }
+            $('#product_number').html('{LANG.detail_pro_number}: <strong>' + stock + '</strong> {pro_unit}');
+        } else {
+            // Reset to default
+            $('#product_sale_price').text('{DEFAULT_PRICE}');
+            $('#product_original_price').text('{PRICE.price_format}');
+            $('#product_number').html('{LANG.detail_pro_number}: <strong>{DEFAULT_STOCK}</strong> {pro_unit}');
+        }
+    });
+    // Auto select first variant if exists
+    if ($('.variant-btn').length > 0) {
+        $('.variant-btn').first().click();
+    }
+});
+</script>
 
 <!-- BEGIN: allowed_print_js -->
 <script type="text/javascript">
