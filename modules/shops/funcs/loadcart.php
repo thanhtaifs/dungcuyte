@@ -214,19 +214,21 @@ $items = [];
 $total = 0;
 
 foreach ($cart as $pid => $row) {
-    $pid = intval($pid);
+    $cart_id = $pid;
+    $pid = isset($row['proid']) ? intval($row['proid']) : intval($pid);
     $qty = intval($row['num'] ?? 1);
     $price = floatval($row['price'] ?? 0);
     $subtotal = $qty * $price;
     $total += $subtotal;  
     $items[] = [
-        'id' => $pid,
+        'id' => $cart_id,
         'title_pro' => $row['title_pro'] ?? "Sản phẩm $pid",
         'img_pro' => $row['img_pro'] ? $row['img_pro'] : '#',
         'link_pro' => isset($row['link_pro']) ? $row['link_pro'] : '#',       
         'qty' => $qty,
         'price' => number_format($price, 0, ',', '.'),
-        'subtotal' => number_format($subtotal, 0, ',', '.')
+        'subtotal' => number_format($subtotal, 0, ',', '.'),
+        'variant_label' => $row['variant_label'] ?? ''
     ];
 }
 

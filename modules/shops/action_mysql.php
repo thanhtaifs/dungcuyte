@@ -417,6 +417,7 @@ $sql_create_module[] = "CREATE TABLE IF NOT EXISTS " . $db_config['prefix'] . "_
  proid mediumint(9) NOT NULL,
  num mediumint(9) NOT NULL,
  price int(11) NOT NULL,
+ variant_label varchar(255) NOT NULL DEFAULT '',
  discount_id smallint(6) NOT NULL DEFAULT '0',
  PRIMARY KEY (id),
  UNIQUE KEY orderid (order_id, id)

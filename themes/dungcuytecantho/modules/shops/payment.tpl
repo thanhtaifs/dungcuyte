@@ -58,6 +58,9 @@
                     <div class="cart-item-info">
                         <!-- Tiêu đề -->
                         <h6 class="cart-item-title">{title}</h6>
+                        <!-- BEGIN: variant -->
+                        <div class="text-muted small">Loại: {variant_label}</div>
+                        <!-- END: variant -->
                         <!-- Giá và số lượng -->
                         <div class="price-info">
                             <div><strong>Đơn giá:</strong> {product_price}</div>

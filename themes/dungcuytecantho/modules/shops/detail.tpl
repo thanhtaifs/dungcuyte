@@ -98,29 +98,31 @@
 							</li>
 							<!-- END: price -->
 
+							<!-- BEGIN: contact -->
+							<li>
+								{LANG.detail_pro_price}: <span class="money">{LANG.price_contact}</span>
+							</li>
+							<!-- END: contact -->
+
 							<!-- BEGIN: variants -->
 							<li>
-								<strong>Chọn biến thể:</strong>
+								<strong>Chọn loại:</strong>
 								<div class="variants">
 									<!-- BEGIN: variant -->
 									<button type="button" 
-										class="btn btn-outline-primary variant-btn" 
+										class="btn btn-outline-home variant-btn" 
 										data-id="{VARIANT.id}" 
 										data-original-price-format="{VARIANT.price_format}" 
 										data-price-format="{VARIANT.sale_price_format}" 
-										data-stock="{VARIANT.stock}">
-										{VARIANT.option_1} - {VARIANT.option_2} ({VARIANT.price_format})
+										data-stock="{VARIANT.stock}"
+										data-label="{VARIANT.option_1} - {VARIANT.option_2}"
+										data-price-raw="{VARIANT.sale_price_raw}">
+										{VARIANT.option_1} - {VARIANT.option_2}
 									</button>
 									<!-- END: variant -->
 								</div>
 							</li>
-							<!-- END: variants -->
-
-						<!-- BEGIN: contact -->
-						<li>
-							{LANG.detail_pro_price}: <span class="money">{LANG.price_contact}</span>
-						</li>
-						<!-- END: contact -->
+							<!-- END: variants -->			
 
 						<!-- BEGIN: group_detail -->
 						<li>
@@ -198,6 +200,10 @@
 					</div>
 					</div>
 
+					<input type="hidden" id="selected_variant_id" value="">
+					<input type="hidden" id="selected_variant_label" value="">
+					<input type="hidden" id="selected_variant_price" value="">
+
 					<div class="order-buttons row" style="margin-top: 10px;">
 						<div class="col-12 col-md-6 mb-2 mb-md-0">
 							<button class="btn btn-danger btn-block btn-order w-100" data-id="{proid}" onclick="buyNow(this)">
@@ -222,7 +228,7 @@
 						<div class="pull-left">
 							<h4>{gift_content}</h4>
 						</div>
-						<div class="clearfix"></div>
+											<div class="clearfix"></div>
 					</div>
 					<!-- END: gift -->
 					<!-- BEGIN: group -->
@@ -370,8 +376,12 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $('.variant-btn').click(function() {
-        $('.variant-btn').removeClass('btn-primary').addClass('btn-outline-primary');
-        $(this).removeClass('btn-outline-primary').addClass('btn-primary');
+        // Keep theme tone; avoid Bootstrap primary classes
+        $('.variant-btn').removeClass('btn-home').addClass('btn-outline-home');
+        $(this).removeClass('btn-outline-home').addClass('btn-home');
+        $('#selected_variant_id').val($(this).data('id') || '');
+        $('#selected_variant_label').val($(this).data('label') || '');
+        $('#selected_variant_price').val($(this).data('price-raw') || '');
         var salePriceFormat = $(this).data('price-format');
         var originalPriceFormat = $(this).data('original-price-format');
         var stock = $(this).data('stock');

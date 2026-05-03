@@ -12,6 +12,18 @@ if( ! defined( 'NV_IS_FILE_ADMIN' ) ) die( 'Stop!!!' );
 
 $page_title = $lang_module['order_title'];
 $table_name = $db_config['prefix'] . '_' . $module_data . '_orders';
+$orders_id_table = $db_config['prefix'] . '_' . $module_data . '_orders_id';
+$variants_table = $db_config['prefix'] . '_' . $module_data . '_product_variants';
+
+$has_order_variant_label = false;
+try
+{
+	$has_order_variant_label = (bool)$db->query( "SHOW COLUMNS FROM " . $orders_id_table . " LIKE 'variant_label'" )->fetchColumn();
+}
+catch( Exception $e )
+{
+	$has_order_variant_label = false;
+}
 
 $order_id = $nv_Request->get_int( 'order_id', 'post,get', 0 );
 $db->query( 'UPDATE ' . $table_name . ' SET order_view = 1 WHERE order_id=' . $order_id );
@@ -56,6 +68,7 @@ while( $row = $result->fetch() )
 	$listid[] = $row['proid'];
 	$listnum[] = $row['num'];
 	$listprice[] = $row['price'];
+	$listvariant[] = $has_order_variant_label ? $row['variant_label'] : '';
 
 	$result_group = $db->query( 'SELECT group_id FROM ' . $db_config['prefix'] . '_' . $module_data . '_orders_id_group WHERE order_i=' . $row['id'] );
 	$group = array();
@@ -67,7 +80,9 @@ while( $row = $result->fetch() )
 }
 
 $data_pro = array();
+$listvariant = isset( $listvariant ) ? $listvariant : array();
 $i = 0;
+$product_variants = array();
 
 foreach( $listid as $id )
 {
@@ -76,6 +91,36 @@ foreach( $listid as $id )
 	if( $result->rowCount() )
 	{
 		list( $id, $_catid, $product_code, $publtime, $title, $alias, $product_price, $unit ) = $result->fetch( 3 );
+		$variant_label = isset( $listvariant[$i] ) ? $listvariant[$i] : '';
+		if( empty( $variant_label ) )
+		{
+			if( !isset( $product_variants[$id] ) )
+			{
+				$product_variants[$id] = array();
+				$result_variant = $db->query( 'SELECT option_1, option_2 FROM ' . $variants_table . ' WHERE product_id = ' . $id . ' ORDER BY id ASC' );
+				while( $variant = $result_variant->fetch() )
+				{
+					$parts = array();
+					if( !empty( $variant['option_1'] ) )
+					{
+						$parts[] = trim( $variant['option_1'] );
+					}
+					if( !empty( $variant['option_2'] ) )
+					{
+						$parts[] = trim( $variant['option_2'] );
+					}
+					if( !empty( $parts ) )
+					{
+						$product_variants[$id][] = implode( ' - ', $parts );
+					}
+				}
+			}
+
+			if( !empty( $product_variants[$id] ) )
+			{
+				$variant_label = count( $product_variants[$id] ) == 1 ? $product_variants[$id][0] : implode( ', ', $product_variants[$id] );
+			}
+		}
 		$data_pro[] = array(
 			'id' => $id,
 			'publtime' => $publtime,
@@ -85,6 +130,7 @@ foreach( $listid as $id )
 			'product_price_total' => $listprice[$i] * $listnum[$i],
 			'product_code' => $product_code,
 			'product_unit' => $unit,
+			'variant_label' => $variant_label,
 			// 'link_pro' => $link . $global_array_shops_cat[$_catid]['alias'] . '/' . $alias . '-' . $id,
 			'link_pro' => $link . $global_array_shops_cat[$_catid]['alias'] . '/' . $alias,
 			'product_number' => $listnum[$i],
@@ -135,6 +181,7 @@ foreach( $data_pro as $pdata )
 	$xtpl->assign( 'product_unit', $pdata['product_unit'] );
 	$xtpl->assign( 'link_pro', $pdata['link_pro'] );
 	$xtpl->assign( 'pro_no', $j + 1 );
+	$xtpl->assign( 'variant_label', $pdata['variant_label'] );
 
 	// Nhóm hiển thị cùng sản phẩm
 	foreach( $array_group_main as $group_main_id )
@@ -168,6 +215,11 @@ foreach( $data_pro as $pdata )
 			$xtpl->parse( 'main.loop.display_group.item' );
 		}
 		$xtpl->parse( 'main.loop.display_group' );
+	}
+
+	if( !empty( $pdata['variant_label'] ) )
+	{
+		$xtpl->parse( 'main.loop.variant' );
 	}
 
 	$xtpl->parse( 'main.loop' );

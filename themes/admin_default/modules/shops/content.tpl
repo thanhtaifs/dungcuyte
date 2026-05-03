@@ -11,6 +11,15 @@
 <link type="text/css" href="{NV_BASE_SITEURL}js/ui/jquery.ui.menu.css" rel="stylesheet" />
 <link type="text/css" href="{NV_BASE_SITEURL}js/ui/jquery.ui.autocomplete.css" rel="stylesheet" />
 <link type="text/css" href="{NV_BASE_SITEURL}js/ui/jquery.ui.datepicker.css" rel="stylesheet" />
+<style type="text/css">
+#priceproduct {
+	display: none;
+}
+.table-responsive table.table thead tr:nth-child(2) th:nth-child(5),
+#variantsTable td:nth-child(5) {
+	display: none;
+}
+</style>
 
 <script type="text/javascript">var inrow = '{inrow}';</script>
 <form class="form-inline" action="" enctype="multipart/form-data" method="post">
@@ -60,66 +69,21 @@
 								</select>
 							</td>
 						</tr>
-						<tr id="priceproduct">
-							<!-- BEGIN: typeprice2 -->
-								<td colspan="2">
-									<table id="id_price_config" class="table table-striped table-bordered table-hover">
-										<thead>
-											<tr>
-												<th class="text-center"> {LANG.discount_to} </th>
-												<th class="text-center"> {LANG.content_product_product_price} </th>
-											</tr>
-										</thead>
-										<tfoot>
-											<tr>
-												<td colspan="2">
-													<input type="button" value="{LANG.price_config_add}" onclick="nv_price_config_add_item();" class="btn btn-info" />
-												</td>
-											</tr>
-										</tfoot>
-										<tbody>
-											<!-- BEGIN: loop -->
-											<tr>
-												<td><input class="form-control" type="number" name="price_config[{PRICE_CONFIG.id}][number_to]" value="{PRICE_CONFIG.number_to}"/></td>
-												<td><input class="form-control" type="text" name="price_config[{PRICE_CONFIG.id}][price]" value="{PRICE_CONFIG.price}" onkeyup="this.value=FormatNumber(this.value);" style="text-align: right"/></td>
-											</tr>
-											<!-- END: loop -->
-										</tbody>
-									</table>
-								</td>
-								<td>
-									<!-- BEGIN: typeprice2.discount -->
-									{LANG.content_product_discounts}
-									<select class="form-control" name="discount_id">
-										<option value="0"> --- </option>
-										<!-- BEGIN: discount -->
-										<option value="{DISCOUNT.did}" {DISCOUNT.selected} >{DISCOUNT.title}</option>
-										<!-- END: discount -->
-									</select>
-									<!-- END: typeprice2.discount -->
-								</td>
-							<!-- END: typeprice2 -->
-							<!-- BEGIN: product_price -->
-							<th align="right">{LANG.content_product_product_price}</th>
-							<td><input class="form-control" type="text" maxlength="50" value="{rowcontent.product_price}" name="product_price" onkeyup="this.value=FormatNumber(this.value);" id="f_money" style="text-align: right"/></td>
-							<!-- END: product_price -->
-							<td>
+						<tr id="priceproduct" style="display:none;">
+							<td colspan="4">
+								<input type="hidden" name="product_price" value="0" />
 								<select class="form-control" name="money_unit">
 									<!-- BEGIN: money_unit -->
 									<option value="{MON.code}" {MON.select}>{MON.currency}</option>
 									<!-- END: money_unit -->
 								</select>
-							</td>
-							<!-- BEGIN: typeprice1 -->
-								<th align="right" colspan="2">{LANG.content_product_discounts}
 								<select class="form-control" name="discount_id">
 									<option value="0"> --- </option>
 									<!-- BEGIN: discount -->
 									<option value="{DISCOUNT.did}" {DISCOUNT.selected} >{DISCOUNT.title}</option>
 									<!-- END: discount -->
 								</select>
-								</th>
-							<!-- END: typeprice1 -->
+							</td>
 						</tr>
 						<!-- BEGIN: warehouse -->
 						<tr>
@@ -550,9 +514,9 @@
 	function addVariant() {
 		var id = variantCount++;
 		var html = '<tr>' +
-			'<td><input class="form-control" type="text" name="variants[' + id + '][option_1]" /></td>' +
-			'<td><input class="form-control" type="text" name="variants[' + id + '][option_2]" /></td>' +
-			'<td><input class="form-control" type="text" name="variants[' + id + '][price]" onkeyup="this.value=FormatNumber(this.value);" /></td>' +
+			'<td><input class="form-control" type="text" name="variants[' + id + '][option_1]" value="Chuẩn" /></td>' +
+			'<td><input class="form-control" type="text" name="variants[' + id + '][option_2]" value="M" /></td>' +
+			'<td><input class="form-control" type="text" name="variants[' + id + '][price]" value="100" onkeyup="this.value=FormatNumber(this.value);" /></td>' +
 			'<td><input class="form-control" type="number" name="variants[' + id + '][stock]" /></td>' +
 			'<td><select class="form-control" name="variants[' + id + '][status]">' +
 				'<option value="1">Hoạt động</option>' +
@@ -586,6 +550,36 @@
 
 <!-- BEGIN:getalias -->
 <script type="text/javascript">
+	$('.table-responsive table.table thead tr:nth-child(2) th:nth-child(5), #variantsTable td:nth-child(5)').hide();
+
+	addVariant = function() {
+		var id = variantCount++;
+		var html = '<tr>' +
+			'<td><input class="form-control" type="text" name="variants[' + id + '][option_1]" value="Chuáº©n" /></td>' +
+			'<td><input class="form-control" type="text" name="variants[' + id + '][option_2]" value="M" /></td>' +
+			'<td><input class="form-control" type="text" name="variants[' + id + '][price]" value="100" onkeyup="this.value=FormatNumber(this.value);" /></td>' +
+			'<td><input class="form-control" type="number" name="variants[' + id + '][stock]" value="1" /></td>' +
+			'<td style="display:none;"><input type="hidden" name="variants[' + id + '][status]" value="1" /></td>' +
+			'<td><button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)">XÃ³a</button></td>' +
+		'</tr>';
+		$('#variantsTable').append(html);
+	};
+
+	$('#variantsTable select[name$=\"[status]\"]').each(function() {
+		var input = $('<input>', {
+			type: 'hidden',
+			name: this.name,
+			value: '1'
+		});
+		$(this).closest('td').replaceWith($('<td style=\"display:none;\"></td>').append(input));
+	});
+
+	$('#variantsTable input[name$=\"[stock]\"]').each(function() {
+		if (!$(this).val()) {
+			$(this).val('1');
+		}
+	});
+
 	$("#idtitle").change(function() {
 		get_alias();
 	});

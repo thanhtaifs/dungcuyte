@@ -6,7 +6,13 @@ $id  = $nv_Request->get_int('id', 'post,get', 0);
 $num = $nv_Request->get_int('num', 'post,get', 1);
 $type = $nv_Request->get_string('t', 'get', 'text'); // text | json
 $buy_now = $nv_Request->get_int('buy_now', 'post,get', 0); // 0 = thêm giỏ, 1 = mua ngay
+$variant_id = $nv_Request->get_title('variant_id', 'post,get', '');
+$variant_label = $nv_Request->get_title('variant_label', 'post,get', '');
+$variant_price = $nv_Request->get_float('variant_price', 'post,get', 0);
 $contents_msg = '';
+
+//error_log("=== setcart.php called ===");
+//error_log("id: $id, num: $num, buy_now: $buy_now, variant_id: $variant_id, variant_price: $variant_price");
 
 $row = $db->query("
     SELECT id, listcatid, " . NV_LANG_DATA . "_title AS title," . NV_LANG_DATA . "_alias AS alias,homeimgfile, product_price, money_unit, discount_id, contact_price
@@ -127,6 +133,22 @@ if (!$row) {
     return_output($contents_msg, $type);
 }
 
+if (!empty($variant_id) && empty($variant_label)) {
+    $variant = $db->query("
+        SELECT option_1, option_2
+        FROM " . $db_config['prefix'] . "_" . $module_data . "_product_variants
+        WHERE id = " . intval($variant_id) . " AND product_id = " . intval($id)
+    )->fetch();
+
+    if ($variant) {
+        $parts = array_filter(array(
+            trim($variant['option_1']),
+            trim($variant['option_2'])
+        ));
+        $variant_label = implode(' - ', $parts);
+    }
+}
+
 // ==========================
 //  CHẶN SẢN PHẨM LIÊN HỆ
 // ==========================
@@ -141,6 +163,10 @@ $price_info = nv_get_price($id, $row['money_unit'], $num);
 
 // Lưu giá bán vào giỏ hàng (đây là giá người dùng trả)
 $price = $price_info['sale'];
+
+if (!empty($variant_id) && $variant_price > 0) {
+    $price = $variant_price;
+}
 
 if (!empty($row['contact_price']) || intval($price) < 101) {
     $contents_msg = 'ER_Sản phẩm cần liên hệ để được tư vấn.';
@@ -169,20 +195,34 @@ $link = NV_BASE_SITEURL
 //  CẬP NHẬT SESSION GIỎ HÀNG
 // ==========================
 $cart_key = $module_data . '_cart';
+$cart_item_key = $id;
+if (!empty($variant_id)) {
+    $cart_item_key = $id . '_' . preg_replace('/[^a-zA-Z0-9_\-]/', '', $variant_id);
+}
 
-if (!isset($_SESSION[$cart_key][$id])) {
-    $_SESSION[$cart_key][$id] = [
-        'num'        => $num,
-        'price'      => $price,
-        'money_unit' => $row['money_unit'],
-        'title_pro'  => $row['title'],
-        'img_pro'    => $img,
-        'link_pro'   => $link,
-        'group'      => [],
-        'order'      => 0
+if (!isset($_SESSION[$cart_key][$cart_item_key])) {
+    $_SESSION[$cart_key][$cart_item_key] = [
+        'proid'         => $id,
+        'num'           => $num,
+        'price'         => $price,
+        'money_unit'    => $row['money_unit'],
+        'title_pro'     => $row['title'],
+        'img_pro'       => $img,
+        'link_pro'      => $link,
+        'variant_id'    => $variant_id,
+        'variant_label' => $variant_label,
+        'group'         => [],
+        'order'         => $buy_now ? 1 : 0
     ];
 } else {
-    $_SESSION[$cart_key][$id]['num'] += $num;
+    $_SESSION[$cart_key][$cart_item_key]['num'] += $num;
+    $_SESSION[$cart_key][$cart_item_key]['price'] = $price;
+    $_SESSION[$cart_key][$cart_item_key]['variant_id'] = $variant_id;
+    $_SESSION[$cart_key][$cart_item_key]['variant_label'] = $variant_label;
+    if ($buy_now) {
+        $_SESSION[$cart_key][$cart_item_key]['order'] = 1;
+    }
+    //error_log("Updated cart: $cart_item_key, new num: " . $_SESSION[$cart_key][$cart_item_key]['num'] . ", price: $price");
 }
 
 $contents_msg = 'OK_Đã thêm ' . $row['title'] . ' vào giỏ hàng';

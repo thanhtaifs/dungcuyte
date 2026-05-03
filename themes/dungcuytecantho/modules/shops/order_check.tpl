@@ -23,28 +23,28 @@
                 <div class="form-group row mb-3">
                     <label class="col-md-3 col-form-label"><strong>Họ và tên:</strong></label>
                     <div class="col-md-9">
-                        <input type="text" name="order_name" class="form-control" placeholder="Nhập họ và tên" required>
+                        <input type="text" name="order_name" class="form-control" placeholder="Nhập họ và tên" value="{DATA.order_name}" required>
                     </div>
                 </div>
                 
                 <div class="form-group row mb-3">
                     <label class="col-md-3 col-form-label"><strong>Email:</strong></label>
                     <div class="col-md-9">
-                        <input type="email" name="order_email" class="form-control" placeholder="Nhập email" required>
+                        <input type="email" name="order_email" class="form-control" placeholder="Nhập email" value="{DATA.order_email}" required>
                     </div>
                 </div>
                 
                 <div class="form-group row mb-3">
                     <label class="col-md-3 col-form-label"><strong>Số điện thoại:</strong></label>
                     <div class="col-md-9">
-                        <input type="text" name="order_phone" class="form-control" placeholder="Nhập số điện thoại" required  minlength="10"   maxlength="12">
+                        <input type="text" name="order_phone" class="form-control" placeholder="Nhập số điện thoại" value="{DATA.order_phone}" required  minlength="10"   maxlength="12">
                     </div>
                 </div>
                 
                 <div class="form-group row mb-3">
                     <label class="col-md-3 col-form-label"><strong>Địa chỉ:</strong></label>
                     <div class="col-md-9">
-                        <textarea name="order_address" class="form-control" rows="3" placeholder="Nhập địa chỉ giao hàng" required></textarea>
+                        <textarea name="order_address" class="form-control" rows="3" placeholder="Nhập địa chỉ giao hàng" required>{DATA.order_address}</textarea>
                     </div>
                 </div>
                 <div class="form-group mt-3">
@@ -69,6 +69,9 @@
                     <div class="cart-item-info">
                         <!-- Tiêu đề -->
                         <h6 class="cart-item-title">{title_pro}</h6>
+                        <!-- BEGIN: variant -->
+                        <div class="text-muted small">Loại: {variant_label}</div>
+                        <!-- END: variant -->
                         <!-- Giá và số lượng -->
                         <div class="price-info">
                             <div><strong>Đơn giá:</strong> <span class="text-danger">{PRICE.sale_format}</span><!-- BEGIN: discounts --><span class="discounts_money">{PRICE.price_format}</span><!-- END: discounts --></div>

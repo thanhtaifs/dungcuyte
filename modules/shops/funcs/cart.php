@@ -136,6 +136,7 @@ if( isset( $_SESSION[$module_data . '_order_info'] ) and !empty( $_SESSION[$modu
 				'num_old' => $row['num'],
 				'order' => 1,
 				'price' => $row['price'],
+				'variant_label' => isset( $row['variant_label'] ) ? $row['variant_label'] : '',
 				'money_unit' => $order_info['money_unit'],
 				'discount_id' => $row['discount_id'],
 				'group' => $array_group,
@@ -214,9 +215,13 @@ $coupon_data = array(
 if( ! empty( $_SESSION[$module_data . '_cart'] ) )
 {
 	$arrayid = array();
-	foreach( $_SESSION[$module_data . '_cart'] as $pro_id => $pro_info )
+	foreach( $_SESSION[$module_data . '_cart'] as $cart_id => $pro_info )
 	{
-		$arrayid[] = $pro_id;
+		$pro_id = isset( $pro_info['proid'] ) ? intval( $pro_info['proid'] ) : intval( $cart_id );
+		if( $pro_id > 0 )
+		{
+			$arrayid[] = $pro_id;
+		}
 	}
 
 	if( ! empty( $arrayid ) )
@@ -225,35 +230,59 @@ if( ! empty( $_SESSION[$module_data . '_cart'] ) )
 
 		$sql = 'SELECT t1.id, t1.listcatid, t1.publtime, t1.' . NV_LANG_DATA . '_title, t1.' . NV_LANG_DATA . '_alias, t1.' . NV_LANG_DATA . '_hometext, t1.homeimgalt, t1.homeimgfile, t1.homeimgthumb, t1.product_number, t1.product_price, t1.discount_id, t2.' . NV_LANG_DATA . '_title, t1.money_unit FROM ' . $db_config['prefix'] . '_' . $module_data . '_rows AS t1 LEFT JOIN ' . $db_config['prefix'] . '_' . $module_data . '_units AS t2 ON t1.product_unit = t2.id WHERE t1.id IN (' . $listid . ') AND t1.status =1';
 		$result = $db->query( $sql );
-
+		$product_rows = array();
 		while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_number, $product_price, $discount_id, $unit, $money_unit ) = $result->fetch( 3 ) )
 		{
-			if( $homeimgthumb == 1 )//image thumb
+			if( $homeimgthumb == 1 )
 			{
 				$thumb = NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_upload . '/' . $homeimgfile;
 			}
-			elseif( $homeimgthumb == 2 )//image file
+			elseif( $homeimgthumb == 2 )
 			{
 				$thumb = NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $homeimgfile;
 			}
-			elseif( $homeimgthumb == 3 )//image url
+			elseif( $homeimgthumb == 3 )
 			{
 				$thumb = $homeimgfile;
 			}
-			else//no image
+			else
 			{
 				$thumb = NV_BASE_SITEURL . 'themes/' . $module_info['template'] . '/images/' . $module_file . '/no-image.jpg';
 			}
 
-			$group = isset($_SESSION[$module_data . '_cart'][$id]['group'])
-			? $_SESSION[$module_data . '_cart'][$id]['group']
-			: '';
+			$product_rows[$id] = array(
+				'id' => $id,
+				'listcatid' => $listcatid,
+				'publtime' => $publtime,
+				'title' => $title,
+				'alias' => $alias,
+				'hometext' => $hometext,
+				'homeimgalt' => $homeimgalt,
+				'homeimgthumb' => $thumb,
+				'product_price' => $product_price,
+				'discount_id' => $discount_id,
+				'product_unit' => $unit,
+				'money_unit' => $money_unit,
+				'link_pro' => $link . $global_array_shops_cat[$listcatid]['alias'] . '/' . $alias . $global_config['rewrite_exturl']
+			);
+		}
 
-			$number = $_SESSION[$module_data . '_cart'][$id]['num'];
-			//error_log("Số lượng giỏ hàng (ID: $id) = " . print_r($_SESSION[$module_data . '_cart'][$id]['num'], true));
+		foreach( $_SESSION[$module_data . '_cart'] as $cart_id => $cart_info )
+		{
+			$id = isset( $cart_info['proid'] ) ? intval( $cart_info['proid'] ) : intval( $cart_id );
+			if( empty( $product_rows[$id] ) )
+			{
+				continue;
+			}
+
+			$row_data = $product_rows[$id];
+			$group = isset( $cart_info['group'] ) ? $cart_info['group'] : '';
+			$number = isset( $cart_info['num'] ) ? intval( $cart_info['num'] ) : 1;
+			$product_number = $db->query( 'SELECT product_number FROM ' . $db_config['prefix'] . '_' . $module_data . '_rows WHERE id=' . $id )->fetchColumn();
+
 			if( !empty( $order_info ) )
 			{
-				$product_number = $product_number + ( isset( $_SESSION[$module_data . '_cart'][$id]['num_old'] ) ? $_SESSION[$module_data . '_cart'][$id]['num_old'] : $_SESSION[$module_data . '_cart'][$id]['num'] );
+				$product_number = $product_number + ( isset( $cart_info['num_old'] ) ? $cart_info['num_old'] : $number );
 			}
 
 			if( !empty( $group ) )
@@ -269,47 +298,29 @@ if( ! empty( $_SESSION[$module_data . '_cart'] ) )
 				}
 			}
 
-			// if($number > $product_number and $number > 0 and empty($pro_config['active_order_number']))
-			// {
-			// 	$number = $_SESSION[$module_data . '_cart'][$id]['num'] = $product_number;
-			// 	$array_error_product_number[] = sprintf( $lang_module['product_number_max'], $title, $product_number );
-			// }
-
 			if( $product_number > 0 && $number > $product_number && empty($pro_config['active_order_number']) )
 			{
-				$number = $_SESSION[$module_data . '_cart'][$id]['num'] = $product_number;
-				$array_error_product_number[] = sprintf($lang_module['product_number_max'], $title, $product_number);
+				$number = $_SESSION[$module_data . '_cart'][$cart_id]['num'] = $product_number;
+				$array_error_product_number[] = sprintf($lang_module['product_number_max'], $row_data['title'], $product_number);
 			}
-
 
 			if( $pro_config['active_price'] == '0' )
 			{
-				$discount_id = $product_price = 0;
+				$row_data['discount_id'] = $row_data['product_price'] = 0;
 			}
-			//error_log("SHOP DEBUG: product id {$id} => thumb={$thumb}, homeimgfile={$homeimgfile}, flag={$homeimgthumb},num={$number}, product_number={$product_number}, group={$group}");
-			$data_content[] = array(
-				'id' => $id,
-				'listcatid' => $listcatid,
-				'publtime' => $publtime,
-				'title' => $title,
-				'alias' => $alias,
-				'hometext' => $hometext,
-				'homeimgalt' => $homeimgalt,
-				'homeimgthumb' => $thumb,
-				'product_price' => $product_price,
-				'discount_id' => $discount_id,
-				'product_unit' => $unit,
-				'money_unit' => $money_unit,
-				'group' => $group,
-				'link_pro' => $link . $global_array_shops_cat[$listcatid]['alias'] . '/' . $alias . $global_config['rewrite_exturl'],
-				'num' => $number,
-				'link_remove' => $link . 'remove&id=' . $id
-			);
-			$_SESSION[$module_data . '_cart'][$id]['order'] = 1;
 
+			$data_content[] = array_merge( $row_data, array(
+				'cart_id' => $cart_id,
+				'group' => $group,
+				'num' => $number,
+				'variant_id' => isset( $cart_info['variant_id'] ) ? $cart_info['variant_id'] : '',
+				'variant_label' => isset( $cart_info['variant_label'] ) ? $cart_info['variant_label'] : '',
+				'selected_price' => isset( $cart_info['price'] ) ? floatval( $cart_info['price'] ) : 0,
+				'link_remove' => $link . 'remove&id=' . rawurlencode( $cart_id )
+			) );
+			$_SESSION[$module_data . '_cart'][$cart_id]['order'] = 1;
 		}
 
-		// === TÍNH TỔNG GIÁ TRỊ GIỎ HÀNG ===
 		$total = 0;
 		$total_coupons = 0;
 		$coupon_info = array();
@@ -319,11 +330,11 @@ if( ! empty( $_SESSION[$module_data . '_cart'] ) )
 		}
 		foreach( $data_content as $product )
 		{
-			$price = nv_get_price( $product['id'], $pro_config['money_unit'], $product['num'] );
-			$total += $price['sale'];
+			$line_total = !empty( $product['selected_price'] ) ? ( floatval( $product['selected_price'] ) * $product['num'] ) : nv_get_price( $product['id'], $pro_config['money_unit'], $product['num'] )['sale'];
+			$total += $line_total;
 			if( !empty( $coupon_info['product'] ) and in_array( intval( $product['id'] ), $coupon_info['product'] ) )
 			{
-				$total_coupons += $price['sale'];
+				$total_coupons += $line_total;
 			}
 		}
 		$coupon_data['subtotal'] = $total;

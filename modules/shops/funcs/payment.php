@@ -317,9 +317,10 @@ global $module_data, $module_name, $pro_config;
 
 // Kiểm tra giỏ hàng rỗng → chuyển hướng về giỏ hàng
 if (empty($_SESSION[$module_data . '_cart'])) {
-    nv_redirect_location(NV_BASE_SITEURL . 'index.php?' 
+    header('Location: ' . NV_BASE_SITEURL . 'index.php?' 
         . NV_LANG_VARIABLE . '=vi&' . NV_NAME_VARIABLE . '=' . $module_name 
         . '&' . NV_OP_VARIABLE . '=cart');
+    exit();
 }
 // error_log(NV_BASE_SITEURL . 'index.php?' 
 //         . NV_LANG_VARIABLE . '=vi&' . NV_NAME_VARIABLE . '=' . $module_name 
@@ -331,20 +332,22 @@ $items = [];
 $total = 0;
 
 foreach ($cart as $pid => $row) {
-    $pid = intval($pid);
+    $cart_id = $pid;
+    $pid = isset($row['proid']) ? intval($row['proid']) : intval($pid);
     $qty = intval($row['num'] ?? 1);
     $price = floatval($row['price'] ?? 0);
     $subtotal = $qty * $price;
     $total += $subtotal;
 
     $items[] = [
-        'id' => $pid,
+        'id' => $cart_id,
         'title' => $row['title_pro'] ?? "Sản phẩm $pid",
         'link' => $row['link'] ?? '#',
         'image' => $row['image'] ?? '#',
         'qty' => $qty,
         'price' => number_format($price, 0, ',', '.'),
-        'subtotal' => number_format($subtotal, 0, ',', '.')
+        'subtotal' => number_format($subtotal, 0, ',', '.'),
+        'variant_label' => $row['variant_label'] ?? ''
     ];
 }
 
@@ -361,6 +364,10 @@ $no = 1;
 foreach ($items as $product) {
     $xtpl->assign('pro_no', $no++);
     $xtpl->assign('title', $product['title']);
+    $xtpl->assign('variant_label', $product['variant_label'] ?? '');
+    if (!empty($product['variant_label'])) {
+        $xtpl->parse('main.loop.variant');
+    }
     $xtpl->assign('link_pro', $product['link']);
     $xtpl->assign('product_number', $product['qty']);
     $xtpl->assign('product_unit', $pro_config['money_unit'] ?? 'VND');

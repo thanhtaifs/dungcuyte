@@ -1433,6 +1433,59 @@ textarea:focus {
   padding: 0 15px 15px;
 }
 
+.btn-home {
+  padding: 10px 16px;
+  background: linear-gradient(135deg, #2e9f3c, #5ea700);
+  color: white;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+
+.btn-outline-home {
+  padding: 10px 16px;
+  color: #2e9f3c;
+  background-color: transparent;
+  border: 1px solid #2e9f3c;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-outline-home:hover,
+.btn-outline-home:focus,
+.btn-outline-home:active,
+.btn-outline-home.active,
+.btn-outline-home:focus-visible {
+  color: #fff;
+  background: linear-gradient(135deg, #2e9f3c, #5ea700);
+  border-color: #2e9f3c;
+  box-shadow: none;
+}
+
+.btn-outline-home:focus-visible {
+  outline: 0;
+}
+
+
+.btn-home:hover {
+  background: linear-gradient(135deg, #5a9600, #65aa00);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(101, 170, 0, 0.4);
+  color: white;
+}
+
 .btn-add-to-cart {
   width: 100%;
   padding: 10px 16px;

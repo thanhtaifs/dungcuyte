@@ -11,6 +11,17 @@
 if( !defined( 'NV_IS_MOD_SHOPS' ) )
 	die( 'Stop!!!' );
 
+$orders_id_table = $db_config['prefix'] . '_' . $module_data . '_orders_id';
+$has_order_variant_label = false;
+try
+{
+	$has_order_variant_label = (bool)$db->query( "SHOW COLUMNS FROM " . $orders_id_table . " LIKE 'variant_label'" )->fetchColumn();
+}
+catch( Exception $e )
+{
+	$has_order_variant_label = false;
+}
+
 //error_log('Running order page');
 
 if( !defined( 'NV_IS_USER' ) and !$pro_config['active_guest_order'] )
@@ -27,6 +38,21 @@ $action = 0;
 $post_order = $nv_Request->get_int( 'postorder', 'post', 0 );
 $order_info = array();
 $error = array( );
+$success = false;
+error_log('order.php request: method=' . $_SERVER['REQUEST_METHOD'] . ', postorder=' . $post_order . ', success=' . $nv_Request->get_int( 'success', 'get', 0 ));
+
+if( $nv_Request->get_int( 'success', 'get', 0 ) == 1 )
+{
+    $success_order = isset( $_SESSION[$module_data . '_order_success'] ) ? $_SESSION[$module_data . '_order_success'] : array();
+    unset( $_SESSION[$module_data . '_order_success'] );
+
+    $contents = nv_theme_shops_order_page( true, array(), $success_order );
+
+    include NV_ROOTDIR . '/includes/header.php';
+    echo nv_site_theme( $contents );
+    include NV_ROOTDIR . '/includes/footer.php';
+    exit();
+}
 
 $first_name = $user_info['first_name'] ?? '';
 $last_name  = $user_info['last_name'] ?? '';
@@ -98,6 +124,7 @@ if( !empty( $array_counpons['code'] ) and $array_counpons['check'] )
 
 if( $post_order == 1 )
 {	
+	error_log('order.php entered submit branch');
 	//error_log('post_order is 1');
 	$total = 0;
 	$total_point = 0;
@@ -108,21 +135,29 @@ if( $post_order == 1 )
 	//error_log(print_r($_SESSION[$module_data . '_cart'], true));
 	foreach( $_SESSION[$module_data . '_cart'] as $pro_id => $info )
 	{
+		$cart_id = $pro_id;
+		$pro_id = isset( $info['proid'] ) ? intval( $info['proid'] ) : intval( $pro_id );
 		if( $pro_config['active_price'] == '0' )
 		{
 			$info['price'] = 0;
 		}
-		if( $_SESSION[$module_data . '_cart'][$pro_id]['order'] == 1 )
+		if( !empty( $_SESSION[$module_data . '_cart'][$cart_id]['order'] ) )
 		{
 			//error_log('SESSION order = 1');
-			$price = nv_get_price( $pro_id, $pro_config['money_unit'], ( int )$info['num'] );
+			$unit_price = isset( $info['price'] ) ? doubleval( $info['price'] ) : 0;
+			if( $unit_price <= 0 )
+			{
+				$price = nv_get_price( $pro_id, $pro_config['money_unit'], ( int )$info['num'] );
+				$unit_price = $price['sale'];
+			}
+			$line_price = $unit_price * ( int )$info['num'];
 
 			// Ap dung giam gia cho tung san pham dac biet
 			if( !empty( $counpons['product'] ) )
 			{
 				if( in_array( $pro_id, $counpons['product'] ) )
 				{
-					$total_coupons = $total_coupons + $price['sale'];
+					$total_coupons = $total_coupons + $line_price;
 				}
 			}
 
@@ -140,8 +175,8 @@ if( $post_order == 1 )
 				}
 			}
 
-			$info['price'] = $price['sale'];
-			$total = $total + ( double )$info['price'];
+			$info['price'] = $unit_price;
+			$total = $total + ( double )$line_price;
 			$total_weight = $total_weight + nv_weight_conversion( ( double )$info['weight'], $info['weight_unit'], $pro_config['weight_unit'], ( int )$info['num'] );
 
 			$i++;
@@ -201,6 +236,19 @@ if( $post_order == 1 )
 	//error_log('pass check data order');
 	if( empty($error) and $i > 0 )
 	{
+		//error_log('order.php validation passed, item_count=' . $i . ', total=' . $total);
+		if( !$has_order_variant_label )
+		{
+			try
+			{
+				$db->query( "ALTER TABLE " . $orders_id_table . " ADD variant_label VARCHAR(255) NOT NULL DEFAULT '' AFTER price" );
+				$has_order_variant_label = true;
+			}
+			catch( Exception $e )
+			{
+				$has_order_variant_label = false;
+			}
+		}
 		//error_log('is > 0');
 		$sth = false; // đảm bảo biến tồn tại, tránh warning
 		$order_id = 0; // luôn nên khởi tạo
@@ -253,7 +301,8 @@ if( $post_order == 1 )
 		}
 
 		if( $sth or $order_id > 0 )
-		{		
+		{
+			//error_log('order.php order header saved, order_id=' . $order_id);
 			//error_log('Bat dau them don hang');
 			if( empty( $order_info ) ) // Them don hang
 			{				
@@ -290,19 +339,27 @@ if( $post_order == 1 )
 			//Them chi tiet don hang
 			foreach( $_SESSION[$module_data . '_cart'] as $pro_id => $info)
 			{				
+				$cart_id = $pro_id;
+				$pro_id = isset( $info['proid'] ) ? intval( $info['proid'] ) : intval( $pro_id );
 				if( $pro_config['active_price'] == '0' )
 				{
 					$info['price'] = 0;
 				}
 
-				if( $_SESSION[$module_data . '_cart'][$pro_id]['order'] == 1 and $i > 0 )
+				if( !empty( $_SESSION[$module_data . '_cart'][$cart_id]['order'] ) and $i > 0 )
 				{
-					$price = nv_get_price( $pro_id, $pro_config['money_unit'], $info['num'], true );
-					$info['price'] = $price['sale'];
+					$info['price'] = isset( $info['price'] ) ? doubleval( $info['price'] ) : 0;
+					if( $info['price'] <= 0 )
+					{
+						$price = nv_get_price( $pro_id, $pro_config['money_unit'], $info['num'], true );
+						$info['price'] = $price['sale'];
+					}
+					$variant_label = isset( $info['variant_label'] ) ? nv_substr( $info['variant_label'], 0, 255 ) : '';
 					// $sql = 'INSERT INTO ' . $db_config['prefix'] . '_' . $module_data . '_orders_id( order_id, proid, num, price, discount_id ) 
          			// VALUES ( :order_id, :proid, :num, :price, :discount_id )';
 					// Tạm thời không xử lý discount_id
-					$sql = 'INSERT INTO ' . $db_config['prefix'] . '_' . $module_data . '_orders_id( order_id, proid, num, price ) 
+					$sql = $has_order_variant_label ? 'INSERT INTO ' . $db_config['prefix'] . '_' . $module_data . '_orders_id( order_id, proid, num, price, variant_label ) 
+         			VALUES ( :order_id, :proid, :num, :price, :variant_label )' : 'INSERT INTO ' . $db_config['prefix'] . '_' . $module_data . '_orders_id( order_id, proid, num, price ) 
          			VALUES ( :order_id, :proid, :num, :price )';				
 
 					$data_insert = array();
@@ -310,6 +367,7 @@ if( $post_order == 1 )
 					$data_insert['proid'] = $pro_id;
 					$data_insert['num'] = $info['num'];
 					$data_insert['price'] = $info['price'];
+					if( $has_order_variant_label ) $data_insert['variant_label'] = $variant_label;
 					// Hiện tại đang dùng mặc định
 					//$data_insert['discount_id'] = 0;					
 					try 
@@ -447,6 +505,7 @@ if( $post_order == 1 )
 			// Thong tin san pham dat hang
 			$data_pro = array( );
 			$temppro = array( );
+			$arrayid = array();
 			$i = 0;
 
 			foreach( $listid as $proid )
@@ -500,8 +559,8 @@ if( $post_order == 1 )
 				'order_note' => $data_order['order_note'],
 				'order_total' => $data_order['order_total'],
 				'unit_total' => $data_order['unit_total'],
-				'dateup' => nv_date( "d-m-Y", $data_content['order_time'] ),
-				'moment' => nv_date( "H:i", $data_content['order_time'] ),
+				'dateup' => nv_date( "d-m-Y", $data_order['order_time'] ),
+				'moment' => nv_date( "H:i", $data_order['order_time'] ),
 				'review_url' => '<a href="' . $global_config['site_url'] . $data_order['review_url'] . '">' . $lang_module['content_here'] . '</a>',
 				'table_product' => $email_contents_table,
 				'site_url' => $global_config['site_url'],
@@ -524,10 +583,12 @@ if( $post_order == 1 )
 			}
 			$email_contents = call_user_func( 'email_new_order', $content, $data_order, $data_pro );
 			$email_title = empty( $order_info ) ? $lang_module['order_email_title'] : $lang_module['order_email_edit_title'];
+			//error_log('order.php prepared customer email, order_id=' . $order_id);
 			nv_sendmail( array(
 				$global_config['site_name'],
 				$global_config['site_email']
 			), $data_order['order_email'], sprintf( $email_title, $module_info['custom_title'], $data_order['order_code'] ), $email_contents );
+			//error_log('order.php customer email sent, order_id=' . $order_id);
 			
 			// Them vao notification
 			$content = array( 'order_id' => $data_order['id'], 'order_code' => $data_order['order_code'], 'order_name' => $data_order['order_name'] );
@@ -563,11 +624,25 @@ if( $post_order == 1 )
 				}
 			}			
 			// Chuyen trang xem thong tin don hang vua dat
+			$_SESSION[$module_data . '_order_success'] = array(
+				'order_id' => $data_order['id'],
+				'order_code' => $data_order['order_code'],
+				'order_name' => $data_order['order_name'],
+				'order_email' => $data_order['order_email'],
+				'order_phone' => $data_order['order_phone'],
+				'order_address' => $data_order['order_address'],
+				'order_total' => $data_order['order_total'],
+				'unit_total' => $data_order['unit_total']
+			);
+
 			unset( $_SESSION[$module_data . '_cart'] );
 			unset( $_SESSION[$module_data . '_order_info'] );
 			unset( $_SESSION[$module_data . '_coupons'] );
-			$action = 1;			
-			$success = true;
+
+			$success_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=order&success=1&order_id=' . $data_order['id'] . '&checkss=' . md5( $data_order['id'] . $global_config['sitekey'] . session_id() );
+			//error_log('order.php redirecting to success page: ' . $success_url);
+			Header( 'Location: ' . nv_url_rewrite( $success_url, true ) );
+			exit();
 						
 		}
 	}
@@ -598,22 +673,30 @@ if( $action == 0)
 {	
 	$page_title = $lang_module['cart_check_cart'];
 	$i = 0;
+	//error_log("=== order.php display ===");
+	//error_log("Cart session: " . json_encode($_SESSION[$module_data . '_cart']));
 	$arrayid = array( );
+	$id_to_proid = array();
 	foreach( $_SESSION[$module_data . '_cart'] as $pro_id => $pro_info )
 	{
-		$arrayid[] = $pro_id;
+		$arrayid[] = $pro_info['proid'];
+		$id_to_proid[$pro_info['proid']] = $pro_id;
 	}
+	//error_log("arrayid: " . json_encode($arrayid));
 
 	if( !empty($arrayid))
 	{
+		//error_log("Entering if !empty(arrayid)");
 	
 		$listid = implode( ',', $arrayid );
 		$sql = 'SELECT t1.id, t1.listcatid, t1.publtime, t1.' . NV_LANG_DATA . '_title, t1.' . NV_LANG_DATA . '_alias, t1.' . NV_LANG_DATA . '_hometext, t1.homeimgalt, t1.homeimgfile, t1.homeimgthumb, t1.product_price, t2.' . NV_LANG_DATA . '_title, t1.money_unit, t1.discount_id, t1.product_weight, t1.weight_unit FROM ' . $db_config['prefix'] . '_' . $module_data . '_rows AS t1 LEFT JOIN ' . $db_config['prefix'] . '_' . $module_data . '_units AS t2 ON t1.product_unit = t2.id WHERE t1.id IN (' . $listid . ') AND t1.status =1';
 		$result = $db->query( $sql );
+		//error_log("SQL executed, result rowCount: " . $result->rowCount());
 		$weight_total = 0;
 		$order_total = 0;
 		while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_price, $unit, $money_unit, $discount_id, $product_weight, $weight_unit ) = $result->fetch( 3 ) )
 		{
+			//error_log("Processing product $id in while loop");
 			if( $homeimgthumb == 1 )//image thumb
 			{
 				$thumb = NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_upload . '/' . $homeimgfile;
@@ -636,13 +719,28 @@ if( $action == 0)
 				$discount_id = $product_price = 0;
 			}
 
-			$num = $_SESSION[$module_data . '_cart'][$id]['num'];
+			$pro_id_key = $id_to_proid[$id] ?? null;
+			if( empty( $pro_id_key ) || empty( $_SESSION[$module_data . '_cart'][$pro_id_key] ) )
+			{
+				// Cart entry missing for this product id (avoid Undefined array key warnings)
+				continue;
+			}
+
+			$cart_item = $_SESSION[$module_data . '_cart'][$pro_id_key];
+			$num = (int) ( $cart_item['num'] ?? 0 );
 			$weight_total += nv_weight_conversion( $product_weight, $weight_unit, $pro_config['weight_unit'], $num );
-			$group = $_SESSION[$module_data . '_cart'][$id]['group'];
-			$price_info = nv_get_price($id, $money_unit);
-			// Sử dụng giá bán (sale price) để tính tổng, không phải giá gốc
-			$item_total = $price_info['sale'] * $num;
-			$order_total += $item_total;	
+			$group = $cart_item['group'] ?? array();
+			try {
+				$price_info = nv_get_price($id, $money_unit);
+				// Sử dụng giá bán (sale price) để tính tổng, không phải giá gốc
+				$item_total = $price_info['sale'] * $num;
+				$order_total += $item_total;
+				//error_log("Product $id: price_info sale = " . $price_info['sale'] . ", num = $num, item_total = $item_total");
+			} catch (Exception $e) {
+				//error_log('Error getting price for product ' . $id . ': ' . $e->getMessage());
+				$item_total = 0;
+			}
+			//error_log("After price calculation for $id, item_total = $item_total");
 			//error_log('order_total: ' . $order_total );
 			$data_content[] = array(
 				'id' => $id,
@@ -658,11 +756,16 @@ if( $action == 0)
 				'money_unit' => $money_unit,
 				'group' => $group,
 				'link_pro' => $link . $global_array_shops_cat[$listcatid]['alias'] . '/' . $alias . $global_config['rewrite_exturl'],
-				'num' => $num,			
+				'num' => $num,
+				'variant_id' => $_SESSION[$module_data . '_cart'][$pro_id_key]['variant_id'] ?? '',
+				'variant_label' => $_SESSION[$module_data . '_cart'][$pro_id_key]['variant_label'] ?? '',
+				'selected_price' => $_SESSION[$module_data . '_cart'][$pro_id_key]['price'] ?? 0,
 			);
 			++$i;
 		}
+		//error_log("While loop ended, i = $i");
 	}
+	//error_log("After if !empty(arrayid), i = $i");
 
 	$data_order['weight_total'] = $weight_total;
 	$data_order['order_total'] = $order_total;
@@ -673,6 +776,7 @@ if( $action == 0)
 		$lang_module['order_submit_send'] = $lang_module['order_edit'];
 	}
 	
+	//error_log("Before if i==0, i = $i");
 	if( $i == 0 )
 	{
 		Header( 'Location: ' . nv_url_rewrite( NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=cart', true ) );
@@ -680,7 +784,14 @@ if( $action == 0)
 	}
 	else
 	{		
-		$contents = call_user_func( 'users_order', $data_content, $data_order, $array_counpons['discount'], $order_info, $error );
+		try {
+			//error_log("Calling users_order with " . count($data_content) . " products");
+			$contents = call_user_func( 'users_order', $data_content, $data_order, $array_counpons['discount'], $order_info, $error );
+			//error_log("users_order completed successfully");
+		} catch (Exception $e) {
+			//error_log('Error in users_order: ' . $e->getMessage());
+			$contents = 'Có lỗi xảy ra. Vui lòng thử lại.';
+		}
 	}
 }
 else	

@@ -56,6 +56,7 @@
 				<th class="text-center" width="60px">{LANG.order_product_numbers}</th>
 				<th>{LANG.order_product_unit}</th>
 				<th class="text-right">{LANG.order_product_price_total} ({unit})</th>
+				
 			</tr>
 		</thead>
 		<tbody>
@@ -64,6 +65,7 @@
 				<td class="text-center">{pro_no}</td>
 				<td class="prd"><span><a target="_blank" title="{product_name}" href="{link_pro}">{product_name}</a></span>
 				<br />
+				<!-- BEGIN: variant --><span class="text-info">Loại: <strong>{variant_label}</strong></span><br /><!-- END: variant -->
 				<!-- BEGIN: display_group --><span class="text-muted">
 						<!-- BEGIN: item -->
 						<span class="show"><span class="text-muted">{group.parent_title}: <strong>{group.title}</strong></span></span>

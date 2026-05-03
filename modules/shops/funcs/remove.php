@@ -3,12 +3,12 @@ if (!defined('NV_IS_MOD_SHOPS')) die('Stop!!!');
 
 global $module_data, $module_name;
 
-$id = $nv_Request->get_int('id', 'post,get', 0);
+$id = $nv_Request->get_title('id', 'post,get', '');
 
 $response = ['status' => 'error', 'message' => 'Sản phẩm không tồn tại trong giỏ'];
 
 // Xóa sản phẩm khỏi session
-if ($id > 0 && isset($_SESSION[$module_data . '_cart'][$id])) {
+if ($id !== '' && isset($_SESSION[$module_data . '_cart'][$id])) {
     unset($_SESSION[$module_data . '_cart'][$id]);
 }
 
@@ -29,7 +29,8 @@ foreach ($cart as $pid => $row) {
         'img_pro' => $row['img_pro'] ? $row['img_pro'] : '#',
         'link_pro' => isset($row['link_pro']) ? $row['link_pro'] : '#',
         'price' => number_format($price, 0, ',', '.'),
-        'subtotal' => number_format($subtotal, 0, ',', '.')
+        'subtotal' => number_format($subtotal, 0, ',', '.'),
+        'variant_label' => $row['variant_label'] ?? ''
     ];
 }
 

@@ -61,7 +61,7 @@ $rowcontent = array(
 	'archive' => 1,
 	'product_code' => '',
 	'product_number' => 1,
-	'product_price' => 1,
+	'product_price' => 0,
 	'discount_id' => 0,
 	'money_unit' => $pro_config['money_unit'],
 	'product_unit' => '',
@@ -235,8 +235,7 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 
 	$rowcontent['product_code'] = nv_substr( $nv_Request->get_title( 'product_code', 'post', '', 1 ), 0, 255 );
 	$rowcontent['product_number'] = $nv_Request->get_int( 'product_number', 'post', 0 );
-	$rowcontent['product_price'] = $nv_Request->get_string( 'product_price', 'post', '' );
-	$rowcontent['product_price'] = floatval( preg_replace( '/[^0-9\.]/', '', $rowcontent['product_price'] ) );
+	$rowcontent['product_price'] = 0;
 
 	$rowcontent['discount_id'] = $nv_Request->get_int( 'discount_id', 'post', 0 );
 	$rowcontent['money_unit'] = $nv_Request->get_string( 'money_unit', 'post', '' );
@@ -259,8 +258,10 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 		if(empty($price_config))
 		{	
 			//error_log("Price config =====" . $price_config);
-			$error_message_price = "Nhóm sản phẩm có cấu hình giá không phù hợp !";
-			$error_product_price = true;
+			//$error_message_price = "Nhóm sản phẩm có cấu hình giá không phù hợp !";
+			//$error_product_price = true;
+			$rowcontent['product_price'] = 0;
+        	$rowcontent['price_config'] = serialize(array());
 		}
 		else
 		{	$sortArray = array( );
@@ -285,15 +286,14 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 				}
 			}
 			
-			$rowcontent['product_price'] = isset( $price_config_save[1] ) ? $price_config_save[1]['price'] : 0;
+			$rowcontent['product_price'] = 0;
 			$rowcontent['price_config'] = serialize( $price_config_save );
 		}
 	}
 	else
 	{
 		
-		$rowcontent['product_price'] = $nv_Request->get_string( 'product_price', 'post', '' );
-		$rowcontent['product_price'] = floatval( preg_replace( '/[^0-9\.]/', '', $rowcontent['product_price'] ) );
+		$rowcontent['product_price'] = 0;
 		$rowcontent['price_config'] = '';
 	}
 	
@@ -306,16 +306,22 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 		{
 			if( !empty( $variant['option_1'] ) || !empty( $variant['option_2'] ) )
 			{
+				$variant_stock = intval( $variant['stock'] );
+				if( $variant_stock <= 0 )
+				{
+					$variant_stock = 1;
+				}
 				$rowcontent['variants'][] = array(
 					'option_1' => nv_substr( $variant['option_1'], 0, 100 ),
 					'option_2' => nv_substr( $variant['option_2'], 0, 100 ),
 					'price' => floatval( preg_replace( '/[^0-9\.]/', '', $variant['price'] ) ),
-					'stock' => intval( $variant['stock'] ),
-					'status' => intval( $variant['status'] )
+					'stock' => $variant_stock,
+					'status' => 1
 				);
 			}
 		}
 	}
+	$rowcontent['variant_price'] = isset( $rowcontent['variants'][0] ) ? floatval( $rowcontent['variants'][0]['price'] ) : 0;
 	
 	$bodytext = $nv_Request->get_string( 'bodytext', 'post', '' );
 	$rowcontent['bodytext'] = defined( 'NV_EDITOR' ) ? nv_nl2br( $bodytext, '' ) : nv_nl2br( nv_htmlspecialchars( strip_tags( $bodytext ) ), '<br />' );
@@ -426,7 +432,7 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 		//error_log("Error product price =====" . $error_product_price);
 		$error = $error_message_price;
 	}
-	elseif( $rowcontent['product_price'] <= 0 and $rowcontent['showprice'] and empty( $rowcontent['contact_price'] ) )
+	elseif( $rowcontent['variant_price'] <= 0 and $rowcontent['showprice'] and empty( $rowcontent['contact_price'] ) )
 	{
 		$error = $lang_module['error_product_price'];
 	}	
@@ -1043,6 +1049,7 @@ elseif( $rowcontent['id'] > 0 )
 		{
 			while( $variant = $result->fetch() )
 			{
+				$variant['price'] = ( $variant['price'] > 0 ) ? number_format( $variant['price'], nv_get_decimals( $pro_config['money_unit'] ) ) : '';
 				$rowcontent['variants'][] = $variant;
 			}
 		}
@@ -1052,6 +1059,18 @@ elseif( $rowcontent['id'] > 0 )
 		error_log( 'Variants table not available: ' . $e->getMessage() );
 	}
 	//error_log(message: '=== end update San Pham ===');
+}
+
+if( empty( $rowcontent['variants'] ) && empty( $rowcontent['id'] ) )
+{
+	$rowcontent['variants'][] = array(
+		'id' => 0,
+		'option_1' => 'Chuẩn',
+		'option_2' => 'M',
+		'price' => '100',
+		'stock' => 1,
+		'status' => 1
+	);
 }
 
 
@@ -1319,8 +1338,10 @@ if( !empty( $rowcontent['variants'] ) )
 {
 	foreach( $rowcontent['variants'] as $variant )
 	{
-		$variant['status_1'] = $variant['status'] == 1 ? 'selected' : '';
-		$variant['status_0'] = $variant['status'] == 0 ? 'selected' : '';
+		if( empty( $variant['stock'] ) )
+		{
+			$variant['stock'] = 1;
+		}
 		$xtpl->assign( 'VARIANT', $variant );
 		$xtpl->parse( 'main.variant' );
 	}

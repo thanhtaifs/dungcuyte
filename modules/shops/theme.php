@@ -1118,6 +1118,7 @@ function viewcat_page_gird($data_content, $compare_id, $pages, $sort = 0, $viewt
         foreach ($data_content['data'] as $data_row) {
             $xtpl->assign('ID', $data_row['id']);
             $xtpl->assign('title_pro', $data_row['title']);
+            $xtpl->assign('variant_label', empty($data_row['variant_label']) ? '' : $data_row['variant_label']);
             $xtpl->assign('title_pro0', nv_clean60($data_row['title'], 40));
             $xtpl->assign('link_pro', $data_row['link_pro']);
             $xtpl->assign('img_pro', $data_row['homeimgthumb']);
@@ -1323,6 +1324,7 @@ function viewcat_page_list($data_content, $compare_id, $pages, $sort = 0, $viewt
         foreach ($data_content['data'] as $data_row) {
             $xtpl->assign('id', $data_row['id']);
             $xtpl->assign('title_pro', $data_row['title']);
+            $xtpl->assign('variant_label', empty($data_row['variant_label']) ? '' : $data_row['variant_label']);
             $xtpl->assign('link_pro', $data_row['link_pro']);
             $xtpl->assign('img_pro', $data_row['homeimgthumb']);
             $xtpl->assign('link_order', $data_row['link_order']);
@@ -1584,12 +1586,12 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
             }
         }
         
-        error_log( 'DEBUG: Total variants loaded for product ' . $data_content['id'] . ': ' . count($variants) );
+        //error_log( 'DEBUG: Total variants loaded for product ' . $data_content['id'] . ': ' . count($variants) );
         if( !empty( $variants ) )
         {
             foreach( $variants as $variant )
             {
-                error_log( 'DEBUG: Assigning variant - ID: ' . $variant['id'] . ', Option1: ' . $variant['option_1'] . ', Option2: ' . $variant['option_2'] . ', Price: ' . $variant['price_format'] );
+                //error_log( 'DEBUG: Assigning variant - ID: ' . $variant['id'] . ', Option1: ' . $variant['option_1'] . ', Option2: ' . $variant['option_2'] . ', Price: ' . $variant['price_format'] );
                 $xtpl->assign( 'VARIANT', $variant );
                 $xtpl->parse( 'main.variants.variant' );
             }
@@ -1601,7 +1603,7 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
             $xtpl->assign('PRODUCT_NUMBER', $first_variant['stock']);
             $default_price = $first_variant['sale_price_format'];
             $default_stock = $first_variant['stock'];
-            error_log( 'DEBUG: Parsed variants for product ' . $data_content['id'] );
+            //error_log( 'DEBUG: Parsed variants for product ' . $data_content['id'] );
         }
         $xtpl->assign('PRICE', $price); // Re-assign after possible update
         $xtpl->assign('DEFAULT_PRICE', $default_price);
@@ -1992,18 +1994,41 @@ function cart_product($data_content, $coupons_code, $order_info, $array_error_nu
         foreach ($data_content as $data_row) {
             $xtpl->assign('stt', $j);
             $xtpl->assign('id', $data_row['id']);
+            $xtpl->assign('cart_id', $data_row['cart_id']);
             $xtpl->assign('title_pro', $data_row['title']);
             $xtpl->assign('link_pro', $data_row['link_pro']);
             $xtpl->assign('img_pro', $data_row['homeimgthumb']);
-            $price = nv_get_price($data_row['id'], $pro_config['money_unit'], $data_row['num'], true);
-            $xtpl->assign('PRICE', $price);
-            $price = nv_get_price($data_row['id'], $pro_config['money_unit'], $data_row['num']);
+            if (!empty($data_row['selected_price'])) {
+                $unit_price_value = floatval($data_row['selected_price']);
+                $line_price_value = $unit_price_value * $data_row['num'];
+                $price = array(
+                    'price_format' => nv_number_format($unit_price_value, nv_get_decimals($pro_config['money_unit'])) . ' ' . $pro_config['money_unit'],
+                    'sale_format' => nv_number_format($unit_price_value, nv_get_decimals($pro_config['money_unit'])) . ' ' . $pro_config['money_unit'],
+                    'discount_percent' => 0,
+                    'sale' => $unit_price_value
+                );
+                $xtpl->assign('PRICE', $price);
+                $price = array(
+                    'price_format' => nv_number_format($line_price_value, nv_get_decimals($pro_config['money_unit'])) . ' ' . $pro_config['money_unit'],
+                    'sale_format' => nv_number_format($line_price_value, nv_get_decimals($pro_config['money_unit'])) . ' ' . $pro_config['money_unit'],
+                    'discount_percent' => 0,
+                    'sale' => $line_price_value
+                );
+            } else {
+                $price = nv_get_price($data_row['id'], $pro_config['money_unit'], $data_row['num'], true);
+                $xtpl->assign('PRICE', $price);
+                $price = nv_get_price($data_row['id'], $pro_config['money_unit'], $data_row['num']);
+            }
             //$total = nv_number_format($cart_total) . ' ' . $pro_config['money_unit'];
             $xtpl->assign('PRICE_TOTAL', $price);
             $xtpl->assign('pro_num', $data_row['num']);
             $xtpl->assign('link_remove', $data_row['link_remove']);
             $xtpl->assign('product_unit', $data_row['product_unit']);
             $xtpl->assign('TOTAL', $total_cart);
+            if (!empty($data_row['variant_label'])) {
+                $xtpl->assign('variant_label', $data_row['variant_label']);
+                $xtpl->parse('main.rows.variant');
+            }
             // Tinh diem tich luy
             if ($pro_config['point_active'] and $global_array_shops_cat[$data_row['listcatid']]['cat_allow_point'] and ($global_array_shops_cat[$data_row['listcatid']]['cat_number_product'] == 0 or $data_row['num'] >= $global_array_shops_cat[$data_row['listcatid']]['cat_number_product'])) {
                 $cat_number_point = $global_array_shops_cat[$data_row['listcatid']]['cat_number_point'];
@@ -2050,7 +2075,7 @@ function cart_product($data_content, $coupons_code, $order_info, $array_error_nu
                 $xtpl->parse('main.rows.total_discounts');
             }
 
-            $price_unit = nv_get_price($data_row['id'], $pro_config['money_unit'], $data_row['num'], true);
+            $price_unit = !empty($data_row['selected_price']) ? array('discount_percent' => 0) : nv_get_price($data_row['id'], $pro_config['money_unit'], $data_row['num'], true);
             if ($price_unit['discount_percent'] > 0) {
                 $xtpl->parse('main.rows.discounts');
             }
@@ -2208,11 +2233,33 @@ function users_order($data_content, $data_order, $total_coupons, $order_info, $e
                 $xtpl->parse('main.rows.display_group');
             }
 
-            $price = nv_get_price($data_row['id'], $pro_config['money_unit'], $data_row['num'], true);
-            $xtpl->assign('PRICE', $price);
-            $price = nv_get_price($data_row['id'], $pro_config['money_unit'], $data_row['num']);
+            if (!empty($data_row['selected_price'])) {
+                $unit_price_value = floatval($data_row['selected_price']);
+                $line_price_value = $unit_price_value * $data_row['num'];
+                $price = array(
+                    'price_format' => nv_number_format($unit_price_value, nv_get_decimals($pro_config['money_unit'])) . ' ' . $pro_config['money_unit'],
+                    'sale_format' => nv_number_format($unit_price_value, nv_get_decimals($pro_config['money_unit'])) . ' ' . $pro_config['money_unit'],
+                    'discount_percent' => 0,
+                    'sale' => $unit_price_value
+                );
+                $xtpl->assign('PRICE', $price);
+                $price = array(
+                    'price_format' => nv_number_format($line_price_value, nv_get_decimals($pro_config['money_unit'])) . ' ' . $pro_config['money_unit'],
+                    'sale_format' => nv_number_format($line_price_value, nv_get_decimals($pro_config['money_unit'])) . ' ' . $pro_config['money_unit'],
+                    'discount_percent' => 0,
+                    'sale' => $line_price_value
+                );
+            } else {
+                $price = nv_get_price($data_row['id'], $pro_config['money_unit'], $data_row['num'], true);
+                $xtpl->assign('PRICE', $price);
+                $price = nv_get_price($data_row['id'], $pro_config['money_unit'], $data_row['num']);
+            }
             $xtpl->assign('PRICE_TOTAL', $price);
             $xtpl->assign('pro_no', $j);
+            if (!empty($data_row['variant_label'])) {
+                $xtpl->assign('variant_label', $data_row['variant_label']);
+                $xtpl->parse('main.rows.variant');
+            }
             $xtpl->assign('pro_num', $data_row['num']);
             $xtpl->assign('product_unit', $data_row['product_unit']);
             if ($pro_config['active_price'] == '1') {
@@ -2222,7 +2269,7 @@ function users_order($data_content, $data_order, $total_coupons, $order_info, $e
             if ($price['discount_percent'] > 0) {
                 $xtpl->parse('main.rows.total_discounts');
             }
-            $price_unit = nv_get_price($data_row['id'], $pro_config['money_unit'], $data_row['num'], true);
+            $price_unit = !empty($data_row['selected_price']) ? array('discount_percent' => 0) : nv_get_price($data_row['id'], $pro_config['money_unit'], $data_row['num'], true);
             if ($price_unit['discount_percent'] > 0) {
                 $xtpl->parse('main.rows.discounts');
             }

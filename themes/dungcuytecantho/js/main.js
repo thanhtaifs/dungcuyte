@@ -320,7 +320,7 @@ function addToCart(id) {
   $.ajax({
     type: 'POST',
     url: '/index.php?nv=shops&op=setcart&t=json', // đường dẫn chuẩn của bạn
-    data: { id: id },
+    data: { id: id, variant_id: $('#selected_variant_id').val() || '', variant_label: $('#selected_variant_label').val() || '', variant_price: $('#selected_variant_price').val() || '' },
     dataType: 'json', // bắt buộc để jQuery parse JSON
     success: function (res) {    
       if (res && res.status === 'success') {
@@ -341,18 +341,57 @@ function addToCart(id) {
   });
 }
 
+$(document).ready(function() {
+  // Xử lý chọn variant
+  $('.variant-btn').on('click', function() {
+    var $btn = $(this);
+    var variantId = $btn.data('id');
+    var variantLabel = $btn.data('label');
+    var variantPriceRaw = $btn.data('price-raw');
+    var variantPriceFormat = $btn.data('price-format');
+    var variantStock = $btn.data('stock');
+
+    // Cập nhật hidden inputs
+    $('#selected_variant_id').val(variantId);
+    $('#selected_variant_label').val(variantLabel);
+    $('#selected_variant_price').val(variantPriceRaw);
+
+    // Cập nhật hiển thị giá
+    $('#product_sale_price').text(variantPriceFormat);
+    $('#product_original_price').text($btn.data('original-price-format'));
+
+    // Highlight button được chọn
+    $('.variant-btn').removeClass('active btn-home').addClass('btn-outline-home');
+    $btn.removeClass('btn-outline-home').addClass('active btn-home');
+
+    // Cập nhật stock nếu cần
+    $('#product_stock').text('Còn ' + variantStock + ' sản phẩm');
+  });
+
+  // Mặc định chọn variant đầu tiên nếu có
+  if ($('.variant-btn').length > 0) {
+    $('.variant-btn').first().trigger('click');
+  }
+});
+
 function buyNow(btn) {
   let id = $(btn).data('id') || 0;
+  console.log('buyNow called with id:', id);
+  console.log('selected_variant_id:', $('#selected_variant_id').val());
+  console.log('selected_variant_label:', $('#selected_variant_label').val());
+  console.log('selected_variant_price:', $('#selected_variant_price').val());
   addToCartAndGo(id);
 }
 
 function addToCartAndGo(id) {
+  console.log('addToCartAndGo called with id:', id);
   $.ajax({
     type: 'POST',
     url: '/index.php?nv=shops&op=setcart&buy_now=1&t=json',
-    data: { id: id },
+    data: { id: id, variant_id: $('#selected_variant_id').val() || '', variant_label: $('#selected_variant_label').val() || '', variant_price: $('#selected_variant_price').val() || '' },
     dataType: 'json',
     success: function (res) {
+      console.log('addToCartAndGo success:', res);
       if (res && res.status === 'success') {
         window.location.href = '/index.php?nv=shops&op=order';
       } else {

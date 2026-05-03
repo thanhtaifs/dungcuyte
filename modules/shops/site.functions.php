@@ -153,6 +153,17 @@ function nv_get_price( $pro_id, $currency_convert, $number = 1, $per_pro = false
 	
 	$price = $product['product_price'];
 
+	// Check for product variants and use the minimum price if available
+	try {
+		$variant_price = $db->query( 'SELECT MIN(price) as min_price FROM ' . $db_config['prefix'] . '_' . $module_data . '_product_variants WHERE product_id = ' . $pro_id . ' AND status = 1' )->fetchColumn();
+		if( $variant_price !== false && $variant_price > 0 )
+		{
+			$price = $variant_price;
+		}
+	} catch( Exception $e ) {
+		// Table may not exist, use default price
+	}
+
 	if( !$per_pro )
 	{
 		$price = $price * $number;
