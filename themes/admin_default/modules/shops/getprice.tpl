@@ -1,5 +1,5 @@
 <!-- BEGIN: main -->
-<td colspan="4" style="display:none;">
+<td colspan="4">
 	<input type="hidden" name="product_price" value="0" />
 	<select class="form-control" name="money_unit">
 		<!-- BEGIN: money_unit -->

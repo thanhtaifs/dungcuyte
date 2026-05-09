@@ -12,13 +12,6 @@
 <link type="text/css" href="{NV_BASE_SITEURL}js/ui/jquery.ui.autocomplete.css" rel="stylesheet" />
 <link type="text/css" href="{NV_BASE_SITEURL}js/ui/jquery.ui.datepicker.css" rel="stylesheet" />
 <style type="text/css">
-#priceproduct {
-	display: none;
-}
-.table-responsive table.table thead tr:nth-child(2) th:nth-child(5),
-#variantsTable td:nth-child(5) {
-	display: none;
-}
 </style>
 
 <script type="text/javascript">var inrow = '{inrow}';</script>
@@ -69,19 +62,20 @@
 								</select>
 							</td>
 						</tr>
-						<tr id="priceproduct" style="display:none;">
-							<td colspan="4">
-								<input type="hidden" name="product_price" value="0" />
-								<select class="form-control" name="money_unit">
-									<!-- BEGIN: money_unit -->
-									<option value="{MON.code}" {MON.select}>{MON.currency}</option>
-									<!-- END: money_unit -->
-								</select>
+						<tr id="priceproduct">
+							<th align="right"> Tỷ lệ giảm giá</th>
+							<td colspan="3">								
+								<input type="hidden" name="product_price" value="0" />		
 								<select class="form-control" name="discount_id">
 									<option value="0"> --- </option>
 									<!-- BEGIN: discount -->
 									<option value="{DISCOUNT.did}" {DISCOUNT.selected} >{DISCOUNT.title}</option>
 									<!-- END: discount -->
+								</select>
+								<select class="form-control" name="money_unit">
+									<!-- BEGIN: money_unit -->
+									<option value="{MON.code}" {MON.select}>{MON.currency}</option>
+									<!-- END: money_unit -->
 								</select>
 							</td>
 						</tr>

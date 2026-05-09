@@ -314,8 +314,10 @@ div.step_bar a.step_current {
 #detail ul.product_info {
   padding: 0;
 }
+
 #detail ul.product_info li {
   margin-bottom: 2px;
+  padding: 2px 2px;
 }
 /* TAB */
 

@@ -169,17 +169,7 @@ function nv_get_price( $pro_id, $currency_convert, $number = 1, $per_pro = false
 		$price = $price * $number;
 	}
 
-	$r = $money_config[$product['money_unit']]['round'];
 	$decimals = nv_get_decimals( $currency_convert );
-
-	if( $r > 1 )
-	{
-		$price = round( $price / $r ) * $r;
-	}
-	else
-	{
-		$price = round( $price, $decimals );
-	}
 
 	if( $global_array_shops_cat[$product['listcatid']]['typeprice'] == 2 )
 	{
@@ -325,7 +315,7 @@ function nv_get_price( $pro_id, $currency_convert, $number = 1, $per_pro = false
 		$return['price_format'] = $lang_module['price_contact'];
 		$return['sale_format'] = $lang_module['price_contact'];
 	}
-	elseif( $product['product_price'] > 0 )
+	elseif( $price_original > 0 )
 	{
 		$return['price_format'] = nv_number_format( $price_original, $decimals ); // Giá gốc đã format
 		$return['sale_format'] = nv_number_format( $return['sale'], $decimals );// Giá bán thực tế của sản phẩm đã format	

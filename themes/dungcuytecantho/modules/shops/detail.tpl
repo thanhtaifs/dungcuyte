@@ -105,8 +105,7 @@
 							<!-- END: contact -->
 
 							<!-- BEGIN: variants -->
-							<li>
-								<strong>Chọn loại:</strong>
+							<li>								
 								<div class="variants">
 									<!-- BEGIN: variant -->
 									<button type="button" 
@@ -115,9 +114,9 @@
 										data-original-price-format="{VARIANT.price_format}" 
 										data-price-format="{VARIANT.sale_price_format}" 
 										data-stock="{VARIANT.stock}"
-										data-label="{VARIANT.option_1} - {VARIANT.option_2}"
+										data-label="{VARIANT.option_1} {VARIANT.option_2}"
 										data-price-raw="{VARIANT.sale_price_raw}">
-										{VARIANT.option_1} - {VARIANT.option_2}
+										{VARIANT.option_1} {VARIANT.option_2}
 									</button>
 									<!-- END: variant -->
 								</div>

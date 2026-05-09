@@ -1053,7 +1053,7 @@ elseif( $rowcontent['id'] > 0 )
 				$rowcontent['variants'][] = $variant;
 			}
 		}
-		error_log( 'Loaded variants for edit product ' . $rowcontent['id'] . ': ' . count($rowcontent['variants']) );
+		//error_log( 'Loaded variants for edit product ' . $rowcontent['id'] . ': ' . count($rowcontent['variants']) );
 	} catch( Exception $e ) {
 		// Table may not exist for old products
 		error_log( 'Variants table not available: ' . $e->getMessage() );

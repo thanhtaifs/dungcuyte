@@ -375,11 +375,59 @@ $ord_sql = ($ordername == 'title' ? NV_LANG_DATA . '_title' : $ordername) . ' ' 
 $db->sqlreset( )->select( 'id, listcatid, user_id, homeimgfile, homeimgthumb, ' . NV_LANG_DATA . '_title, ' . NV_LANG_DATA . '_alias, hitstotal, status, edittime, publtime, exptime, product_number, product_price, money_unit, product_unit, num_sell, username, contact_price' )->from( $from )->order( $ord_sql )->limit( $per_page )->offset( ($page - 1) * $per_page );
 $result = $db->query( $db->sql( ) );
 
+$rows = array();
+while( $row = $result->fetch( PDO::FETCH_ASSOC ) )
+{
+	$rows[] = $row;
+}
+
+$variant_price_map = array();
+if( !empty( $rows ) )
+{
+	$product_ids = array_map( 'intval', array_column( $rows, 'id' ) );
+	try
+	{
+		$sql = 'SELECT product_id, MIN(price) AS min_price, MAX(price) AS max_price FROM ' . $db_config['prefix'] . '_' . $module_data . '_product_variants WHERE status = 1 AND product_id IN (' . implode( ',', $product_ids ) . ') GROUP BY product_id';
+		$variant_result = $db->query( $sql );
+		while( $variant_row = $variant_result->fetch( PDO::FETCH_ASSOC ) )
+		{
+			$variant_price_map[intval( $variant_row['product_id'] )] = array(
+				'min_price' => floatval( $variant_row['min_price'] ),
+				'max_price' => floatval( $variant_row['max_price'] )
+			);
+		}
+	}
+	catch( Exception $e )
+	{
+		$variant_price_map = array();
+	}
+}
+
 $theme = $site_mods[$module_name]['theme'] ? $site_mods[$module_name]['theme'] : $global_config['site_theme'];
 $a = 0;
 
-while( list( $id, $listcatid, $admin_id, $homeimgfile, $homeimgthumb, $title, $alias, $hitstotal, $status, $edittime, $publtime, $exptime, $product_number, $product_price, $money_unit, $product_unit, $num_sell, $username, $contact_price ) = $result->fetch( 3 ) )
+while( !empty( $rows ) && ( $row = array_shift( $rows ) ) )
 {
+	$id = intval( $row['id'] );
+	$listcatid = intval( $row['listcatid'] );
+	$admin_id = intval( $row['user_id'] );
+	$homeimgfile = $row['homeimgfile'];
+	$homeimgthumb = intval( $row['homeimgthumb'] );
+	$title = $row[NV_LANG_DATA . '_title'];
+	$alias = $row[NV_LANG_DATA . '_alias'];
+	$hitstotal = intval( $row['hitstotal'] );
+	$status = intval( $row['status'] );
+	$edittime = intval( $row['edittime'] );
+	$publtime = intval( $row['publtime'] );
+	$exptime = intval( $row['exptime'] );
+	$product_number = $row['product_number'];
+	$product_price = floatval( $row['product_price'] );
+	$money_unit = $row['money_unit'];
+	$product_unit = $row['product_unit'];
+	$num_sell = $row['num_sell'];
+	$username = $row['username'];
+	$contact_price = $row['contact_price'];
+
 	$publtime = nv_date( 'H:i d/m/y', $publtime );
 	$edittime = nv_date( 'H:i d/m/y', $edittime );
 	$title = nv_clean60( $title );
@@ -416,6 +464,22 @@ while( list( $id, $listcatid, $admin_id, $homeimgfile, $homeimgthumb, $title, $a
 	{
 		$imghome = $thumb = NV_BASE_SITEURL . 'themes/dungcuytecantho/images/' . $module_file . '/no-image.jpg';
 	}
+
+	$price_data = nv_get_price( $id, $money_unit );
+	$discount_display = '';
+	if( !empty( $price_data['discount_percent'] ) )
+	{
+		$discount_display = $price_data['discount_percent'] . $price_data['discount_unit'];
+	}
+
+	$variant_price_text = '';
+	if( isset( $variant_price_map[$id] ) && $variant_price_map[$id]['min_price'] > 0 )
+	{
+		$variant_min = nv_number_format( $variant_price_map[$id]['min_price'], nv_get_decimals( $money_unit ) );
+		$variant_max = nv_number_format( $variant_price_map[$id]['max_price'], nv_get_decimals( $money_unit ) );
+		$variant_price_text = ( $variant_price_map[$id]['min_price'] == $variant_price_map[$id]['max_price'] ) ? $variant_min : $variant_min . ' - ' . $variant_max;
+	}
+
 	$xtpl->assign( 'ROW', array(
 		'id' => $id,
 		'link' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $global_array_shops_cat[$catid_i]['alias'] . '/' . $alias . $global_config['rewrite_exturl'],
@@ -432,12 +496,24 @@ while( list( $id, $listcatid, $admin_id, $homeimgfile, $homeimgthumb, $title, $a
 		'admin_id' => !empty( $username ) ? $username : '',
 		'product_number' => $product_number,
 		'product_price' => nv_number_format( $product_price, nv_get_decimals( $money_unit ) ),
+		'variant_price_text' => $variant_price_text,
+		'discount_display' => $discount_display,
 		'money_unit' => $money_unit,
 		'thumb' => $thumb,
 		'imghome' => $imghome,
 		'link_edit' => nv_link_edit_page( $id ),
 		'link_delete' => nv_link_delete_page( $id )
 	));
+
+	if( !empty( $variant_price_text ) )
+	{
+		$xtpl->parse( 'main.loop.has_variant_price' );
+	}
+
+	if( $discount_display !== '' )
+	{
+		$xtpl->parse( 'main.loop.has_discount' );
+	}
 	
 	if( $num_sell > 0 )
 	{

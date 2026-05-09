@@ -110,7 +110,15 @@
 						{LANG.content_admin}: <span class="other">{ROW.admin_id}</span>
 					</div></td>
 					<td class="text-center">{ROW.publtime}</td>
-					<td class="text-right">{ROW.product_price} {ROW.money_unit}</td>
+					<td class="text-right">
+						<!-- <div>{ROW.product_price} {ROW.money_unit}</div> -->
+						<!-- BEGIN: has_variant_price -->
+						<div>Thấp - Cao: {ROW.variant_price_text}</div>
+						<!-- END: has_variant_price -->
+						<!-- BEGIN: has_discount -->
+						<div><small>Giảm giá: {ROW.discount_display}</small></div>
+						<!-- END: has_discount -->
+					</td>
 					<td class="text-center">{ROW.hitstotal}</td>
 					<td class="text-center">{ROW.product_number}</td>
 					<td class="text-center"><!-- BEGIN: seller --><a href="{ROW.link_seller}" title="{LANG.report_detail}">{ROW.num_sell} {ROW.product_unit}</a><!-- END: seller --><!-- BEGIN: seller_empty --> {ROW.num_sell} {ROW.product_unit} <!-- END: seller_empty --></td>

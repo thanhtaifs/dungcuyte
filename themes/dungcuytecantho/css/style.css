@@ -1433,13 +1433,17 @@ textarea:focus {
   padding: 0 15px 15px;
 }
 
+.variants button { 
+  margin-bottom:5px;
+}
+
 .btn-home {
-  padding: 10px 16px;
-  background: linear-gradient(135deg, #2e9f3c, #5ea700);
+  padding: 5px 10px;
+  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
   color: white;
   border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   align-items: center;
@@ -1449,7 +1453,7 @@ textarea:focus {
 
 
 .btn-outline-home {
-  padding: 10px 16px;
+  padding: 5px 10px;
   color: #2e9f3c;
   background-color: transparent;
   border: 1px solid #2e9f3c;
