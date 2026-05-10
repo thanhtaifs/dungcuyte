@@ -312,8 +312,8 @@ function nv_get_price( $pro_id, $currency_convert, $number = 1, $per_pro = false
 		$return['discount_percent'] = 0;
 		$return['discount_unit'] = '';
 		$return['sale'] = 0;
-		$return['price_format'] = $lang_module['price_contact'];
-		$return['sale_format'] = $lang_module['price_contact'];
+		$return['price_format'] = $lang_module['price_contact'] ?? 0;
+		$return['sale_format'] = $lang_module['price_contact'] ?? 0;
 	}
 	elseif( $price_original > 0 )
 	{

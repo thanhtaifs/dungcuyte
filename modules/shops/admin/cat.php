@@ -43,7 +43,6 @@ if( ! empty( $savecat ) )
 	$field_lang = nv_file_table( $table_name );
 
 	$data['catid'] = $nv_Request->get_int( 'catid', 'post', 0 );
-	$data['typeprice'] = $nv_Request->get_int( 'typeprice', 'post', 2 );
 	$data['parentid_old'] = $nv_Request->get_int( 'parentid_old', 'post', 0 );
 	$data['parentid'] = $nv_Request->get_int( 'parentid', 'post', 0 );
 	$data['title'] = nv_substr( $nv_Request->get_title( 'title', 'post', '', 1 ), 0, 255 );
@@ -88,6 +87,20 @@ if( ! empty( $savecat ) )
 	if( ! in_array( $data['form'], $cat_form_exit ) ) $data['form'] = '';
 
 	$data['group_price'] = $nv_Request->get_textarea( 'group_price', '', 'br' );
+
+	$typeprice_post = $nv_Request->get_int( 'typeprice', 'post', -1 );
+	if( $typeprice_post >= 0 && $typeprice_post <= 1 )
+	{
+		$data['typeprice'] = $typeprice_post;
+	}
+	elseif( $data['catid'] > 0 )
+	{
+		$data['typeprice'] = (int)$db->query( 'SELECT typeprice FROM ' . $table_name . ' WHERE catid=' . $data['catid'] )->fetchColumn();
+	}
+	else
+	{
+		$data['typeprice'] = 1;
+	}
 
 	$stmt = $db->prepare( 'SELECT count(*) FROM ' . $table_name . ' WHERE catid!=' . $data['catid'] . ' AND ' . NV_LANG_DATA . '_alias= :alias' );
 	$stmt->bindParam( ':alias', $data['alias'], PDO::PARAM_STR );
@@ -324,7 +337,7 @@ foreach( $groups_list as $_group_id => $_title )
 }
 
 // Cach tinh gia san pham
-$array_typeprice = array( $lang_module['typeprice_none'], $lang_module['config_discounts'], $lang_module['typeprice_per_product'] );
+$array_typeprice = array( $lang_module['typeprice_none'], $lang_module['config_discounts'] );
 foreach( $array_typeprice as $key => $value )
 {
 	$ck = $data['typeprice'] == $key ? 'checked="checked"' : '';
