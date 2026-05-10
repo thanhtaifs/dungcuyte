@@ -554,10 +554,13 @@ function shops_show_group_list( $parentid = 0 )
 /**
  * shops_show_location_list()
  *
+ * @param integer $page
+ * @param integer $per_page
+ * @param string $base_url
  * @param integer $parentid
  * @return
  */
-function shops_show_location_list( $parentid = 0, $page, $per_page, $base_url )
+function shops_show_location_list( $page, $per_page, $base_url, $parentid = 0 )
 {
 	global $db, $db_config, $lang_module, $lang_global, $module_name, $module_data, $op, $array_viewcat_nosub, $module_file, $global_config;
 

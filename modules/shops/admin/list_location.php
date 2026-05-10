@@ -16,7 +16,7 @@ $page = $nv_Request->get_int( 'page', 'get', 1 );
 $per_page = 10;
 $base_url = NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=location';
 
-$contents = shops_show_location_list( $parentid, $page, $per_page, $base_url );
+$contents = shops_show_location_list( $page, $per_page, $base_url, $parentid );
 
 include NV_ROOTDIR . '/includes/header.php';
 echo $contents;
