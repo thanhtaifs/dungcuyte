@@ -107,17 +107,9 @@ if( empty( $contents ) )
         
         while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $contact_price, $gift_content, $gift_from, $gift_to ) = $result_featured->fetch( 3 ) )
         {
+            nv_shops_apply_variant_image( $id, $homeimgfile, $homeimgthumb );
             $featured_ids[] = $id;
-            
-            if(isset($homeimgfile))
-            {
-                $home_image = NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $homeimgfile;
-            }
-            else
-            {
-               $home_image = NV_BASE_SITEURL . 'themes/' . $module_info['template'] . '/images/' . $module_file . '/no-image.jpg';
-            }
-            
+
             //file_put_contents(NV_ROOTDIR . '/menu_debug.log',  "Processing featured product ID: " . $id . " - Title: " . $title . "\n", FILE_APPEND);
             
             if( $homeimgthumb == 1 )//image thumb
@@ -136,6 +128,8 @@ if( empty( $contents ) )
             {
                 $thumb = NV_BASE_SITEURL . 'themes/' . $module_info['template'] . '/images/' . $module_file . '/no-image.jpg';
             }
+
+            $home_image = $thumb;
             
     
             $featured_products[] = array(
@@ -185,21 +179,11 @@ if( empty( $contents ) )
         
         while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $contact_price, $gift_content, $gift_from, $gift_to ) = $result_new->fetch( 3 ) )
         {
+            nv_shops_apply_variant_image( $id, $homeimgfile, $homeimgthumb );
             $new_ids[] = $id;
         
             //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "gia san pham : "  . $product_price . "\n", FILE_APPEND);
             
-            if(isset($homeimgfile))
-            {
-                $home_image = NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $homeimgfile;
-            }
-            else
-            {
-               $home_image = NV_BASE_SITEURL . 'themes/' . $module_info['template'] . '/images/' . $module_file . '/no-image.jpg';
-            }
-            
-            $data_content['homeimgfile'] = NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $homeimgfile;
-        
             if( $homeimgthumb == 1 )//image thumb
             {
                 $thumb = NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_upload . '/' . $homeimgfile;
@@ -217,6 +201,9 @@ if( empty( $contents ) )
             {
                 $thumb = NV_BASE_SITEURL . 'themes/' . $module_info['template'] . '/images/' . $module_file . '/no-image.jpg';
             }
+
+            $home_image = $thumb;
+            $data_content['homeimgfile'] = $thumb;
     
             $new_products[] = array(
                 'id' => $id,
@@ -266,15 +253,8 @@ if( empty( $contents ) )
         
         while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $contact_price, $gift_content, $gift_from, $gift_to ) = $result_other->fetch( 3 ) )
         {
-            if(isset($homeimgfile))
-            {
-                $home_image = NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $homeimgfile;
-            }
-            else
-            {
-               $home_image = NV_BASE_SITEURL . 'themes/' . $module_info['template'] . '/images/' . $module_file . '/no-image.jpg';
-            }
-            
+            nv_shops_apply_variant_image( $id, $homeimgfile, $homeimgthumb );
+
             if( $homeimgthumb == 1 )//image thumb
             {
                 $thumb = NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_upload . '/' . $homeimgfile;
@@ -291,6 +271,8 @@ if( empty( $contents ) )
             {
                 $thumb = NV_BASE_SITEURL . 'themes/' . $module_info['template'] . '/images/' . $module_file . '/no-image.jpg';
             }
+
+            $home_image = $thumb;
     
             $other_products[] = array(
                 'id' => $id,
@@ -355,6 +337,7 @@ if( empty( $contents ) )
 
 		while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $contact_price, $gift_content, $gift_from, $gift_to ) = $result->fetch( 3 ) )
 		{
+			nv_shops_apply_variant_image( $id, $homeimgfile, $homeimgthumb );
 			if( $homeimgthumb == 1 )//image thumb
 			{
 				$thumb = NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_upload . '/' . $homeimgfile;

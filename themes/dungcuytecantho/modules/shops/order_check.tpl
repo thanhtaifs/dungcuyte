@@ -60,6 +60,9 @@
                 <h4 class="cart-title mb-3">Chi tiết đơn hàng</h4>                
                 <!-- BEGIN: rows -->
                 <div class="cart-item">
+                    <div class="cart-item-image">
+                        <img src="{img_pro}" alt="{title_pro}" class="img-fluid rounded" style="max-height: 120px; object-fit: contain;">
+                    </div>
                     <!-- Số thứ tự -->
                     <div class="cart-item-number">
                         <span class="badge_no badge__secondary">{pro_no}</span>

@@ -128,6 +128,7 @@ function GetDataIn( $result, $catid )
 	$data = array();
 	while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $contact_price, $gift_content, $gift_from, $gift_to, $newday ) = $result->fetch( 3 ) )
 	{
+		nv_shops_apply_variant_image( $id, $homeimgfile, $homeimgthumb );
 		if( $homeimgthumb == 1 )//image thumb
 		{
 			$thumb = NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_upload . '/' . $homeimgfile;
@@ -194,6 +195,7 @@ function GetDataInGroups( $result, $array_g )
 
 	while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $contact_price, $gift_content, $newday ) = $result->fetch( 3 ) )
 	{
+		nv_shops_apply_variant_image( $id, $homeimgfile, $homeimgthumb );
 		if( $homeimgthumb == 1 )//image thumb
 		{
 			$thumb = NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_upload . '/' . $homeimgfile;
@@ -257,6 +259,7 @@ function GetDataInGroup( $result, $groupid )
 
 	while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $contact_price, $gift_content, $gift_to, $gift_from ) = $result->fetch( 3 ) )
 	{
+		nv_shops_apply_variant_image( $id, $homeimgfile, $homeimgthumb );
 		if( $homeimgthumb == 1 )//image thumb
 		{
 			$thumb = NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_upload . '/' . $homeimgfile;

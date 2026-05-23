@@ -28,7 +28,7 @@
                                     <a href="{LINK}" title="{TITLE}">{TITLE0}</a>                                    
                                 </h3>                               
                                 <p class="price">
-                                    <span class="money"> {PRICE.sale_format}  </span>
+                                    <span class="money"> {PRICE.sale_format} {PRICE.unit} </span>
                                 </p>
                             </div>
                         </div>

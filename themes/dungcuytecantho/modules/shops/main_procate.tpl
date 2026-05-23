@@ -46,12 +46,12 @@
 						<!-- BEGIN: price -->
 						<p class="price">
 		                    <!-- BEGIN: discounts -->
-		                    <span class="money">{PRICE.sale_format} </span>
-		                    <span class="discounts_money">{PRICE.price_format} </span>
+		                    <span class="money">{PRICE.sale_format} {PRICE.unit}</span>
+		                    <span class="discounts_money">{PRICE.price_format} {PRICE.unit}</span>
 		                    <!-- END: discounts -->
 
 							<!-- BEGIN: no_discounts -->
-							<span class="money">{PRICE.price_format} </span>
+							<span class="money">{PRICE.price_format} {PRICE.unit}</span>
 							<!-- END: no_discounts -->
 						</p>
 						<!-- END: price -->

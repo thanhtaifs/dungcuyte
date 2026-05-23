@@ -233,6 +233,7 @@ if( ! empty( $_SESSION[$module_data . '_cart'] ) )
 		$product_rows = array();
 		while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_number, $product_price, $discount_id, $unit, $money_unit ) = $result->fetch( 3 ) )
 		{
+			nv_shops_apply_variant_image( $id, $homeimgfile, $homeimgthumb );
 			if( $homeimgthumb == 1 )
 			{
 				$thumb = NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_upload . '/' . $homeimgfile;
@@ -278,6 +279,20 @@ if( ! empty( $_SESSION[$module_data . '_cart'] ) )
 			$row_data = $product_rows[$id];
 			$group = isset( $cart_info['group'] ) ? $cart_info['group'] : '';
 			$number = isset( $cart_info['num'] ) ? intval( $cart_info['num'] ) : 1;
+			$variant_image = isset( $cart_info['variant_image'] ) ? trim( $cart_info['variant_image'] ) : '';
+			if( empty( $variant_image ) and !empty( $cart_info['variant_id'] ) )
+			{
+				$variant_data = nv_shops_get_variant_data_by_id( $cart_info['variant_id'], $id );
+				if( !empty( $variant_data['image'] ) )
+				{
+					$variant_image = nv_shops_normalize_variant_image( $variant_data['image'] );
+					$_SESSION[$module_data . '_cart'][$cart_id]['variant_image'] = $variant_image;
+				}
+			}
+			if( !empty( $variant_image ) )
+			{
+				$row_data['homeimgthumb'] = $variant_image;
+			}
 			$product_number = $db->query( 'SELECT product_number FROM ' . $db_config['prefix'] . '_' . $module_data . '_rows WHERE id=' . $id )->fetchColumn();
 
 			if( !empty( $order_info ) )
@@ -357,7 +372,7 @@ if( ! empty( $_SESSION[$module_data . '_cart'] ) )
 				}
 			}
 		}
-		$total_cart = nv_number_format($coupon_data['final_total']) . ' ' . $pro_config['money_unit'];
+		$total_cart = nv_number_format($coupon_data['final_total']) . ' ' . nv_shops_get_display_money_unit($pro_config['money_unit']);
 		//error_log("TỔNG GIỎ HÀNG =" . $total_cart);
 		if( empty( $array_error_product_number ) and $nv_Request->isset_request( 'cart_order', 'post' ) )
 		{

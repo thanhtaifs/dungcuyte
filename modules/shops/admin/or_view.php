@@ -25,6 +25,31 @@ catch( Exception $e )
 	$has_order_variant_label = false;
 }
 
+if( !function_exists( 'nv_shops_normalize_order_variant_label' ) )
+{
+	function nv_shops_normalize_order_variant_label( $label )
+	{
+		$label = trim( (string)$label );
+		if( $label === '' )
+		{
+			return '';
+		}
+
+		$parts = preg_split( '/\s*,\s*/', $label );
+		$parts = array_values( array_filter( array_map( 'trim', $parts ) ) );
+
+		if( empty( $parts ) )
+		{
+			return '';
+		}
+
+		$label = $parts[0];
+		$label = preg_replace( '/\s+/', ' ', $label );
+
+		return trim( $label );
+	}
+}
+
 $order_id = $nv_Request->get_int( 'order_id', 'post,get', 0 );
 $db->query( 'UPDATE ' . $table_name . ' SET order_view = 1 WHERE order_id=' . $order_id );
 
@@ -68,7 +93,7 @@ while( $row = $result->fetch() )
 	$listid[] = $row['proid'];
 	$listnum[] = $row['num'];
 	$listprice[] = $row['price'];
-	$listvariant[] = $has_order_variant_label ? $row['variant_label'] : '';
+	$listvariant[] = $has_order_variant_label ? nv_shops_normalize_order_variant_label( $row['variant_label'] ) : '';
 
 	$result_group = $db->query( 'SELECT group_id FROM ' . $db_config['prefix'] . '_' . $module_data . '_orders_id_group WHERE order_i=' . $row['id'] );
 	$group = array();
@@ -91,7 +116,7 @@ foreach( $listid as $id )
 	if( $result->rowCount() )
 	{
 		list( $id, $_catid, $product_code, $publtime, $title, $alias, $product_price, $unit ) = $result->fetch( 3 );
-		$variant_label = isset( $listvariant[$i] ) ? $listvariant[$i] : '';
+		$variant_label = isset( $listvariant[$i] ) ? nv_shops_normalize_order_variant_label( $listvariant[$i] ) : '';
 		if( empty( $variant_label ) )
 		{
 			if( !isset( $product_variants[$id] ) )
@@ -118,7 +143,7 @@ foreach( $listid as $id )
 
 			if( !empty( $product_variants[$id] ) )
 			{
-				$variant_label = count( $product_variants[$id] ) == 1 ? $product_variants[$id][0] : implode( ', ', $product_variants[$id] );
+				$variant_label = count( $product_variants[$id] ) == 1 ? $product_variants[$id][0] : $product_variants[$id][0];
 			}
 		}
 		$data_pro[] = array(

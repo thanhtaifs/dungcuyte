@@ -10,6 +10,7 @@ $variant_id = $nv_Request->get_title('variant_id', 'post,get', '');
 $variant_label = $nv_Request->get_title('variant_label', 'post,get', '');
 $variant_price = $nv_Request->get_float('variant_price', 'post,get', 0);
 $contents_msg = '';
+$variant_data = array();
 
 //error_log("=== setcart.php called ===");
 //error_log("id: $id, num: $num, buy_now: $buy_now, variant_id: $variant_id, variant_price: $variant_price");
@@ -133,17 +134,12 @@ if (!$row) {
     return_output($contents_msg, $type);
 }
 
-if (!empty($variant_id) && empty($variant_label)) {
-    $variant = $db->query("
-        SELECT option_1, option_2
-        FROM " . $db_config['prefix'] . "_" . $module_data . "_product_variants
-        WHERE id = " . intval($variant_id) . " AND product_id = " . intval($id)
-    )->fetch();
-
-    if ($variant) {
+if (!empty($variant_id)) {
+    $variant_data = nv_shops_get_variant_data_by_id($variant_id, $id);
+    if (!empty($variant_data) && empty($variant_label)) {
         $parts = array_filter(array(
-            trim($variant['option_1']),
-            trim($variant['option_2'])
+            trim($variant_data['option_1']),
+            trim($variant_data['option_2'])
         ));
         $variant_label = implode(' - ', $parts);
     }
@@ -176,9 +172,25 @@ if (!empty($row['contact_price']) || intval($price) < 101) {
 // ==========================
 //  LẤY THÔNG TIN ẢNH & LINK
 // ==========================
-$img = !empty($row['homeimgfile'])
-    ? NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_name . '/' . $row['homeimgfile']
-    : NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_name . '/' . ($row['homeimgthumb'] ?? '');
+$variant_image = '';
+if (!empty($variant_data['image'])) {
+    $variant_image = nv_shops_normalize_variant_image($variant_data['image']);
+}
+
+if (!empty($variant_image)) {
+    $img = $variant_image;
+} else {
+    nv_shops_apply_variant_image($id, $row['homeimgfile'], $row['homeimgthumb']);
+    if ($row['homeimgthumb'] == 1) {
+        $img = NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_upload . '/' . $row['homeimgfile'];
+    } elseif ($row['homeimgthumb'] == 2) {
+        $img = NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $row['homeimgfile'];
+    } elseif ($row['homeimgthumb'] == 3) {
+        $img = $row['homeimgfile'];
+    } else {
+        $img = NV_BASE_SITEURL . 'themes/' . $module_info['template'] . '/images/' . $module_file . '/no-image.jpg';
+    }
+}
 
 $listcatid = $row['listcatid'];
 $alias     = $row['alias'];
@@ -211,6 +223,7 @@ if (!isset($_SESSION[$cart_key][$cart_item_key])) {
         'link_pro'      => $link,
         'variant_id'    => $variant_id,
         'variant_label' => $variant_label,
+        'variant_image' => $img,
         'group'         => [],
         'order'         => $buy_now ? 1 : 0
     ];
@@ -219,6 +232,7 @@ if (!isset($_SESSION[$cart_key][$cart_item_key])) {
     $_SESSION[$cart_key][$cart_item_key]['price'] = $price;
     $_SESSION[$cart_key][$cart_item_key]['variant_id'] = $variant_id;
     $_SESSION[$cart_key][$cart_item_key]['variant_label'] = $variant_label;
+    $_SESSION[$cart_key][$cart_item_key]['variant_image'] = $img;
     if ($buy_now) {
         $_SESSION[$cart_key][$cart_item_key]['order'] = 1;
     }

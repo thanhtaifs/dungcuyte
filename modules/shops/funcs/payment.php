@@ -338,12 +338,45 @@ foreach ($cart as $pid => $row) {
     $price = floatval($row['price'] ?? 0);
     $subtotal = $qty * $price;
     $total += $subtotal;
+    $product_image = '';
+
+    if (!empty($row['variant_image'])) {
+        $product_image = $row['variant_image'];
+    } elseif (!empty($row['img_pro'])) {
+        $product_image = $row['img_pro'];
+    }
+
+    if (empty($product_image)) {
+        $row_homeimgfile = '';
+        $row_homeimgthumb = 0;
+        try {
+            $product_row = $db->query('SELECT homeimgfile, homeimgthumb FROM ' . $db_config['prefix'] . '_' . $module_data . '_rows WHERE id = ' . $pid)->fetch();
+            if (!empty($product_row)) {
+                $row_homeimgfile = $product_row['homeimgfile'];
+                $row_homeimgthumb = $product_row['homeimgthumb'];
+                nv_shops_apply_variant_image($pid, $row_homeimgfile, $row_homeimgthumb);
+                if ($row_homeimgthumb == 1) {
+                    $product_image = NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_upload . '/' . $row_homeimgfile;
+                } elseif ($row_homeimgthumb == 2) {
+                    $product_image = NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $row_homeimgfile;
+                } elseif ($row_homeimgthumb == 3) {
+                    $product_image = $row_homeimgfile;
+                }
+            }
+        } catch (Exception $e) {
+            $product_image = '';
+        }
+    }
+
+    if (empty($product_image)) {
+        $product_image = NV_BASE_SITEURL . 'themes/' . $module_info['template'] . '/images/' . $module_file . '/no-image.jpg';
+    }
 
     $items[] = [
         'id' => $cart_id,
-        'title' => $row['title_pro'] ?? "Sản phẩm $pid",
-        'link' => $row['link'] ?? '#',
-        'image' => $row['image'] ?? '#',
+        'title' => $row['title_pro'] ?? 'San pham ' . $pid,
+        'link_pro' => $row['link_pro'] ?? '#',
+        'img_pro' => $product_image,
         'qty' => $qty,
         'price' => number_format($price, 0, ',', '.'),
         'subtotal' => number_format($subtotal, 0, ',', '.'),
@@ -368,12 +401,12 @@ foreach ($items as $product) {
     if (!empty($product['variant_label'])) {
         $xtpl->parse('main.loop.variant');
     }
-    $xtpl->assign('link_pro', $product['link']);
+    $xtpl->assign('link_pro', $product['link_pro']);
     $xtpl->assign('product_number', $product['qty']);
     $xtpl->assign('product_unit', $pro_config['money_unit'] ?? 'VND');
     $xtpl->assign('product_price', $product['price']);
     $xtpl->assign('product_price_total', $product['subtotal']);
-    $xtpl->assign('product_image', $product['image']);
+    $xtpl->assign('img_pro', $product['img_pro']);
     $xtpl->parse('main.loop');
 }
 

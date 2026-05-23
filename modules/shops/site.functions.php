@@ -301,7 +301,7 @@ function nv_get_price( $pro_id, $currency_convert, $number = 1, $per_pro = false
 	$return['discount_percent'] = $discount_unit == '%' ? $discount_percent : nv_number_format( $discount_percent, $decimals );// Giảm giá theo phần trăm
 	$return['discount_unit'] = $discount_unit;// Đơn vị giảm giá
 	$return['sale'] = $price_sale;// Giá bán thực tế của sản phẩm	
-	$return['unit'] = $currency_convert;
+	$return['unit'] = nv_shops_get_display_money_unit( $currency_convert );
 
 	// Kiểm tra xem có giá hay không (nếu giá = 0 là "Liên hệ")
 	if( !empty( $product['contact_price'] ) )
@@ -312,6 +312,7 @@ function nv_get_price( $pro_id, $currency_convert, $number = 1, $per_pro = false
 		$return['discount_percent'] = 0;
 		$return['discount_unit'] = '';
 		$return['sale'] = 0;
+		$return['unit'] = '';
 		$return['price_format'] = $lang_module['price_contact'] ?? 0;
 		$return['sale_format'] = $lang_module['price_contact'] ?? 0;
 	}
@@ -322,6 +323,7 @@ function nv_get_price( $pro_id, $currency_convert, $number = 1, $per_pro = false
 	}	
 	else
 	{
+		$return['unit'] = '';
 		$return['price_format'] = 'Liên hệ';
 		$return['sale_format'] = 'Liên hệ';
 	

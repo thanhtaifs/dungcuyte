@@ -50,6 +50,7 @@ $result = $db->query( $db->sql() );
 
 while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $newday ) = $result->fetch( 3 ) )
 {
+	nv_shops_apply_variant_image( $id, $homeimgfile, $homeimgthumb );
 	if( $homeimgthumb == 1 )//image thumb
 	{
 		$thumb = NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_upload . '/' . $homeimgfile;

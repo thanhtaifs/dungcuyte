@@ -37,6 +37,162 @@ if (empty($pro_config['timecheckstatus'])) {
     $pro_config['timecheckstatus'] = 0;
 } // Thoi gian xu ly archive
 
+function nv_shops_get_variant_image($product_id)
+{
+    global $db, $db_config, $module_data, $module_upload;
+
+    static $variant_images = array();
+    $product_id = intval($product_id);
+
+    if ($product_id <= 0) {
+        return '';
+    }
+
+    if (isset($variant_images[$product_id])) {
+        return $variant_images[$product_id];
+    }
+
+    $variant_images[$product_id] = '';
+
+    try {
+        $stmt = $db->query('SELECT image FROM ' . $db_config['prefix'] . '_' . $module_data . '_product_variants WHERE product_id = ' . $product_id . " AND image != '' ORDER BY id ASC");
+        if ($stmt) {
+            $variant_image = $stmt->fetchColumn();
+            if (!empty($variant_image)) {
+                $variant_images[$product_id] = $variant_image;
+            }
+        }
+    } catch (Exception $e) {
+        $variant_images[$product_id] = '';
+    }
+
+    return $variant_images[$product_id];
+}
+
+function nv_shops_get_first_variant_data($product_id)
+{
+    global $db, $db_config, $module_data;
+
+    static $variant_data = array();
+    $product_id = intval($product_id);
+
+    if ($product_id <= 0) {
+        return array();
+    }
+
+    if (isset($variant_data[$product_id])) {
+        return $variant_data[$product_id];
+    }
+
+    $variant_data[$product_id] = array();
+
+    try {
+        $stmt = $db->query('SELECT image, seo_description, option_1, option_2 FROM ' . $db_config['prefix'] . '_' . $module_data . '_product_variants WHERE product_id = ' . $product_id . " AND (image != '' OR seo_description != '') ORDER BY id ASC");
+        if ($stmt) {
+            $variant = $stmt->fetch();
+            if (!empty($variant)) {
+                $variant_data[$product_id] = $variant;
+            }
+        }
+    } catch (Exception $e) {
+        $variant_data[$product_id] = array();
+    }
+
+    return $variant_data[$product_id];
+}
+
+function nv_shops_get_variant_data_by_id($variant_id, $product_id = 0)
+{
+    global $db, $db_config, $module_data;
+
+    static $variant_data = array();
+    $variant_id = intval($variant_id);
+    $product_id = intval($product_id);
+
+    if ($variant_id <= 0) {
+        return array();
+    }
+
+    $cache_key = $variant_id . '_' . $product_id;
+    if (isset($variant_data[$cache_key])) {
+        return $variant_data[$cache_key];
+    }
+
+    $variant_data[$cache_key] = array();
+
+    try {
+        $where = 'id = ' . $variant_id;
+        if ($product_id > 0) {
+            $where .= ' AND product_id = ' . $product_id;
+        }
+
+        $stmt = $db->query('SELECT * FROM ' . $db_config['prefix'] . '_' . $module_data . '_product_variants WHERE ' . $where . ' LIMIT 1');
+        if ($stmt) {
+            $variant = $stmt->fetch();
+            if (!empty($variant)) {
+                $variant_data[$cache_key] = $variant;
+            }
+        }
+    } catch (Exception $e) {
+        $variant_data[$cache_key] = array();
+    }
+
+    return $variant_data[$cache_key];
+}
+
+function nv_shops_normalize_variant_image($image)
+{
+    global $module_upload;
+
+    $image = trim((string)$image);
+    if (empty($image)) {
+        return '';
+    }
+
+    // If a variant stores multiple images in one field, use the first one.
+    $image_parts = preg_split('/[\r\n|,;]+/', $image);
+    $image = trim($image_parts[0]);
+
+    if (empty($image)) {
+        return '';
+    }
+
+    $upload_prefix = trim(NV_UPLOADS_DIR, '/') . '/' . $module_upload . '/';
+
+    if (nv_is_url($image)) {
+        return $image;
+    }
+
+    $image = ltrim($image, '/');
+
+    if (strpos($image, $upload_prefix) === 0) {
+        return NV_BASE_SITEURL . $image;
+    }
+
+    return NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $image;
+}
+
+function nv_shops_apply_variant_image($product_id, &$homeimgfile, &$homeimgthumb)
+{
+    $variant_image = nv_shops_get_variant_image($product_id);
+    if (!empty($variant_image)) {
+        $homeimgfile = nv_shops_normalize_variant_image($variant_image);
+        $homeimgthumb = 3;
+    }
+}
+
+function nv_shops_get_display_money_unit($unit)
+{
+    $unit = trim((string)$unit);
+    $normalized = mb_strtoupper($unit, 'UTF-8');
+
+    if ($normalized === 'VND' || $normalized === 'VNĐ' || $unit === 'đ' || $unit === 'Đ') {
+        return 'VNĐ';
+    }
+
+    return $unit;
+}
+
 // Tu dong xoa don hang sau tgian khong duoc xac nhan
 if (!empty($pro_config['order_day']) and $pro_config['order_nexttime'] < NV_CURRENTTIME) {
     global $nv_Cache;
@@ -317,7 +473,7 @@ function product_number_order($listid, $listnum, $listgroup, $type = '-')
             $sql = 'UPDATE ' . $db_config['prefix'] . '_' . $module_data . '_rows SET product_number = product_number ' . $type . ' ' . intval($listnum[$i]) . ' WHERE id =' . $id;
             $db->query($sql);
 
-            if (!empty($listgroup)) {
+            if (!empty($listgroup) && isset($listgroup[$i])) {
                 $sql = 'UPDATE ' . $db_config['prefix'] . '_' . $module_data . '_group_quantity SET quantity = quantity ' . $type . ' ' . intval($listnum[$i]) . ' WHERE pro_id =' . $id . ' AND listgroup=' . $db->quote($listgroup[$i]);
                 $db->query($sql);
             }

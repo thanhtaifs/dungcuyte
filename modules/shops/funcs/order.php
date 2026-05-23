@@ -39,7 +39,7 @@ $post_order = $nv_Request->get_int( 'postorder', 'post', 0 );
 $order_info = array();
 $error = array( );
 $success = false;
-error_log('order.php request: method=' . $_SERVER['REQUEST_METHOD'] . ', postorder=' . $post_order . ', success=' . $nv_Request->get_int( 'success', 'get', 0 ));
+//error_log('order.php request: method=' . $_SERVER['REQUEST_METHOD'] . ', postorder=' . $post_order . ', success=' . $nv_Request->get_int( 'success', 'get', 0 ));
 
 if( $nv_Request->get_int( 'success', 'get', 0 ) == 1 )
 {
@@ -124,7 +124,7 @@ if( !empty( $array_counpons['code'] ) and $array_counpons['check'] )
 
 if( $post_order == 1 )
 {	
-	error_log('order.php entered submit branch');
+	//error_log('order.php entered submit branch');
 	//error_log('post_order is 1');
 	$total = 0;
 	$total_point = 0;
@@ -697,6 +697,7 @@ if( $action == 0)
 		while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_price, $unit, $money_unit, $discount_id, $product_weight, $weight_unit ) = $result->fetch( 3 ) )
 		{
 			//error_log("Processing product $id in while loop");
+			nv_shops_apply_variant_image( $id, $homeimgfile, $homeimgthumb );
 			if( $homeimgthumb == 1 )//image thumb
 			{
 				$thumb = NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_upload . '/' . $homeimgfile;
@@ -727,6 +728,20 @@ if( $action == 0)
 			}
 
 			$cart_item = $_SESSION[$module_data . '_cart'][$pro_id_key];
+			$variant_image = isset( $cart_item['variant_image'] ) ? trim( $cart_item['variant_image'] ) : '';
+			if( empty( $variant_image ) and !empty( $cart_item['variant_id'] ) )
+			{
+				$variant_data = nv_shops_get_variant_data_by_id( $cart_item['variant_id'], $id );
+				if( !empty( $variant_data['image'] ) )
+				{
+					$variant_image = nv_shops_normalize_variant_image( $variant_data['image'] );
+					$_SESSION[$module_data . '_cart'][$pro_id_key]['variant_image'] = $variant_image;
+				}
+			}
+			if( !empty( $variant_image ) )
+			{
+				$thumb = $variant_image;
+			}
 			$num = (int) ( $cart_item['num'] ?? 0 );
 			$weight_total += nv_weight_conversion( $product_weight, $weight_unit, $pro_config['weight_unit'], $num );
 			$group = $cart_item['group'] ?? array();

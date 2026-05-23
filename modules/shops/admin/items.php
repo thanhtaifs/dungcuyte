@@ -428,6 +428,8 @@ while( !empty( $rows ) && ( $row = array_shift( $rows ) ) )
 	$username = $row['username'];
 	$contact_price = $row['contact_price'];
 
+	nv_shops_apply_variant_image( $id, $homeimgfile, $homeimgthumb );
+
 	$publtime = nv_date( 'H:i d/m/y', $publtime );
 	$edittime = nv_date( 'H:i d/m/y', $edittime );
 	$title = nv_clean60( $title );

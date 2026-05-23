@@ -201,6 +201,7 @@ if( nv_user_in_groups( $global_array_shops_cat[$catid]['groups_view'] ) )
 	$data_content['rating_value'] = $rating_count > 0 ? round( $rating_total / $rating_count ) : 0;
 
 	// Xac dinh anh lon
+	nv_shops_apply_variant_image( $data_content['id'], $data_content['homeimgfile'], $data_content['homeimgthumb'] );
 	$homeimgfile = $data_content['homeimgfile'];
 	if( $data_content['homeimgthumb'] == 1 )//image thumb
 	{
@@ -245,6 +246,7 @@ if( nv_user_in_groups( $global_array_shops_cat[$catid]['groups_view'] ) )
 	//error_log("=== truoc khi vao while detail.php shops ===");
 	while( list( $_id, $listcatid, $title, $alias, $homeimgfile, $homeimgthumb, $addtime, $publtime, $product_code, $product_number, $product_price, $price_config, $money_unit, $discount_id, $showprice, $contact_price, $hometext, $gift_content, $gift_from, $gift_to ) = $result->fetch( 3 ) )
 	{
+		nv_shops_apply_variant_image( $_id, $homeimgfile, $homeimgthumb );
 
 		if( $homeimgthumb == 1 )//image thumb
 		{
@@ -307,6 +309,7 @@ if( nv_user_in_groups( $global_array_shops_cat[$catid]['groups_view'] ) )
 			$result = $db->query( $db->sql() );
 			while( list( $_id, $listcatid, $title, $alias, $homeimgfile, $homeimgthumb, $addtime, $publtime, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $contact_price, $hometext, $gift_content, $gift_from, $gift_to ) = $result->fetch( 3 ) )
 			{
+				nv_shops_apply_variant_image( $_id, $homeimgfile, $homeimgthumb );
 				if( $homeimgthumb == 1 )//image thumb
 				{
 					$thumb = NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_upload . '/' . $homeimgfile;

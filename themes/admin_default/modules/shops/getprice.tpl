@@ -1,5 +1,6 @@
 <!-- BEGIN: main -->
-<td colspan="4">
+<th align="right"> Tỷ lệ giảm giá</th>
+<td colspan="3">
 	<input type="hidden" name="product_price" value="0" />
 	<select class="form-control" name="money_unit">
 		<!-- BEGIN: money_unit -->

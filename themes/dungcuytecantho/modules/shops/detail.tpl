@@ -1,7 +1,7 @@
 <!-- BEGIN: main -->
 <div itemscope itemtype="http://schema.org/Product" style="display: none">
 	<span itemprop="name">{TITLE}</span>
-	<img itemprop="image" src="{SRC_PRO_FULL}" alt="{TITLE}" />
+	<img itemprop="image" src="{SRC_PRO_FULL}" alt="{IMAGE_ALT}" />
 	<span itemprop="description">{hometext}</span>
 	<span itemprop="mpn">{PRODUCT_CODE}</span>
 	<!-- BEGIN: allowed_rating_snippets -->
@@ -22,7 +22,7 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-5 text-center images-thumb">
-					<img src="{SRC_PRO_LAGE}" alt="" width="363px" id="imageproduct" data-target="#imagemodal">
+					<img src="{SRC_PRO_LAGE}" alt="{IMAGE_ALT}" width="363px" id="imageproduct" data-target="#imagemodal">
             <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -31,7 +31,7 @@
 									<h4 class="modal-title" id="myModalLabel">{TITLE}</h4>
 								</div>
 								<div class="modal-body" style="display:none">
-									<img src="{SRC_PRO_LAGE}" id="imagepreview" class="img-thumbnail" >
+									<img src="{SRC_PRO_LAGE}" id="imagepreview" class="img-thumbnail" alt="{IMAGE_ALT}">
 								</div>
 							</div>
 						</div>
@@ -80,12 +80,12 @@
 										{LANG.detail_pro_price}:
 										
 										<!-- BEGIN: discounts -->
-										<span class="money" id="product_sale_price">{PRICE.sale_format}</span>
-										<span>(<del id="product_original_price">{PRICE.price_format}</del>)</span>
+										<span class="money" id="product_sale_price">{PRICE.sale_format} {PRICE.unit}</span>
+										<span>(<del id="product_original_price">{PRICE.price_format} {PRICE.unit}</del>)</span>
 										<!-- END: discounts -->
 
 										<!-- BEGIN: no_discounts -->
-										<span class="money t" id="product_sale_price">{PRICE.price_format}</span>
+										<span class="money t" id="product_sale_price">{PRICE.price_format} {PRICE.unit}</span>
 										<!-- END: no_discounts -->
 									</p>
 								</div>							
@@ -115,7 +115,9 @@
 										data-price-format="{VARIANT.sale_price_format}" 
 										data-stock="{VARIANT.stock}"
 										data-label="{VARIANT.option_1} {VARIANT.option_2}"
-										data-price-raw="{VARIANT.sale_price_raw}">
+										data-price-raw="{VARIANT.sale_price_raw}"
+										data-image="{VARIANT.image_url}"
+										data-alt="{VARIANT.alt}">
 										{VARIANT.option_1} {VARIANT.option_2}
 									</button>
 									<!-- END: variant -->
@@ -384,16 +386,25 @@ $(document).ready(function() {
         var salePriceFormat = $(this).data('price-format');
         var originalPriceFormat = $(this).data('original-price-format');
         var stock = $(this).data('stock');
+        var imageUrl = $(this).data('image');
+        var imageAlt = $(this).data('alt');
         if (salePriceFormat) {
-            $('#product_sale_price').text(salePriceFormat);
+            $('#product_sale_price').text(salePriceFormat + ' {PRICE.unit}');
             if (originalPriceFormat) {
-                $('#product_original_price').text(originalPriceFormat);
+                $('#product_original_price').text(originalPriceFormat + ' {PRICE.unit}');
             }
             $('#product_number').html('{LANG.detail_pro_number}: <strong>' + stock + '</strong> {pro_unit}');
+            if (imageUrl) {
+                $('#imageproduct, #imagepreview').attr('src', imageUrl);
+            }
+            if (imageAlt) {
+                $('#imageproduct, #imagepreview').attr('alt', imageAlt);
+                $('img[itemprop="image"]').attr('alt', imageAlt);
+            }
         } else {
             // Reset to default
-            $('#product_sale_price').text('{DEFAULT_PRICE}');
-            $('#product_original_price').text('{PRICE.price_format}');
+            $('#product_sale_price').text('{DEFAULT_PRICE} {PRICE.unit}');
+            $('#product_original_price').text('{PRICE.price_format} {PRICE.unit}');
             $('#product_number').html('{LANG.detail_pro_number}: <strong>{DEFAULT_STOCK}</strong> {pro_unit}');
         }
     });

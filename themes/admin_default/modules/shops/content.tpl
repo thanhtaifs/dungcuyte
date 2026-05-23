@@ -77,6 +77,7 @@
 									<option value="{MON.code}" {MON.select}>{MON.currency}</option>
 									<!-- END: money_unit -->
 								</select>
+								<input type="hidden" id="typepriceold" value="{TYPEPRICE_OLD}" />
 							</td>
 						</tr>
 						<!-- BEGIN: warehouse -->
@@ -96,36 +97,33 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-							<th colspan="6">Biến thể sản phẩm</th>
+							<th colspan="6">Hình ảnh sản phẩm</th>
 						</tr>
 						<tr>
-							<th>Tùy chọn 1</th>
-							<th>Tùy chọn 2</th>
+							<th>Mã sản phẩm</th>
+							<th>Hình ảnh</th>
+							<th>Mô tả hình ảnh</th>
 							<th>Giá</th>
 							<th>Tồn kho</th>
-							<th>Trạng thái</th>
-							<th><button type="button" class="btn btn-success btn-sm" onclick="addVariant()">Thêm biến thể</button></th>
+							<th><button type="button" class="btn btn-success btn-sm" onclick="addVariant()">Thêm giá trị</button></th>
 						</tr>
 					</thead>
 					<tbody id="variantsTable">
 						<!-- BEGIN: variant -->
 						<tr>
-							<td><input class="form-control" type="text" name="variants[{VARIANT.id}][option_1]" value="{VARIANT.option_1}" /></td>
-							<td><input class="form-control" type="text" name="variants[{VARIANT.id}][option_2]" value="{VARIANT.option_2}" /></td>
+							<td><input class="form-control" type="text" name="variants[{VARIANT.id}][option_1]" value="{VARIANT.option_1}" style="width:115px" /></td>
+							<td><input type="hidden" name="variants[{VARIANT.id}][option_2]" value="{VARIANT.option_2}" /><input class="form-control" type="text" name="variants[{VARIANT.id}][image]" id="variant_image_{VARIANT.id}" value="{VARIANT.image}" style="width:190px; display:inline-block" /> <input type="button" value="{LANG.browse_image}" class="btn btn-info btn-sm" onclick="nv_open_browse('{NV_BASE_ADMINURL}index.php?{NV_NAME_VARIABLE}=upload&popup=1&area=variant_image_{VARIANT.id}&path={NV_UPLOADS_DIR}/{module_name}&currentpath={CURRENT}&type=image', 'NVImg', 850, 500, 'resizable=no,scrollbars=no,toolbar=no,location=no,status=no'); return false;" /></td>
+							<td><input class="form-control" type="text" name="variants[{VARIANT.id}][seo_description]" value="{VARIANT.seo_description}" style="width:180px" /></td>
 							<td><input class="form-control" type="text" name="variants[{VARIANT.id}][price]" value="{VARIANT.price}" onkeyup="this.value=FormatNumber(this.value);" /></td>
-							<td><input class="form-control" type="number" name="variants[{VARIANT.id}][stock]" value="{VARIANT.stock}" /></td>
-							<td><select class="form-control" name="variants[{VARIANT.id}][status]">
-								<option value="1" {VARIANT.status_1}>Hoạt động</option>
-								<option value="0" {VARIANT.status_0}>Tạm dừng</option>
-							</select></td>
-							<td><button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)">Xóa</button></td>
+							<td><input class="form-control" type="number" name="variants[{VARIANT.id}][stock]" value="{VARIANT.stock}" style="width:80px" /></td>
+							<td><input type="hidden" name="variants[{VARIANT.id}][status]" value="1" /><button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)">Xóa</button></td>
 						</tr>
 						<!-- END: variant -->
 					</tbody>
 				</table>
 			</div>
 
-			<div class="table-responsive">
+			<!-- <div class="table-responsive">
 				<table class="table table-striped table-bordered table-hover">
 					<tbody>
 						<tr>
@@ -149,7 +147,7 @@
 						</tr>
 					</tbody>
 				</table>
-			</div>
+			</div> -->
 			<table class="table table-striped table-bordered table-hover">
 				<tbody>
 					<tr>
@@ -508,15 +506,12 @@
 	function addVariant() {
 		var id = variantCount++;
 		var html = '<tr>' +
-			'<td><input class="form-control" type="text" name="variants[' + id + '][option_1]" value="Chuẩn" /></td>' +
-			'<td><input class="form-control" type="text" name="variants[' + id + '][option_2]" value="M" /></td>' +
+			'<td><input class="form-control" type="text" name="variants[' + id + '][option_1]" value="Chuan" style="width:115px" /></td>' +
+			'<td><input type="hidden" name="variants[' + id + '][option_2]" value="M" /><input class="form-control" type="text" name="variants[' + id + '][image]" id="variant_image_' + id + '" style="width:190px; display:inline-block" /> <input type="button" value="{LANG.browse_image}" class="btn btn-info btn-sm" onclick="nv_open_browse(\'{NV_BASE_ADMINURL}index.php?{NV_NAME_VARIABLE}=upload&popup=1&area=variant_image_' + id + '&path={NV_UPLOADS_DIR}/{module_name}&currentpath={CURRENT}&type=image\', \'NVImg\', 850, 500, \'resizable=no,scrollbars=no,toolbar=no,location=no,status=no\'); return false;" /></td>' +
+			'<td><input class="form-control" type="text" name="variants[' + id + '][seo_description]" style="width:180px" /></td>' +
 			'<td><input class="form-control" type="text" name="variants[' + id + '][price]" value="100" onkeyup="this.value=FormatNumber(this.value);" /></td>' +
-			'<td><input class="form-control" type="number" name="variants[' + id + '][stock]" /></td>' +
-			'<td><select class="form-control" name="variants[' + id + '][status]">' +
-				'<option value="1">Hoạt động</option>' +
-				'<option value="0">Tạm dừng</option>' +
-			'</select></td>' +
-			'<td><button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)">Xóa</button></td>' +
+			'<td><input class="form-control" type="number" name="variants[' + id + '][stock]" value="1" style="width:80px" /></td>' +
+			'<td><input type="hidden" name="variants[' + id + '][status]" value="1" /><button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)">Xoa</button></td>' +
 		'</tr>';
 		$('#variantsTable').append(html);
 	}
@@ -544,31 +539,7 @@
 
 <!-- BEGIN:getalias -->
 <script type="text/javascript">
-	$('.table-responsive table.table thead tr:nth-child(2) th:nth-child(5), #variantsTable td:nth-child(5)').hide();
-
-	addVariant = function() {
-		var id = variantCount++;
-		var html = '<tr>' +
-			'<td><input class="form-control" type="text" name="variants[' + id + '][option_1]" value="Chuáº©n" /></td>' +
-			'<td><input class="form-control" type="text" name="variants[' + id + '][option_2]" value="M" /></td>' +
-			'<td><input class="form-control" type="text" name="variants[' + id + '][price]" value="100" onkeyup="this.value=FormatNumber(this.value);" /></td>' +
-			'<td><input class="form-control" type="number" name="variants[' + id + '][stock]" value="1" /></td>' +
-			'<td style="display:none;"><input type="hidden" name="variants[' + id + '][status]" value="1" /></td>' +
-			'<td><button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)">XÃ³a</button></td>' +
-		'</tr>';
-		$('#variantsTable').append(html);
-	};
-
-	$('#variantsTable select[name$=\"[status]\"]').each(function() {
-		var input = $('<input>', {
-			type: 'hidden',
-			name: this.name,
-			value: '1'
-		});
-		$(this).closest('td').replaceWith($('<td style=\"display:none;\"></td>').append(input));
-	});
-
-	$('#variantsTable input[name$=\"[stock]\"]').each(function() {
+	$('#variantsTable input[name$="[stock]"]').each(function() {
 		if (!$(this).val()) {
 			$(this).val('1');
 		}
@@ -580,3 +551,4 @@
 </script>
 <!-- END:getalias -->
 <!-- END:main -->
+

@@ -300,9 +300,10 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 	// Get variants
 	$rowcontent['variants'] = array();
 	$variants = $nv_Request->get_array( 'variants', 'post' );
+	//error_log( '[shops][variants][post] product_id=' . intval( $rowcontent['id'] ) . ' raw=' . json_encode( $variants ) );
 	if( !empty( $variants ) )
 	{
-		foreach( $variants as $variant )
+		foreach( $variants as $variant_key => $variant )
 		{
 			if( !empty( $variant['option_1'] ) || !empty( $variant['option_2'] ) )
 			{
@@ -314,10 +315,13 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 				$rowcontent['variants'][] = array(
 					'option_1' => nv_substr( $variant['option_1'], 0, 100 ),
 					'option_2' => nv_substr( $variant['option_2'], 0, 100 ),
+					'image' => nv_substr( isset( $variant['image'] ) ? $variant['image'] : '', 0, 255 ),
+					'seo_description' => nv_substr( isset( $variant['seo_description'] ) ? $variant['seo_description'] : '', 0, 255 ),
 					'price' => floatval( preg_replace( '/[^0-9\.]/', '', $variant['price'] ) ),
 					'stock' => $variant_stock,
 					'status' => 1
 				);
+				//error_log( '[shops][variants][mapped] product_id=' . intval( $rowcontent['id'] ) . ' variant_index=' . $variant_key . ' image=' . ( isset( $variant['image'] ) ? $variant['image'] : '' ) );
 			}
 		}
 	}
@@ -552,6 +556,71 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 			$rowcontent['homeimgfile'] = '';
 		}
 
+		if( !empty( $rowcontent['variants'] ) )
+		{
+			foreach( $rowcontent['variants'] as $key => $variant )
+			{
+				$variant_image = trim( isset( $variant['image'] ) ? $variant['image'] : '' );
+				$variant_image_raw = $variant_image;
+				if( !empty( $variant_image ) )
+				{
+					$upload_prefix = trim( NV_UPLOADS_DIR, '/' ) . '/' . $module_upload . '/';
+					$upload_base_url = NV_BASE_SITEURL . $upload_prefix;
+					$upload_base_dir = NV_UPLOADS_REAL_DIR . '/' . $module_upload . '/';
+					$variant_image_trimmed = ltrim( $variant_image, '/' );
+
+					if( !nv_is_url( $variant_image ) and ( is_file( NV_DOCUMENT_ROOT . $variant_image ) or is_file( NV_DOCUMENT_ROOT . '/' . $variant_image_trimmed ) ) )
+					{
+						$variant_image = $variant_image_trimmed;
+						if( strpos( $variant_image, $upload_prefix ) === 0 )
+						{
+							$variant_image = substr( $variant_image, strlen( $upload_prefix ) );
+						}
+					}
+					elseif( nv_is_url( $variant_image ) )
+					{
+						$variant_image_path = parse_url( $variant_image, PHP_URL_PATH );
+						if( strpos( $variant_image, $upload_base_url ) === 0 )
+						{
+							$variant_image = substr( $variant_image, strlen( $upload_base_url ) );
+						}
+						elseif( !empty( $variant_image_path ) )
+						{
+							$variant_image_path = ltrim( $variant_image_path, '/' );
+							if( strpos( $variant_image_path, $upload_prefix ) === 0 )
+							{
+								$variant_image = substr( $variant_image_path, strlen( $upload_prefix ) );
+							}
+							else
+							{
+								$variant_image = '';
+							}
+						}
+						else
+						{
+							$variant_image = '';
+						}
+					}
+					else
+					{
+						$variant_image = $variant_image_trimmed;
+						if( strpos( $variant_image, $upload_prefix ) === 0 )
+						{
+							$variant_image = substr( $variant_image, strlen( $upload_prefix ) );
+						}
+					}
+
+					// if( !empty( $variant_image ) and !file_exists( $upload_base_dir . $variant_image ) )
+					// {
+					// 	error_log( '[shops][variants][normalize-warning] product_id=' . intval( $rowcontent['id'] ) . ' variant_index=' . $key . ' missing_file=' . $upload_base_dir . $variant_image );
+					// }
+				}
+
+				$rowcontent['variants'][$key]['image'] = $variant_image;
+				//error_log( '[shops][variants][normalize] product_id=' . intval( $rowcontent['id'] ) . ' variant_index=' . $key . ' raw=' . $variant_image_raw . ' normalized=' . $variant_image );
+			}
+		}
+
 		$listfield = '';
 		$listvalue = '';
 		foreach( $field_lang as $field_lang_i )
@@ -701,7 +770,8 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 				{
 					foreach( $rowcontent['variants'] as $variant )
 					{
-						$db->query( 'INSERT INTO ' . $db_config['prefix'] . '_' . $module_data . '_product_variants (product_id, option_1, option_2, price, stock, status) VALUES (' . $rowcontent['id'] . ', ' . $db->quote( $variant['option_1'] ) . ', ' . $db->quote( $variant['option_2'] ) . ', ' . floatval( $variant['price'] ) . ', ' . intval( $variant['stock'] ) . ', ' . intval( $variant['status'] ) . ')' );
+						//error_log( '[shops][variants][insert] product_id=' . intval( $rowcontent['id'] ) . ' option_1=' . $variant['option_1'] . ' option_2=' . $variant['option_2'] . ' image=' . $variant['image'] );
+						$db->query( 'INSERT INTO ' . $db_config['prefix'] . '_' . $module_data . '_product_variants (product_id, option_1, option_2, image, seo_description, price, stock, status) VALUES (' . $rowcontent['id'] . ', ' . $db->quote( $variant['option_1'] ) . ', ' . $db->quote( $variant['option_2'] ) . ', ' . $db->quote( $variant['image'] ) . ', ' . $db->quote( $variant['seo_description'] ) . ', ' . floatval( $variant['price'] ) . ', ' . intval( $variant['stock'] ) . ', ' . intval( $variant['status'] ) . ')' );
 					}
 				}
 			}
@@ -866,7 +936,8 @@ if( $nv_Request->get_int( 'save', 'post' ) == 1 )
 				{
 					foreach( $rowcontent['variants'] as $variant )
 					{
-						$db->query( 'INSERT INTO ' . $db_config['prefix'] . '_' . $module_data . '_product_variants (product_id, option_1, option_2, price, stock, status) VALUES (' . $rowcontent['id'] . ', ' . $db->quote( $variant['option_1'] ) . ', ' . $db->quote( $variant['option_2'] ) . ', ' . floatval( $variant['price'] ) . ', ' . intval( $variant['stock'] ) . ', ' . intval( $variant['status'] ) . ')' );
+						//error_log( '[shops][variants][update] product_id=' . intval( $rowcontent['id'] ) . ' option_1=' . $variant['option_1'] . ' option_2=' . $variant['option_2'] . ' image=' . $variant['image'] );
+						$db->query( 'INSERT INTO ' . $db_config['prefix'] . '_' . $module_data . '_product_variants (product_id, option_1, option_2, image, seo_description, price, stock, status) VALUES (' . $rowcontent['id'] . ', ' . $db->quote( $variant['option_1'] ) . ', ' . $db->quote( $variant['option_2'] ) . ', ' . $db->quote( $variant['image'] ) . ', ' . $db->quote( $variant['seo_description'] ) . ', ' . floatval( $variant['price'] ) . ', ' . intval( $variant['stock'] ) . ', ' . intval( $variant['status'] ) . ')' );
 					}
 				}
 			}
@@ -1049,6 +1120,10 @@ elseif( $rowcontent['id'] > 0 )
 		{
 			while( $variant = $result->fetch() )
 			{
+				if( !empty( $variant['image'] ) && file_exists( NV_UPLOADS_REAL_DIR . '/' . $module_upload . '/' . $variant['image'] ) )
+				{
+					$variant['image'] = NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $variant['image'];
+				}
 				$variant['price'] = ( $variant['price'] > 0 ) ? number_format( $variant['price'], nv_get_decimals( $pro_config['money_unit'] ) ) : '';
 				$rowcontent['variants'][] = $variant;
 			}
@@ -1067,6 +1142,8 @@ if( empty( $rowcontent['variants'] ) && empty( $rowcontent['id'] ) )
 		'id' => 0,
 		'option_1' => 'Chuẩn',
 		'option_2' => 'M',
+		'image' => '',
+		'seo_description' => '',
 		'price' => '100',
 		'stock' => 1,
 		'status' => 1
@@ -1128,6 +1205,7 @@ $xtpl->assign( 'NV_NAME_VARIABLE', NV_NAME_VARIABLE );
 $xtpl->assign( 'NV_OP_VARIABLE', NV_OP_VARIABLE );
 $xtpl->assign( 'module_name', $module_name );
 $xtpl->assign( 'CURRENT', NV_UPLOADS_DIR . '/' . $module_upload . '/' . date( 'Y_m' ) );
+$xtpl->assign( 'TYPEPRICE_OLD', ($rowcontent['listcatid']) ? $global_array_shops_cat[$rowcontent['listcatid']]['typeprice'] : 1 );
 
 if( $error != '' )
 {

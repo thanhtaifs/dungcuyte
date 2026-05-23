@@ -430,8 +430,8 @@ function loadCart() {
         html += '</ul>';
 
         $cartContent.html(html);
-        $('#totalPrice').text(res.total + 'đ');
-		$('#totalPrice-popup').text(res.total + 'đ');
+        $('#totalPrice').text(res.total + ' VNĐ');
+		$('#totalPrice-popup').text(res.total + ' VNĐ');
         $cartFooter.show();
         // cập nhật badge
         $('.cart-badge, .cart-count, #cartBadge').text(res.cart_count || 0);
@@ -448,7 +448,7 @@ function loadCart() {
         $('.cart-badge, .cart-count, #cartBadge').text(0);
       }
     },
-    error: function (xhr, status, error) 
+  error: function (xhr, status, error) 
 	{
 		showMessage('Lỗi tải giỏ hàng trên hệ thống.');
 		console.log('HTTP status:', xhr.status); 
@@ -469,21 +469,20 @@ function removeCart(id,position) {
     dataType: 'json',
     success: function(res) {
       if (res && res.status === 'success') 
-	{
+      {
         // Cập nhật giao diện giỏ hàng
-		if(position == 1)
-		{			
-			updateCartUI(res);
-		}
-		else
-		{
-			
-			updateCartTotal(res);
-		}
-        
-		
-      } else {
-        showwMessage('Lỗi: ' + (res.message || 'Không thể xóa sản phẩm'));
+        if(position == 1)
+        {			
+          updateCartUI(res);
+        }
+        else
+        {          
+          updateCartTotal(res);
+        }   
+      } 
+      else 
+      {
+            showMessage('Lỗi: ' + (res.message || 'Không thể xóa sản phẩm'));
       }
     },
     error: function(xhr, status, error) {   
@@ -537,7 +536,7 @@ function updateCartTotal(res) {
 
         // --- Cập nhật tổng tiền ---
         $('.cart-amount, #totalPrice').text(
-            res.total || total.toLocaleString('vi-VN') + ' ₫'
+            res.total ? (res.total + ' VNĐ') : (total.toLocaleString('vi-VN') + ' VNĐ')
         );	
 
         // --- Nếu có counter giỏ hàng ---
@@ -551,7 +550,7 @@ function updateCartTotal(res) {
             $('#emptyCart').removeAttr('style').hide().fadeIn(300);
         });
 
-        $('.cart-amount, #totalPrice').text('0 ₫');
+        $('.cart-amount, #totalPrice').text('0 VNĐ');
         $('.cart-count').text('0');
     }
 }
@@ -575,7 +574,7 @@ function updateCartUI(res) {
     html += '</ul>';
     $cartContent.html(html);
 	
-    $('#totalPrice-popup').text(res.total + 'đ');
+    $('#totalPrice-popup').text(res.total + ' VNĐ');
     $cartFooter.show();
     $('.cart-badge, .cart-count, #cartBadge').text(res.cart_count || 0);
 
@@ -844,19 +843,15 @@ $(window).load(function() {
         autoHeight: false,
         autoplay: true,
         responsive: {
-
             0: {
                 items: 1,
             },
-
             480: {
                 items: 2,
             },
-
             768: {
                 items: 3,
             },
-
             992: {
                 items: 4,
             }
@@ -869,12 +864,12 @@ $(document).ready(function() {
 	loadCart();
 	
 	// ========== Cart dropdown ==============
-    const toggleBtn = $("#cartToggle");
-    const dropdown = $(".cart-dropdown");
-    const toggleBtnmobile = $("#cart-mobile");	
+  const toggleBtn = $("#cartToggle");
+  const dropdown = $(".cart-dropdown");
+  const toggleBtnmobile = $("#cart-mobile");	
 	const currentURL = window.location.href;
 
-    toggleBtn.on("click", function(e) {		
+  toggleBtn.on("click", function(e) {		
         e.preventDefault();
         e.stopPropagation();
 		if (currentURL.includes("/shops/cart") || (currentURL.includes("nv=shops") && currentURL.includes("op=cart"))) {

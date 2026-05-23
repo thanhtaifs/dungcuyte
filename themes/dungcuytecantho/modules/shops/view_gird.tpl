@@ -59,11 +59,11 @@
                     <!-- BEGIN: price -->
                     <div class="product-price">
                         <!-- BEGIN: discounts -->
-                        <p class="current-price">{PRICE.sale_format}</p>
-                        <p class="old-price discounts_money">{PRICE.price_format}</p>
+                        <p class="current-price">{PRICE.sale_format} {PRICE.unit}</p>
+                        <p class="old-price discounts_money">{PRICE.price_format} {PRICE.unit}</p>
                         <!-- END: discounts -->
                         <!-- BEGIN: no_discounts -->
-                        <p class="current-price">{PRICE.price_format}</p>
+                        <p class="current-price">{PRICE.price_format} {PRICE.unit}</p>
                         <!-- END: no_discounts -->
                     </div>
                     <!-- END: price -->
