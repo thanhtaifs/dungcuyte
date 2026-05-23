@@ -1,6 +1,5 @@
 <!-- BEGIN: main -->
 <style type="text/css">
-.panel-body {  padding: 0px !important; }
 .support-ol {display:block;}
 .support-ol .name-phone {}
 .support-ol .name-phone span {font-weight:bold;}

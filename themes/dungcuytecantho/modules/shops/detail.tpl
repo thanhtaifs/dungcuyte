@@ -180,44 +180,31 @@
 						</li>
 					</ul>
 					
-					<div class="socaial-share row g-2">
-					<div class="col-6 col-md-4">
-						<a class="button_share share facebook w-100 btn btn-primary text-white"
-						href="https://www.facebook.com/sharer/sharer.php?u={SELFURL}" target="_blank">
+					<div class="socaial-share">
+						<a class="button_share share facebook" href="https://www.facebook.com/sharer/sharer.php?u={SELFURL}" target="_blank">
 						<i class="fa fa-facebook"></i> Share
 						</a>
-					</div>
-					<div class="col-6 col-md-4">
-						<a class="button_share share twitter w-100 btn btn-info text-white"
-						href="https://twitter.com/share?text={TITLE}&url={SELFURL}" target="_blank">
+						<a class="button_share share twitter" href="https://twitter.com/share?text={TITLE}&url={SELFURL}" target="_blank">
 						<i class="fa fa-twitter"></i> Tweet
 						</a>
-					</div>
-					<div class="col-12 col-md-4 mt-2 mt-md-0">
-						<a class="button_share share linkedin w-100 btn btn-secondary text-white"
-						href="https://www.linkedin.com/shareArticle?mini=true&title={TITLE}&url={SELFURL}" target="_blank">
+						<a class="button_share share linkedin" href="https://www.linkedin.com/shareArticle?mini=true&title={TITLE}&url={SELFURL}" target="_blank">
 						<i class="fa fa-linkedin"></i> LinkedIn
 						</a>
-					</div>
 					</div>
 
 					<input type="hidden" id="selected_variant_id" value="">
 					<input type="hidden" id="selected_variant_label" value="">
 					<input type="hidden" id="selected_variant_price" value="">
 
-					<div class="order-buttons row" style="margin-top: 10px;">
-						<div class="col-12 col-md-6 mb-2 mb-md-0">
-							<button class="btn btn-danger btn-block btn-order w-100" data-id="{proid}" onclick="buyNow(this)">
+					<div class="order-buttons" style="margin-top: 10px;">
+							<button class="btn btn-danger btn-order" data-id="{proid}" onclick="buyNow(this)">
 							<em class="fa fa-paper-plane-o fa-lg">&nbsp;</em>
 							Mua ngay
 							</button>
-						</div>
-						<div class="col-12 col-md-6">
-							<button class="btn btn-success btn-block btn-order w-100" onclick="addToCart({proid})" data-id="{proid}" >
+							<button class="btn btn-success btn-order" onclick="addToCart({proid})" data-id="{proid}" >
 							<em class="fa fa-shopping-cart fa-lg">&nbsp;</em>
 							Thêm vào giỏ
 							</button>
-						</div>
 					</div>
 					
 

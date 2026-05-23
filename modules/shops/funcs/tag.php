@@ -11,6 +11,9 @@
 if( ! defined( 'NV_IS_MOD_SHOPS' ) ) die( 'Stop!!!' );
 
 $alias = $nv_Request->get_title( 'alias', 'get' );
+$page = 1;
+$data_content = array();
+
 $array_op = explode( '/', $alias );
 $alias = $array_op[0];
 
