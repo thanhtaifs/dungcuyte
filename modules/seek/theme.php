@@ -144,6 +144,6 @@ function search_result_theme($result_array, $mod, $mod_custom_title, $search, $i
     }
     
     $xtpl->parse('main');
-    error_log('ok search_result_theme loaded');
+    //error_log('ok search_result_theme loaded');
     return $xtpl->text('main');
 }

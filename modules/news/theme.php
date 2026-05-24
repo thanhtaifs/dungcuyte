@@ -303,14 +303,14 @@ function viewcat_page_new( $array_catpage, $array_cat_other, $generate_page )
 		$xtpl->assign( 'GENERATE_PAGE', $generate_page );
 		$xtpl->parse( 'main.generate_page' );
 	}
-	error_log("=== news viewcat_page_new load parse OK ===");
+	//error_log("=== news viewcat_page_new load parse OK ===");
 	$xtpl->parse( 'main' );
 	return $xtpl->text( 'main' );
 }
 
 function viewcat_top( $array_catcontent, $generate_page )
 {
-	error_log("=== news viewcat_top loaded OK ===");
+	//error_log("=== news viewcat_top loaded OK ===");
 	global $module_name, $module_file, $module_upload, $lang_module, $module_config, $module_info, $global_array_cat, $catid, $page;
 
 	$xtpl = new XTemplate( 'viewcat_top.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
@@ -382,7 +382,7 @@ function viewcat_top( $array_catcontent, $generate_page )
 
 function viewsubcat_main( $viewcat, $array_cat )
 {
-	error_log("=== news viewsubcat_main loaded OK ===");
+	//error_log("=== news viewsubcat_main loaded OK ===");
 	global $module_name, $module_file, $global_array_cat, $lang_module, $module_config, $module_info;
 
 	$xtpl = new XTemplate( $viewcat . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );

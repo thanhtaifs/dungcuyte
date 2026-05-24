@@ -10,7 +10,7 @@
 
 if( ! defined( 'NV_IS_FILE_ADMIN' ) ) die( 'Stop!!!' );
 
-error_log('Truy cập được vào page khuyến mãi tạo bài');
+//error_log('Truy cập được vào page khuyến mãi tạo bài');
 
 $id = $nv_Request->get_int( 'id', 'post,get', 0 );
 

@@ -34,7 +34,7 @@ $request_uri = $_SERVER['REQUEST_URI'];
 
 if( ! ( $home OR $request_uri == $base_url_rewrite OR $request_uri == $page_url_rewrite OR NV_MAIN_DOMAIN . $request_uri == $base_url_rewrite OR NV_MAIN_DOMAIN . $request_uri == $page_url_rewrite ) )
 {
-	error_log("=== Main modules news check if home in news ===");
+	//error_log("=== Main modules news check if home in news ===");
 
 	$redirect = '<meta http-equiv="Refresh" content="3;URL=' . $base_url_rewrite . '" />';
 	//error_log("=== Main modules news check before nv_info_die ===");

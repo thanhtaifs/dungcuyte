@@ -1141,7 +1141,7 @@ if( empty( $rowcontent['variants'] ) && empty( $rowcontent['id'] ) )
 	$rowcontent['variants'][] = array(
 		'id' => 0,
 		'option_1' => 'Chuẩn',
-		'option_2' => 'M',
+		'option_2' => '',
 		'image' => '',
 		'seo_description' => '',
 		'price' => '100',

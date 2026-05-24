@@ -19,6 +19,140 @@ function nv_shops_can_show_price($data_row)
     return !empty($data_row['showprice']) && empty($data_row['contact_price']);
 }
 
+function nv_shops_schema_text($value)
+{
+    if (is_array($value)) {
+        $value = implode(', ', array_filter(array_map('nv_shops_schema_text', $value)));
+    }
+
+    $value = html_entity_decode(strip_tags((string)$value), ENT_QUOTES, 'UTF-8');
+    $value = preg_replace('/\s+/u', ' ', $value);
+
+    return trim($value);
+}
+
+function nv_shops_schema_currency($currency)
+{
+    $currency = strtoupper(trim((string)$currency));
+    $map = array(
+        'VND' => 'VND',
+        'VNĐ' => 'VND',
+        'USD' => 'USD',
+        'EUR' => 'EUR'
+    );
+
+    return isset($map[$currency]) ? $map[$currency] : $currency;
+}
+
+function nv_shops_schema_availability($quantity)
+{
+    return intval($quantity) > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock';
+}
+
+function nv_shops_build_product_schema($data_content, $price, $variants, $data_unit, $custom_properties, $image_url, $category_title, $product_url)
+{
+    global $global_config;
+
+    $product_name = nv_shops_schema_text($data_content[NV_LANG_DATA . '_title']);
+    $description = nv_shops_schema_text(!empty($data_content[NV_LANG_DATA . '_hometext']) ? $data_content[NV_LANG_DATA . '_hometext'] : $data_content[NV_LANG_DATA . '_bodytext']);
+    $currency = nv_shops_schema_currency(isset($price['unit']) ? $price['unit'] : '');
+    $brand_name = 'CÔNG TY TNHH HUỲNH GIA ALPHA';
+
+    $schema = array(
+        '@context' => 'https://schema.org',
+        '@type' => 'Product',
+        '@id' => $product_url . '#product',
+        'name' => $product_name,
+        'url' => $product_url,
+        'description' => $description,
+        'category' => nv_shops_schema_text($category_title),
+        'sku' => nv_shops_schema_text($data_content['product_code']),
+        'mpn' => nv_shops_schema_text($data_content['product_code']),
+        'image' => array($image_url),
+        'brand' => array(
+            '@type' => 'Brand',
+            'name' => $brand_name
+        ),
+        'seller' => array(
+            '@id' => rtrim($global_config['site_url'], '/') . '/#localbusiness'
+        )
+    );
+
+    if (!empty($custom_properties)) {
+        $schema['additionalProperty'] = $custom_properties;
+    }
+
+    if (!empty($data_content['rating_total']) && !empty($data_content['rating_value'])) {
+        $schema['aggregateRating'] = array(
+            '@type' => 'AggregateRating',
+            'ratingValue' => (float)$data_content['rating_value'],
+            'reviewCount' => (int)$data_content['rating_total']
+        );
+    }
+
+    if (nv_shops_can_show_price($data_content) && isset($price['sale']) && floatval($price['sale']) > 0) {
+        if (!empty($variants)) {
+            $offers = array();
+            $low_price = null;
+            $high_price = null;
+
+            foreach ($variants as $variant) {
+                $variant_name_parts = array_filter(array(
+                    $product_name,
+                    nv_shops_schema_text($variant['option_1']),
+                    nv_shops_schema_text($variant['option_2'])
+                ));
+                $variant_price = isset($variant['sale_price_raw']) ? floatval($variant['sale_price_raw']) : 0;
+                $variant_stock = isset($variant['stock']) ? intval($variant['stock']) : intval($data_content['product_number']);
+
+                if ($variant_price > 0) {
+                    if ($low_price === null || $variant_price < $low_price) {
+                        $low_price = $variant_price;
+                    }
+                    if ($high_price === null || $variant_price > $high_price) {
+                        $high_price = $variant_price;
+                    }
+                }
+
+                $variant_offer = array(
+                    '@type' => 'Offer',
+                    'url' => $product_url,
+                    'priceCurrency' => $currency,
+                    'price' => $variant_price,
+                    'availability' => nv_shops_schema_availability($variant_stock),
+                    'itemCondition' => 'https://schema.org/NewCondition',
+                    'sku' => !empty($data_content['product_code']) ? nv_shops_schema_text($data_content['product_code']) . '-' . $variant['id'] : (string)$variant['id'],
+                    'name' => implode(' - ', $variant_name_parts)
+                );
+                $offers[] = $variant_offer;
+            }
+
+            if (!empty($offers)) {
+                $schema['offers'] = array(
+                    '@type' => 'AggregateOffer',
+                    'url' => $product_url,
+                    'priceCurrency' => $currency,
+                    'lowPrice' => $low_price,
+                    'highPrice' => $high_price !== null ? $high_price : $low_price,
+                    'offerCount' => count($offers),
+                    'offers' => $offers
+                );
+            }
+        } else {
+            $schema['offers'] = array(
+                '@type' => 'Offer',
+                'url' => $product_url,
+                'priceCurrency' => $currency,
+                'price' => floatval($price['sale']),
+                'availability' => nv_shops_schema_availability($data_content['product_number']),
+                'itemCondition' => 'https://schema.org/NewCondition'
+            );
+        }
+    }
+
+    return '<script type="application/ld+json">' . json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>\n";
+}
+
 //error_log("=== theme.php loaded OK ===");
 /**
  * redict_link()
@@ -1495,8 +1629,10 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
         $xtpl->assign('product_discounts', $price['discount_percent']);
         $xtpl->assign('discount_unit', $price['discount_unit']);
         $xtpl->assign('money_unit', $price['unit']);
+        $xtpl->assign('PRICE_CURRENCY', nv_shops_schema_currency($price['unit']));
         $xtpl->assign('PRODUCT_CODE', $data_content['product_code']);
         $xtpl->assign('PRODUCT_NUMBER', $data_content['product_number']);
+        $xtpl->assign('SCHEMA_AVAILABILITY', nv_shops_schema_availability($data_content['product_number']));
 
         $xtpl->assign('pro_unit', $data_unit['title']);
         
@@ -1552,7 +1688,7 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
                     $variants[] = $variant;
                 }
             }
-            #error_log( 'Loaded variants for product ' . $data_content['id'] . ': ' . count($variants) );
+            //error_log( 'Loaded variants for product ' . $data_content['id'] . ': ' . count($variants) );
         } catch( Exception $e ) {
             // Table may not exist for old products, use default price
             error_log( 'Variants table not available: ' . $e->getMessage() );
@@ -1628,6 +1764,7 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
                 {
                     $variant_image_full = $global_config['site_url'] . $variant_image_full;
                 }
+                $src_pro_full = $variant_image_full;
                 $xtpl->assign('SRC_PRO_FULL', $variant_image_full);
                 $xtpl->assign('SRC_PRO', $first_variant['image_url']);
                 $xtpl->assign('SRC_PRO_LAGE', $first_variant['image_url']);
@@ -1639,6 +1776,7 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
         $xtpl->assign('PRICE', $price); // Re-assign after possible update
         $xtpl->assign('DEFAULT_PRICE', $default_price);
         $xtpl->assign('DEFAULT_STOCK', $default_stock);
+        $xtpl->assign('SCHEMA_AVAILABILITY', nv_shops_schema_availability($default_stock));
         
         // Debug discount info
         #$debug_msg = "PRO_ID: {$data_content['id']} | DISCOUNT_ID: {$data_content['discount_id']} | DISCOUNT_PERCENT: {$price['discount_percent']} | TYPEPRICE: {$global_array_shops_cat[$data_content['listcatid']]['typeprice']}\n";
@@ -1666,10 +1804,28 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
         }
 
         // Hien thi du lieu tuy bien o phan gioi thieu
+        $schema_custom_properties = array();
         if (!empty($data_content['array_custom']) and !empty($data_content['array_custom_lang'])) {
             $custom_data = nv_custom_tpl('tab-introduce' . '.tpl', $data_content['array_custom'], $data_content['array_custom_lang'], $idtemplate);
             $xtpl->assign('CUSTOM_DATA', $custom_data);
             $xtpl->parse('main.custom_data');
+
+            foreach ($data_content['array_custom'] as $field_key => $field_value) {
+                if (!isset($data_content['array_custom_lang'][$field_key])) {
+                    continue;
+                }
+
+                $property_name = nv_shops_schema_text($data_content['array_custom_lang'][$field_key]);
+                $property_value = nv_shops_schema_text($field_value);
+
+                if ($property_name !== '' && $property_value !== '') {
+                    $schema_custom_properties[] = array(
+                        '@type' => 'PropertyValue',
+                        'name' => $property_name,
+                        'value' => $property_value
+                    );
+                }
+            }
         }
 
         // San pham yeu thich
@@ -1786,7 +1942,7 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
 
             if ($data_content['rating_total'] > 0 and $data_content['rating_point'] > 0) {
                 $xtpl->assign('RATE_TOTAL', $data_content['rating_total']);
-                $xtpl->assign('RATE_VALUE', $data_content['rating_point']);
+                $xtpl->assign('RATE_VALUE', $data_content['rating_value']);
                 $xtpl->parse('main.allowed_rating_snippets');
             }
 
@@ -1800,6 +1956,24 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
 
         if (!empty($pro_config['show_product_code']) and !empty($data_content['product_code'])) {
             $xtpl->parse('main.product_code');
+        }
+
+        if (!$popup) {
+            $product_url = $client_info['selfurl'];
+            if (strpos($product_url, '://') === false) {
+                $product_url = rtrim($global_config['site_url'], '/') . '/' . ltrim($product_url, '/');
+            }
+
+            $my_head .= nv_shops_build_product_schema(
+                $data_content,
+                $price,
+                $variants,
+                $data_unit,
+                $schema_custom_properties,
+                $src_pro_full,
+                $global_array_shops_cat[$data_content['listcatid']]['title'],
+                $product_url
+            );
         }
     }
 

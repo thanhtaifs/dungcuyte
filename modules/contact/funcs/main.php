@@ -80,7 +80,7 @@ function nv_SendMail2User( $cid, $fcontent, $ftitle, $femail, $full_name )
 }
 
 //Danh sach cac bo phan
-$sql = 'SELECT id, alias, full_name FROM ' . NV_PREFIXLANG . '_' . $module_data . '_department WHERE act=1 ORDER BY weight';
+$sql = 'SELECT id, alias, full_name, phone, email, note FROM ' . NV_PREFIXLANG . '_' . $module_data . '_department WHERE act=1 ORDER BY weight';
 //error_log($sql);
 $array_department = nv_db_cache( $sql, 'alias' );
 

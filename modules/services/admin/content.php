@@ -11,11 +11,11 @@
 if( ! defined( 'NV_IS_FILE_ADMIN' ) ) die( 'Stop!!!' );
 
 $id = $nv_Request->get_int( 'id', 'post,get', 0 );
-error_log('Truy cập được vào page dịch vụ tạo bài');
+//error_log('Truy cập được vào page dịch vụ tạo bài');
 if( $id )
 {
 	$sql = 'SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . ' WHERE id=' . $id;
-	error_log('services module - fetching content id ' . $sql);
+	//error_log('services module - fetching content id ' . $sql);
 	$row = $db->query( $sql )->fetch();
 
 	if(empty( $row ) )
@@ -31,7 +31,7 @@ else
 {
 	$page_title = $lang_module['add'];
 	$action = NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op;
-	error_log('Truy cập được vào page dịch vụ tạo bài' . $action);
+	//error_log('Truy cập được vào page dịch vụ tạo bài' . $action);
 }
 
 $selectthemes = ( ! empty( $site_mods[$module_name]['theme'] ) ) ? $site_mods[$module_name]['theme'] : $global_config['site_theme'];

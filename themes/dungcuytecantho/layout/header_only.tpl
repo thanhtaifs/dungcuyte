@@ -9,12 +9,13 @@
 		{THEME_SITE_RSS}
 
 		<link rel="shortcut icon" href="{NV_BASE_SITEURL}themes/{TEMPLATE}/favicon.ico" />
+		<link rel="preload" as="image" href="{NV_BASE_SITEURL}images/Banner.webp" type="image/webp" fetchpriority="high" />
 
         <!-- BEGIN: responsive -->
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/bootstrap.min.css" rel="stylesheet" />
                 <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/owl.carousel.min.css" rel="stylesheet" />
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css" rel="stylesheet" />
-        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.responsive.css" rel="stylesheet" /> 
+        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.responsive.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/default.css" />
 		<link rel="stylesheet" type="text/css" href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/component.css" />
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/skitter.styles.min.css" type="text/css" media="all" rel="stylesheet" />
@@ -28,48 +29,45 @@
 		<link href="{NV_BASE_SITEURL}themes/dungcuytecantho/css/font-awesome.min.css" rel="stylesheet" />
 		{THEME_CSS}
 		{THEME_SITE_JS}
-        <script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/modernizr.custom.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.cbpFWSlider.min.js"></script>
-		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.slicknav.js"></script>
-		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/owl.carousel.min.js"></script>
-		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery-ui.min.js"></script>
-		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.nice-select.min.js"></script>
-        
-		<script type="text/javascript" language="javascript" src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.easing.1.3.js"></script>
-        <script type="text/javascript" language="javascript" src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.skitter.min.js"></script>
-        
+        <script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/modernizr.custom.js" defer></script>
+		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.cbpFWSlider.min.js" defer></script>
+		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.slicknav.js" defer></script>
+		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/owl.carousel.min.js" defer></script>
+		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery-ui.min.js" defer></script>
+		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.nice-select.min.js" defer></script>
+
+		<script type="text/javascript" language="javascript" src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.easing.1.3.js" defer></script>
+        <script type="text/javascript" language="javascript" src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.skitter.min.js" defer></script>
 
         <script>
-			$( function() {
+			window.addEventListener('DOMContentLoaded', function() {
+				if (window.jQuery && $('#cbp-fwslider').length && $.fn.cbpFWSlider) {
+					$('#cbp-fwslider').cbpFWSlider();
+				}
 
-				$( '#cbp-fwslider' ).cbpFWSlider();
-
-			} );
-		</script>
-        
-        <script type="text/javascript" language="javascript">
-			$(document).ready(function() {
-			  $('.box_skitter_large').skitter({
-				theme: 'clean',
-				numbers_align: 'center',
-				progressbar: true, 
-				dots: true, 
-				preview: true
-			  });
+				if (window.jQuery && $('.box_skitter_large').length && $.fn.skitter) {
+					$('.box_skitter_large').skitter({
+						theme: 'clean',
+						numbers_align: 'center',
+						progressbar: true,
+						dots: true,
+						preview: true
+					});
+				}
 			});
+
 			window.addEventListener('pageshow', function(event) {
-                // Kích hoạt lại nút tìm kiếm nếu nó bị disabled
+                // Re-enable the search button after bfcache restore
                 var btn = document.getElementById('topmenu_search_submit');
                 if (btn && btn.disabled) {
                     btn.disabled = false;
                 }
             });
-		  </script>
-		<script type="text/javascript" src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/main.js"></script>
+		</script>
+		<script type="text/javascript" src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/main.js" defer></script>
 		<!-- BEGIN: lt_ie9 -->
-		<script type="text/javascript" src="{NV_BASE_SITEURL}themes/dungcuytecantho/js/html5shiv.js"></script>
-		<script type="text/javascript" src="{NV_BASE_SITEURL}themes/dungcuytecantho/js/respond.min.js"></script>
+		<script type="text/javascript" src="{NV_BASE_SITEURL}themes/dungcuytecantho/js/html5shiv.js" defer></script>
+		<script type="text/javascript" src="{NV_BASE_SITEURL}themes/dungcuytecantho/js/respond.min.js" defer></script>
 		<!-- END: lt_ie9 -->
 	</head>
 	<body>

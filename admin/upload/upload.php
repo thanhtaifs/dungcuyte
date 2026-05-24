@@ -262,9 +262,9 @@ if( empty( $error ) )
 			}	
 				
 	}
-	#error_log("=== nv_insert_logs upload page shops ===");
+	//error_log("=== nv_insert_logs upload page shops ===");
 	nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['upload_file'], $path . '/' . $upload_info['basename'], $admin_info['userid'] );
-	#error_log("=== nv_insert_logs ok upload page shops ===");
+	//error_log("=== nv_insert_logs ok upload page shops ===");
 	if( $editor == 'ckeditor' )
 	{
 		echo "<script type=\"text/javascript\">window.parent.CKEDITOR.tools.callFunction(" . $CKEditorFuncNum . ", '" . NV_BASE_SITEURL . $path . "/" . $upload_info['basename'] . "', '');</script>";

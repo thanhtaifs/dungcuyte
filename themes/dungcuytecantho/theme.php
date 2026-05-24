@@ -10,6 +10,112 @@
 
  if( ! defined( 'NV_SYSTEM' ) or ! defined( 'NV_MAINFILE' ) ) die( 'Stop!!!' );
 
+function dungcuyte_build_localbusiness_schema()
+{
+	global $global_config;
+
+	$site_url = ! empty( $global_config['site_url'] ) ? rtrim( $global_config['site_url'], '/' ) : '';
+	$logo_url = '';
+
+	if( ! empty( $global_config['site_logo'] ) )
+	{
+		$logo_url = $site_url . '/' . ltrim( $global_config['site_logo'], '/' );
+	}
+
+	$schema = array(
+		'@context' => 'https://schema.org',
+		'@graph' => array(
+			array(
+				'@type' => 'LocalBusiness',
+				'@id' => $site_url . '/#localbusiness',
+				'name' => 'CÔNG TY TNHH HUỲNH GIA ALPHA',
+				'url' => $site_url,
+				'image' => $logo_url,
+				'logo' => $logo_url,
+				'description' => ! empty( $global_config['site_description'] ) ? $global_config['site_description'] : 'Thiết bị y tế Huỳnh Gia Alpha tại Cần Thơ và Vĩnh Long',
+				'email' => 'huynhgiact65@gmail.com',
+				'telephone' => '+84937037770',
+				'priceRange' => '$$',
+				'address' => array(
+					'@type' => 'PostalAddress',
+					'streetAddress' => '4AB1 Xuân Thủy, KDC Cái Sơn - Hàng Bàng, KV2, P. An Bình',
+					'addressLocality' => 'Cần Thơ',
+					'addressRegion' => 'Cần Thơ',
+					'addressCountry' => 'VN'
+				),
+				'areaServed' => array(
+					array(
+						'@type' => 'City',
+						'name' => 'Cần Thơ'
+					),
+					array(
+						'@type' => 'State',
+						'name' => 'Vĩnh Long'
+					)
+				),
+				'branchOf' => array(
+					'@type' => 'Organization',
+					'name' => 'CÔNG TY TNHH HUỲNH GIA ALPHA'
+				),
+				'hasMap' => 'https://www.google.com/maps/place/D%E1%BB%A5ng+c%E1%BB%A5+y+khoa+C%E1%BA%A7n+Th%C6%A1+-+Hu%E1%BB%B3nh+Gia+1/@10.0265453,105.7493923,17z'
+			),
+			array(
+				'@type' => 'LocalBusiness',
+				'@id' => $site_url . '/#huynh-gia-1',
+				'name' => 'Dụng cụ y khoa Cần Thơ - Huỳnh Gia 1',
+				'parentOrganization' => array(
+					'@id' => $site_url . '/#localbusiness'
+				),
+				'telephone' => '+84906377086',
+				'address' => array(
+					'@type' => 'PostalAddress',
+					'streetAddress' => '04-06 Xuân Thủy, KDC Hồng Phát, P. An Bình',
+					'addressLocality' => 'Cần Thơ',
+					'addressRegion' => 'Cần Thơ',
+					'addressCountry' => 'VN'
+				),
+				'hasMap' => 'https://www.google.com/maps/place/D%E1%BB%A5ng+c%E1%BB%A5+y+khoa+C%E1%BA%A7n+Th%C6%A1+-+Hu%E1%BB%B3nh+Gia+1/@10.0265453,105.7493923,17z'
+			),
+			array(
+				'@type' => 'LocalBusiness',
+				'@id' => $site_url . '/#huynh-gia-2',
+				'name' => 'Cửa hàng thiết bị y tế Cần Thơ - Huỳnh Gia 2',
+				'parentOrganization' => array(
+					'@id' => $site_url . '/#localbusiness'
+				),
+				'telephone' => '+84907694868',
+				'address' => array(
+					'@type' => 'PostalAddress',
+					'streetAddress' => '369B Nguyễn Văn Cừ nối dài, KV4, P. Tân An',
+					'addressLocality' => 'Cần Thơ',
+					'addressRegion' => 'Cần Thơ',
+					'addressCountry' => 'VN'
+				),
+				'hasMap' => 'https://www.google.com/maps/place/C%E1%BB%ACA+H%C3%80NG+THI%E1%BA%BET+B%E1%BB%8A+Y+T%E1%BA%BE+C%E1%BA%A6N+TH%C6%A0+(HU%E1%BB%B2NH+GIA+1%262)/@10.0316776,105.7529779,15z'
+			),
+			array(
+				'@type' => 'LocalBusiness',
+				'@id' => $site_url . '/#huynh-gia-3',
+				'name' => 'Cửa hàng thiết bị y tế Vĩnh Long - Huỳnh Gia 3',
+				'parentOrganization' => array(
+					'@id' => $site_url . '/#localbusiness'
+				),
+				'telephone' => '+84907694868',
+				'address' => array(
+					'@type' => 'PostalAddress',
+					'streetAddress' => '37A Phạm Hùng, Khóm 2, P. Long Châu',
+					'addressLocality' => 'Vĩnh Long',
+					'addressRegion' => 'Vĩnh Long',
+					'addressCountry' => 'VN'
+				),
+				'hasMap' => 'https://www.google.com/maps/place/C%E1%BB%ACA+H%C3%80NG+THI%E1%BA%BET+B%E1%BB%8A+Y+T%E1%BA%BE+V%C4%A8NH+LONG+(HU%E1%BB%B2NH+GIA+4)/@10.2599847,105.9427509,15z'
+			)
+		)
+	);
+
+	return '<script type="application/ld+json">' . json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . "</script>\n";
+}
+
 function nv_site_theme( $contents, $full = true )
 {
 	global $home, $array_mod_title, $lang_global, $language_array, $global_config, $site_mods, $module_name, $module_info, $op_file, $mod_title, $my_head, $my_footer, $client_info, $module_config, $op;
@@ -102,6 +208,7 @@ function nv_site_theme( $contents, $full = true )
 	$xtpl->assign( 'THEME_SITE_RSS', nv_html_site_rss() );
 	$xtpl->assign( 'THEME_CSS', $css );
 	$xtpl->assign( 'THEME_SITE_JS', nv_html_site_js() );
+	$my_head .= dungcuyte_build_localbusiness_schema();
 	
 	if($client_info['browser']['key'] == "explorer" AND $client_info['browser']['version'] < 9)
 	{

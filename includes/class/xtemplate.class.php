@@ -969,7 +969,14 @@ class XTemplate
 				$nul = ( ! isset( $this->_null_string[$v] ) ) ? ( $this->_null_string[""] ) : ( $this->_null_string[$v] );
 				$var = ( ! isset( $var ) ) ? $nul : $var;
 
-				// Prevent cast to strings when arrays passed in
+				// Avoid PHP warnings when a template variable resolves to a non-scalar value.
+				// Nested arrays can be assigned for dot-notation access, but the top-level value
+				// itself is not printable and should render as an empty string.
+				if ( is_array( $var ) || ( is_object( $var ) && ! method_exists( $var, '__toString' ) ) )
+				{
+					$var = '';
+				}
+
 				if ( is_string( $var ) )
 				{
 					if ( $var === '' )

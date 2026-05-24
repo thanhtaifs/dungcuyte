@@ -32,6 +32,7 @@ function contact_main_theme( $array_content, $array_department, $base_url, $chec
 	$xtpl->assign( 'GFX_WIDTH', NV_GFX_WIDTH );
 	$xtpl->assign( 'GFX_HEIGHT', NV_GFX_HEIGHT );
 	$xtpl->assign( 'NV_BASE_SITEURL', NV_BASE_SITEURL );
+	$xtpl->assign( 'NV_CURRENTTIME', NV_CURRENTTIME );
 	$xtpl->assign( 'CAPTCHA_REFRESH', $lang_global['captcharefresh'] );
 	$xtpl->assign( 'CAPTCHA_REFR_SRC', NV_BASE_SITEURL . 'images/refresh.png' );
 	$xtpl->assign( 'NV_GFX_NUM', NV_GFX_NUM );
@@ -56,6 +57,25 @@ function contact_main_theme( $array_content, $array_department, $base_url, $chec
 		{
 			if( ! empty( $row['full_name'] ) )
 			{
+				$department = $row;
+				$department['phone_link'] = preg_replace( '/[^0-9+]/', '', $row['phone'] );
+				$department['selected_class'] = ( $array_content['fpart'] == $value ) ? ' is-selected' : '';
+
+				$xtpl->assign( 'DEPARTMENT', $department );
+				if( ! empty( $row['phone'] ) )
+				{
+					$xtpl->parse( 'main.form.department_loop.phone' );
+				}
+				if( ! empty( $row['email'] ) )
+				{
+					$xtpl->parse( 'main.form.department_loop.email' );
+				}
+				if( ! empty( $row['note'] ) )
+				{
+					$xtpl->parse( 'main.form.department_loop.note' );
+				}
+				$xtpl->parse( 'main.form.department_loop' );
+
 				$xtpl->assign( 'SELECT_NAME', $row['full_name'] );
 				$xtpl->assign( 'SELECT_VALUE', $value );
 				$xtpl->assign( 'SELECTED', ( $array_content['fpart'] == $value ) ? ' selected="selected"' : '' );

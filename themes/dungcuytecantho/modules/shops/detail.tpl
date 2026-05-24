@@ -4,16 +4,19 @@
 	<img itemprop="image" src="{SRC_PRO_FULL}" alt="{IMAGE_ALT}" />
 	<span itemprop="description">{hometext}</span>
 	<span itemprop="mpn">{PRODUCT_CODE}</span>
+	<span itemprop="sku">{PRODUCT_CODE}</span>
 	<!-- BEGIN: allowed_rating_snippets -->
 	<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"> <span itemprop="ratingValue">{RATE_VALUE}</span> {LANG.trong} <span itemprop="reviewCount">{RATE_TOTAL} </span> {LANG.dg} </span>
 	<!-- END: allowed_rating_snippets -->
 	<span itemprop="offers" itemscope itemtype="http://schema.org/Offer"> 
     	<span itemprop="category">{CAT_TITLE}</span> 
+		<link itemprop="url" href="{SELFURL}" />
     	<!-- BEGIN: price1 --> 
     	<span itemprop="price">{PRICE.sale_format}</span> 
-    	<span itemprop="priceCurrency"></span> 
+    	<span itemprop="priceCurrency">{PRICE_CURRENCY}</span> 
 	<!-- END: price1 --> 
-    	<span itemprop="availability">{LANG.detail_pro_number}: {PRODUCT_NUMBER} {pro_unit}    	</span> 
+		<link itemprop="availability" href="{SCHEMA_AVAILABILITY}" />
+    	<span>{LANG.detail_pro_number}: {PRODUCT_NUMBER} {pro_unit}</span> 
 	</span>
 </div>
 

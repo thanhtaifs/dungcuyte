@@ -177,7 +177,15 @@ if( $post_order == 1 )
 
 			$info['price'] = $unit_price;
 			$total = $total + ( double )$line_price;
-			$total_weight = $total_weight + nv_weight_conversion( ( double )$info['weight'], $info['weight_unit'], $pro_config['weight_unit'], ( int )$info['num'] );
+			$weight = isset($info['weight']) ? (double)$info['weight'] : 0;
+			$weight_unit = isset($info['weight_unit']) ? $info['weight_unit'] : $pro_config['weight_unit'];
+
+			$total_weight += nv_weight_conversion(
+				$weight,
+				$weight_unit,
+				$pro_config['weight_unit'],
+				(int)$info['num']
+			);
 
 			$i++;
 		}
