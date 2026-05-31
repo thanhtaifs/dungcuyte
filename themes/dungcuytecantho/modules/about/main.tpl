@@ -61,7 +61,7 @@
 				<li><strong>Tên đơn vị:</strong> Công Ty TNHH Huỳnh Gia Alpha</li>
 				<li><strong>Mã số thuế:</strong> 1801763703 </li>
 				<li><strong>Địa chỉ trụ sở:</strong> 4AB1 Xuân Thủy, KDC Cái Sơn - Hàng Bàng, KV2,P. An Bình, TP. Cần Thơ</li>
-				<li><strong>Điện thoại:</strong> 0906 377 086 – 0899 060 456</li>
+				<li><strong>Điện thoại:</strong> 0937 037 770 – 0907 694 868</li>
 				<li><strong>Email:</strong> huynhgiact65@gmail.com</li>
 				<li><strong>Người đại diện theo pháp luật:</strong> Huỳnh Tấn Nguyên</li>
 				<li><strong>Chức vụ:</strong> Giám đốc</li>

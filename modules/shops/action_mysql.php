@@ -741,6 +741,7 @@ $data['review_check'] = 1;
 $data['review_captcha'] = 1;
 $data['group_price'] = '';
 $data['groups_notify'] = '3';
+$data['order_notify_email'] = '';
 $data['template_active'] = '0';
 $data['download_active'] = '0';
 $data['download_groups'] = '6';

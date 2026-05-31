@@ -75,6 +75,33 @@ if ($num_items > 0) {
         //file_put_contents(NV_ROOTDIR . '/debug_seek.log', ">>> explode \n", FILE_APPEND);
         
         $catid = end($catids);
+        if (function_exists('nv_shops_apply_variant_image')) {
+            nv_shops_apply_variant_image($row['id'], $row['homeimgfile'], $row['homeimgthumb']);
+        } elseif (!empty($row['id'])) {
+            try {
+                $variant = $db->query('SELECT image FROM ' . $db_config['prefix'] . '_' . $m_values['module_data'] . '_product_variants WHERE product_id = ' . (int)$row['id'] . " AND image != '' ORDER BY id ASC")->fetch();
+                if (!empty($variant['image'])) {
+                    $variant_images = preg_split('/[\r\n|,;]+/', trim((string)$variant['image']));
+                    $variant_image = trim((string)$variant_images[0]);
+                    if (!empty($variant_image)) {
+                        if (nv_is_url($variant_image)) {
+                            $row['homeimgfile'] = $variant_image;
+                        } else {
+                            $variant_image = ltrim($variant_image, '/');
+                            $upload_prefix = trim(NV_UPLOADS_DIR, '/') . '/' . $m_values['module_name'] . '/';
+                            if (strpos($variant_image, $upload_prefix) === 0) {
+                                $row['homeimgfile'] = NV_BASE_SITEURL . $variant_image;
+                            } else {
+                                $row['homeimgfile'] = NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $m_values['module_name'] . '/' . $variant_image;
+                            }
+                        }
+                        $row['homeimgthumb'] = 3;
+                    }
+                }
+            } catch (Exception $e) {
+                // Keep product image fallback if variants table is unavailable here.
+            }
+        }
         if (isset($array_cat_alias[$catid]) && is_array($array_cat_alias[$catid]) && isset($array_cat_alias[$catid]['alias'])) {
             $cat_alias = $array_cat_alias[$catid]['alias'];
         } else {
@@ -83,23 +110,15 @@ if ($num_items > 0) {
         }
         
         // Xử lý hình ảnh
-        if( $row['homeimgthumb'] == 1 ||  $row['homeimgthumb'] == 2 || $row['homeimgthumb'] == 3)
-        {
-            $thumb_link = NV_BASE_SITEURL . NV_FILES_DIR;
+        if ($row['homeimgthumb'] == 1) {
+            $thumbnail_image = NV_BASE_SITEURL . NV_FILES_DIR . '/' . $m_values['module_name'] . '/' . $row['homeimgfile'];
+        } elseif ($row['homeimgthumb'] == 2) {
+            $thumbnail_image = NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $m_values['module_name'] . '/' . $row['homeimgfile'];
+        } elseif ($row['homeimgthumb'] == 3) {
+            $thumbnail_image = $row['homeimgfile'];
+        } else {
+            $thumbnail_image = NV_BASE_SITEURL . 'themes/' . $module_info['template'] . '/images/' . $module_file . '/no-image.jpg';
         }
-        else//no image
-        {
-            $thumb_link = NV_BASE_SITEURL . 'themes/' . $module_info['template'] . '/images/' . $module_file . '/no-image.jpg';
-        }        
-        
-        if(isset($row['homeimgfile'] ))
-        {
-            $name_image = $row['homeimgfile'];
-        }
-        else
-        {
-            $name_image = '';
-        }       
         
         //file_put_contents(NV_ROOTDIR . '/debug_seek.log', ">>> search php homeimgthumb: " .  $thumb . PHP_EOL, FILE_APPEND);
         
@@ -115,8 +134,8 @@ if ($num_items > 0) {
         'link' => $url,
         'title_alt' => $title_alt,
         'title' => $title,
-        'link_upload_image' => $thumb_link,
-        'image' =>  $name_image, 
+        'thumbnail_image' => $thumbnail_image,
+        'image' => isset($row['homeimgfile']) ? $row['homeimgfile'] : '',
         'content' => $content
         ];
     }

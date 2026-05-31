@@ -212,6 +212,8 @@ $html_pages = nv_generate_page($base_url, $num_items, $per_page, $page);
 $link = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=';
 
 while (list($id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_number, $product_price, $discount_id, $money_unit, $showprice, $gift_content, $gift_from, $gift_to, $newday) = $result->fetch(3)) {
+    nv_shops_apply_variant_image($id, $homeimgfile, $homeimgthumb);
+
     if ($homeimgthumb == 1) {
         //image thumb
 

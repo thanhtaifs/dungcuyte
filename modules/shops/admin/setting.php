@@ -68,6 +68,7 @@ if( $savesetting == 1 )
 	$data['active_showhomtext'] = $nv_Request->get_int( 'active_showhomtext', 'post', 0 );
 	$_groups_notify = $nv_Request->get_array( 'groups_notify', 'post', array() );
 	$data['groups_notify'] = ! empty( $_groups_notify ) ? implode( ',', array_intersect( $_groups_notify, array_keys( $groups_list ) ) ) : '';
+	$data['order_notify_email'] = nv_substr( $nv_Request->get_title( 'order_notify_email', 'post', '', 1 ), 0, 1000 );
 	$data['active_tooltip'] = $nv_Request->get_int( 'active_tooltip', 'post', 0 );
 	$data['show_product_code'] = $nv_Request->get_int( 'show_product_code', 'post', 0 );
 	$data['show_compare'] = $nv_Request->get_int( 'show_compare', 'post', 0 );
@@ -92,6 +93,34 @@ if( $savesetting == 1 )
 	$data['download_active'] = $nv_Request->get_int( 'download_active', 'post', 0 );
 	$_dowload_groups = $nv_Request->get_array( 'download_groups', 'post', array() );
 	$data['download_groups'] = ! empty( $_dowload_groups ) ? implode( ',', nv_groups_post( array_intersect( $_dowload_groups, array_keys( $groups_list_default ) ) ) ) : '';
+
+	if( ! empty( $data['order_notify_email'] ) )
+	{
+		$notify_emails = preg_split( '/[\s,;]+/', $data['order_notify_email'] );
+		$notify_emails_valid = array();
+
+		foreach( $notify_emails as $email )
+		{
+			$email = trim( $email );
+			if( empty( $email ) )
+			{
+				continue;
+			}
+
+			if( nv_check_valid_email( $email ) != '' )
+			{
+				$error = sprintf( $lang_module['setting_order_notify_email_error'], $email );
+				break;
+			}
+
+			$notify_emails_valid[] = $email;
+		}
+
+		if( empty( $error ) )
+		{
+			$data['order_notify_email'] = implode( ',', array_unique( $notify_emails_valid ) );
+		}
+	}
 
 	if( $error == '' )
 	{
@@ -254,6 +283,8 @@ foreach( $groups_list as $_group_id => $_title )
 	) );
 	$xtpl->parse( 'main.groups_notify' );
 }
+
+$xtpl->assign( 'DATA_ORDER_NOTIFY_EMAIL', $data['order_notify_email'] ?? '' );
 
 // Tien te
 $result = $db->query( "SELECT code, currency FROM " . $db_config['prefix'] . "_" . $module_data . "_money_" . NV_LANG_DATA . " ORDER BY code DESC" );

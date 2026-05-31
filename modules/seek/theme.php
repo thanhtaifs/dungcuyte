@@ -109,7 +109,11 @@ function search_result_theme($result_array, $mod, $mod_custom_title, $search, $i
 
     foreach ($result_array as $result) 
     {
-        if (!empty($result['image']))
+        if (!empty($result['thumbnail_image']))
+        {
+            $result['thumbnail_image'] = $result['thumbnail_image'];
+        }
+        elseif (!empty($result['image']))
         {
             $result['thumbnail_image'] = $result['link_upload_image'] . '/shops/' . $result['image'];
         } else 

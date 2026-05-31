@@ -1085,6 +1085,7 @@ function nv_sendmail( $from, $to, $subject, $message, $files = '' )
 
 		if( ! $mail->Send() )
 		{
+			error_log( '[nv_sendmail] mode=' . $mailer_mode . ' host=' . ( $global_config['smtp_host'] ?? '' ) . ' port=' . ( $global_config['smtp_port'] ?? '' ) . ' secure=' . ( $global_config['smtp_ssl'] ?? '' ) . ' from=' . ( $global_config['site_email'] ?? '' ) . ' username=' . ( $global_config['smtp_username'] ?? '' ) . ' to=' . implode( ',', $to ) . ' error=' . $mail->ErrorInfo );
 			trigger_error( $mail->ErrorInfo, E_USER_WARNING );
 
 			return false;
@@ -1094,6 +1095,7 @@ function nv_sendmail( $from, $to, $subject, $message, $files = '' )
 	}
 	catch( phpmailerException $e )
 	{
+		error_log( '[nv_sendmail] exception mode=' . ( $global_config['mailer_mode'] ?? '' ) . ' host=' . ( $global_config['smtp_host'] ?? '' ) . ' port=' . ( $global_config['smtp_port'] ?? '' ) . ' secure=' . ( $global_config['smtp_ssl'] ?? '' ) . ' from=' . ( $global_config['site_email'] ?? '' ) . ' username=' . ( $global_config['smtp_username'] ?? '' ) . ' error=' . $e->errorMessage() );
 		trigger_error( $e->errorMessage(), E_USER_WARNING );
 
 		return false;

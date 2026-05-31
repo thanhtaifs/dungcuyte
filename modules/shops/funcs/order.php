@@ -608,22 +608,39 @@ if( $post_order == 1 )
 			$lang_module['order_email_thanks'] = sprintf( $lang_module['order_email_thanks_to_admin'], $data_order['order_name'] );
 			$lang_module['order_email_review'] = sprintf( $lang_module['order_email_review_to_admin'], $order_url );
 			$listmail_notify = nv_listmail_notify();
+			error_log( '[shops][order_mail] order_id=' . $data_order['id'] . ' notify_config=' . ( $pro_config['order_notify_email'] ?? '' ) . ' notify_list=' . implode( ',', (array)$listmail_notify ) );
 			if( !empty( $listmail_notify ) )
 			{
-				
 				try 
 				{
 					if (!function_exists('email_new_order')) 
 					{
 						throw new Exception('Function email_new_order() not found');
 					}
-					$email_contents_to_admin = call_user_func('email_new_order', $data_order, $data_pro, true);					
-					nv_sendmail(
+
+					$replace_data['review_url'] = '<a href="' . $order_url . '">' . $lang_module['content_here'] . '</a>';
+					if( file_exists( $content_file ) )
+					{
+						$content = file_get_contents( $content_file );
+						$content = nv_editor_br2nl( $content );
+					}
+					else
+					{
+						$content = $lang_module['order_payment_email'];
+					}
+					foreach( $replace_data as $key => $value )
+					{
+						$content = str_replace( '{' . $key . '}', $value, $content );
+					}
+
+					$email_contents_to_admin = call_user_func( 'email_new_order', $content, $data_order, $data_pro );					
+					$send_admin_mail = nv_sendmail(
 						array($global_config['site_name'], $global_config['site_email']),
 						$listmail_notify,
 						sprintf($email_title, $module_info['custom_title'], $data_order['order_code']),
 						$email_contents_to_admin
 					);
+					error_log( '[shops][order_mail] order_id=' . $data_order['id'] . ' admin_send=' . ( $send_admin_mail ? 'success' : 'failed' ) . ' recipients=' . implode( ',', (array)$listmail_notify ) );
 					
 				} catch (Throwable $e)
 				{

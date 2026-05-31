@@ -36,6 +36,9 @@ if (empty($pro_config['format_order_id'])) {
 if (empty($pro_config['timecheckstatus'])) {
     $pro_config['timecheckstatus'] = 0;
 } // Thoi gian xu ly archive
+if (!isset($pro_config['order_notify_email'])) {
+    $pro_config['order_notify_email'] = '';
+}
 
 function nv_shops_get_variant_image($product_id)
 {
@@ -686,6 +689,17 @@ function nv_listmail_notify()
             $array_mail[] = $email;
         }
     }
+
+    if (!empty($pro_config['order_notify_email'])) {
+        $notify_emails = preg_split('/[\s,;]+/', $pro_config['order_notify_email']);
+        foreach ($notify_emails as $email) {
+            $email = trim($email);
+            if (!empty($email) and nv_check_valid_email($email) == '') {
+                $array_mail[] = $email;
+            }
+        }
+    }
+
     $array_mail = array_unique($array_mail);
 
     return $array_mail;

@@ -102,6 +102,8 @@ if (strlen($key) >= NV_MIN_SEARCH_LENGTH) {
     $url_link = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=';
 
     while (list($id, $title, $alias, $listcatid, $hometext, $publtime, $homeimgfile, $homeimgthumb) = $result->fetch(3)) {
+        nv_shops_apply_variant_image($id, $homeimgfile, $homeimgthumb);
+
         if ($homeimgthumb == 1) {
             //image thumb
 

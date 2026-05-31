@@ -1,4 +1,7 @@
 <!-- BEGIN: main -->
+<!-- BEGIN: error -->
+<div class="alert alert-danger">{error}</div>
+<!-- END: error -->
 <form class="form-inline" action="" method="post">
 	<div class="table-responsive">
 		<table class="table table-striped table-bordered table-hover">
@@ -209,6 +212,10 @@
 						</div>
 						<!-- END: groups_notify -->
 					</td>
+				</tr>
+				<tr>
+					<td><strong>{LANG.setting_order_notify_email}</strong><em class="help-block">{LANG.setting_order_notify_email_note}</em></td>
+					<td><input type="text" name="order_notify_email" class="form-control w500" value="{DATA_ORDER_NOTIFY_EMAIL}" /></td>
 				</tr>
 				<tr>
 					<td><strong>{LANG.setting_order_day}</strong><span class="help-block">{LANG.setting_order_day_note}</span></td>
