@@ -187,7 +187,7 @@ if( nv_user_in_groups( $global_array_shops_cat[$catid]['groups_view'] ) )
 
 	// Danh gia - Phan hoi
 	$rating_total = 0;
-	$result = $db->query( 'SELECT rating FROM ' . $db_config['prefix'] . '_' . $module_data . '_review WHERE product_id = ' . $data_content['id'] . ' AND status=1' );
+	$result = $db->query( 'SELECT rating FROM ' . $db_config['prefix'] . '_' . $module_data . '_review WHERE product_id = ' . $data_content['id'] . ' AND moderation_status=' . $db->quote( 'approved' ) . ' AND status=1' );
 	$rating_count = $result->rowCount();
 	if( $rating_count > 0 )
 	{

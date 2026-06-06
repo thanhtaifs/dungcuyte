@@ -2,7 +2,7 @@
 <div class="panel panel-default">
 	<div class="panel-body">
 		<div class="row form-review">
-			<div class="col-xs-24 col-sm-11 border border-right">
+			<div class="col-xs-24 col-sm-12 col-left">
 				<form id="review_form">
 					<div class="form-group">
 						<input type="text" class="form-control" name="sender" value="{SENDER}" placeholder="{LANG.profile_user_name}">
@@ -34,7 +34,7 @@
 					</div>
 				</form>
 			</div>
-			<div class="col-xs-24 col-sm-13 border">
+			<div class="col-xs-24 col-sm-12 col-right">
 				<div id="rate_list">
 					<p class="text-center">
 						<em class="fa fa-spinner fa-spin fa-3x">&nbsp;</em>
@@ -45,8 +45,32 @@
 	</div>
 </div>
 <script type="text/javascript">
-	$("#rate_list").load('{LINK_REVIEW}&showdata=1');
-	var rating = 0;
+	function nvLoadReviewPage(page, appendMode) {
+		var requestUrl = '{LINK_REVIEW}&showdata=1&page=' + page + '&nocache=' + new Date().getTime();
+		if (!appendMode) {
+			$('#rate_list').html('<p class="text-center"><em class="fa fa-spinner fa-spin fa-3x">&nbsp;</em></p>');
+		}
+		$.get(requestUrl, function(html) {
+			var $html = $('<div>').html(html);
+			var $items = $html.find('.review-items').children();
+			var $buttonWrap = $html.find('.review-loadmore-wrap');
+			if (!appendMode) {
+				$('#rate_list').html($html.html());
+			} else {
+				$('#rate_list .review-items').append($items);
+				$('#rate_list .review-loadmore-wrap').remove();
+				if ($buttonWrap.length) {
+					$('#rate_list .row').append($buttonWrap);
+				}
+			}
+		});
+	}
+
+	nvLoadReviewPage(1, false);
+	var rating = 5;
+	for (var i = rating; i >= 0; i--) {
+		$('.rate-btn-' + i).addClass('rate-btn-hover');
+	};
 	$('.rate-btn').hover(function() {
 		$('.rate-btn').removeClass('rate-btn-hover');
 		rating = $(this).attr('id');
@@ -68,12 +92,23 @@
 				if (s[0] == 'OK') {
 					$('#review_form input[name="sender"], #review_form input[name="fcode"], #review_form textarea').val('');
 					$('.rate-btn').removeClass('rate-btn-hover');
-					$("#rate_list").load('{LINK_REVIEW}&showdata=1');
+					rating = 5;
+					for (var i = rating; i >= 0; i--) {
+						$('.rate-btn-' + i).addClass('rate-btn-hover');
+					};
+					nvLoadReviewPage(1, false);
 				}
 				alert(s[1]);
 			}
 		});
 		return false;
+	});
+
+	$(document).on('click', '.review-loadmore-btn', function() {
+		var $button = $(this);
+		var nextPage = parseInt($button.data('next-page'), 10) || 1;
+		$button.prop('disabled', true).text('{LANG.rate_loading_more}');
+		nvLoadReviewPage(nextPage, true);
 	});
 </script>
 <!-- END: main -->

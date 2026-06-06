@@ -41,7 +41,7 @@ $lang_module['title_wishlist'] = 'Yêu thích';
 $lang_module['add_product'] = 'Đặt hàng';
 $lang_module['add_cart'] = 'Thêm vào giỏ';
 $lang_module['buy_now'] = 'Mua ngay';
-$lang_module['detail_product'] = 'Chi tiết';
+$lang_module['detail_product'] = 'Chi tiết thông tin sản phẩm';
 $lang_module['set_cart_success'] = 'Đã thêm "%s" vào giỏ hàng';
 $lang_module['profile_manage'] = 'Quản lý profile';
 $lang_module['gender'] = 'Giới tính';
@@ -495,3 +495,7 @@ $lang_module['select_content_customdata'] = 'Dữ liệu tùy biến';
 
 $lang_module['cart_confirm_info'] = 'Tôi đã kiểm tra và xác nhận thông tin đặt hàng là chính xác';
 $lang_module['order_check_err'] = 'Bạn cần chọn mục xác nhận thông tin';
+$lang_module['rate_verified_purchase'] = 'Đã mua hàng xác minh';
+$lang_module['rate_seller_response'] = 'Phản hồi từ nhà bán';
+$lang_module['rate_load_more'] = 'Xem thêm đánh giá';
+$lang_module['rate_loading_more'] = 'Đang tải thêm...';

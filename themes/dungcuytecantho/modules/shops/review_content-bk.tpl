@@ -46,7 +46,10 @@
 </div>
 <script type="text/javascript">
 	$("#rate_list").load('{LINK_REVIEW}&showdata=1');
-	var rating = 0;
+	var rating = 5;
+	for (var i = rating; i >= 0; i--) {
+		$('.rate-btn-' + i).addClass('rate-btn-hover');
+	};
 	$('.rate-btn').hover(function() {
 		$('.rate-btn').removeClass('rate-btn-hover');
 		rating = $(this).attr('id');
@@ -68,6 +71,10 @@
 				if (s[0] == 'OK') {
 					$('#review_form input[name="sender"], #review_form input[name="fcode"], #review_form textarea').val('');
 					$('.rate-btn').removeClass('rate-btn-hover');
+					rating = 5;
+					for (var i = rating; i >= 0; i--) {
+						$('.rate-btn-' + i).addClass('rate-btn-hover');
+					};
 					$("#rate_list").load('{LINK_REVIEW}&showdata=1');
 				}
 				alert(s[1]);

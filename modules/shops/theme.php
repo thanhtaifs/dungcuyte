@@ -92,18 +92,12 @@ function nv_shops_build_product_schema($data_content, $price, $variants, $data_u
 
     if (nv_shops_can_show_price($data_content) && isset($price['sale']) && floatval($price['sale']) > 0) {
         if (!empty($variants)) {
-            $offers = array();
+            $offer_count = 0;
             $low_price = null;
             $high_price = null;
 
             foreach ($variants as $variant) {
-                $variant_name_parts = array_filter(array(
-                    $product_name,
-                    nv_shops_schema_text($variant['option_1']),
-                    nv_shops_schema_text($variant['option_2'])
-                ));
                 $variant_price = isset($variant['sale_price_raw']) ? floatval($variant['sale_price_raw']) : 0;
-                $variant_stock = isset($variant['stock']) ? intval($variant['stock']) : intval($data_content['product_number']);
 
                 if ($variant_price > 0) {
                     if ($low_price === null || $variant_price < $low_price) {
@@ -112,30 +106,19 @@ function nv_shops_build_product_schema($data_content, $price, $variants, $data_u
                     if ($high_price === null || $variant_price > $high_price) {
                         $high_price = $variant_price;
                     }
+                    ++$offer_count;
                 }
-
-                $variant_offer = array(
-                    '@type' => 'Offer',
-                    'url' => $product_url,
-                    'priceCurrency' => $currency,
-                    'price' => $variant_price,
-                    'availability' => nv_shops_schema_availability($variant_stock),
-                    'itemCondition' => 'https://schema.org/NewCondition',
-                    'sku' => !empty($data_content['product_code']) ? nv_shops_schema_text($data_content['product_code']) . '-' . $variant['id'] : (string)$variant['id'],
-                    'name' => implode(' - ', $variant_name_parts)
-                );
-                $offers[] = $variant_offer;
             }
 
-            if (!empty($offers)) {
+            if ($offer_count > 0) {
                 $schema['offers'] = array(
                     '@type' => 'AggregateOffer',
                     'url' => $product_url,
                     'priceCurrency' => $currency,
                     'lowPrice' => $low_price,
                     'highPrice' => $high_price !== null ? $high_price : $low_price,
-                    'offerCount' => count($offers),
-                    'offers' => $offers
+                    'offerCount' => $offer_count,
+                    'availability' => nv_shops_schema_availability($data_content['product_number'])
                 );
             }
         } else {
@@ -150,7 +133,7 @@ function nv_shops_build_product_schema($data_content, $price, $variants, $data_u
         }
     }
 
-    return '<script type="application/ld+json">' . json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>\n";
+    return $schema;
 }
 
 //error_log("=== theme.php loaded OK ===");
@@ -1849,9 +1832,13 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
         }
 
         if (!$popup) {
+            $detail_section = '';
+            $review_section = '';
+
             // Hien thi tabs
             if (!empty($data_content['tabs'])) {
-                $i=0;
+                $i = 0;
+                $has_tabs = false;
                 foreach ($data_content['tabs'] as $tabs_id => $tabs_value) {
                     $tabs_content = '';
                     $tabs_key = $tabs_value['content'];
@@ -1859,7 +1846,7 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
                     if ($tabs_key == 'content_detail') {
                         // Chi tiết sản phẩm
 
-                        $tabs_content = $data_content[NV_LANG_DATA . '_bodytext'];
+                        $detail_section = $data_content[NV_LANG_DATA . '_bodytext'];
                     } elseif ($tabs_key == 'content_download' and $pro_config['download_active'] == 1) {
                         // Download tài liệu
 
@@ -1872,12 +1859,12 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
                     } elseif ($tabs_key == 'content_comments') {
                         // Bình luận
 
-                        $tabs_content = $content_comment;
+                        continue;
                     } elseif ($tabs_key == 'content_rate') {
                         // Đánh giá sản phẩm
 
                         if (!empty($data_content['allowed_rating']) and !empty($pro_config['review_active'])) {
-                            $tabs_content = nv_review_content($data_content);
+                            $review_section = nv_review_content($data_content);
                         }
                     } elseif ($tabs_key == 'content_customdata') {
                         // Dữ liệu tùy biến
@@ -1906,10 +1893,23 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
                         }
                         $xtpl->parse('main.product_detail.tabs.tabs_title');
                         $xtpl->parse('main.product_detail.tabs.tabs_content');
+                        $has_tabs = true;
+                        $i++;
                     }
-                    $i++;
                 }
-                $xtpl->parse('main.product_detail.tabs');
+                if ($has_tabs) {
+                    $xtpl->parse('main.product_detail.tabs');
+                }
+            }
+
+            if (!empty($detail_section)) {
+                $xtpl->assign('DETAIL_SECTION', $detail_section);
+                $xtpl->parse('main.product_detail.detail_section');
+            }
+
+            if (!empty($review_section)) {
+                $xtpl->assign('REVIEW_SECTION', $review_section);
+                $xtpl->parse('main.product_detail.review_section');
             }
 
             if (!empty($array_keyword)) {
@@ -1964,7 +1964,7 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
                 $product_url = rtrim($global_config['site_url'], '/') . '/' . ltrim($product_url, '/');
             }
 
-            $my_head .= nv_shops_build_product_schema(
+            $product_schema = nv_shops_build_product_schema(
                 $data_content,
                 $price,
                 $variants,
@@ -1974,6 +1974,12 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
                 $global_array_shops_cat[$data_content['listcatid']]['title'],
                 $product_url
             );
+
+            if (function_exists('dungcuyte_add_schema')) {
+                dungcuyte_add_schema($product_schema);
+            } else {
+                $my_head .= '<script type="application/ld+json">' . json_encode($product_schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>\n";
+            }
         }
     }
 

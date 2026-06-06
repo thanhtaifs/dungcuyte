@@ -350,6 +350,15 @@ $sql_create_module[] = "CREATE TABLE IF NOT EXISTS " . $db_config['prefix'] . "_
   rating int(1) NOT NULL,
   add_time int(11) NOT NULL DEFAULT '0',
   edit_time int(11) NOT NULL DEFAULT '0',
+  is_verified_purchase tinyint(1) NOT NULL DEFAULT '0',
+  moderation_status enum('pending','approved','rejected') NOT NULL DEFAULT 'pending',
+  helpful_count int(11) NOT NULL DEFAULT '0',
+  unhelpful_count int(11) NOT NULL DEFAULT '0',
+  seller_response text NULL,
+  seller_response_time int(11) DEFAULT NULL,
+  spam_score tinyint(3) NOT NULL DEFAULT '0',
+  edited_count int(11) NOT NULL DEFAULT '0',
+  rejection_reason varchar(500) DEFAULT NULL,
   status tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (review_id)
 ) ENGINE=MyISAM";

@@ -178,12 +178,21 @@ $check_view = array(
 	"view_home_group" => "",
 	"view_home_none" => ""
 );
+
 $check_view[$data['home_view']] = "selected=\"selected\"";
 
 foreach( $check_view as $type_view => $select )
 {
 	$xtpl->assign( 'type_view', $type_view );
 	$xtpl->assign( 'view_selected', $select );
+
+	if( isset( $lang_module[$type_view] )) {
+        $xtpl->assign( 'name_view', $lang_module[$type_view] );
+    } else 
+	{
+        $xtpl->assign( 'name_view', $type_view );
+    }
+
 	$xtpl->assign( 'name_view', $lang_module[$type_view] );
 	$xtpl->parse( 'main.home_view_loop' );
 }

@@ -449,7 +449,7 @@ function nv_review_action(oForm, msgnocheck) {
 					}
 				});
 			}
-		} else if( action == 'review_status_1' || action == 'review_status_0' ) {
+		} else if( action == 'review_status_approved' || action == 'review_status_pending' || action == 'review_status_rejected' ) {
 			if (confirm(nv_is_change_act_confirm[0]))
 			{
 				var status = action.split('_');

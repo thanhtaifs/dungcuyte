@@ -69,13 +69,13 @@ if( $number > 0 )
 }
 
 // So danh gia cho duyet
-$number = $db->query( 'SELECT COUNT(*) as number FROM ' . $db_config['prefix'] . '_' . $mod_data . '_review where status=0' )->fetchColumn();
+$number = $db->query( 'SELECT COUNT(*) as number FROM ' . $db_config['prefix'] . '_' . $mod_data . '_review where moderation_status=' . $db->quote( 'pending' ) )->fetchColumn();
 if( $number > 0 )
 {
 	$pendinginfo[] = array(
 		'key' => $lang_siteinfo['siteinfo_review'],
 		'value' => $number,
-		'link' => NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $mod . '&amp;' . NV_OP_VARIABLE . '=review&amp;status=0'
+		'link' => NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $mod . '&amp;' . NV_OP_VARIABLE . '=review&amp;status=pending'
 	);
 }
 

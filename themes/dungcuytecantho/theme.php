@@ -10,6 +10,52 @@
 
  if( ! defined( 'NV_SYSTEM' ) or ! defined( 'NV_MAINFILE' ) ) die( 'Stop!!!' );
 
+function dungcuyte_add_schema( $schema )
+{
+	global $dungcuyte_schema_nodes;
+
+	if( empty( $schema ) )
+	{
+		return;
+	}
+
+	if( ! isset( $dungcuyte_schema_nodes ) || ! is_array( $dungcuyte_schema_nodes ) )
+	{
+		$dungcuyte_schema_nodes = array();
+	}
+
+	$nodes = isset( $schema['@graph'] ) && is_array( $schema['@graph'] ) ? $schema['@graph'] : array( $schema );
+
+	foreach( $nodes as $node )
+	{
+		if( empty( $node ) || ! is_array( $node ) )
+		{
+			continue;
+		}
+
+		unset( $node['@context'] );
+		$key = ! empty( $node['@id'] ) ? $node['@id'] : md5( json_encode( $node, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) );
+		$dungcuyte_schema_nodes[$key] = $node;
+	}
+}
+
+function dungcuyte_render_schema()
+{
+	global $dungcuyte_schema_nodes;
+
+	if( empty( $dungcuyte_schema_nodes ) || ! is_array( $dungcuyte_schema_nodes ) )
+	{
+		return '';
+	}
+
+	$schema = array(
+		'@context' => 'https://schema.org',
+		'@graph' => array_values( $dungcuyte_schema_nodes )
+	);
+
+	return '<script type="application/ld+json">' . json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . "</script>\n";
+}
+
 function dungcuyte_build_localbusiness_schema()
 {
 	global $global_config;
@@ -113,7 +159,7 @@ function dungcuyte_build_localbusiness_schema()
 		)
 	);
 
-	return '<script type="application/ld+json">' . json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . "</script>\n";
+	return $schema;
 }
 
 function nv_site_theme( $contents, $full = true )
@@ -208,7 +254,7 @@ function nv_site_theme( $contents, $full = true )
 	$xtpl->assign( 'THEME_SITE_RSS', nv_html_site_rss() );
 	$xtpl->assign( 'THEME_CSS', $css );
 	$xtpl->assign( 'THEME_SITE_JS', nv_html_site_js() );
-	$my_head .= dungcuyte_build_localbusiness_schema();
+	dungcuyte_add_schema( dungcuyte_build_localbusiness_schema() );
 	
 	if($client_info['browser']['key'] == "explorer" AND $client_info['browser']['version'] < 9)
 	{
@@ -384,6 +430,12 @@ function nv_site_theme( $contents, $full = true )
 		{
 			$my_footer = nv_admin_menu() . $my_footer;
 		}
+	}
+
+	$schema_head = dungcuyte_render_schema();
+	if( ! empty( $schema_head ) )
+	{
+		$my_head .= $schema_head;
 	}
 
 	if( ! empty( $my_head ) ) $sitecontent = preg_replace( '/(<\/head>)/i', $my_head . '\\1', $sitecontent, 1 );

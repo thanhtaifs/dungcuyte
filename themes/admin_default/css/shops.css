@@ -317,7 +317,28 @@ table.tab1 caption {
     padding-left: 3px;
 }
 .uiContextualTypeaheadView {
-    position: static;
+    position: static;}
+
+.review-panel .panel-body {
+	padding: 20px;
+}
+
+.review-panel .panel-body .form-group {
+	margin-bottom: 16px;
+}
+
+.review-panel .panel-body .form-control,
+.review-panel .panel-body .form-control[readonly],
+.review-panel .panel-body select,
+.review-panel .panel-body textarea {
+	width: 100%;
+}
+
+@media (max-width: 767px) {
+	.review-panel .row > [class*="col-"] {
+		width: 100% !important;
+		float: none !important;
+	}
 }
 .uiTypeaheadView ul {
     -moz-border-bottom-colors: none;

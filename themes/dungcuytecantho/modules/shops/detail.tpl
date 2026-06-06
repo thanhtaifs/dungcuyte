@@ -1,24 +1,4 @@
 <!-- BEGIN: main -->
-<div itemscope itemtype="http://schema.org/Product" style="display: none">
-	<span itemprop="name">{TITLE}</span>
-	<img itemprop="image" src="{SRC_PRO_FULL}" alt="{IMAGE_ALT}" />
-	<span itemprop="description">{hometext}</span>
-	<span itemprop="mpn">{PRODUCT_CODE}</span>
-	<span itemprop="sku">{PRODUCT_CODE}</span>
-	<!-- BEGIN: allowed_rating_snippets -->
-	<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"> <span itemprop="ratingValue">{RATE_VALUE}</span> {LANG.trong} <span itemprop="reviewCount">{RATE_TOTAL} </span> {LANG.dg} </span>
-	<!-- END: allowed_rating_snippets -->
-	<span itemprop="offers" itemscope itemtype="http://schema.org/Offer"> 
-    	<span itemprop="category">{CAT_TITLE}</span> 
-		<link itemprop="url" href="{SELFURL}" />
-    	<!-- BEGIN: price1 --> 
-    	<span itemprop="price">{PRICE.sale_format}</span> 
-    	<span itemprop="priceCurrency">{PRICE_CURRENCY}</span> 
-	<!-- END: price1 --> 
-		<link itemprop="availability" href="{SCHEMA_AVAILABILITY}" />
-    	<span>{LANG.detail_pro_number}: {PRODUCT_NUMBER} {pro_unit}</span> 
-	</span>
-</div>
 
 <div id="detail" class="shop-detail">
 	<div class="panel">
@@ -298,6 +278,28 @@
 	</div>
 
 	<!-- BEGIN: product_detail -->
+		<!-- BEGIN: detail_section -->
+		<section class="panel panel-default product-section product-section-detail">
+			<div class="panel-heading">
+				<h3 class="panel-title">{LANG.detail_product}</h3>
+			</div>
+			<div class="panel-body product-section-body">
+				{DETAIL_SECTION}
+			</div>
+		</section>
+		<!-- END: detail_section -->
+
+		<!-- BEGIN: review_section -->
+		<section class="panel panel-default product-section product-section-review">
+			<div class="panel-heading">
+				<h3 class="panel-title">{LANG.rate}</h3>
+			</div>
+			<div class="panel-body product-section-body">
+				{REVIEW_SECTION}
+			</div>
+		</section>
+		<!-- END: review_section -->
+
 		<!-- BEGIN: tabs -->
 		<div role="tabpanel" class="tabs">
 			<ul class="nav nav-tabs" role="tablist">
