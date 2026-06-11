@@ -728,10 +728,47 @@ $(function() {
         $("body").removeClass("over_hid");
     });
     
-      $(".mobile-menu").slicknav({
-        prependTo: '#mobile-menu-wrap',
-        allowParentLinks: false
-    });
+    var $mobileMenu = $(".humberger__menu__nav.mobile-menu");
+    if ($mobileMenu.length) {
+        $mobileMenu.find("li").has("ul").each(function () {
+            var $item = $(this);
+            var $submenu = $item.children("ul");
+
+            if (!$item.children(".mobile-menu__toggle").length) {
+                $item.addClass("mobile-menu__item--has-submenu");
+                $submenu.hide().attr("hidden", true);
+                $item.children("a").first().after('<button class="mobile-menu__toggle" type="button" aria-expanded="false" aria-label="Mo menu con"><i class="fa fa-angle-right"></i></button>');
+            }
+        });
+
+        $mobileMenu.on("click", "li.mobile-menu__item--has-submenu > a", function (e) {
+            if ($(window).width() > 991) {
+                return;
+            }
+
+            e.preventDefault();
+            $(this).siblings(".mobile-menu__toggle").trigger("click");
+        });
+
+        $mobileMenu.on("click", ".mobile-menu__toggle", function (e) {
+            e.preventDefault();
+            var $button = $(this);
+            var $item = $button.closest("li");
+            var $submenu = $item.children("ul");
+            var isOpen = $item.hasClass("is-open");
+
+            $item.toggleClass("is-open", !isOpen);
+            $button.attr("aria-expanded", !isOpen ? "true" : "false");
+
+            if (!isOpen) {
+                $submenu.removeAttr("hidden").stop(true, true).slideDown(200);
+            } else {
+                $submenu.stop(true, true).slideUp(200, function () {
+                    $submenu.attr("hidden", true);
+                });
+            }
+        });
+    }
 	
 });
 

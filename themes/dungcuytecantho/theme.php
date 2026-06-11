@@ -56,6 +56,52 @@ function dungcuyte_render_schema()
 	return '<script type="application/ld+json">' . json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . "</script>\n";
 }
 
+function dungcuyte_absolute_url( $url )
+{
+	global $global_config;
+
+	if( empty( $url ) )
+	{
+		return '';
+	}
+
+	if( preg_match( '#^https?://#i', $url ) )
+	{
+		return $url;
+	}
+
+	$site_url = ! empty( $global_config['site_url'] ) ? rtrim( $global_config['site_url'], '/' ) : '';
+	return $site_url . '/' . ltrim( $url, '/' );
+}
+
+function dungcuyte_build_website_schema()
+{
+	global $global_config;
+
+	$site_url = ! empty( $global_config['site_url'] ) ? rtrim( $global_config['site_url'], '/' ) : '';
+
+	return array(
+		'@context' => 'https://schema.org',
+		'@graph' => array(
+			array(
+				'@type' => 'WebSite',
+				'@id' => $site_url . '/#website',
+				'url' => $site_url,
+				'name' => $global_config['site_name'],
+				'description' => $global_config['site_description'],
+				'publisher' => array(
+					'@id' => $site_url . '/#localbusiness'
+				),
+				'potentialAction' => array(
+					'@type' => 'SearchAction',
+					'target' => $site_url . '/index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=seek&q={search_term_string}',
+					'query-input' => 'required name=search_term_string'
+				)
+			)
+		)
+	);
+}
+
 function dungcuyte_build_localbusiness_schema()
 {
 	global $global_config;
@@ -162,6 +208,62 @@ function dungcuyte_build_localbusiness_schema()
 	return $schema;
 }
 
+function dungcuyte_build_breadcrumb_schema( $breadcrumbs )
+{
+	global $global_config, $lang_global;
+
+	$site_url = ! empty( $global_config['site_url'] ) ? rtrim( $global_config['site_url'], '/' ) : '';
+	$items = array(
+		array(
+			'title' => $lang_global['Home'],
+			'link' => $site_url . '/index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA
+		)
+	);
+
+	if( ! empty( $breadcrumbs ) && is_array( $breadcrumbs ) )
+	{
+		foreach( $breadcrumbs as $breadcrumb )
+		{
+			if( empty( $breadcrumb['title'] ) || empty( $breadcrumb['link'] ) )
+			{
+				continue;
+			}
+
+			$items[] = array(
+				'title' => strip_tags( $breadcrumb['title'] ),
+				'link' => dungcuyte_absolute_url( $breadcrumb['link'] )
+			);
+		}
+	}
+
+	if( sizeof( $items ) < 2 )
+	{
+		return array();
+	}
+
+	$list = array();
+	foreach( $items as $position => $item )
+	{
+		$list[] = array(
+			'@type' => 'ListItem',
+			'position' => $position + 1,
+			'name' => $item['title'],
+			'item' => $item['link']
+		);
+	}
+
+	return array(
+		'@context' => 'https://schema.org',
+		'@graph' => array(
+			array(
+				'@type' => 'BreadcrumbList',
+				'@id' => $site_url . '/#breadcrumb',
+				'itemListElement' => $list
+			)
+		)
+	);
+}
+
 function nv_site_theme( $contents, $full = true )
 {
 	global $home, $array_mod_title, $lang_global, $language_array, $global_config, $site_mods, $module_name, $module_info, $op_file, $mod_title, $my_head, $my_footer, $client_info, $module_config, $op;
@@ -254,6 +356,7 @@ function nv_site_theme( $contents, $full = true )
 	$xtpl->assign( 'THEME_SITE_RSS', nv_html_site_rss() );
 	$xtpl->assign( 'THEME_CSS', $css );
 	$xtpl->assign( 'THEME_SITE_JS', nv_html_site_js() );
+	dungcuyte_add_schema( dungcuyte_build_website_schema() );
 	dungcuyte_add_schema( dungcuyte_build_localbusiness_schema() );
 	
 	if($client_info['browser']['key'] == "explorer" AND $client_info['browser']['version'] < 9)
@@ -371,6 +474,7 @@ function nv_site_theme( $contents, $full = true )
 					$xtpl->assign('BREADCRUMBS', $arr_cat_title_i);
 					$xtpl->parse('main.breadcrumbs.loop');
 				}
+				dungcuyte_add_schema( dungcuyte_build_breadcrumb_schema( $array_mod_title ) );
 				$xtpl->parse('main.breadcrumbs');
 			}
 		}

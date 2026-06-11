@@ -1,0 +1,87 @@
+/* Tabler Icons Local WebFont 3.19.0 */
+/* This file references local font files instead of CDN */
+
+@font-face {
+  font-family: 'tabler-icons';
+  src: url('../fonts/tabler-icons.woff2') format('woff2'),
+       url('../fonts/tabler-icons.woff') format('woff'),
+       url('../fonts/tabler-icons.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.ti,
+[class^="ti-"],
+[class*=" ti-"],
+.icon {
+  font-family: 'tabler-icons' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  vertical-align: -0.125em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+}
+
+/* Icon sizing utilities */
+.ti-xs {
+  font-size: 0.75rem;
+}
+
+.ti-sm {
+  font-size: 0.875rem;
+}
+
+.ti-lg {
+  font-size: 1.25rem;
+}
+
+.ti-xl {
+  font-size: 1.5rem;
+}
+
+.ti-2xl {
+  font-size: 2rem;
+}
+
+/* Animation utilities */
+.ti-spin {
+  animation: spin 0.8s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Icon definitions */
+.ti-home::before { content: "\\ea0a"; }
+.ti-shopping-cart::before { content: "\\f1dd"; }
+.ti-gift::before { content: "\\e2f3"; }
+.ti-briefcase::before { content: "\\eadc"; }
+.ti-news::before { content: "\\f03c"; }
+.ti-folder::before { content: "\\e2ef"; }
+.ti-file::before { content: "\\e2e2"; }
+.ti-file-text::before { content: "\\e2e3"; }
+.ti-circle::before { content: "\\eab5"; }
+.ti-star::before { content: "\\ec8d"; }
+.ti-info-circle::before { content: "\\e3c9"; }
+.ti-phone::before { content: "\\f003"; }
+.ti-mail::before { content: "\\e7e9"; }
+.ti-map::before { content: "\\e3f0"; }
+.ti-settings::before { content: "\\ec8f"; }
+.ti-tool::before { content: "\\ecdd"; }
+.ti-menu::before { content: "\\ebf9"; }
+.ti-search::before { content: "\\ec4b"; }
+.ti-discount::before { content: "\\eb5b"; }
+.ti-tag::before { content: "\\ecad"; }
+.ti-box::before { content: "\\eadc"; }
+.ti-package::before { content: "\\eadc"; }

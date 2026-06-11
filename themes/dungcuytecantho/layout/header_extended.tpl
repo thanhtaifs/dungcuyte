@@ -4,141 +4,117 @@
 	<noscript>
 		<div class="alert alert-danger">{LANG.nojs}</div>
 	</noscript>
-       <!-- Humberger Begin -->
-       <div class="humberger__menu__overlay"></div>
-       <div class="humberger__menu__wrapper">
-            [MOBILE_MENU]        
-        <div class="humberger__menu__contact">
-            <ul>
-                <li><a href="mailto:huynhgiact65@gmail.com">
-                        <i class="fa fa-envelope"> huynhgiact65@gmail.com</i>
-                    </a></li>
-                <li>
-                        <a href="tel:0937037770">
-                            <i class="fa fa-phone" aria-hidden="true"> 0937.037.770 </i>
-                        </a>
-                </li>
-                <li>
-                        <a href="tel:0907694868">
-                            <i class="fa fa-phone" aria-hidden="true"> 0907.694.868 </i>
-                        </a>
-                </li>
-                <li>
-                        <a href="tel:0906377086">
-                            <i class="fa fa-phone" aria-hidden="true"> 0906.377.086 </i>
-                        </a>
-                </li>
-            </ul>
-        </div>
-    </div>       
-       <!-- Humberger End -->
-       <header class="header">
-           <div class="header__top">
-               <div class="container">
-                    <div class="row">
-                        <div class="col-lg-10 col-md-10">
-                            <div class="header__top__left">
-                                <ul>
-                                    <li>
-                                        <a href="mailto:huynhgiact65@gmail.com">
-                                             <i class="fa fa-envelope"> huynhgiact65@gmail.com</i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="tel:0937037770">
-                                            <i class="fa fa-phone" aria-hidden="true"> 0937.037.770 </i>
-                                        </a>
-                                    </li>
-                                      <li>
-                                        <a href="tel:0907694868">
-                                            <i class="fa fa-phone" aria-hidden="true"> 0907.694.868 </i>
-                                        </a>
-                                    </li>
-                                      <li>
-                                        <a href="tel:0906377086">
-                                            <i class="fa fa-phone" aria-hidden="true"> 0906.377.086 </i>
-                                        </a>
-                                    </li>
-                              
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-2">
-                            <div class="header__top__right">
-                                
-                            </div>
-                        </div>
-                    </div>
-               </div>
-           </div>
-           <div class="header__top_menu">
-               <div class="container">
-                   <div class="row">
-                       [MENU_SITE]
-                    </div>
-                   </div>
-                   <div class="humberger__open">
-                        <i class="fa fa-bars"></i>
-                    </div>
-           </div>
-           </div>
-       </header>
-	<div class="container">
-        <div class="row pt-1">
-            <div class="col-lg-12 p-1">
-                <div class="hero__search">
-                    <div class="hero__search__form">
-                        <form action="{NV_BASE_SITEURL}index.php" method="get" onsubmit="return {THEME_SEARCH_SUBMIT_ONCLICK}">
-                            <input type="hidden" name="{NV_LANG_VARIABLE}" value="{NV_LANG_DATA}" />
-        					<input type="hidden" name="{NV_NAME_VARIABLE}" value="seek" />
-                            <div class="hero__search__categories">
-                                <i class="fa fa-search" style="margin-right: 10px;"></i> Tất cả 
-                            </div>
-                            <input type="text" name="q" id="topmenu_search_query" maxlength="{THEME_SEARCH_QUERY_MAX_LENGTH}" placeholder="{LANG.search}...">
-                            <div class="search__button">
-                                <button type="submit" id="topmenu_search_submit">Tìm kiếm</button>
-                            </div>                            
-                        </form>
-                    </div> 
-                     <div class="cart_postion">
-                    <!-- CART INTEGRATION START -->
-                                    <div class="position-relative d-inline-block">
-                                        <button class="cart-icon-btn" id="cartToggle">
-                                            <i class="fa fa-shopping-cart"></i>
-                                                Giỏ hàng
-                                            <span class="cart-badge" id="cartBadge">0</span>
-                                        </button>  
-                                        <div id="cartContentWrapper">                                     
-                                             <!-- Cart Dropdown -->
-                                            <div class="cart-dropdown" id="cartDropdown">
-                                                <div class="cart-dropdown-header">
-                                                    <i class="fa fa-shopping-cart mr-2"></i>
-                                                    Giỏ hàng của bạn
-                                                </div>                                            
-                                                <div class="cart-content" id="cartContent">
-                                                    <div class="empty-cart">
-                                                        <i class="fas fa-shopping-bag"></i>
-                                                        <p class="mb-0">Giỏ hàng trống</p>
-                                                        <small>Thêm sản phẩm để bắt đầu mua sắm!</small>
-                                                    </div>
-                                                </div>                                            
-                                                <div class="cart-footer" id="cartFooter" style="display: none;">
-                                                    <div class="cart-total">
-                                                        <span>Tổng cộng:</span>
-                                                        <span class="total-price" id="totalPrice-popup">0 VNĐ</span>
-                                                    </div>
-                                                    <button class="checkout-btn">
-                                                        <i class="fa fa-credit-card mr-2"></i>
-                                                        Xem giỏ hàng
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                    </div>         
-                                <!-- CART INTEGRATION END -->
-                    </div>
-                                     
-                </div>               
-            </div>
-        </div>
-		[THEME_ERROR_INFO]
+	<div class="humberger__menu__overlay"></div>
+	<div class="humberger__menu__wrapper">
+		[MOBILE_MENU]
+		<div class="humberger__menu__contact">
+			<ul>
+				<li><a href="mailto:huynhgiact65@gmail.com"><i class="fa fa-envelope"></i> huynhgiact65@gmail.com</a></li>
+				<li><a href="tel:0937037770"><i class="fa fa-phone"></i> 0937.037.770</a></li>
+				<li><a href="tel:0907694868"><i class="fa fa-phone"></i> 0907.694.868</a></li>
+				<li><a href="tel:0906377086"><i class="fa fa-phone"></i> 0906.377.086</a></li>
+			</ul>
+		</div>
+	</div>
+	<header class="header site-header">
+		<div class="header__top">
+			<div class="container">
+				<div class="header-top-bar">
+					<div class="header-top-bar__group">
+						<a href="mailto:huynhgiact65@gmail.com"><i class="fa fa-envelope"></i> huynhgiact65@gmail.com</a>
+						<span><i class="fa fa-clock-o"></i> Thu 2-CN: 07:00-20:00</span>
+					</div>
+					<div class="header-top-bar__group header-top-bar__group--right">
+						<span><i class="fa fa-truck"></i> Giao hang toan quoc</span>
+						<span><i class="fa fa-certificate"></i> Da duoc cap phep So KHDT TPCT</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="header__brand">
+			<div class="container">
+				<div class="site-brand site-brand--header">
+					<div class="site-brand__identity-wrap">
+						<a class="site-brand__identity" href="{THEME_SITE_HREF}" aria-label="{SITE_NAME}">
+							<span class="site-brand__logo">
+								<img src="{LOGO_SRC}" width="{LOGO_WIDTH}" height="{LOGO_HEIGHT}" alt="{SITE_NAME}" />
+							</span>
+							<span class="site-brand__copy">
+								<span class="site-brand__eyebrow">Huỳnh Gia Alpha</span>
+								<span class="site-brand__name">{SITE_NAME}</span>							
+							</span>
+						</a>
+					</div>
+					<div class="site-brand__search">
+						<div class="hero__search__form">
+							<form action="{NV_BASE_SITEURL}index.php" method="get" onsubmit="return {THEME_SEARCH_SUBMIT_ONCLICK}">
+								<input type="hidden" name="{NV_LANG_VARIABLE}" value="{NV_LANG_DATA}" />
+								<input type="hidden" name="{NV_NAME_VARIABLE}" value="seek" />
+								<div class="hero__search__categories">
+									<i class="fa fa-search"></i>
+									<span>Tat ca san pham</span>
+								</div>
+								<input type="text" name="q" id="topmenu_search_query" maxlength="{THEME_SEARCH_QUERY_MAX_LENGTH}" placeholder="{LANG.search}..." />
+								<div class="search__button">
+									<button type="submit" id="topmenu_search_submit">Tim kiem</button>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="site-brand__aside">
+						<div class="hotline-box">
+							<div class="hotline-box__label"><i class="fa fa-phone-square"></i> Hotline tu van</div>
+							<div class="hotline-box__phone">0937 037 770</div>
+						</div>
+						<div class="cart_postion">
+							<div class="position-relative d-inline-block">
+								<button class="cart-icon-btn" id="cartToggle">
+									<i class="fa fa-shopping-cart"></i>
+									<span class="cart-icon-btn__label">Gio hang</span>
+									<span class="cart-badge" id="cartBadge">0</span>
+								</button>
+								<div id="cartContentWrapper">
+									<div class="cart-dropdown" id="cartDropdown">
+										<div class="cart-dropdown-header">
+											<i class="fa fa-shopping-cart"></i>
+											<span>Gio hang cua ban</span>
+										</div>
+										<div class="cart-content" id="cartContent">
+											<div class="empty-cart">
+												<i class="fa fa-shopping-bag"></i>
+												<p class="mb-0">Gio hang trong</p>
+												<small>Them san pham de bat dau mua sam.</small>
+											</div>
+										</div>
+										<div class="cart-footer" id="cartFooter" style="display: none;">
+											<div class="cart-total">
+												<span>Tong cong:</span>
+												<span class="total-price" id="totalPrice-popup">0 VND</span>
+											</div>
+											<button class="checkout-btn">
+												<i class="fa fa-credit-card"></i>
+												<span>Xem gio hang</span>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="header__top_menu">
+			<div class="container">
+				<div class="site-nav-shell">
+					[MENU_SITE]
+					<div class="site-nav-shell__cta">
+						<button class="humberger__open" type="button" aria-label="Mo menu">
+							<i class="fa fa-bars"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	[THEME_ERROR_INFO]

@@ -90,6 +90,9 @@ if( ! nv_function_exists( 'nv_block_mobile_menu' ) )
 		$xtpl->assign( 'NV_BASE_SITEURL', NV_BASE_SITEURL );
 		$xtpl->assign( 'BLOCK_THEME', $block_theme );
 		$xtpl->assign( 'THEME_SITE_HREF', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA );
+		$xtpl->assign( 'SITE_NAME', $global_config['site_name'] );
+		$xtpl->assign( 'SITE_DESCRIPTION', $global_config['site_description'] );
+		$xtpl->assign( 'LOGO_SRC', NV_BASE_SITEURL . $global_config['site_logo'] );
 		foreach( $array_menu[0] as $id => $item )
 		{
 		    //file_put_contents(NV_ROOTDIR . '/menu_debug.log', "item: " . $item . "\n", FILE_APPEND);

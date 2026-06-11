@@ -1,113 +1,96 @@
 <div class="footer__top">
-                <div class="row">
-                    <div class="col-md-3 col-sm-12">
-                        <div class="support">
-                			[RIGHT]
-                		</div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Hệ thống chi nhánh
-                            </div>
-                        </div>
-                      <div class="footer-top">
-                        <div id="wraper">
-                            <div class="container">
-                                <div class="row">                    
-                                    <div class="left col-xs-24 col-sm-24 col-md-13">
-                                        <div class="panel-body">
-                                                <h2><i class="fa fa-building"></i> CẦN THƠ</h2>
-                                                <div class="content__footer">
-                                                    <p>
-                                                        <strong> <i class="fa fa-phone"></i> Huỳnh Gia 1: 0906 377 086 - 0899 060 456 TVBH. </strong> <br/>
-                                                        <span></spam><i class="fa fa-location-arrow"></i> Đ/C: 04-06 Xuân Thủy, KDC Hồng Phát, P. An Bình, TP.Cần Thơ.
-                                                            <a href="https://www.google.com/maps/place/D%E1%BB%A5ng+c%E1%BB%A5+y+khoa+C%E1%BA%A7n+Th%C6%A1+-+Hu%E1%BB%B3nh+Gia+1/@10.0265736,105.7472425,17z/data=!4m14!1m7!3m6!1s0x31a089e0bf203615:0xd43b711e0dc33a0a!2zROG7pW5nIGPhu6UgeSBraG9hIEPhuqduIFRoxqEgLSBIdeG7s25oIEdpYSAx!8m2!3d10.0265453!4d105.7493923!16s%2Fg%2F11fnx24vsv!3m5!1s0x31a089e0bf203615:0xd43b711e0dc33a0a!8m2!3d10.0265453!4d105.7493923!16s%2Fg%2F11fnx24vsv?entry=ttu&g_ep=EgoyMDI1MDcyMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="ml-2">
-                                                                Xem bản đồ 
-                                                                <i class="fa fa-external-link"></i>
-                                                            </a>                                         
-                                                        <br>
-                                                        <i class="fa fa-chevron-right"></i> (Đối diện Khách Sạn Anh Đào MeKong 2 & Nhà Nghỉ Ngọc Nhớ 8).</span>
-                                                    </p>
-                                                </div> 
-                                                <div class="content__footer">
-                                                    <p>
-                                                        <strong><i class="fa fa-phone"></i> Huỳnh Gia 2: 0907 694 868 - 0899 070 456 TVBH. </strong> <br/>
-                                                        <span> <i class="fa fa-location-arrow"></i> Đ/C: 369B Nguyễn Văn Cừ nối dài, KV4, P.Tân An, TP.Cần Thơ. 
-                                                            <a style="color: #4B7A00;" href="https://www.google.com/maps/place/C%E1%BB%ACA+H%C3%80NG+THI%E1%BA%BET+B%E1%BB%8A+Y+T%E1%BA%BE+C%E1%BA%A6N+TH%C6%A0+(HU%E1%BB%B2NH+GIA+1%262)/@10.0316776,105.7529779,15z/data=!4m5!3m4!1s0x0:0x3a6b1484e5182daa!8m2!3d10.0316776!4d105.7529779" target="_blank" class="ml-2">
-                                                                Xem bản đồ <i class="fa fa-external-link"></i>
-                                                            </a>   
-                                                        <br/>
-                                                         <i class="fa fa-chevron-right"></i> (Bệnh Viện ĐHYD xuống 5 căn nhà hướng về BVPS Phương Châu). </span>
-                                                    </p>
-                                                </div>
-                                        </div>
-                                    </div>
-                
-                                    <div class="right col-xs-24 col-sm-24 col-md-13">
-                                        <div class="panel-body">
-                                                <h2><i class="fa fa-building"></i> VĨNH LONG</h2>
-                                                <div class="content__footer">
-                                                    <p>
-                                                        <strong><i class="fa fa-phone"></i> Huỳnh Gia 3: 0907 694 868 - 0939 310 467 TVBH</strong> <br/>
-                                                        <span><i class="fa fa-location-arrow"></i>  Đ/C: 37A Phạm Hùng, Khóm 2, P.Long Châu, tỉnh Vĩnh Long.
-                                                        <a style="color: #4B7A00;" href="https://www.google.com/maps/place/C%E1%BB%ACA+H%C3%80NG+THI%E1%BA%BET+B%E1%BB%8A+Y+T%E1%BA%BE+V%C4%A8NH+LONG+(HU%E1%BB%B2NH+GIA+4)/@10.2599847,105.9427509,15z/data=!4m5!3m4!1s0x0:0xa61a792f4ab266a4!8m2!3d10.2599847!4d105.9427509" target="_blank" class="ml-2">
-                                                                    Xem bản đồ <i class="fa fa-external-link"></i>
-                                                                </a>  
-                                                        <br/>
-                                                        <i class="fa fa-chevron-right"></i> (Cách Bệnh Viện Xuyên Á 100m đối diện chợ Phường 9). </span>
-                                                    </p>
-                                                </div>
-                                               
-                                        </div>
-                                    </div>                                    
-                                </div> 
-                                
-                                <!-- End .row -->
-                            </div> <!-- End .container -->
-                        </div> <!-- End #wraper -->
-                    </div> <!-- End .footer-top -->
-                    </div>
-                    <div class="col-md-3 col-sm-12">
-                        <div class="support">
-                			[TRUYCAP]
-                		</div>                        
-                        <div class="support">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    Kết nối với chúng tôi
-                                </div>
-                            </div>   
-                        
-                            <div class="social-icons">
-                                [SOCIAL_ICONS]                                                            
-                            </div>                                          
-                		</div>                     
-                        <div class="support">                         
-                            <div class="cert-icons">
-                                <a href="http://online.gov.vn/Home/WebDetails/139158" target="_blank"> 
-                                    <img src="/images/logobct.png" alt="thiết bị y tế huỳnh gia alpha"> 
-                                </a>                  
-                            </div>                                          
-                		</div>
-                        
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="footer__copyright">
-                            <p style="font-size: 14px; color: #4B7A00;">
-                                <i class="fa fa-building"></i> CÔNG TY TNHH HUỲNH GIA ALPHA | <span><i class="fa fa-map-marker"></i> 4AB1 Xuân Thủy, KDC Cái Sơn - Hàng Bàng, KV2,P. An Bình, TP. Cần Thơ |</span> 
-                                        <span>
-                                            <i class="fa fa-credit-card"></i> Giấy ĐKKD: 1801763703 |
-                                            <i class="fa fa-university "></i> Cấp bởi: Sở Kế Hoạch &amp; Đầu Tư TPCT |
-                                            <i class="fa fa-calendar"></i> Ngày cấp: 08/05/2024
-                                        </span>
-                            </p>
-                            <p>
-                                Copyright © 2013 bởi <i class="fa fa-globe"></i><a href="https://www.dungcuytecantho.com"> dungcuytecantho.com </a> webiste | <i class="fa fa-phone"></i> <a href="tel:0937037770">0937 037 770 </a> Mr Nguyên | <i class="fa fa-envelope"> </i> <a href="mailto:huynhgiact65@gmail.com">huynhgiact65@gmail.com</a> Huỳnh Gia Alpha
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+	<div class="container">
+		<div class="footer-grid">
+			<section class="footer-card footer-card--company">
+				<h3 class="footer-card__title"><i class="fa fa-heart-o"></i> Huynh Gia Alpha</h3>
+				<p class="footer-card__subtitle">Cong ty TNHH Huynh Gia Alpha</p>
+				<p class="footer-card__text">Chuyen cung cap thiet bi y te chinh hang cho benh vien, phong kham va gia dinh tai khu vuc DBSCL tu nam 2013.</p>
+				<div class="footer-company-meta">
+					<p><i class="fa fa-map-marker"></i> 4AB1 Xuan Thuy, P. An Binh, TP. Can Tho</p>
+					<p><i class="fa fa-phone"></i> <a href="tel:0937037770">0937 037 770</a> — <a href="tel:0906377086">0906 377 086</a></p>
+					<p><i class="fa fa-envelope"></i> <a href="mailto:huynhgiact65@gmail.com">huynhgiact65@gmail.com</a></p>
+				</div>
+				<div class="footer-social-row social-icons">
+					[SOCIAL_ICONS]
+				</div>
+				<div class="footer-company-badge">
+					<span>GPKD: 1801763703</span>
+					<span>So KHDT TP. Can Tho</span>
+				</div>
+				<div class="footer-verify">
+					<a href="http://online.gov.vn/Home/WebDetails/139158" target="_blank" rel="noopener noreferrer">
+						<img src="/images/logobct.png" alt="Thong bao Bo Cong Thuong" />
+					</a>
+				</div>
+			</section>
+
+			<section class="footer-card footer-card--catalog">
+				<h3 class="footer-card__title"><i class="fa fa-th-large"></i> Danh muc san pham</h3>
+				<div class="footer-link-columns">
+					<ul class="footer-links">
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops">May sieu am</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops">Monitor theo doi</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops">Xe lan cac loai</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops">Giuong y te</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops">May tao oxy</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops">May do SpO2</a></li>
+					</ul>
+					<ul class="footer-links">
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops">Chi phau thuat</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops">Nem chong loet</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops">Khung tap di</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops">Que test nhanh</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops">Noi hap tiet trung</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops">Vat ly tri lieu</a></li>
+					</ul>
+				</div>
+				<a class="footer-inline-cta" href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops">Xem tat ca 2.700+ san pham</a>
+			</section>
+
+			<section class="footer-card footer-card--branches">
+				<h3 class="footer-card__title"><i class="fa fa-map-marker"></i> He thong chi nhanh</h3>
+				<div class="footer-branch-list">
+					<div class="footer-branch-item">
+						<strong>Huynh Gia 1 — Can Tho</strong>
+						<p>04-06 Xuan Thuy, KDC Hong Phat, P. An Binh</p>
+						<p><a href="tel:0906377086">0906 377 086</a> — <a href="tel:0899060456">0899 060 456</a></p>
+					</div>
+					<div class="footer-branch-item">
+						<strong>Huynh Gia 2 — Can Tho</strong>
+						<p>369B Nguyen Van Cu noi dai, P. Tan An</p>
+						<p><a href="tel:0907694868">0907 694 868</a> — <a href="tel:0899070456">0899 070 456</a></p>
+					</div>
+					<div class="footer-branch-item">
+						<strong>Huynh Gia 3 — Vinh Long</strong>
+						<p>37A Pham Hung, Khom 2, P. Long Chau</p>
+						<p><a href="tel:0907694868">0907 694 868</a> — <a href="tel:0939310467">0939 310 467</a></p>
+					</div>
+				</div>
+			</section>
+
+			<section class="footer-card footer-card--menu">
+				<h3 class="footer-card__title"><i class="fa fa-info-circle"></i> Ve chung toi va chinh sach</h3>
+				<ul class="footer-links footer-links--single">
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=gioi-thieu">Gioi thieu cong ty</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=policies">Giay phep DKKD</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach">Chinh sach doi tra</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach">Chinh sach bao hanh</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach">Van chuyen va giao nhan</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach">Phuong thuc thanh toan</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=news">Tin tuc suc khoe</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=support">Ho tro truc tuyen</a></li>
+				</ul>
+				<h4 class="footer-subhead">Dich vu</h4>
+				<ul class="footer-links footer-links--single">
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops">Cho thue binh oxy 24/7</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops">Bao tri thiet bi y te</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=seek">Tim kiem san pham</a></li>
+				</ul>
+			</section>
+		</div>
+		<div class="footer__copyright">
+			<p><strong>CONG TY TNHH HUYNH GIA ALPHA</strong> | 4AB1 Xuan Thuy, KDC Cai Son - Hang Bang, KV2, P. An Binh, TP. Can Tho | Giay DKKD: 1801763703 | Cap boi So Ke Hoach va Dau Tu TPCT | Ngay cap: 08/05/2024</p>
+			<p>Copyright &copy; 2013 boi <a href="https://www.dungcuytecantho.com">dungcuytecantho.com</a> | Hotline: <a href="tel:0937037770">0937 037 770</a> | Email: <a href="mailto:huynhgiact65@gmail.com">huynhgiact65@gmail.com</a></p>
+		</div>
+	</div>
+</div>

@@ -107,6 +107,8 @@ if( ! nv_function_exists( 'nv_menu_bootstrap' ) )
 					'note' => empty( $row['note'] ) ? $row['title'] : $row['note'],
 					'link' => nv_url_rewrite( nv_unhtmlspecialchars( $row['link'] ), true ),
 					'icon' => ( empty( $row['icon'] ) ) ? '' : NV_BASE_SITEURL . NV_UPLOADS_DIR . '/menu/' . $row['icon'],
+					'module_name' => $row['module_name'],
+					'op' => $row['op'],
 					'css' => $row['css'],
 					'active_type' => $row['active_type']
 				);
@@ -118,6 +120,9 @@ if( ! nv_function_exists( 'nv_menu_bootstrap' ) )
 		$xtpl->assign( 'NV_BASE_SITEURL', NV_BASE_SITEURL );
 		$xtpl->assign( 'BLOCK_THEME', $block_theme );
 		$xtpl->assign( 'THEME_SITE_HREF', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA );
+		$xtpl->assign( 'SITE_NAME', $global_config['site_name'] );
+		$xtpl->assign( 'SITE_DESCRIPTION', $global_config['site_description'] );
+		$xtpl->assign( 'LOGO_SRC', NV_BASE_SITEURL . $global_config['site_logo'] );
 
 		foreach( $array_menu[0] as $id => $item )
 		{
@@ -128,8 +133,14 @@ if( ! nv_function_exists( 'nv_menu_bootstrap' ) )
 				$classcurrent[] = 'dropdown';
 				$submenu = nv_get_bootstrap_submenu( $id, $array_menu, $submenu_active, $block_theme );
 				$xtpl->assign( 'SUB', $submenu );
-				$xtpl->parse( 'main.top_menu.sub' );
-				$xtpl->parse( 'main.top_menu.has_sub' );
+				if( $item['module_name'] == 'shops' )
+				{
+					$xtpl->parse( 'main.top_menu.sub_featured' );
+				}
+				else
+				{
+					$xtpl->parse( 'main.top_menu.sub_normal' );
+				}
 			}
 			if( nv_menu_bootstrap_check_current( $item['link'], $item['active_type'] ) )
 			{
@@ -142,6 +153,10 @@ if( ! nv_function_exists( 'nv_menu_bootstrap' ) )
 			if( ! empty( $item['class'] ) )
 			{
 				$classcurrent[] = $item['class'];
+			}
+			if( $item['module_name'] == 'shops' )
+			{
+				$classcurrent[] = 'menu-featured';
 			}
 			$item['current'] = empty( $classcurrent ) ? '' : ' class="' . ( implode( ' ', $classcurrent ) ) . '"';
 

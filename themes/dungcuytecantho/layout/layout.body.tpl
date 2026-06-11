@@ -1,19 +1,17 @@
 <!-- BEGIN: main -->
 {FILE "header_only.tpl"}
 {FILE "header_extended.tpl"}
-<div class="row">
-	[HEADER]
-</div>
-<div class="row">
-	<div class="col-md-24">
-		[TOP]
-		{MODULE_CONTENT}
-		[BOTTOM]
+<main id="maincontent" class="site-main">
+	<div class="container">
+		[HEADER]
+		<div class="page-shell page-shell--single">
+			[TOP]
+			{MODULE_CONTENT}
+			[BOTTOM]
+		</div>
+		[FOOTER]
 	</div>
-</div>
-<div class="row">
-	[FOOTER]
-</div>
+</main>
 {FILE "footer_extended.tpl"}
 {FILE "footer_only.tpl"}
 <!-- END: main -->
