@@ -307,6 +307,11 @@ function showMessage(msg) {
 }
 
 // Hàm addToCart chắc chắn gửi id số nguyên và log để debug
+function themeSiteUrl(path) {
+  var base = typeof nv_base_siteurl !== "undefined" ? nv_base_siteurl : "/";
+  return base.replace(/\/?$/, "/") + path.replace(/^\//, "");
+}
+
 function addToCart(id) {
   if (typeof id === 'object' && id !== null) {
     id = $(id).data('id') || $(id).attr('data-id') || 0;
@@ -319,7 +324,7 @@ function addToCart(id) {
 
   $.ajax({
     type: 'POST',
-    url: '/index.php?nv=shops&op=setcart&t=json', // đường dẫn chuẩn của bạn
+    url: themeSiteUrl('index.php?nv=shops&op=setcart&t=json'), // đường dẫn chuẩn của bạn
     data: { id: id, variant_id: $('#selected_variant_id').val() || '', variant_label: $('#selected_variant_label').val() || '', variant_price: $('#selected_variant_price').val() || '' },
     dataType: 'json', // bắt buộc để jQuery parse JSON
     success: function (res) {    
@@ -387,13 +392,13 @@ function addToCartAndGo(id) {
   console.log('addToCartAndGo called with id:', id);
   $.ajax({
     type: 'POST',
-    url: '/index.php?nv=shops&op=setcart&buy_now=1&t=json',
+    url: themeSiteUrl('index.php?nv=shops&op=setcart&buy_now=1&t=json'),
     data: { id: id, variant_id: $('#selected_variant_id').val() || '', variant_label: $('#selected_variant_label').val() || '', variant_price: $('#selected_variant_price').val() || '' },
     dataType: 'json',
     success: function (res) {
       console.log('addToCartAndGo success:', res);
       if (res && res.status === 'success') {
-        window.location.href = '/index.php?nv=shops&op=order';
+        window.location.href = themeSiteUrl('index.php?nv=shops&op=order');
       } else {
         showMessage('Không thể thêm sản phẩm vào giỏ hàng');
       }
@@ -406,7 +411,7 @@ function addToCartAndGo(id) {
 function loadCart() {
   $.ajax({
     type: 'GET',
-    url: '/index.php?nv=shops&op=loadcart&t=json',
+    url: themeSiteUrl('index.php?nv=shops&op=loadcart&t=json'),
     dataType: 'json',
     success: function (res) {
       //console.log('getcart response:', res);
@@ -464,7 +469,7 @@ function removeCart(id,position) {
   if (!id) return;  
   $.ajax({
     type: 'POST',
-    url: '/index.php?nv=shops&op=remove&t=json',
+    url: themeSiteUrl('index.php?nv=shops&op=remove&t=json'),
     data: { id: id },
     dataType: 'json',
     success: function(res) {
@@ -716,27 +721,134 @@ $(function() {
         locationReplace($(this).data("location"))
     })
     
-    $(".humberger__open").on('click', function () {
-        $(".humberger__menu__wrapper").addClass("show__humberger__menu__wrapper");
+    function openMobileDrawer() {
+        var $drawerMenu = $(".humberger__menu__nav.mobile-menu");
+
+        $drawerMenu
+            .removeClass("mobile-menu--in-subpanel mobile-menu--depth-1 mobile-menu--depth-2 mobile-menu--depth-3 mobile-menu--depth-4")
+            .find("> ul, ul.mobile-menu__panel")
+            .removeClass("is-current-panel is-active-panel is-parent-panel");
+        $drawerMenu.find(".mobile-menu__stage").empty();
+        $drawerMenu.children("ul").first().addClass("is-current-panel");
+
+        $(".humberger__menu__wrapper")
+            .addClass("show__humberger__menu__wrapper")
+            .attr("aria-hidden", "false");
         $(".humberger__menu__overlay").addClass("active");
+        $(".humberger__open").attr("aria-expanded", "true");
         $("body").addClass("over_hid");
-    });
-    
-     $(".humberger__menu__overlay").on('click', function () {
-        $(".humberger__menu__wrapper").removeClass("show__humberger__menu__wrapper");
+    }
+
+    function closeMobileDrawer() {
+        $(".humberger__menu__wrapper")
+            .removeClass("show__humberger__menu__wrapper")
+            .attr("aria-hidden", "true");
         $(".humberger__menu__overlay").removeClass("active");
+        $(".humberger__open").attr("aria-expanded", "false");
         $("body").removeClass("over_hid");
+        $(".humberger__menu__nav.mobile-menu")
+            .removeClass("mobile-menu--in-subpanel mobile-menu--depth-1 mobile-menu--depth-2 mobile-menu--depth-3 mobile-menu--depth-4")
+            .find("> ul, ul.mobile-menu__panel")
+            .removeClass("is-current-panel is-active-panel is-parent-panel");
+        $(".humberger__menu__nav.mobile-menu .mobile-menu__stage").empty();
+    }
+
+    $(".humberger__open").on('click', function () {
+        openMobileDrawer();
+    });
+
+    function closeMobileSearch() {
+        $(".mobile-search-panel")
+            .removeClass("is-open")
+            .attr("aria-hidden", "true");
+        $(".mobile-search-toggle").attr("aria-expanded", "false");
+        $("body").removeClass("mobile_search_open");
+    }
+
+    $(".mobile-search-toggle").on("click", function () {
+        var $panel = $(".mobile-search-panel");
+        var $panelBody = $panel.find(".mobile-search-panel__body");
+
+        if (!$panelBody.children().length) {
+            var $searchClone = $(".site-brand__search .hero__search__form").first().clone(true, true);
+            $searchClone.find("#topmenu_search_query").attr("id", "mobile_search_query");
+            $searchClone.find("#topmenu_search_submit").attr("id", "mobile_search_submit");
+            $searchClone.find("form").attr(
+                "onsubmit",
+                "return nv_search_submit('mobile_search_query', 'mobile_search_submit', 1, 60);"
+            );
+            $panelBody.append($searchClone);
+        }
+
+        $panel.addClass("is-open").attr("aria-hidden", "false");
+        $(this).attr("aria-expanded", "true");
+        $("body").addClass("mobile_search_open");
+        setTimeout(function () {
+            $("#mobile_search_query").trigger("focus");
+        }, 240);
+    });
+
+    $(".mobile-search-close").on("click", function () {
+        closeMobileSearch();
+    });
+
+    $(window).on("resize.mobileSearch", function () {
+        if ($(window).width() > 991) {
+            closeMobileSearch();
+        }
+    });
+
+    $(".humberger__menu__overlay, .mobile-drawer__close").on('click', function () {
+        closeMobileDrawer();
+    });
+
+    $(document).on("keydown", function (event) {
+        if (event.keyCode === 27) {
+            closeMobileDrawer();
+            closeMobileSearch();
+        }
     });
     
     var $mobileMenu = $(".humberger__menu__nav.mobile-menu");
     if ($mobileMenu.length) {
+        var panelHistory = [];
+        var $rootPanel = $mobileMenu.children("ul").first();
+        var $stage = $('<div class="mobile-menu__stage" aria-live="polite"></div>').appendTo($mobileMenu);
+
+        function resetMobileStage() {
+            panelHistory = [];
+            $mobileMenu.removeClass("mobile-menu--in-subpanel");
+            $stage.empty();
+            $rootPanel.addClass("is-current-panel");
+        }
+
+        function renderMobileStage($panel, title) {
+            var $stageList = $('<ul class="mobile-menu__stage-list"></ul>');
+            var safeTitle = title || $.trim($panel.closest("li").children("a").first().text());
+
+            $stageList.append(
+                '<li class="mobile-menu__panel-head">' +
+                    '<button class="mobile-menu__back" type="button"><i class="fa fa-angle-left"></i> Quay lai</button>' +
+                    '<span>' + safeTitle + '</span>' +
+                '</li>'
+            );
+
+            $panel.children("li").not(".mobile-menu__panel-head").each(function () {
+                $stageList.append($(this).clone(true, true));
+            });
+
+            $rootPanel.removeClass("is-current-panel");
+            $stage.empty().append($stageList);
+            $mobileMenu.addClass("mobile-menu--in-subpanel");
+        }
+
         $mobileMenu.find("li").has("ul").each(function () {
             var $item = $(this);
             var $submenu = $item.children("ul");
 
             if (!$item.children(".mobile-menu__toggle").length) {
                 $item.addClass("mobile-menu__item--has-submenu");
-                $submenu.hide().attr("hidden", true);
+                $submenu.addClass("mobile-menu__panel").removeAttr("hidden").show();
                 $item.children("a").first().after('<button class="mobile-menu__toggle" type="button" aria-expanded="false" aria-label="Mo menu con"><i class="fa fa-angle-right"></i></button>');
             }
         });
@@ -755,19 +867,34 @@ $(function() {
             var $button = $(this);
             var $item = $button.closest("li");
             var $submenu = $item.children("ul");
-            var isOpen = $item.hasClass("is-open");
+            var currentHtml = $stage.html();
+            var currentTitle = $stage.find(".mobile-menu__panel-head > span").first().text();
 
-            $item.toggleClass("is-open", !isOpen);
-            $button.attr("aria-expanded", !isOpen ? "true" : "false");
+            $item.siblings().find("> .mobile-menu__toggle").attr("aria-expanded", "false");
+            $button.attr("aria-expanded", "true");
 
-            if (!isOpen) {
-                $submenu.removeAttr("hidden").stop(true, true).slideDown(200);
-            } else {
-                $submenu.stop(true, true).slideUp(200, function () {
-                    $submenu.attr("hidden", true);
+            if ($mobileMenu.hasClass("mobile-menu--in-subpanel")) {
+                panelHistory.push({
+                    html: currentHtml,
+                    title: currentTitle
                 });
             }
+
+            renderMobileStage($submenu, $.trim($item.children("a").first().text()));
         });
+
+        $mobileMenu.on("click", ".mobile-menu__back", function (e) {
+            e.preventDefault();
+            var previousPanel = panelHistory.pop();
+
+            if (previousPanel) {
+                $stage.html(previousPanel.html);
+            } else {
+                resetMobileStage();
+            }
+        });
+
+        resetMobileStage();
     }
 	
 });
@@ -952,5 +1079,55 @@ $(document).ready(function() {
     $('#back_to_cart').on('click', function() {
         window.location.href = '/index.php?nv=shops&op=cart';
     });
+});
+
+$(function() {
+    const mobileCartButton = document.getElementById("cart-mobile");
+    const cartDropdownHome = document.getElementById("cartContentWrapper");
+    const cartPagePattern = /\/shops\/cart|nv=shops.*op=cart|op=cart.*nv=shops/;
+
+    if (!mobileCartButton || !cartDropdownHome) {
+        return;
+    }
+
+    function isMobileViewport() {
+        return window.matchMedia("(max-width: 991px)").matches;
+    }
+
+    function restoreDesktopCartDropdown() {
+        const dropdown = document.querySelector(".cart-dropdown");
+        if (!dropdown || isMobileViewport() || cartDropdownHome.contains(dropdown)) {
+            return;
+        }
+
+        dropdown.classList.remove("cart-dropdown--mobile", "open");
+        cartDropdownHome.appendChild(dropdown);
+    }
+
+    mobileCartButton.addEventListener("click", function(e) {
+        if (!isMobileViewport()) {
+            return;
+        }
+
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+
+        if (cartPagePattern.test(window.location.href)) {
+            return false;
+        }
+
+        const dropdown = document.querySelector(".cart-dropdown");
+        if (!dropdown) {
+            return false;
+        }
+
+        dropdown.classList.add("cart-dropdown--mobile");
+        document.body.appendChild(dropdown);
+        dropdown.classList.toggle("open");
+        return false;
+    }, true);
+
+    window.addEventListener("resize", restoreDesktopCartDropdown);
 });
 

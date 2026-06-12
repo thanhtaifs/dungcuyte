@@ -29,7 +29,7 @@
 
 		<link href="{NV_BASE_SITEURL}themes/dungcuytecantho/css/font-awesome.min.css" rel="stylesheet" />
 		{THEME_CSS}
-		<link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/premium-refresh.css" rel="stylesheet" />
+		<link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/premium-refresh.css?v=20260612-header8" rel="stylesheet" />
 		{THEME_SITE_JS}
         <script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/modernizr.custom.js" defer></script>
 		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.cbpFWSlider.min.js" defer></script>

@@ -388,10 +388,11 @@ ol {
 }
 
 .header__top_menu {
-  background: linear-gradient(to bottom, #2e9f3c, #5ea700);
-  padding: 4px 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  height: 65px;
+  background: #ffffff;
+  padding: 0;
+  box-shadow: none;
+  height: auto;
+  border-bottom: 1px solid #dfeadd;
 }
 
 .header__top__left {

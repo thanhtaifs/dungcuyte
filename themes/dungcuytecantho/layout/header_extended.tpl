@@ -5,8 +5,21 @@
 		<div class="alert alert-danger">{LANG.nojs}</div>
 	</noscript>
 	<div class="humberger__menu__overlay"></div>
-	<div class="humberger__menu__wrapper">
+	<div class="humberger__menu__wrapper" id="mobileMenuDrawer" aria-hidden="true">
+		<div class="mobile-drawer__header">
+			<a class="mobile-drawer__brand" href="{THEME_SITE_HREF}" aria-label="{SITE_NAME}">
+				<img src="{LOGO_SRC}" width="{LOGO_WIDTH}" height="{LOGO_HEIGHT}" alt="{SITE_NAME}" />
+			</a>
+			<button class="mobile-drawer__close" type="button" aria-label="Dong menu">
+				<i class="fa fa-times"></i>
+			</button>
+		</div>
 		[MOBILE_MENU]
+		<div class="mobile-drawer__quicklinks">
+			<a href="{NV_BASE_SITEURL}index.php?nv=shops&op=cart"><i class="fa fa-shopping-bag"></i> Gio hang</a>
+			<a href="{NV_BASE_SITEURL}index.php?nv=contact"><i class="fa fa-map-marker"></i> Lien he</a>
+			<a href="tel:0937037770"><i class="fa fa-phone"></i> Hotline</a>
+		</div>
 		<div class="humberger__menu__contact">
 			<ul>
 				<li><a href="mailto:huynhgiact65@gmail.com"><i class="fa fa-envelope"></i> huynhgiact65@gmail.com</a></li>
@@ -107,14 +120,35 @@
 		<div class="header__top_menu">
 			<div class="container">
 				<div class="site-nav-shell">
-					[MENU_SITE]
 					<div class="site-nav-shell__cta">
-						<button class="humberger__open" type="button" aria-label="Mo menu">
+						<button class="humberger__open" type="button" aria-label="Mo menu" aria-controls="mobileMenuDrawer" aria-expanded="false">
 							<i class="fa fa-bars"></i>
+						</button>
+					</div>
+					<a class="mobile-nav-brand" href="{THEME_SITE_HREF}" aria-label="{SITE_NAME}">
+						<img src="{LOGO_SRC}" width="{LOGO_WIDTH}" height="{LOGO_HEIGHT}" alt="{SITE_NAME}" />
+					</a>
+					[MENU_SITE]
+					<div class="mobile-nav-actions">
+						<button class="mobile-search-toggle" type="button" aria-label="Tim kiem" aria-controls="mobileSearchPanel" aria-expanded="false">
+							<i class="fa fa-search"></i>
+						</button>
+						<button class="mobile-cart-toggle" id="cart-mobile" type="button" aria-label="Gio hang">
+							<i class="fa fa-shopping-cart"></i>
+							<span class="cart-badge" id="cartBadgeMobile">0</span>
 						</button>
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="mobile-search-panel" id="mobileSearchPanel" aria-hidden="true">
+			<div class="mobile-search-panel__head">
+				<strong>Tim kiem</strong>
+				<button class="mobile-search-close" type="button" aria-label="Dong tim kiem">
+					<i class="fa fa-times"></i>
+				</button>
+			</div>
+			<div class="mobile-search-panel__body"></div>
 		</div>
 	</header>
 	[THEME_ERROR_INFO]
