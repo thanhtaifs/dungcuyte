@@ -173,7 +173,6 @@ if( ! function_exists( 'nv_pro_catalogs' ) )
             
             if ($has_sub) {
                 $html .= ' <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>';
- 
             }
     
             $html .= "</a>\n";

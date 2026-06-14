@@ -773,6 +773,9 @@ $(function() {
             var $searchClone = $(".site-brand__search .hero__search__form").first().clone(true, true);
             $searchClone.find("#topmenu_search_query").attr("id", "mobile_search_query");
             $searchClone.find("#topmenu_search_submit").attr("id", "mobile_search_submit");
+            $searchClone.find(".search__button button")
+                .attr("aria-label", "Tim kiem")
+                .html('<i class="fa fa-search"></i>');
             $searchClone.find("form").attr(
                 "onsubmit",
                 "return nv_search_submit('mobile_search_query', 'mobile_search_submit', 1, 60);"

@@ -87,6 +87,20 @@ $(document).ready(function(){
 		$(this).addClass(foundIcon);
 	});
 
+	// Mark home item active when the current page is the site root.
+	(function() {
+		var $menu = $('#menu-site-default');
+		var $homeItem = $menu.find('> ul > li').first();
+		var currentPath = window.location.pathname.replace(/\/+$/, '');
+		var sitePath = $('<a>', { href: '{THEME_SITE_HREF}' })[0].pathname.replace(/\/+$/, '');
+		var hasExplicitCurrent = $menu.find('> ul > li.current, > ul > li.active').length > 0;
+		var isHomePath = currentPath === sitePath || currentPath === '' || /\/index\.php$/i.test(window.location.pathname);
+
+		if (!hasExplicitCurrent && isHomePath) {
+			$homeItem.addClass('current');
+		}
+	})();
+
 	// Hover effects for menu titles
 	$('#menu-site-default a').hover(function(){
 		$(this).attr("rel", $(this).attr("title"));

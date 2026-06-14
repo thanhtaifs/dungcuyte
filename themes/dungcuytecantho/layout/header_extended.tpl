@@ -7,27 +7,12 @@
 	<div class="humberger__menu__overlay"></div>
 	<div class="humberger__menu__wrapper" id="mobileMenuDrawer" aria-hidden="true">
 		<div class="mobile-drawer__header">
-			<a class="mobile-drawer__brand" href="{THEME_SITE_HREF}" aria-label="{SITE_NAME}">
-				<img src="{LOGO_SRC}" width="{LOGO_WIDTH}" height="{LOGO_HEIGHT}" alt="{SITE_NAME}" />
-			</a>
-			<button class="mobile-drawer__close" type="button" aria-label="Dong menu">
+			<div class="mobile-drawer__title">Công ty TNHH Huỳnh Gia Alpha</div>
+			<button class="mobile-drawer__close" type="button" aria-label="Huỳnh Gia Alpha">
 				<i class="fa fa-times"></i>
 			</button>
 		</div>
 		[MOBILE_MENU]
-		<div class="mobile-drawer__quicklinks">
-			<a href="{NV_BASE_SITEURL}index.php?nv=shops&op=cart"><i class="fa fa-shopping-bag"></i> Gio hang</a>
-			<a href="{NV_BASE_SITEURL}index.php?nv=contact"><i class="fa fa-map-marker"></i> Lien he</a>
-			<a href="tel:0937037770"><i class="fa fa-phone"></i> Hotline</a>
-		</div>
-		<div class="humberger__menu__contact">
-			<ul>
-				<li><a href="mailto:huynhgiact65@gmail.com"><i class="fa fa-envelope"></i> huynhgiact65@gmail.com</a></li>
-				<li><a href="tel:0937037770"><i class="fa fa-phone"></i> 0937.037.770</a></li>
-				<li><a href="tel:0907694868"><i class="fa fa-phone"></i> 0907.694.868</a></li>
-				<li><a href="tel:0906377086"><i class="fa fa-phone"></i> 0906.377.086</a></li>
-			</ul>
-		</div>
 	</div>
 	<header class="header site-header">
 		<div class="header__top">
@@ -69,34 +54,52 @@
 								</div>
 								<input type="text" name="q" id="topmenu_search_query" maxlength="{THEME_SEARCH_QUERY_MAX_LENGTH}" placeholder="{LANG.search}..." />
 								<div class="search__button">
-									<button type="submit" id="topmenu_search_submit">Tim kiem</button>
+									<button type="submit" id="topmenu_search_submit" aria-label="Tim kiem">
+										<i class="fa fa-search"></i>
+									</button>
 								</div>
 							</form>
 						</div>
 					</div>
 					<div class="site-brand__aside">
-						<div class="hotline-box">
-							<div class="hotline-box__label"><i class="fa fa-phone-square"></i> Hotline tu van</div>
-							<div class="hotline-box__phone">0937 037 770</div>
-						</div>
+						<a class="header-hotline" href="tel:0937037770" aria-label="Goi hotline 0937 037 770">
+							<div class="header-hotline__icon">
+								<i class="fa fa-phone"></i>
+							</div>
+							<div class="header-hotline__content">
+								<span class="header-hotline__label">Hotline:</span>
+								<span class="header-hotline__number">0937 037 770</span>
+							</div>
+						</a>
+						<a class="header-hotline" href="mailto:huynhgiact65@gmail.com" aria-label="Gui email huynhgiact65@gmail.com">
+							<div class="header-hotline__icon">
+								<i class="fa fa-envelope"></i>
+							</div>
+							<div class="header-hotline__content">
+								<span class="header-hotline__label">Email:</span>
+								<span class="header-hotline__number">huynhgiact65@gmail.com</span>
+							</div>
+						</a>
 						<div class="cart_postion">
 							<div class="position-relative d-inline-block">
 								<button class="cart-icon-btn" id="cartToggle">
-									<i class="fa fa-shopping-cart"></i>
-									<span class="cart-icon-btn__label">Gio hang</span>
-									<span class="cart-badge" id="cartBadge">0</span>
+									<span class="cart-icon-btn__icon-wrap">
+										<i class="fa fa-shopping-cart"></i>
+										<span class="cart-badge" id="cartBadge">0</span>
+									</span>
+									<span class="cart-icon-btn__label">Giỏ hàng </span>
 								</button>
 								<div id="cartContentWrapper">
 									<div class="cart-dropdown" id="cartDropdown">
 										<div class="cart-dropdown-header">
 											<i class="fa fa-shopping-cart"></i>
-											<span>Gio hang cua ban</span>
+											<span>Giỏ hàng của Bạn</span>
 										</div>
 										<div class="cart-content" id="cartContent">
 											<div class="empty-cart">
 												<i class="fa fa-shopping-bag"></i>
-												<p class="mb-0">Gio hang trong</p>
-												<small>Them san pham de bat dau mua sam.</small>
+												<p class="mb-0">Giỏ hàng trống !</p>
+												<small>Thêm sản phẩm để bắt đầu mua sắm.</small>
 											</div>
 										</div>
 										<div class="cart-footer" id="cartFooter" style="display: none;">
@@ -129,13 +132,19 @@
 						<img src="{LOGO_SRC}" width="{LOGO_WIDTH}" height="{LOGO_HEIGHT}" alt="{SITE_NAME}" />
 					</a>
 					[MENU_SITE]
+					<div class="site-nav-branch">
+						<span class="site-nav-branch__icon"><i class="fa fa-map-marker"></i></span>
+						<span class="site-nav-branch__text">Hệ thống cửa hàng</span>
+					</div>
 					<div class="mobile-nav-actions">
 						<button class="mobile-search-toggle" type="button" aria-label="Tim kiem" aria-controls="mobileSearchPanel" aria-expanded="false">
 							<i class="fa fa-search"></i>
 						</button>
-						<button class="mobile-cart-toggle" id="cart-mobile" type="button" aria-label="Gio hang">
-							<i class="fa fa-shopping-cart"></i>
-							<span class="cart-badge" id="cartBadgeMobile">0</span>
+						<button class="mobile-cart-toggle" id="cart-mobile" type="button" aria-label="Giỏ hàng">
+							<span class="cart-icon-btn__icon-wrap">
+								<i class="fa fa-shopping-cart"></i>
+								<span class="cart-badge" id="cartBadgeMobile">0</span>
+							</span>
 						</button>
 					</div>
 				</div>
@@ -143,8 +152,11 @@
 		</div>
 		<div class="mobile-search-panel" id="mobileSearchPanel" aria-hidden="true">
 			<div class="mobile-search-panel__head">
-				<strong>Tim kiem</strong>
-				<button class="mobile-search-close" type="button" aria-label="Dong tim kiem">
+				<div class="mobile-search-panel__title">
+					<span class="mobile-search-panel__eyebrow">Tìm kiếm</span>
+					<strong>Công Ty TNHH Huỳnh Gia Alpha</strong>
+				</div>
+				<button class="mobile-search-close" type="button" aria-label="Tìm kiếm">
 					<i class="fa fa-times"></i>
 				</button>
 			</div>

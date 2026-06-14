@@ -12,13 +12,6 @@
 <!-- END: submenu -->
 
 <!-- BEGIN: main -->
-<div class="humberger__menu__logo">
-    <a href="{THEME_SITE_HREF}">
-        <img src="{LOGO_SRC}" alt="{SITE_NAME}">
-    </a>
-</div>
-<p class="humberger__menu__tagline">{SITE_DESCRIPTION}</p>
-
 <nav class="humberger__menu__nav mobile-menu">
     <ul>
         <li>
