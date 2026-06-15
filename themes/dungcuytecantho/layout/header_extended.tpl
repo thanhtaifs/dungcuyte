@@ -12,7 +12,7 @@
 				<i class="fa fa-times"></i>
 			</button>
 		</div>
-		[MOBILE_MENU]
+		<nav class="humberger__menu__nav mobile-menu" aria-label="Dieu huong di dong"></nav>
 	</div>
 	<header class="header site-header">
 		<div class="header__top">

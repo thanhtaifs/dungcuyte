@@ -308,7 +308,24 @@ function showMessage(msg) {
 
 // Hàm addToCart chắc chắn gửi id số nguyên và log để debug
 function themeSiteUrl(path) {
-  var base = typeof nv_base_siteurl !== "undefined" ? nv_base_siteurl : "/";
+  var base = typeof nv_base_siteurl !== "undefined" && nv_base_siteurl ? nv_base_siteurl : "";
+
+  if (!base) {
+    $('script[src*="/themes/"]').each(function() {
+      var src = $(this).attr('src') || '';
+      var pos = src.indexOf('/themes/');
+
+      if (pos > -1) {
+        base = src.substring(0, pos + 1);
+        return false;
+      }
+    });
+  }
+
+  if (!base) {
+    base = window.location.pathname.replace(/\/(?:index\.php)?(?:[?#].*)?$/, '/');
+  }
+
   return base.replace(/\/?$/, "/") + path.replace(/^\//, "");
 }
 
@@ -814,6 +831,28 @@ $(function() {
     
     var $mobileMenu = $(".humberger__menu__nav.mobile-menu");
     if ($mobileMenu.length) {
+        if (!$mobileMenu.children("ul").length) {
+            var $desktopRoot = $("#menu-site-default > ul").first();
+
+            if ($desktopRoot.length) {
+                var $mobileRoot = $desktopRoot.clone(false, false);
+
+                $mobileRoot.find("[id]").removeAttr("id");
+                $mobileRoot.find(".header__menu__featuredbar").remove();
+                $mobileRoot.find(".header__menu__mega-wrap").each(function () {
+                    var $submenu = $(this).children("ul.header__menu__dropdown").first();
+
+                    if ($submenu.length) {
+                        $(this).replaceWith($submenu);
+                    } else {
+                        $(this).remove();
+                    }
+                });
+
+                $mobileMenu.empty().append($mobileRoot);
+            }
+        }
+
         var panelHistory = [];
         var $rootPanel = $mobileMenu.children("ul").first();
         var $stage = $('<div class="mobile-menu__stage" aria-live="polite"></div>').appendTo($mobileMenu);
@@ -831,7 +870,7 @@ $(function() {
 
             $stageList.append(
                 '<li class="mobile-menu__panel-head">' +
-                    '<button class="mobile-menu__back" type="button"><i class="fa fa-angle-left"></i> Quay lai</button>' +
+                    '<button class="mobile-menu__back" type="button"><i class="fa fa-angle-left"></i> Quay lại</button>' +
                     '<span>' + safeTitle + '</span>' +
                 '</li>'
             );
@@ -1076,11 +1115,11 @@ $(document).ready(function() {
 	});
 
 	$('#cartContentWrapper').on('click', '.checkout-btn', function() {
-        window.location.href = '/index.php?nv=shops&op=cart';
+        window.location.href = themeSiteUrl('index.php?nv=shops&op=cart');
     });
 	
     $('#back_to_cart').on('click', function() {
-        window.location.href = '/index.php?nv=shops&op=cart';
+        window.location.href = themeSiteUrl('index.php?nv=shops&op=cart');
     });
 });
 

@@ -4,6 +4,7 @@
 	<section class="home-product-section">
 		<div class="home-section-head">
 			<h2 class="section-title"><i class="fa fa-fire"></i> {SECTION_TITLE}</h2>
+			<a class="section-view-all" href="{SECTION_ALL_LINK}" title="Xem tất cả sản phẩm">Xem tất cả <i class="fa fa-angle-right"></i></a>
 		</div>
 		<div class="row home-product-row">
 			<!-- BEGIN: items -->
@@ -33,9 +34,14 @@
 							<!-- END: no_discounts -->
 						</div>
 						<!-- END: price -->
-						<button class="btn-add-to-cart" onclick="addToCart({ID})" data-id="{ID}">
-							<i class="fa fa-shopping-cart"></i>
-							Them vao gio
+						<!-- BEGIN: contact -->
+						<div class="product-price product-price--contact">
+							<p class="current-price">Liên hệ</p>
+						</div>
+						<!-- END: contact -->
+						<button class="btn-add-to-cart{BUTTON_CLASS}" onclick="{BUTTON_ACTION}" data-id="{ID}">
+							<i class="fa {BUTTON_ICON}"></i>
+							{BUTTON_TEXT}
 						</button>
 					</div>
 				</div>
@@ -49,6 +55,7 @@
 	<section class="home-product-section">
 		<div class="home-section-head">
 			<h2 class="section-title"><i class="fa fa-star"></i> {SECTION_TITLE}</h2>
+			<a class="section-view-all" href="{SECTION_ALL_LINK}" title="Xem tất cả sản phẩm">Xem tất cả <i class="fa fa-angle-right"></i></a>
 		</div>
 		<div class="row home-product-row">
 			<!-- BEGIN: items -->
@@ -78,9 +85,14 @@
 							<!-- END: no_discounts -->
 						</div>
 						<!-- END: price -->
-						<button class="btn-add-to-cart" onclick="addToCart({ID})" data-id="{ID}">
-							<i class="fa fa-shopping-cart"></i>
-							Them vao gio
+						<!-- BEGIN: contact -->
+						<div class="product-price product-price--contact">
+							<p class="current-price">Liên hệ</p>
+						</div>
+						<!-- END: contact -->
+						<button class="btn-add-to-cart{BUTTON_CLASS}" onclick="{BUTTON_ACTION}" data-id="{ID}">
+							<i class="fa {BUTTON_ICON}"></i>
+							{BUTTON_TEXT}
 						</button>
 					</div>
 				</div>
@@ -90,11 +102,9 @@
 	</section>
 	<!-- END: new_section -->
 
-	<!-- BEGIN: pages -->
-	<div aria-label="Page navigation" class="d-flex justify-content-center my-4">
-		{generate_page}
+	<div class="home-products-more">
+		<a class="home-products-more__link" href="{SECTION_ALL_LINK}" title="Xem toàn bộ sản phẩm">Xem toàn bộ sản phẩm <i class="fa fa-angle-right"></i></a>
 	</div>
-	<!-- END: pages -->
 </div>
 
 <script>

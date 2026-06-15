@@ -351,7 +351,17 @@ function nv_site_theme( $contents, $full = true )
 	$xtpl->assign( 'MSGBEFOREUNLOAD', $lang_global['msgbeforeunload'] );
 
 	// System variables
-	$xtpl->assign( 'THEME_PAGE_TITLE', nv_html_page_title() );
+	$theme_page_title = nv_html_page_title();
+	if( $home )
+	{
+		$home_seo_title = 'Dụng Cụ Y Tế Cần Thơ | Máy siêu âm, Máy đo huyết áp, Giường bệnh, Xe lăn - Huỳnh Gia Alpha';
+		$home_seo_description = 'Huỳnh Gia Alpha cung cấp thiết bị y tế, dụng cụ y khoa, giường bệnh, xe lăn, máy đo huyết áp tại Cần Thơ và Đồng bằng sông Cửu Long.';
+		$theme_page_title = '<title>' . nv_htmlspecialchars( $home_seo_title ) . '</title>' . PHP_EOL;
+		$global_config['site_description'] = $home_seo_description;
+		$meta_property['og:title'] = $home_seo_title;
+		$meta_property['og:description'] = $home_seo_description;
+	}
+	$xtpl->assign( 'THEME_PAGE_TITLE', $theme_page_title );
 	$xtpl->assign( 'THEME_META_TAGS', nv_html_meta_tags() );
 	$xtpl->assign( 'THEME_SITE_RSS', nv_html_site_rss() );
 	$xtpl->assign( 'THEME_CSS', $css );

@@ -17,7 +17,7 @@
 				}, 1500);
 			});
 		</script>
-         <span class="zalo-label">Lien he ngay</span>
+         <span class="zalo-label">Liện hệ Zalo</span>
         </div>
 	</body>
 </html>

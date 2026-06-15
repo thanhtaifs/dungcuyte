@@ -101,7 +101,7 @@ $(document).ready(function() {
     $("#cartTime").text(now.toLocaleString('vi-VN'));
 
     $("#continueShopping").click(function() {
-        window.location.href = '/';
+        window.location.href = '{NV_BASE_SITEURL}';
     });
 
     $("#goToPayment").click(function() {
@@ -110,7 +110,7 @@ $(document).ready(function() {
             return false;
         }
         $('#fpro').submit();
-        window.location.href = '/index.php?nv=shops&op=payment';
+        window.location.href = '{NV_BASE_SITEURL}index.php?nv=shops&op=payment';
     });
 });
 </script>

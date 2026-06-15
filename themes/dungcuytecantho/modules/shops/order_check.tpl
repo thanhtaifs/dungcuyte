@@ -10,7 +10,7 @@
 	</div>
 	<!-- END: edit_order -->
 
-	<form action="/index.php?nv=shops&op=order" method="post" name="fpost" id="fpost" id="paymentForm">
+	<form action="{NV_BASE_SITEURL}index.php?nv=shops&op=order" method="post" name="fpost" id="fpost" id="paymentForm">
     <input type="hidden" value="1" name="postorder">    
     <div class="row">
         <!-- Cột trái: Thông tin khách hàng và giỏ hàng -->

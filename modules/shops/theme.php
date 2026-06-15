@@ -690,6 +690,7 @@ function view_home_blocks($data_content, $compare_id, $html_pages, $sorts)
     $xtpl->assign('NV_BASE_SITEURL', NV_BASE_SITEURL);
     $xtpl->assign('MODULE_NAME', $module_name);
     $xtpl->assign('CSS_PRODUCT_CODE', !empty($pro_config['show_product_code']) ? ' show-product-code' : '');
+    $xtpl->assign('SECTION_ALL_LINK', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name);
 
     if ((!isset($op) or $op != 'detail') && $pro_config['show_displays'] == 1) {
         foreach ($array_displays as $k => $array_displays_i) {
@@ -800,6 +801,11 @@ function display_product_item(&$xtpl, $data_row, $num_row, $pro_config, $global_
     $xtpl->assign('width', $pro_config['homewidth']);
     $xtpl->assign('hometext', $data_row['hometext']);
     $xtpl->assign('PRODUCT_CODE', $data_row['product_code']);
+    $can_show_price = nv_shops_can_show_price($data_row);
+    $xtpl->assign('BUTTON_CLASS', $can_show_price ? '' : ' btn-add-to-cart--quote');
+    $xtpl->assign('BUTTON_ICON', $can_show_price ? 'fa-shopping-cart' : 'fa-phone');
+    $xtpl->assign('BUTTON_TEXT', $can_show_price ? 'Thêm vào giỏ' : 'Gọi báo giá');
+    $xtpl->assign('BUTTON_ACTION', $can_show_price ? 'addToCart(' . $data_row['id'] . ')' : "window.location.href='" . $data_row['link_pro'] . "'");
     //error_log("display_product_item");
     if (!empty($data_row['listcatid'])) {
         $cat_ids = explode(',', $data_row['listcatid']);
@@ -815,7 +821,7 @@ function display_product_item(&$xtpl, $data_row, $num_row, $pro_config, $global_
     $price = nv_get_price($data_row['id'], $pro_config['money_unit']);
     //error_log("price = " . print_r($price, true));
     if ($pro_config['active_price'] == '1') {
-        if (nv_shops_can_show_price($data_row)) {
+        if ($can_show_price) {
             //error_log("nv_shops_can_show_price");
             $xtpl->assign('PRICE', $price);
             if ($data_row['discount_id'] and $price['discount_percent'] > 0) {
@@ -824,6 +830,8 @@ function display_product_item(&$xtpl, $data_row, $num_row, $pro_config, $global_
                 $xtpl->parse('main.' . $section . '.items.price.no_discounts');
             }
             $xtpl->parse('main.' . $section . '.items.price');
+        } else {
+            $xtpl->parse('main.' . $section . '.items.contact');
         }
     }
 }

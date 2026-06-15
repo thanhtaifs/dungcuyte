@@ -125,7 +125,7 @@ if( ! function_exists( 'nv_pro_catalogs' ) )
                 $html .= "<a title=\"" . $cat['title'] . "\" href=\"" . $cat['link'] . "\">" . nv_clean60($cat['title'], $cut_num);
                 
                 if ($has_sub) {
-                    $html .= ' <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>';
+                    $html .= ' <span class="arrow arrow-small"><i class="fa fa-arrow-right"></i></span>';
                 }
     
     
