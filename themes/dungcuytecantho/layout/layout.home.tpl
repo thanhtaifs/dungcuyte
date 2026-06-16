@@ -37,8 +37,8 @@
 			<div class="hero-banner__panel">
 				<div class="hero-banner__content">
 					<span class="hero-banner__eyebrow">Cửa hàng cung cấp thiết bị y tế và dụng cụ thể dục uy tín tại Cần Thơ</span>
-					<h1>Thiết bị y tế chất lượng cao và đội ngũ tư vấn tận tâm !!!</h1>
-					<p>Hơn 12 năm cung cấp thiết bị y tế phục vụ Bệnh viện, Phòng khám và Gia đình tại khu vực Đồng bằng sông Cửu Long. Hàng đảm bảo chất lượng và có bảo hành chính hảng.</p>
+					<h1>Thiết bị y tế chất lượng cao và đội ngũ tư vấn tận tâm</h1>
+					<p>Huỳnh Gia Alpha có hơn 12 năm chuyên cung cấp thiết bị y tế và dụng cụ thể dục phục vụ Bệnh viện, Phòng khám và Gia đình tại khu vực Đồng bằng sông Cửu Long. Hàng đảm bảo chất lượng và có bảo hành chính hảng.</p>
 					<div class="hero-banner__tags">
 						<span><i class="fa fa-hospital-o"></i>Bệnh viện và phòng khám</span>
 						<span><i class="fa fa-heartbeat"></i>Cho thuê máy tại nhà</span>
@@ -93,6 +93,39 @@
 						{MODULE_CONTENT}
 					</div>
 				</div>
+			</div>
+		</div>
+	</section>
+	<section class="why-choose-us" aria-labelledby="why-choose-us-title">
+		<div class="container">
+			<div class="why-choose-us__inner">
+				<div class="why-choose-us__intro">
+					<span class="why-choose-us__eyebrow">Cam kết dịch vụ</span>
+					<h2 id="why-choose-us-title">Tại sao chọn Huỳnh Gia Alpha?</h2>
+					<p>Chúng tôi đồng hành cùng bệnh viện, phòng khám và gia đình tại Cần Thơ với thiết bị y tế chính hãng, tư vấn rõ ràng và hỗ trợ sau bán hàng nhanh chóng.</p>
+				</div>
+				<ul class="why-choose-us__list">
+					<li>
+						<i class="fa fa-clock-o"></i>
+						<strong>Hơn 12 năm kinh nghiệm</strong>
+						<span>Tư vấn đúng nhu cầu cho cơ sở y tế và người dùng tại nhà.</span>
+					</li>
+					<li>
+						<i class="fa fa-cubes"></i>
+						<strong>2,700+ sản phẩm chính hãng</strong>
+						<span>Đa dạng thiết bị y tế, dụng cụ phục hồi và chăm sóc sức khỏe.</span>
+					</li>
+					<li>
+						<i class="fa fa-hospital-o"></i>
+						<strong>500+ cơ sở khám chữa bệnh tin tưởng</strong>
+						<span>Phục vụ phòng khám, bệnh viện, nhà thuốc và đơn vị chăm sóc sức khỏe.</span>
+					</li>
+					<li>
+						<i class="fa fa-headphones"></i>
+						<strong>Bảo hành chính hãng & hỗ trợ 24/7</strong>
+						<span>Hỗ trợ báo giá, hướng dẫn sử dụng, bảo trì và sửa chữa khi cần.</span>
+					</li>
+				</ul>
 			</div>
 		</div>
 	</section>
