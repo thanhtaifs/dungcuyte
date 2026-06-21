@@ -25,6 +25,213 @@ $compare_id = unserialize( $compare_id );
 
 $contents = '';
 $cache_file = '';
+$base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name;
+$base_url_rewrite = nv_url_rewrite( $base_url, true );
+$page_url_rewrite = $page ? nv_url_rewrite( $base_url . '/page-' . $page, true ) : $base_url_rewrite;
+$request_path = rtrim( parse_url( urldecode( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH ), '/' );
+$landing_path = rtrim( parse_url( $base_url_rewrite, PHP_URL_PATH ), '/' );
+$page_path = rtrim( parse_url( $page_url_rewrite, PHP_URL_PATH ), '/' );
+$featured_path = $landing_path . '/san-pham-noi-bat';
+$featured_legacy_path = $landing_path . '/featured';
+$new_path = $landing_path . '/san-pham-moi';
+$new_legacy_path = $landing_path . '/new';
+$is_shops_featured = ( strpos( $request_path, $featured_path ) === 0 || strpos( $request_path, $featured_legacy_path ) === 0 );
+$is_shops_new = ( strpos( $request_path, $new_path ) === 0 || strpos( $request_path, $new_legacy_path ) === 0 );
+$is_shops_landing = ( !empty( $request_path ) and ( $request_path == $landing_path or $request_path == $page_path ) );
+$render_home_view = $pro_config['home_view'];
+$is_homepage_shops = ! empty( $home );
+// Keep /shops landing page aligned with the configured home view so it renders
+// the same product-loading layout as the designated homepage.
+if( empty( $render_home_view ) )
+{
+    $render_home_view = 'view_home_all';
+}
+
+if( $is_homepage_shops )
+{
+    $page = 1;
+}
+
+if ($is_shops_featured || defined('NV_SHOPS_FEATURED_VIEW')) {
+    if (strpos($request_path, $featured_legacy_path) === 0) {
+        $redirect_path = preg_replace('#^' . preg_quote($featured_legacy_path, '#') . '#', $featured_path, $request_path, 1);
+        Header('Location: ' . $redirect_path);
+        exit();
+    }
+    if (preg_match('/\/page\-([0-9]+)$/', $request_path, $m_featured_page)) {
+        $page = (int)$m_featured_page[1];
+    } elseif ($page < 1) {
+        $page = 1;
+    }
+    $page_title = 'Sản phẩm nổi bật';
+    $key_words = $page_title;
+    $per_page = 20;
+    $data_content = array();
+
+    $db->sqlreset()
+        ->select('COUNT(DISTINCT t1.id)')
+        ->from($db_config['prefix'] . '_' . $module_data . '_rows t1')
+        ->join('INNER JOIN ' . $db_config['prefix'] . '_' . $module_data . '_block t2 ON t1.id = t2.id')
+        ->where('t1.inhome=1 AND t1.status=1 AND t2.bid=2');
+
+    $num_items = $db->query($db->sql())->fetchColumn();
+
+    $db->sqlreset()
+        ->select('t1.id, t1.listcatid, t1.publtime, t1.' . NV_LANG_DATA . '_title, t1.' . NV_LANG_DATA . '_alias, t1.' . NV_LANG_DATA . '_hometext, t1.homeimgalt, t1.homeimgfile, t1.homeimgthumb, t1.product_code, t1.product_number, t1.product_price, t1.money_unit, t1.discount_id, t1.showprice, t1.contact_price, t1.' . NV_LANG_DATA . '_gift_content, t1.gift_from, t1.gift_to')
+        ->from($db_config['prefix'] . '_' . $module_data . '_rows t1')
+        ->join('INNER JOIN ' . $db_config['prefix'] . '_' . $module_data . '_block t2 ON t1.id = t2.id')
+        ->where('t1.inhome=1 AND t1.status=1 AND t2.bid=2')
+        ->order('t1.publtime DESC, t1.id DESC')
+        ->limit($per_page)
+        ->offset(($page - 1) * $per_page);
+
+    $result_featured_list = $db->query($db->sql());
+
+    while (list($id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $contact_price, $gift_content, $gift_from, $gift_to) = $result_featured_list->fetch(3)) {
+        nv_shops_apply_variant_image($id, $homeimgfile, $homeimgthumb);
+
+        if ($homeimgthumb == 1) {
+            $thumb = NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_upload . '/' . $homeimgfile;
+        } elseif ($homeimgthumb == 2) {
+            $thumb = NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $homeimgfile;
+        } elseif ($homeimgthumb == 3) {
+            $thumb = $homeimgfile;
+        } else {
+            $thumb = NV_BASE_SITEURL . 'themes/' . $module_info['template'] . '/images/' . $module_file . '/no-image.jpg';
+        }
+
+        $data_content[] = array(
+            'id' => $id,
+            'listcatid' => $listcatid,
+            'publtime' => $publtime,
+            'title' => $title,
+            'alias' => $alias,
+            'hometext' => $hometext,
+            'homeimgalt' => $homeimgalt,
+            'homeimgthumb' => $thumb,
+            'homeimgfile' => $thumb,
+            'product_price' => $product_price,
+            'product_number' => $product_number,
+            'product_code' => $product_code,
+            'discount_id' => $discount_id,
+            'money_unit' => $money_unit,
+            'showprice' => $showprice,
+            'contact_price' => $contact_price,
+            'newday' => isset($global_array_shops_cat[$listcatid]['newday']) ? $global_array_shops_cat[$listcatid]['newday'] : 0,
+            'gift_content' => $gift_content,
+            'gift_from' => $gift_from,
+            'gift_to' => $gift_to,
+            'product_type' => 'featured',
+            'link_pro' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $global_array_shops_cat[$listcatid]['alias'] . '/' . $alias . $global_config['rewrite_exturl'],
+            'link_order' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=setcart&amp;id=' . $id
+        );
+    }
+
+    if (empty($data_content) and $page > 1) {
+        Header('Location: ' . rtrim(nv_url_rewrite(NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name, true), '/') . '/san-pham-noi-bat/');
+        exit();
+    }
+
+    $featured_base_url = rtrim(nv_url_rewrite(NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name, true), '/') . '/san-pham-noi-bat';
+    $html_pages = nv_alias_page($page_title, $featured_base_url, $num_items, $per_page, $page);
+    $contents = view_home_special_list($data_content, $compare_id, $html_pages, $sorts, 'Sản phẩm nổi bật', 'fa-fire');
+
+    include NV_ROOTDIR . '/includes/header.php';
+    echo nv_site_theme($contents);
+    include NV_ROOTDIR . '/includes/footer.php';
+    exit();
+}
+
+if ($is_shops_new) {
+    if (strpos($request_path, $new_legacy_path) === 0) {
+        $redirect_path = preg_replace('#^' . preg_quote($new_legacy_path, '#') . '#', $new_path, $request_path, 1);
+        Header('Location: ' . $redirect_path);
+        exit();
+    }
+    if (preg_match('/\/page\-([0-9]+)$/', $request_path, $m_new_page)) {
+        $page = (int)$m_new_page[1];
+    } elseif ($page < 1) {
+        $page = 1;
+    }
+
+    $page_title = 'Sản phẩm mới';
+    $key_words = $page_title;
+    $per_page = 20;
+    $data_content = array();
+
+    $db->sqlreset()
+        ->select('COUNT(DISTINCT t1.id)')
+        ->from($db_config['prefix'] . '_' . $module_data . '_rows t1')
+        ->join('INNER JOIN ' . $db_config['prefix'] . '_' . $module_data . '_block t2 ON t1.id = t2.id')
+        ->where('t1.inhome=1 AND t1.status=1 AND t2.bid=3');
+
+    $num_items = $db->query($db->sql())->fetchColumn();
+
+    $db->sqlreset()
+        ->select('t1.id, t1.listcatid, t1.publtime, t1.' . NV_LANG_DATA . '_title, t1.' . NV_LANG_DATA . '_alias, t1.' . NV_LANG_DATA . '_hometext, t1.homeimgalt, t1.homeimgfile, t1.homeimgthumb, t1.product_code, t1.product_number, t1.product_price, t1.money_unit, t1.discount_id, t1.showprice, t1.contact_price, t1.' . NV_LANG_DATA . '_gift_content, t1.gift_from, t1.gift_to')
+        ->from($db_config['prefix'] . '_' . $module_data . '_rows t1')
+        ->join('INNER JOIN ' . $db_config['prefix'] . '_' . $module_data . '_block t2 ON t1.id = t2.id')
+        ->where('t1.inhome=1 AND t1.status=1 AND t2.bid=3')
+        ->order('t1.publtime DESC, t1.id DESC')
+        ->limit($per_page)
+        ->offset(($page - 1) * $per_page);
+
+    $result_new_list = $db->query($db->sql());
+
+    while (list($id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $contact_price, $gift_content, $gift_from, $gift_to) = $result_new_list->fetch(3)) {
+        nv_shops_apply_variant_image($id, $homeimgfile, $homeimgthumb);
+
+        if ($homeimgthumb == 1) {
+            $thumb = NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_upload . '/' . $homeimgfile;
+        } elseif ($homeimgthumb == 2) {
+            $thumb = NV_BASE_SITEURL . NV_UPLOADS_DIR . '/' . $module_upload . '/' . $homeimgfile;
+        } elseif ($homeimgthumb == 3) {
+            $thumb = $homeimgfile;
+        } else {
+            $thumb = NV_BASE_SITEURL . 'themes/' . $module_info['template'] . '/images/' . $module_file . '/no-image.jpg';
+        }
+
+        $data_content[] = array(
+            'id' => $id,
+            'listcatid' => $listcatid,
+            'publtime' => $publtime,
+            'title' => $title,
+            'alias' => $alias,
+            'hometext' => $hometext,
+            'homeimgalt' => $homeimgalt,
+            'homeimgthumb' => $thumb,
+            'homeimgfile' => $thumb,
+            'product_price' => $product_price,
+            'product_number' => $product_number,
+            'product_code' => $product_code,
+            'discount_id' => $discount_id,
+            'money_unit' => $money_unit,
+            'showprice' => $showprice,
+            'contact_price' => $contact_price,
+            'newday' => isset($global_array_shops_cat[$listcatid]['newday']) ? $global_array_shops_cat[$listcatid]['newday'] : 0,
+            'gift_content' => $gift_content,
+            'gift_from' => $gift_from,
+            'gift_to' => $gift_to,
+            'product_type' => 'new',
+            'link_pro' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $global_array_shops_cat[$listcatid]['alias'] . '/' . $alias . $global_config['rewrite_exturl'],
+            'link_order' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=setcart&amp;id=' . $id
+        );
+    }
+
+    if (empty($data_content) and $page > 1) {
+        Header('Location: ' . rtrim(nv_url_rewrite(NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name, true), '/') . '/san-pham-moi/');
+        exit();
+    }
+
+    $new_base_url = rtrim(nv_url_rewrite(NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name, true), '/') . '/san-pham-moi';
+    $html_pages = nv_alias_page($page_title, $new_base_url, $num_items, $per_page, $page);
+    $contents = view_home_special_list($data_content, $compare_id, $html_pages, $sorts, 'Sản phẩm mới', 'fa-star');
+
+    include NV_ROOTDIR . '/includes/header.php';
+    echo nv_site_theme($contents);
+    include NV_ROOTDIR . '/includes/footer.php';
+    exit();
+}
 
 if( $nv_Request->isset_request( 'changesprice', 'post' ) )
 {
@@ -76,8 +283,9 @@ if( empty( $contents ) )
 	}
 	
 	// Thêm logic cho 3 block sản phẩm
-	if( $pro_config['home_view'] == 'view_home_blocks' )
+	if( $render_home_view == 'view_home_blocks' )
 	{
+        $section_limit = 15;
 	    // file_put_contents(NV_ROOTDIR . '/menu_debug.log', "view_home_blocks \n", FILE_APPEND);
 	    // Khởi tạo mảng chứa các loại sản phẩm
         $featured_products = array();
@@ -95,8 +303,8 @@ if( empty( $contents ) )
             ->from( $db_config['prefix'] . '_' . $module_data . '_rows t1' )
             ->join( 'INNER JOIN ' . $db_config['prefix'] . '_' . $module_data . '_block t2 ON t1.id = t2.id' )
             ->where( 't1.inhome=1 AND t1.status =1 AND t2.bid = 2' )
-            ->order( 't1.hitstotal DESC' )
-            ->limit(24);
+            ->order( 't1.publtime DESC' )
+            ->limit($section_limit);
             
         
         
@@ -148,6 +356,7 @@ if( empty( $contents ) )
                 'discount_id' => $discount_id,
                 'money_unit' => $money_unit,
                 'showprice' => $showprice,
+                'contact_price' => $contact_price,
                 'newday' => $global_array_shops_cat[$listcatid]['newday'],
                 'gift_content' => $gift_content,
                 'gift_from' => $gift_from,
@@ -171,7 +380,7 @@ if( empty( $contents ) )
             ->join( 'INNER JOIN ' . $db_config['prefix'] . '_' . $module_data . '_block t2 ON t1.id = t2.id' )
             ->where( $where_new )
             ->order( 't1.publtime DESC' )
-            ->limit(24);
+            ->limit($section_limit);
         
         $result_new = $db->query( $db->sql() );
         $new_ids = array();
@@ -221,6 +430,7 @@ if( empty( $contents ) )
                 'discount_id' => $discount_id,
                 'money_unit' => $money_unit,
                 'showprice' => $showprice,
+                'contact_price' => $contact_price,
                 'newday' => $global_array_shops_cat[$listcatid]['newday'],
                 'gift_content' => $gift_content,
                 'gift_from' => $gift_from,
@@ -245,8 +455,8 @@ if( empty( $contents ) )
         $num_other_items = $db->query( $db->sql() )->fetchColumn();
         
         $db->select( 'id, listcatid, publtime, ' . NV_LANG_DATA . '_title, ' . NV_LANG_DATA . '_alias, ' . NV_LANG_DATA . '_hometext, homeimgalt, homeimgfile, homeimgthumb, product_code, product_number, product_price, money_unit, discount_id, showprice, contact_price,' . NV_LANG_DATA . '_gift_content, gift_from, gift_to' )
-            ->order( $orderby )
-            ->limit( $per_page )
+            ->order( 'publtime DESC' )
+            ->limit( $section_limit )
             ->offset( ( $page - 1 ) * $per_page );
         
         $result_other = $db->query( $db->sql() );
@@ -290,6 +500,7 @@ if( empty( $contents ) )
                 'discount_id' => $discount_id,
                 'money_unit' => $money_unit,
                 'showprice' => $showprice,
+                'contact_price' => $contact_price,
                 'newday' => $global_array_shops_cat[$listcatid]['newday'],
                 'gift_content' => $gift_content,
                 'gift_from' => $gift_from,
@@ -314,11 +525,14 @@ if( empty( $contents ) )
         }
     
         $base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name;
-        $html_pages = nv_alias_page( $page_title, $base_url, $num_other_items, $per_page, $page );
+        if( ! $is_homepage_shops )
+        {
+            $html_pages = nv_alias_page( $page_title, $base_url, $num_other_items, $per_page, $page );
+        }
 		
 	}
     
-	elseif( $pro_config['home_view'] == 'view_home_all' )
+	elseif( $render_home_view == 'view_home_all' )
 	{
 		// Fetch Limit
 		//file_put_contents(NV_ROOTDIR . '/menu_debug.log', "Fetch Limit \n", FILE_APPEND);
@@ -387,9 +601,12 @@ if( empty( $contents ) )
 		}
 
 		$base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name;
-		$html_pages = nv_alias_page( $page_title, $base_url, $num_items, $per_page, $page );
+		if( ! $is_homepage_shops )
+		{
+			$html_pages = nv_alias_page( $page_title, $base_url, $num_items, $per_page, $page );
+		}
 	}
-	elseif( $pro_config['home_view'] == 'view_home_cat' )
+	elseif( $render_home_view == 'view_home_cat' )
 	{
 		foreach( $global_array_shops_cat as $catid_i => $array_info_i )
 		{
@@ -403,15 +620,19 @@ if( empty( $contents ) )
 
 				$num_pro = $db->query( $db->sql() )->fetchColumn();
 
-				$db->select( 'id, listcatid, publtime, ' . NV_LANG_DATA . '_title, ' . NV_LANG_DATA . '_alias, ' . NV_LANG_DATA . '_hometext, homeimgalt, homeimgfile, homeimgthumb, product_code, product_number, product_price, money_unit, discount_id, showprice, ' . NV_LANG_DATA . '_gift_content, gift_from, gift_to' )
-					->order( 'id DESC' )
-					->limit( $array_info_i['numlinks'] );
+				$db->sqlreset()
+					->select( 'id, listcatid, publtime, ' . NV_LANG_DATA . '_title, ' . NV_LANG_DATA . '_alias, ' . NV_LANG_DATA . '_hometext, homeimgalt, homeimgfile, homeimgthumb, product_code, product_number, product_price, money_unit, discount_id, showprice, contact_price, ' . NV_LANG_DATA . '_gift_content, gift_from, gift_to' )
+					->from( $db_config['prefix'] . '_' . $module_data . '_rows' )
+					->where( 'listcatid IN (' . implode( ',', $array_cat ) . ') AND inhome=1 AND status =1' )
+					->order( 'publtime DESC' )
+					->limit( 20 );
 
 				$result = $db->query( $db->sql() );
 				$data_pro = array();
 
 				while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, $homeimgfile, $homeimgthumb, $product_code, $product_number, $product_price, $money_unit, $discount_id, $showprice, $contact_price, $gift_content, $gift_from, $gift_to ) = $result->fetch( 3 ) )
 				{
+					nv_shops_apply_variant_image( $id, $homeimgfile, $homeimgthumb );
 					if( $homeimgthumb == 1 )//image thumb
 					{
 						$thumb = NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_upload . '/' . $homeimgfile;
@@ -445,6 +666,7 @@ if( empty( $contents ) )
 						'discount_id' => $discount_id,
 						'money_unit' => $money_unit,
 						'showprice' => $showprice,
+						'contact_price' => $contact_price,
 						'gift_content' => $gift_content,
 						'gift_from' => $gift_from,
 						'gift_to' => $gift_to,
@@ -462,7 +684,7 @@ if( empty( $contents ) )
 					'data' => $data_pro,
 					'image' =>$array_info_i['image'],
 					'num_pro' => $num_pro,
-					'num_link' => $array_info_i['numlinks']
+					'num_link' => 20
 				);
 			}
 		}
@@ -473,7 +695,7 @@ if( empty( $contents ) )
 			exit();
 		}
 	}
-	elseif( $pro_config['home_view'] == 'view_home_group' )
+	elseif( $render_home_view == 'view_home_group' )
 	{
 		$num_links = $pro_config['per_row'] * 3;
 
@@ -575,7 +797,7 @@ if( empty( $contents ) )
 		exit();
 	}
 
-	$contents = call_user_func( $pro_config['home_view'], $data_content, $compare_id, $html_pages, $sorts );
+	$contents = call_user_func( $render_home_view, $data_content, $compare_id, $html_pages, $sorts );
 
 	if( ! defined( 'NV_IS_MODADMIN' ) and $contents != '' and $cache_file != '' )
 	{

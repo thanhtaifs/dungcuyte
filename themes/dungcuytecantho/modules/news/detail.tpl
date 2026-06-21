@@ -16,11 +16,16 @@
     }(document, 'script', 'facebook-jssdk'));
 </script>
 <!-- END: facebookjssdk -->
-<div class="news_column detail-news panel panel-default">
-	<div class="panel-body">
-		<h1>{DETAIL.title}</h1>
-		<em class="pull-left time">{DETAIL.publtime}</em>
-		<ul class="list-inline pull-right">
+<article class="news-detail-card">
+	<div class="news-detail-card__body">
+		<div class="news-detail-head">
+			<div class="news-eyebrow">Bài viết</div>
+			<h1>{DETAIL.title}</h1>
+			<div class="news-meta news-meta--detail">
+				<span><em class="fa fa-clock-o">&nbsp;</em> {DETAIL.publtime}</span>
+			</div>
+		</div>
+		<ul class="list-inline news-detail-actions">
 			<!-- BEGIN: allowed_send -->
 			<li><a rel="nofollow" title="{LANG.sendmail}" href="javascript:void(0);" onclick="nv_open_browse('{URL_SENDMAIL}','{TITLE}',650,500,'resizable=no,scrollbars=yes,toolbar=no,location=no,status=no');return false"><em class="fa fa-envelope fa-lg">&nbsp;</em></a></li>
 			<!-- END: allowed_send -->
@@ -90,7 +95,7 @@
 		</div>
 		<!-- END: imgfull -->
 		<!-- END: showhometext -->
-		<div class="bodytext">
+		<div class="bodytext news-detail-body">
 			{DETAIL.bodytext}
 		</div>
 		<!-- BEGIN: author -->
@@ -248,8 +253,7 @@
 		<!-- END: loop -->
 	</ul>
 	<!-- END: related -->
-</div>
-</div>
+</article>
 <script type="text/javascript" data-show="after">
 $(document).ready(function() {
     $("#pop").on("click", function() {

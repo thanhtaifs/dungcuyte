@@ -1,32 +1,32 @@
 <!-- BEGIN: main -->
-<div class="page">
-    <div class="panel panel-default">
-        <div class="panel-body">
-             <div class="row mb-4 align-items-center">
-            	<!-- BEGIN: loop -->
-		        <!-- BEGIN: image -->
-		        <div class="col-12 col-md-3 col-sm-4">
-		           <div class="service-image">
-		               <a href="{DATA.link}" title="{DATA.title}">
-		                   <img src="{DATA.image}" alt="{DATA.imagealt}" />
-		                </a>
-		           </div>
-		        </div>
-		        <!-- END: image -->
-		        <div class="col-12 col-md-9 col-sm-8">
-		            <div class="service-text">
-		                <h3>
-		                <a href="{DATA.link}" title="{DATA.title}">{DATA.title} </a>
-    		            </h3>
-    		    	    <p>{DATA.description}</p>
-		            </div>
-		        </div>
-            	<!-- END: loop -->
-	        </div>
-		</div>
-	</div>
-	<div aria-label="Page navigation" class="d-flex justify-content-center my-4">
-     {GENERATE_PAGE}
+<div class="content-page-list content-page-list--recruitment">
+    <div class="content-hero">
+        <div class="content-hero__eyebrow">Tuyển dụng</div>
+        <h1 class="content-hero__title">Cơ hội việc làm mới nhất</h1>
+        <p class="content-hero__text">Theo dõi các vị trí đang tuyển, mô tả công việc và thông tin cần thiết để ứng tuyển nhanh chóng.</p>
+    </div>
+
+    <div class="content-card-list">
+        <!-- BEGIN: loop -->
+        <article class="content-card">
+            <!-- BEGIN: image -->
+            <a class="content-card__media" href="{DATA.link}" title="{DATA.title}">
+                <img src="{DATA.image}" alt="{DATA.imagealt}" />
+            </a>
+            <!-- END: image -->
+            <div class="content-card__body">
+                <h3 class="content-card__title">
+                    <a href="{DATA.link}" title="{DATA.title}">{DATA.title}</a>
+                </h3>
+                <p class="content-card__text">{DATA.description}</p>
+                <a class="content-card__link" href="{DATA.link}" title="{DATA.title}">Xem chi tiết <i class="fa fa-angle-right"></i></a>
+            </div>
+        </article>
+        <!-- END: loop -->
+    </div>
+
+    <div class="content-pagination">
+        {GENERATE_PAGE}
     </div>
 </div>
 <!-- END: main -->

@@ -608,7 +608,7 @@ if( $post_order == 1 )
 			$lang_module['order_email_thanks'] = sprintf( $lang_module['order_email_thanks_to_admin'], $data_order['order_name'] );
 			$lang_module['order_email_review'] = sprintf( $lang_module['order_email_review_to_admin'], $order_url );
 			$listmail_notify = nv_listmail_notify();
-			error_log( '[shops][order_mail] order_id=' . $data_order['id'] . ' notify_config=' . ( $pro_config['order_notify_email'] ?? '' ) . ' notify_list=' . implode( ',', (array)$listmail_notify ) );
+			//error_log( '[shops][order_mail] order_id=' . $data_order['id'] . ' notify_config=' . ( $pro_config['order_notify_email'] ?? '' ) . ' notify_list=' . implode( ',', (array)$listmail_notify ) );
 			if( !empty( $listmail_notify ) )
 			{
 				try 

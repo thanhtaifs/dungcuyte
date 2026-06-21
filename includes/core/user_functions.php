@@ -382,6 +382,7 @@ function nv_html_meta_tags()
 		if( substr( $canonicalUrl, 0, 1 ) != '/' ) $canonicalUrl = NV_BASE_SITEURL . $canonicalUrl;
 		$canonicalUrl = NV_MAIN_DOMAIN . $canonicalUrl;
 	}
+	$canonicalUrl = preg_replace( '#^http://#i', 'https://', $canonicalUrl );
 
 	//Open Graph protocol http://ogp.me
 	if( $global_config['metaTagsOgp'] )

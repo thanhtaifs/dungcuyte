@@ -11,6 +11,13 @@
 		<p>{DESCRIPTIONHTML}</p>
 		<!-- END: viewdescriptionhtml -->
     </div>
+    <!-- BEGIN: subcat_nav -->
+    <div class="catalog-subcats">
+        <!-- BEGIN: loop -->
+        <a class="catalog-subcats__item" href="{SUBCAT.link}" title="{SUBCAT.title}">{SUBCAT.title}</a>
+        <!-- END: loop -->
+    </div>
+    <!-- END: subcat_nav -->
 
     <!-- BEGIN: displays -->
     <div class="form-group form-inline pull-right">
@@ -89,12 +96,12 @@
                 <!-- END: compare -->
 
     			<!-- BEGIN: order -->
-    			<a href="javascript:void(0)" id="{id}" title="{title_pro}" onclick="cartorder(this, {GROUP_REQUIE}, '{link_pro}')"><button class="btn btn-primary btn-xs">{LANG.add_product}</button></a>
+    			<a href="javascript:void(0)" id="{id}" title="{title_pro}" onclick="addToCart({id})"><button class="btn btn-primary btn-xs">{LANG.add_product}</button></a>
     			<!-- END: order -->
 
-				<!-- BEGIN: product_empty -->
-                <button class="btn btn-danger disabled btn-xs">{LANG.product_empty}</button>
-                <!-- END: product_empty -->
+				<!-- BEGIN: contact_order -->
+                <button class="btn btn-success btn-xs" type="button" onclick="window.location.href='tel:0937037770'">Liên hệ báo giá</button>
+                <!-- END: contact_order -->
 
                 <!-- BEGIN: wishlist -->
                 <a href="javascript:void(0)" title="{title_pro}" ><button type="button" onclick="wishlist({id}, this)" class="btn btn-primary btn-xs <!-- BEGIN: disabled -->disabled<!-- END: disabled -->">{LANG.wishlist}</button></a>
@@ -103,9 +110,11 @@
 		</div>
 	</div>
 	<!-- END: row -->
-	<div class="text-center">
-		{pages}
-	</div>
+    <div class="home-products-pagination">
+        <div class="home-products-pagination__inner">
+            {pages}
+        </div>
+    </div>
 </div>
 
 <!-- BEGIN: modal_loaded -->

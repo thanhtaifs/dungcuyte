@@ -1,88 +1,81 @@
 <!-- BEGIN: main -->
-<div id="category">
+<div id="category" class="home-products catalog-home-products">
 	<!-- BEGIN: catalogs -->
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<a class="pull-left" href="{LINK_CATALOG}" title="{TITLE_CATALOG}">{TITLE_CATALOG} {IMG_CATALOG}({NUM_PRO} {LANG.title_products})</a>
-			<span class="pull-right">
-			<!-- BEGIN: subcatloop -->
-			<a href="{SUBCAT.link}" title="{SUBCAT.title}">{SUBCAT.title}</a>&nbsp;&nbsp;&nbsp;
-			<!-- END: subcatloop -->
-			</span>
-			<div class="clear"></div>
+	<section class="home-product-section category-group-section">
+		<div class="home-section-head category-group-head">
+			<h2 class="section-title">
+				<i class="fa fa-th-large"></i>
+				<a href="{LINK_CATALOG}" title="{TITLE_CATALOG}">{TITLE_CATALOG}</a>
+			</h2>
+			<!-- BEGIN: view_next -->
+			<a class="section-view-all" href="{LINK_CATALOG}" title="{TITLE_CATALOG}">Xem tất cả <i class="fa fa-angle-right"></i></a>
+			<!-- END: view_next -->
 		</div>
-		<div class="panel-body">
+		<div class="row home-product-row">
 			<!-- BEGIN: items -->
-            <div class="col-sm-12 col-md-{num}">
-                <div class="thumbnail">
-                    <div style="height: {height}px">
-                        <a href="{LINK}" title="{TITLE}"><img src="{IMG_SRC}" alt="{TITLE}" data-content='{hometext}' data-rel="tooltip" class="img-thumbnail" style="max-height:{height}px;max-width:{width}px;"></a>
-                    </div>
-		            <div class="info_pro">
-		            	<!-- BEGIN: new -->
-		            	<span class="label label-success newday">{LANG.newday}</span>
-		            	<!-- END: new -->
-		            	<!-- BEGIN: discounts -->
-		            	<span class="label label-danger">-{PRICE.discount_percent}{PRICE.discount_unit}</span>
-		            	<!-- END: discounts -->
-		            	<!-- BEGIN: point -->
-		            	<span class="label label-info" title="{point_note}">+{point}</span>
-		            	<!-- END: point -->
-		            	<!-- BEGIN: gift -->
-		            	<span class="label label-success">+<em class="fa fa-gift fa-lg">&nbsp;</em></span>
-		            	<!-- END: gift -->
-		            </div>
-					<div class="caption text-center">
-    					<h3><a href="{LINK}" title="{TITLE}">{TITLE0}</a></h3>
+			<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+				<div class="product-card">
+					<div class="product-badges">
+						<!-- BEGIN: new -->
+						<span class="badge badge-new">New</span>
+						<!-- END: new -->
+					</div>
+					<div class="product-image">
+						<a href="{LINK}" title="{TITLE}" data-content='{hometext}' data-rel="tooltip">
+							<img src="{IMG_SRC}" alt="{TITLE}" class="img-fluid" loading="lazy" />
+						</a>
+					</div>
+					<div class="product-body product-body--home">
+						<div class="product-cat">{TITLE_CATALOG}</div>
+						<h3 class="product-title">
+							<a href="{LINK}" title="{TITLE}">{TITLE0}</a>
+						</h3>
 
-                        <!-- BEGIN: product_code -->
-                        <p class="label label-default">{PRODUCT_CODE}</p>
-                        <!-- END: product_code -->
+						<!-- BEGIN: product_code -->
+						<p class="label label-default">{PRODUCT_CODE}</p>
+						<!-- END: product_code -->
 
-                        <!-- BEGIN: adminlink -->
-                        <p>{ADMINLINK}</p>
-                        <!-- END: adminlink -->
+						<!-- BEGIN: adminlink -->
+						<p>{ADMINLINK}</p>
+						<!-- END: adminlink -->
 
 						<!-- BEGIN: price -->
-						<p class="price">
-		                    <!-- BEGIN: discounts -->
-		                    <span class="money">{PRICE.sale_format} {PRICE.unit}</span>
-		                    <span class="discounts_money">{PRICE.price_format} {PRICE.unit}</span>
-		                    <!-- END: discounts -->
-
+						<div class="product-price">
+							<!-- BEGIN: discounts -->
+							<p class="current-price">{PRICE.sale_format} {PRICE.unit}</p>
+							<p class="old-price discounts_money">{PRICE.price_format} {PRICE.unit}</p>
+							<!-- END: discounts -->
 							<!-- BEGIN: no_discounts -->
-							<span class="money">{PRICE.price_format} {PRICE.unit}</span>
+							<p class="current-price">{PRICE.price_format} {PRICE.unit}</p>
 							<!-- END: no_discounts -->
-						</p>
+						</div>
 						<!-- END: price -->
 
-		                <!-- BEGIN: contact -->
-		                <p class="price">{LANG.detail_pro_price}: <span class="money">{LANG.price_contact}</span></p>
-		                <!-- END: contact -->
+						<!-- BEGIN: contact -->
+						<div class="product-price product-price--contact">
+							<p class="current-price">{LANG.price_contact}</p>
+						</div>
+						<!-- END: contact -->
 
-                        <!-- BEGIN: compare -->
-                        <p><input type="checkbox" value="{ID}"{ch} onclick="nv_compare({ID});" id="compare_{ID}"/><a href="#" onclick="nv_compare_click();" >&nbsp;{LANG.compare}</a></p>
-                        <!-- END: compare -->
+						<!-- BEGIN: order -->
+						<button class="btn-add-to-cart{BUTTON_CLASS}" onclick="{BUTTON_ACTION}" data-id="{ID}">
+							<i class="fa {BUTTON_ICON}"></i>
+							{BUTTON_TEXT}
+						</button>
+						<!-- END: order -->
 
-                        <div class="clearfix">
-                            <!-- BEGIN: order -->
-                            <a href="javascript:void(0)" id="{ID}" title="{TITLE}" onclick="cartorder(this, {GROUP_REQUIE}, '{LINK}')"><button type="button" class="btn btn-primary btn-xs">{LANG.add_product}</button></a>
-                            <!-- END: order -->
-
-												<!-- BEGIN: product_empty -->
-		                    <button class="btn btn-danger disabled btn-xs">{LANG.product_empty}</button>
-		                    <!-- END: product_empty -->
-
-		                    <!-- BEGIN: wishlist -->
-		                    <a href="javascript:void(0)" title="{TITLE}" ><button type="button" onclick="wishlist({ID}, this)" class="btn btn-primary btn-xs <!-- BEGIN: disabled -->disabled<!-- END: disabled -->">{LANG.wishlist}</button></a>
-		                    <!-- END: wishlist -->
-                        </div>
+						<!-- BEGIN: product_empty -->
+						<button class="btn-add-to-cart btn-add-to-cart--quote" type="button" disabled>
+							<i class="fa fa-ban"></i>
+							{LANG.product_empty}
+						</button>
+						<!-- END: product_empty -->
 					</div>
 				</div>
 			</div>
 			<!-- END: items -->
 		</div>
-	</div>
+	</section>
 	<!-- END: catalogs -->
 </div>
 

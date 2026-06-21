@@ -64,7 +64,15 @@ $per_page = $pro_config['per_page'];
 
 if( $op == 'main' )
 {
-	if( empty( $catid ) )
+	if( isset( $array_op[0] ) and $array_op[0] == 'featured' )
+	{
+		define( 'NV_SHOPS_FEATURED_VIEW', true );
+		if( preg_match( '/^page\-([0-9]+)$/', ( isset( $array_op[1] ) ? $array_op[1] : '' ), $m ) )
+		{
+			$page = ( int )$m[1];
+		}
+	}
+	elseif( empty( $catid ) )
 	{
 		if( preg_match( '/^page\-([0-9]+)$/', ( isset( $array_op[0] ) ? $array_op[0] : '' ), $m ) )
 		{

@@ -247,7 +247,7 @@ if( ! empty( $bodytext ) )
 {
 	$lang_module['note'] = $bodytext;
 }
-error_log("LANG_NOTE: --- ". $lang_module['note']);
+//error_log("LANG_NOTE: --- ". $lang_module['note']);
 $array_content = array(
 	'error' => $error,
 	'fpart' => $fpart,

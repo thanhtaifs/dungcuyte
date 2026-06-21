@@ -37,7 +37,7 @@
 			<div class="hero-banner__panel">
 				<div class="hero-banner__content">
 					<span class="hero-banner__eyebrow">Cửa hàng cung cấp thiết bị y tế và dụng cụ thể dục uy tín tại Cần Thơ</span>
-					<h1>Thiết bị y tế chất lượng cao và đội ngũ tư vấn tận tâm</h1>
+					<h1>Dụng cụ y tế Cần Thơ – Thiết bị y Khoa chính hãng | Huỳnh Gia Alpha</h1>
 					<p>Huỳnh Gia Alpha có hơn 12 năm chuyên cung cấp thiết bị y tế và dụng cụ thể dục phục vụ Bệnh viện, Phòng khám và Gia đình tại khu vực Đồng bằng sông Cửu Long. Hàng đảm bảo chất lượng và có bảo hành chính hảng.</p>
 					<div class="hero-banner__tags">
 						<span><i class="fa fa-hospital-o"></i>Bệnh viện và phòng khám</span>
@@ -45,8 +45,8 @@
 						<span><i class="fa fa-wrench"></i>Bảo trình và sửa chữa</span>
 					</div>
 					<div class="hero-banner__actions">
-						<a class="hero-banner__button hero-banner__button--light" href="{THEME_SITE_HREF}san-pham/"><i class="fa fa-th-large"></i> Xem sản phẩm</a>
-						<a class="hero-banner__button hero-banner__button--light" href="tel:0937037770"> <i class="fa fa-phone"></i>  Gọi tư vấn ngay</a>
+						<a class="hero-banner__button hero-banner__button--light" href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=san-pham-moi"><i class="fa fa-th-large"></i> Xem sản phẩm</a>
+						<a class="hero-banner__button hero-banner__button--light" href="tel:0907694868"> <i class="fa fa-phone"></i>  Gọi tư vấn ngay</a>
 					</div>
 				</div>
 				<div class="hero-banner__stats">

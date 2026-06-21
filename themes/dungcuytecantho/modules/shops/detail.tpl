@@ -162,6 +162,17 @@
 							</ul>
 						</li>
 					</ul>
+
+					<div class="order-buttons" style="margin-top: 10px;">
+							<button class="btn btn-danger btn-order" data-id="{proid}" onclick="buyNow(this)">
+							<em class="fa fa-paper-plane-o fa-lg">&nbsp;</em>
+							Mua ngay
+							</button>
+							<button class="btn btn-success btn-order" onclick="addToCart({proid})" data-id="{proid}" >
+							<em class="fa fa-shopping-cart fa-lg">&nbsp;</em>
+							Thêm vào giỏ hàng
+							</button>
+					</div>
 					
 					<div class="socaial-share">
 						<a class="button_share share facebook" href="https://www.facebook.com/sharer/sharer.php?u={SELFURL}" target="_blank">
@@ -179,16 +190,7 @@
 					<input type="hidden" id="selected_variant_label" value="">
 					<input type="hidden" id="selected_variant_price" value="">
 
-					<div class="order-buttons" style="margin-top: 10px;">
-							<button class="btn btn-danger btn-order" data-id="{proid}" onclick="buyNow(this)">
-							<em class="fa fa-paper-plane-o fa-lg">&nbsp;</em>
-							Mua ngay
-							</button>
-							<button class="btn btn-success btn-order" onclick="addToCart({proid})" data-id="{proid}" >
-							<em class="fa fa-shopping-cart fa-lg">&nbsp;</em>
-							Thêm vào giỏ
-							</button>
-					</div>
+
 					
 
 					<!-- BEGIN: gift -->

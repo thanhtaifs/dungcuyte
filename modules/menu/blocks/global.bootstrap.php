@@ -135,6 +135,7 @@ if( ! nv_function_exists( 'nv_menu_bootstrap' ) )
 				$xtpl->assign( 'SUB', $submenu );
 				if( $item['module_name'] == 'shops' )
 				{
+					$xtpl->assign( 'FEATURED_ALL_LINK', rtrim( nv_url_rewrite( NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=shops', true ), '/' ) . '/san-pham-moi/' );
 					$xtpl->parse( 'main.top_menu.sub_featured' );
 				}
 				else

@@ -16,7 +16,7 @@
 
 
 <!-- BEGIN: main -->
-<nav id="menu-site-default" class="header__menu" aria-label="Dieu huong chinh">
+<nav id="menu-site-default" class="header__menu" aria-label="Điều hướng website">
     <ul>
 		<li>
 			<a title="{LANG.Home}" href="{THEME_SITE_HREF}"><i class="fa fa-home menu-item__icon-font"></i>{LANG.Home}</a>
@@ -34,7 +34,7 @@
             <div class="header__menu__mega-wrap">
                 {SUB}
                 <div class="header__menu__featuredbar">
-                    <a href="{TOP_MENU.link}">Xem tất cả danh mục</a>
+                    <a href="{FEATURED_ALL_LINK}">Xem tất cả sản phẩm</a>
                 </div>
             </div>
             <!-- END: sub_featured -->

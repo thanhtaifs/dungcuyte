@@ -24,7 +24,7 @@
 					</div>
 					<div class="header-top-bar__group header-top-bar__group--right">
 						<span><i class="fa fa-truck"></i> Giao hang toan quoc</span>
-						<span><i class="fa fa-certificate"></i> Da duoc cap phep So KHDT TPCT</span>
+						<span><i class="fa fa-certificate"></i> Đã được cấp phep So KHDT TPCT</span>
 					</div>
 				</div>
 			</div>
@@ -62,13 +62,13 @@
 						</div>
 					</div>
 					<div class="site-brand__aside">
-						<a class="header-hotline" href="tel:0937037770" aria-label="Goi hotline 0937 037 770">
+						<a class="header-hotline" href="tel:0907694868" aria-label="Goi hotline 0907 694 868">
 							<div class="header-hotline__icon">
 								<i class="fa fa-phone"></i>
 							</div>
 							<div class="header-hotline__content">
 								<span class="header-hotline__label">Hotline:</span>
-								<span class="header-hotline__number">0937 037 770</span>
+								<span class="header-hotline__number">0907 694 868</span>
 							</div>
 						</a>
 						<a class="header-hotline" href="mailto:huynhgiact65@gmail.com" aria-label="Gui email huynhgiact65@gmail.com">
@@ -109,7 +109,7 @@
 											</div>
 											<button class="checkout-btn">
 												<i class="fa fa-credit-card"></i>
-												<span>Xem gio hang</span>
+												<span>Xem giỏ hàng</span>
 											</button>
 										</div>
 									</div>
@@ -134,7 +134,7 @@
 					[MENU_SITE]
 					<div class="site-nav-branch">
 						<span class="site-nav-branch__icon"><i class="fa fa-map-marker"></i></span>
-						<span class="site-nav-branch__text">Hệ thống cửa hàng</span>
+						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=contact"><span class="site-nav-branch__text">Hệ thống cửa hàng</span></a>
 					</div>
 					<div class="mobile-nav-actions">
 						<button class="mobile-search-toggle" type="button" aria-label="Tim kiem" aria-controls="mobileSearchPanel" aria-expanded="false">

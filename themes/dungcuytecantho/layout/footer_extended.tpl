@@ -1,21 +1,14 @@
-<div class="footer__top">
+﻿<div class="footer__top">
 	<div class="container">
 		<div class="footer-grid">
 			<section class="footer-card footer-card--company">
 				<h3 class="footer-card__title"><i class="fa fa-heart-o"></i> Huỳnh Gia Alpha</h3>
 				<p class="footer-card__subtitle">Công ty TNHH Huỳnh Gia Alpha</p>
-				<p class="footer-card__text">Chuyên cung cấp thiết bị y tế, dụng cu thể dục chính hảng cho Bệnh viện, Phòng khám và Gia đình tại khu vực Đồng bằng sông Cửu Long từ nằm 2013.</p>
+				<p class="footer-card__text">Chuyên cung cấp thiết bị y tế và dụng cụ thể dục chính hãng cho bệnh viện, phòng khám và gia đình tại khu vực Đồng bằng sông Cửu Long từ năm 2013.</p>
 				<div class="footer-company-meta">
-					<p><i class="fa fa-map-marker"></i>4AB1 Xuân Thủy, phường An Binh, thành phố Cần Thơ</p>
+					<p><i class="fa fa-map-marker"></i>4AB1 Xuân Thủy, phường An Bình, thành phố Cần Thơ</p>
 					<p><i class="fa fa-phone"></i><a href="tel:0937037770">0937 037 770</a> - <a href="tel:0906377086">0906 377 086</a></p>
 					<p><i class="fa fa-envelope"></i><a href="mailto:huynhgiact65@gmail.com">huynhgiact65@gmail.com</a></p>
-				</div>
-				<div class="footer-social-row social-icons">
-					[SOCIAL_ICONS]
-				</div>
-				<div class="footer-company-badge">
-					<span>Số GPKD: 1801763703</span>
-					<span>Sở Kế hoạch và Đầu tư TP Cần Thơ</span>
 				</div>
 				<div class="footer-verify">
 					<a href="http://online.gov.vn/Home/WebDetails/139158" target="_blank" rel="noopener noreferrer">
@@ -52,7 +45,7 @@
 				<div class="footer-branch-list">
 					<div class="footer-branch-item">
 						<strong>Huỳnh Gia 1 - Cần Thơ</strong>
-						<p><i class="fa fa-map-marker"></i> 04-06 Xuân Thủy, KDC Hồng Phát, Phường An Binh</p>
+						<p><i class="fa fa-map-marker"></i> 04-06 Xuân Thủy, KDC Hồng Phát, phường An Bình</p>
 						<p><i class="fa fa-phone"></i><a href="tel:0906377086"> 0906 377 086</a> - <a href="tel:0899060456">0899 060 456</a></p>
 					</div>
 					<div class="footer-branch-item">
@@ -71,19 +64,22 @@
 			<section class="footer-card footer-card--menu">
 				<h3 class="footer-card__title"><i class="fa fa-info-circle"></i> Về chúng tôi và chính sách</h3>
 				<ul class="footer-links footer-links--single">
-					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=gioi-thieu"><i class="fa fa-info-circle"></i>Giới thiệu về Công ty</a></li>
-					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=policies"><i class="fa fa-certificate"></i>Giấy phép ĐKKD</a></li>
-					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach"><i class="fa fa-refresh"></i>Chính sách đổi trả</a></li>
-					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach"><i class="fa fa-shield"></i>Chính sách bảo hành</a></li>
-					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach"><i class="fa fa-truck"></i>Vận chuyển và giao nhận</a></li>
-					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach"><i class="fa fa-credit-card"></i>Phương thức thanh toán</a></li>
-					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=recruitment"><i class="fa fa-users"></i>Tuyển dụng</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=gioi-thieu"><i class="fa fa-info-circle"></i>Giới thiệu công ty</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=gioi-thieu&op=Giay-phep-DKKD"><i class="fa fa-certificate"></i>Giấy phép ĐKKD</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Chinh-sach-doi-tra"><i class="fa fa-refresh"></i>Chính sách đổi trả</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Chinh-sach-bao-hanh"><i class="fa fa-shield"></i>Chính sách bảo hành</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Phuong-thuc-thanh-toan"><i class="fa fa-truck"></i>Vận chuyển và giao nhận</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Phuong-thuc-thanh-toan"><i class="fa fa-credit-card"></i>Phương thức thanh toán</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=tuyen-dung"><i class="fa fa-users"></i>Tuyển dụng</a></li>
 				</ul>
+				<div class="footer-social-row social-icons">
+					[SOCIAL_ICONS]
+				</div>
 			</section>
 		</div>
 		<div class="footer__copyright">
-			<p><strong>Công ty TNHH Huỳnh Gia Alpha</strong> | 4AB1 Xuân Thủy, KDC Cái Sơn - Hàng Bàng, KV2, Phường An Binh, thành phố Cần Thơ | Giay DKKD: 1801763703 | cấp bởi Sở Kế Hoạch và Đầu Tư TP Cần Thơ | Ngay cap: 08/05/2024</p>
-			<p>Copyright &copy; 2013 boi <a href="https://www.dungcuytecantho.com">dungcuytecantho.com</a> | Hotline: <a href="tel:0937037770">0937 037 770</a> | Email: <a href="mailto:huynhgiact65@gmail.com">huynhgiact65@gmail.com</a></p>
+			<p><strong>Công ty TNHH Huỳnh Gia Alpha</strong> | 4AB1 Xuân Thủy, KDC Cái Sơn - Hàng Bàng, KV2, phường An Bình, thành phố Cần Thơ | GPKD: 1801763703 | Cấp ngày: 08/05/2024</p>
+			<p>Website: <a href="https://www.dungcuytecantho.com">dungcuytecantho.com</a> | Hotline: <a href="tel:0937037770">0937 037 770</a> | Email: <a href="mailto:huynhgiact65@gmail.com">huynhgiact65@gmail.com</a></p>
 		</div>
 	</div>
 </div>

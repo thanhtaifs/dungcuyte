@@ -1,82 +1,69 @@
 <!-- BEGIN: main -->
-<!-- BEGIN: viewdescription -->
-<div class="news_column">
-	<div class="alert alert-info clearfix">
-		<h3>{CONTENT.title}</h3>
+<div class="news-page news-page--grid">
+	<!-- BEGIN: viewdescription -->
+	<div class="news-hero">
+		<div class="news-hero__body">
+			<div class="news-eyebrow">Tin tức</div>
+			<h1 class="news-hero__title">{CONTENT.title}</h1>
+			<p class="news-hero__text">{CONTENT.description}</p>
+		</div>
 		<!-- BEGIN: image -->
-		<img alt="{CONTENT.title}" src="{HOMEIMG1}" width="{IMGWIDTH1}" class="img-thumbnail pull-left imghome" />
+		<div class="news-hero__media">
+			<img alt="{CONTENT.title}" src="{HOMEIMG1}" width="{IMGWIDTH1}" class="img-thumbnail imghome" />
+		</div>
 		<!-- END: image -->
-		<p class="text-justify">{CONTENT.description}</p>
 	</div>
-</div>
-<!-- END: viewdescription -->
+	<!-- END: viewdescription -->
 
-<!-- BEGIN: featuredloop -->
-<div class="news_column">
-<div class="panel panel-default">
-		<div class="panel-body featured">
-			<!-- BEGIN: image -->
-			<a href="{CONTENT.link}" title="{CONTENT.title}"><img  alt="{HOMEIMGALT1}" src="{HOMEIMG1}" width="150px" class="img-thumbnail pull-left imghome" /></a>
-			<!-- END: image -->
-			<h2>
+	<!-- BEGIN: featuredloop -->
+	<article class="news-featured-card">
+		<!-- BEGIN: image -->
+		<a class="news-featured-card__media" href="{CONTENT.link}" title="{CONTENT.title}">
+			<img alt="{HOMEIMGALT1}" src="{HOMEIMG1}" width="150" class="img-thumbnail imghome" />
+		</a>
+		<!-- END: image -->
+		<div class="news-featured-card__body">
+			<div class="news-meta">
+				<span><em class="fa fa-clock-o">&nbsp;</em> {CONTENT.publtime}</span>
+				<span><em class="fa fa-eye">&nbsp;</em> {LANG.view}: {CONTENT.hitstotal}</span>
+				<span><em class="fa fa-comment-o">&nbsp;</em> {LANG.total_comment}: {CONTENT.hitscm}</span>
+			</div>
+			<h2 class="news-featured-card__title">
 				<a href="{CONTENT.link}" title="{CONTENT.title}">{CONTENT.title}</a>
 			</h2>
-			<div class="text-muted">
-				<ul class="list-unstyled list-inline">
-					<li>
-						<em class="fa fa-clock-o">&nbsp;</em> {CONTENT.publtime}
-					</li>
-					<li>
-						<em class="fa fa-eye">&nbsp;</em> {LANG.view}: {CONTENT.hitstotal}
-					</li>
-					<li>
-						<em class="fa fa-comment-o">&nbsp;</em> {LANG.total_comment}: {CONTENT.hitscm}
-					</li>
-				</ul>
-			</div>
-			<p class="text-justify">
-				{CONTENT.hometext}
-			</p>
+			<p class="news-featured-card__text">{CONTENT.hometext}</p>
 			<!-- BEGIN: adminlink -->
-			<p class="text-right">
-				{ADMINLINK}
-			</p>
+			<p class="news-featured-card__admin">{ADMINLINK}</p>
 			<!-- END: adminlink -->
 		</div>
+	</article>
+	<!-- END: featuredloop -->
+
+	<div class="news-grid">
+		<!-- BEGIN: viewcatloop -->
+		<article class="news-card">
+			<a class="news-card__media" title="{CONTENT.title}" href="{CONTENT.link}">
+				<img alt="{HOMEIMGALT1}" src="{HOMEIMG1}" width="{IMGWIDTH1}" class="img-thumbnail"/>
+			</a>
+			<div class="news-card__body">
+				<h3 class="news-card__title">
+					<a class="show" href="{CONTENT.link}" data-content="{CONTENT.hometext_clean}" data-img="{CONTENT.imghome}" data-rel="tooltip" title="{CONTENT.title}">{CONTENT.title}</a>
+				</h3>
+				<div class="news-card__footer">
+					<a class="news-card__link" href="{CONTENT.link}" title="{CONTENT.title}">Xem chi tiết <i class="fa fa-angle-right"></i></a>
+					<span class="news-card__admin">{ADMINLINK}</span>
+				</div>
+			</div>
+		</article>
+		<!-- END: viewcatloop -->
 	</div>
-</div>
-<!-- END: featuredloop -->
 
-<!-- BEGIN: viewcatloop -->
-<div class="col-sm-12 col-md-8">
-	<div class="thumbnail">
-		<a title="{CONTENT.title}" href="{CONTENT.link}"><img alt="{HOMEIMGALT1}" src="{HOMEIMG1}" width="{IMGWIDTH1}" class="img-thumbnail"/></a>
-		<div class="caption text-center">
-			<h4><a class="show" href="{CONTENT.link}" data-content="{CONTENT.hometext_clean}" data-img="{CONTENT.imghome}" data-rel="tooltip" title="{CONTENT.title}">{CONTENT.title}</a></h4>
-			<span>{ADMINLINK}</span>
-		</div>
+	<!-- BEGIN: generate_page -->
+	<div class="news-pagination">
+		{GENERATE_PAGE}
 	</div>
+	<!-- END: generate_page -->
 </div>
-<!-- END: viewcatloop -->
-<div class="clear">&nbsp;</div>
-
-<!-- BEGIN: generate_page -->
-<div class="text-center">
-	{GENERATE_PAGE}
-</div>
-<!-- END: generate_page -->
-
-<script type="text/javascript" data-show="after">
-$(window).load(function(){
-	$.each( $('.thumbnail'), function(k,v){
-		var height1 = $($('.thumbnail')[k]).height();
-		var height2 = $($('.thumbnail')[k+1]).height();
-		var height = ( height1 > height2 ? height1 : height2 );
-		$($('.thumbnail')[k]).height( height );
-		$($('.thumbnail')[k+1]).height( height );
-	});
-});
-</script>
 
 <!-- BEGIN: tooltip -->
 <script type="text/javascript" data-show="after">
@@ -90,5 +77,4 @@ $(document).ready(function() {
 });
 </script>
 <!-- END: tooltip -->
-
 <!-- END: main -->

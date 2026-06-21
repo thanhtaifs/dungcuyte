@@ -11,6 +11,13 @@
 		<p>{DESCRIPTIONHTML}</p>
 		<!-- END: viewdescriptionhtml -->
     </div>
+    <!-- BEGIN: subcat_nav -->
+    <div class="catalog-subcats">
+        <!-- BEGIN: loop -->
+        <a class="catalog-subcats__item" href="{SUBCAT.link}" title="{SUBCAT.title}">{SUBCAT.title}</a>
+        <!-- END: loop -->
+    </div>
+    <!-- END: subcat_nav -->
     <div class="list-product">
         <!-- BEGIN: displays -->
         <div class="form-group form-inline pull-right">
@@ -37,7 +44,7 @@
                       </div>
                       <div class="product-image">
                           <div class="image_center">
-                                <a href="{link_pro}" title="{title_pro}"  data-content='{intro}' data-rel="tooltip" >
+                                <a href="{link_pro}" title="{title_pro}">
                                 <img src="{img_pro}" alt="{TITLE}" class="img-fluid" loading="lazy"/>
                                 </a>
                                  <div class="product-overlay">
@@ -46,7 +53,7 @@
                                 </div>
                           </div>
                     </div>
-                     <div class="product-info">
+                    <div class="product-info">
                                <h3 class="product-title">
                                     <a href="{link_pro}" title="{title_pro0}">{title_pro0}</a>
                                 </h3>
@@ -67,15 +74,36 @@
                         <!-- END: no_discounts -->
                     </div>
                     <!-- END: price -->
+                    <!-- BEGIN: contact -->
+                    <div class="product-price product-price--contact">
+                        <p class="current-price">{LANG.price_contact}</p>
+                    </div>
+                    <!-- END: contact -->
+                    <div class="product-info pt-0">
+                        <!-- BEGIN: order -->
+                        <button class="btn-add-to-cart" id="{ID}" title="{title_pro}" onclick="addToCart({ID})" data-id="{ID}" type="button">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span class="btn-add-to-cart__text">{LANG.add_product}</span>
+                        </button>
+                        <!-- END: order -->
+                        <!-- BEGIN: contact_order -->
+                        <button class="btn-add-to-cart btn-add-to-cart--quote" type="button" onclick="window.location.href='tel:0937037770'">
+                            <i class="fa fa-phone"></i>
+                            <span class="btn-add-to-cart__text">Liên hệ báo giá</span>
+                        </button>
+                        <!-- END: contact_order -->
+                    </div>
                   </div>
         </div>
     	<!-- END: grid_rows -->
     	</div>
         	<div class="clearfix">
         	</div>
-        	<div aria-label="Page navigation" class="d-flex justify-content-center my-4">
-        	    {pages}
-        	</div>
+            <div class="home-products-pagination">
+                <div class="home-products-pagination__inner" aria-label="Page navigation">
+                    {pages}
+                </div>
+            </div>
     
     </div>
 </div>
@@ -98,13 +126,4 @@
 
 <div class="msgshow" id="msgshow">
 </div>
-<!-- BEGIN: tooltip_js -->
-<script type="text/javascript">
-	$(document).ready(function() {$("[data-rel='tooltip']").tooltip({
-		placement: "bottom",
-		html: true,
-		title: function(){return '<p class="text-justify">' + $(this).data('content') + '</p><div class="clearfix"></div>';}
-	});});
-</script>
-<!-- END: tooltip_js -->
 <!-- END: main -->

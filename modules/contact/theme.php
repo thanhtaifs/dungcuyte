@@ -23,7 +23,7 @@ function contact_main_theme( $array_content, $array_department, $base_url, $chec
 {
 
 	global $module_file, $lang_global, $lang_module, $module_info;
-	error_log("=== contact_main_theme Tu khoa theme.php contact  ===");
+	//error_log("=== contact_main_theme Tu khoa theme.php contact  ===");
 	$xtpl = new XTemplate( 'form.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
 	$xtpl->assign( 'CONTENT', $array_content );
 	$xtpl->assign( 'LANG', $lang_module );
@@ -98,7 +98,7 @@ function contact_main_theme( $array_content, $array_department, $base_url, $chec
  */
 function sendcontact( $url )
 {
-	error_log("=== contact_main_theme Tu khoa theme.php send contact  ===");
+	//error_log("=== contact_main_theme Tu khoa theme.php send contact  ===");
 	global $module_file, $module_info, $lang_module;
 
 	$xtpl = new XTemplate( 'sendcontact.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
