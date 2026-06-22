@@ -296,7 +296,6 @@ function nv_site_theme( $contents, $full = true )
 	}
 
 	$css = nv_html_css();
-    $css .= '<link rel="stylesheet" type="text/css" href="' . NV_BASE_SITEURL . 'themes/' . $global_config['module_theme'] . '/css/menu.css" />' . "\n";
 	// Css for admin
 	if( defined( 'NV_IS_ADMIN' ) and $full )
 	{
@@ -322,7 +321,7 @@ function nv_site_theme( $contents, $full = true )
 	    		file_put_contents( NV_ROOTDIR . '/' . SYSTEM_FILES_DIR . '/css/theme_' . $global_config['module_theme'] . '_' . $global_config['idsite'] . '.css', $css_content );
 	    		unset( $config_theme, $css_content );
 	    	}
-		$my_footer .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"" . NV_BASE_SITEURL . SYSTEM_FILES_DIR . "/css/theme_" . $global_config['module_theme'] . "_" . $global_config['idsite'] . ".css?t=" . $global_config['timestamp'] . "\" />\n";
+		// Theme config CSS is not enqueued; current design styles are maintained in style.css.
 	}
 
 	$xtpl = new XTemplate( $layout_file, NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/layout' );

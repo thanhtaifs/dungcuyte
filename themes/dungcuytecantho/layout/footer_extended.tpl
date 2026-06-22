@@ -10,11 +10,6 @@
 					<p><i class="fa fa-phone"></i><a href="tel:0937037770">0937 037 770</a> - <a href="tel:0906377086">0906 377 086</a></p>
 					<p><i class="fa fa-envelope"></i><a href="mailto:huynhgiact65@gmail.com">huynhgiact65@gmail.com</a></p>
 				</div>
-				<div class="footer-verify">
-					<a href="http://online.gov.vn/Home/WebDetails/139158" target="_blank" rel="noopener noreferrer">
-						<img src="/images/logobct.webp" alt="Thông báo từ Bộ Công Thương" />
-					</a>
-				</div>
 			</section>
 
 			<section class="footer-card footer-card--catalog">
@@ -61,19 +56,30 @@
 				</div>
 			</section>
 
-			<section class="footer-card footer-card--menu">
-				<h3 class="footer-card__title"><i class="fa fa-info-circle"></i> Về chúng tôi và chính sách</h3>
+			<section class="footer-card footer-card--about">
+				<h3 class="footer-card__title"><i class="fa fa-info-circle"></i> Về chúng tôi</h3>
 				<ul class="footer-links footer-links--single">
 					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=gioi-thieu"><i class="fa fa-info-circle"></i>Giới thiệu công ty</a></li>
 					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=gioi-thieu&op=Giay-phep-DKKD"><i class="fa fa-certificate"></i>Giấy phép ĐKKD</a></li>
-					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Chinh-sach-doi-tra"><i class="fa fa-refresh"></i>Chính sách đổi trả</a></li>
-					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Chinh-sach-bao-hanh"><i class="fa fa-shield"></i>Chính sách bảo hành</a></li>
-					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Phuong-thuc-thanh-toan"><i class="fa fa-truck"></i>Vận chuyển và giao nhận</a></li>
-					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Phuong-thuc-thanh-toan"><i class="fa fa-credit-card"></i>Phương thức thanh toán</a></li>
 					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=tuyen-dung"><i class="fa fa-users"></i>Tuyển dụng</a></li>
 				</ul>
 				<div class="footer-social-row social-icons">
 					[SOCIAL_ICONS]
+				</div>
+			</section>
+
+			<section class="footer-card footer-card--policies">
+				<h3 class="footer-card__title"><i class="fa fa-shield"></i> Chính sách</h3>
+				<ul class="footer-links footer-links--single">
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Chinh-sach-doi-tra"><i class="fa fa-refresh"></i>Chính sách đổi trả</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Chinh-sach-bao-hanh"><i class="fa fa-shield"></i>Chính sách bảo hành</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Phuong-thuc-thanh-toan"><i class="fa fa-truck"></i>Vận chuyển và giao nhận</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Phuong-thuc-thanh-toan"><i class="fa fa-credit-card"></i>Phương thức thanh toán</a></li>
+				</ul>
+				<div class="footer-verify">
+					<a href="http://online.gov.vn/Home/WebDetails/139158" target="_blank" rel="noopener noreferrer">
+						<img src="/images/logobct.webp" alt="Thông báo từ Bộ Công Thương" />
+					</a>
 				</div>
 			</section>
 		</div>

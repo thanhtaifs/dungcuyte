@@ -25,12 +25,8 @@
 
         <!-- BEGIN: responsive -->
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/owl.carousel.min.css" rel="stylesheet" />
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css" rel="stylesheet" />
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.responsive.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/default.css" />
-		<link rel="stylesheet" type="text/css" href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/component.css" />
-        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/skitter.styles.min.css" type="text/css" media="all" rel="stylesheet" />
         <!-- END: responsive -->
 
         <!-- BEGIN: non_responsive -->
