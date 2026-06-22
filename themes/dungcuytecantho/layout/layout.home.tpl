@@ -53,7 +53,7 @@
 					<div class="hero-stat-card">
 						<i class="fa fa-cubes"></i>
 						<strong>2,700+</strong>
-						<span>San pham da dang</span>
+						<span>Sản phẩm đa dạng</span>
 					</div>
 					<div class="hero-stat-card">
 						<i class="fa fa-hospital-o"></i>
