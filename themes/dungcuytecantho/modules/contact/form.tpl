@@ -1,63 +1,243 @@
 <!-- BEGIN: main -->
-<div class="contact-page">   
-    <div class="contact-layout contact-two-column row">
-        <div class="col-xs-24 col-lg-12">
-            <div class="contact-section-card">
-                <div class="contact-section-head">
-                    <h2>Hệ thống chi nhánh</h2>
-                    <p>{LANG.note}</p>
-                    <div class="contact-quick-actions">
-                        <a class="contact-quick-btn primary" href="tel:0937037770">
-                            <i class="fa fa-phone"></i>
-                            <span>Gọi điện</span>
-                        </a>
-                        <a class="contact-quick-btn" href="mailto:huynhgiact65@gmail.com">
-                            <i class="fa fa-envelope-o"></i>
-                            <span>Gửi thư điện tử</span>
-                        </a>
+<div class="contact-showcase">
+    <section class="contact-hero-card">
+        <div class="contact-hero-badge">
+            <span></span> Ho tro 7 ngay trong tuan
+        </div>
+        <h1>Lien he voi chung toi</h1>
+        <p>He thong chi nhanh Huynh Gia Alpha san sang tu van, bao gia va ho tro nhanh cho khach hang tai Can Tho va Vinh Long.</p>
+        <div class="contact-hero-actions">
+            <a class="contact-action-btn contact-action-btn--primary" href="tel:0937037770">
+                <i class="fa fa-phone"></i>
+                <span>Goi ngay: 0937 037 770</span>
+            </a>
+            <a class="contact-action-btn" href="mailto:huynhgiact65@gmail.com">
+                <i class="fa fa-envelope-o"></i>
+                <span>Gui email</span>
+            </a>
+            <a class="contact-action-btn" href="#fcontact">
+                <i class="fa fa-commenting-o"></i>
+                <span>Gui yeu cau</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="contact-stats-bar">
+        <div class="contact-stat">
+            <strong>3</strong>
+            <span>Chi nhanh dang hoat dong</span>
+        </div>
+        <div class="contact-stat">
+            <strong>0937 037 770</strong>
+            <span>Hotline trung tam</span>
+        </div>
+        <div class="contact-stat">
+            <strong>07:00 - 20:00</strong>
+            <span>Khung gio ho tro</span>
+        </div>
+        <div class="contact-stat">
+            <strong>&lt; 1 gio</strong>
+            <span>Thoi gian phan hoi</span>
+        </div>
+    </section>
+
+    <section class="contact-branch-section">
+        <div class="contact-section-heading">
+            <p class="contact-section-eyebrow">Chi nhanh</p>
+            <h2>Tim chi nhanh gan ban</h2>
+            <p class="contact-section-sub">Chon tung chi nhanh de xem thong tin lien he, dia chi va mo ban do chi duong nhanh.</p>
+        </div>
+
+        <div class="contact-tabs" role="tablist" aria-label="Danh sach chi nhanh">
+            <button class="contact-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="contact-panel-hg1" onclick="contactShowBranch('hg1', this)">
+                <span class="contact-tab-dot"></span> Huynh Gia 1
+            </button>
+            <button class="contact-tab" type="button" role="tab" aria-selected="false" aria-controls="contact-panel-hg2" onclick="contactShowBranch('hg2', this)">
+                <span class="contact-tab-dot"></span> Huynh Gia 2
+            </button>
+            <button class="contact-tab" type="button" role="tab" aria-selected="false" aria-controls="contact-panel-hg3" onclick="contactShowBranch('hg3', this)">
+                <span class="contact-tab-dot"></span> Huynh Gia 3
+            </button>
+        </div>
+
+        <div class="contact-branch-panel is-active" id="contact-panel-hg1">
+            <div class="contact-branch-info-card">
+                <div class="contact-branch-head">
+                    <div class="contact-branch-avatar">
+                        <i class="fa fa-hospital-o"></i>
+                    </div>
+                    <div>
+                        <h3>Huynh Gia 1 - Can Tho</h3>
+                        <div class="contact-branch-tag"><span></span> Chi nhanh chinh · Dang mo cua</div>
                     </div>
                 </div>
-                <div class="contact-branch-list">
-                    <!-- BEGIN: department_loop -->
-                    <article class="contact-branch-card{DEPARTMENT.selected_class}">
-                        <div class="contact-branch-top">
-                            <div class="contact-branch-icon">
-                                <i class="fa fa-building"></i>
-                            </div>
-                            <div class="contact-branch-meta">
-                                <h3>{DEPARTMENT.full_name}</h3>
-                                <span>Bo phan tiep nhan thong tin</span>
-                            </div>
+
+                <div class="contact-info-list">
+                    <div class="contact-info-row">
+                        <div class="contact-info-icon"><i class="fa fa-map-marker"></i></div>
+                        <div class="contact-info-copy">
+                            <span>Dia chi</span>
+                            <strong>04-06 Xuan Thuy, KDC Hong Phat, P. An Binh, TP. Can Tho</strong>
                         </div>
-
-                        <div class="contact-branch-body">
-                            <!-- BEGIN: phone -->
-                            <a class="contact-branch-line contact-branch-phone" href="tel:{DEPARTMENT.phone_link}">
-                                <i class="fa fa-phone"></i>
-                                <span>{DEPARTMENT.phone}</span>
-                            </a>
-                            <!-- END: phone -->
-
-                            <!-- BEGIN: email -->
-                            <a class="contact-branch-line" href="mailto:{DEPARTMENT.email}">
-                                <i class="fa fa-envelope-o"></i>
-                                <span>{DEPARTMENT.email}</span>
-                            </a>
-                            <!-- END: email -->
-
-                            <!-- BEGIN: note -->
-                            <div class="contact-branch-note">
-                                {DEPARTMENT.note}
-                            </div>
-                            <!-- END: note -->
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-info-icon"><i class="fa fa-phone"></i></div>
+                        <div class="contact-info-copy">
+                            <span>Dien thoai</span>
+                            <strong><a href="tel:0906377086">0906 377 086</a> - <a href="tel:0899060456">0899 060 456</a></strong>
                         </div>
-                    </article>
-                    <!-- END: department_loop -->
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-info-icon"><i class="fa fa-envelope-o"></i></div>
+                        <div class="contact-info-copy">
+                            <span>Email</span>
+                            <strong><a href="mailto:huynhgiact65@gmail.com">huynhgiact65@gmail.com</a></strong>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-info-icon"><i class="fa fa-clock-o"></i></div>
+                        <div class="contact-info-copy">
+                            <span>Gio lam viec</span>
+                            <strong>Thu 2 - Chu nhat: 07:00 - 20:00</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-map-card">
+                <div class="contact-map-frame">
+                    <iframe src="https://www.google.com/maps?q=04-06%20Xu%C3%A2n%20Th%E1%BB%A7y%2C%20KDC%20H%E1%BB%93ng%20Ph%C3%A1t%2C%20An%20B%C3%ACnh%2C%20C%E1%BA%A7n%20Th%C6%A1&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ban do Huynh Gia 1"></iframe>
+                </div>
+                <div class="contact-map-footer">
+                    <span><i class="fa fa-map-pin"></i> 04-06 Xuan Thuy, KDC Hong Phat, P. An Binh</span>
+                    <a href="https://maps.app.goo.gl/uDUfXCfNCLhtHfzd8" target="_blank" rel="noopener noreferrer">Mo Google Maps</a>
                 </div>
             </div>
         </div>
 
-        <div class="col-xs-24 col-lg-12">
+        <div class="contact-branch-panel" id="contact-panel-hg2">
+            <div class="contact-branch-info-card">
+                <div class="contact-branch-head">
+                    <div class="contact-branch-avatar">
+                        <i class="fa fa-medkit"></i>
+                    </div>
+                    <div>
+                        <h3>Huynh Gia 2 - Can Tho</h3>
+                        <div class="contact-branch-tag"><span></span> Chi nhanh tu van · Dang mo cua</div>
+                    </div>
+                </div>
+
+                <div class="contact-info-list">
+                    <div class="contact-info-row">
+                        <div class="contact-info-icon"><i class="fa fa-map-marker"></i></div>
+                        <div class="contact-info-copy">
+                            <span>Dia chi</span>
+                            <strong>369B Nguyen Van Cu noi dai, P. Tan An, TP. Can Tho</strong>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-info-icon"><i class="fa fa-phone"></i></div>
+                        <div class="contact-info-copy">
+                            <span>Dien thoai</span>
+                            <strong><a href="tel:0907694868">0907 694 868</a> - <a href="tel:0899070456">0899 070 456</a></strong>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-info-icon"><i class="fa fa-envelope-o"></i></div>
+                        <div class="contact-info-copy">
+                            <span>Email</span>
+                            <strong><a href="mailto:huynhgiact65@gmail.com">huynhgiact65@gmail.com</a></strong>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-info-icon"><i class="fa fa-clock-o"></i></div>
+                        <div class="contact-info-copy">
+                            <span>Gio lam viec</span>
+                            <strong>Thu 2 - Chu nhat: 07:00 - 20:00</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-map-card">
+                <div class="contact-map-frame">
+                    <iframe src="https://www.google.com/maps?q=369B%20Nguy%E1%BB%85n%20V%C4%83n%20C%E1%BB%AB%20n%E1%BB%91i%20d%C3%A0i%2C%20T%C3%A2n%20An%2C%20C%E1%BA%A7n%20Th%C6%A1&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ban do Huynh Gia 2"></iframe>
+                </div>
+                <div class="contact-map-footer">
+                    <span><i class="fa fa-map-pin"></i> 369B Nguyen Van Cu noi dai, P. Tan An</span>
+                    <a href="https://maps.app.goo.gl/u7kfQd8XQ6CZnLBr9" target="_blank" rel="noopener noreferrer">Mo Google Maps</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-branch-panel" id="contact-panel-hg3">
+            <div class="contact-branch-info-card">
+                <div class="contact-branch-head">
+                    <div class="contact-branch-avatar">
+                        <i class="fa fa-building-o"></i>
+                    </div>
+                    <div>
+                        <h3>Huynh Gia 3 - Vinh Long</h3>
+                        <div class="contact-branch-tag"><span></span> Chi nhanh Vinh Long · Dang mo cua</div>
+                    </div>
+                </div>
+
+                <div class="contact-info-list">
+                    <div class="contact-info-row">
+                        <div class="contact-info-icon"><i class="fa fa-map-marker"></i></div>
+                        <div class="contact-info-copy">
+                            <span>Dia chi</span>
+                            <strong>37A Pham Hung, Khom 2, P. Long Chau, Tinh Vinh Long</strong>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-info-icon"><i class="fa fa-phone"></i></div>
+                        <div class="contact-info-copy">
+                            <span>Dien thoai</span>
+                            <strong><a href="tel:0939310467">0939 310 467</a> - <a href="tel:02703888179">02703 888 179</a></strong>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-info-icon"><i class="fa fa-envelope-o"></i></div>
+                        <div class="contact-info-copy">
+                            <span>Email</span>
+                            <strong><a href="mailto:huynhgiact65@gmail.com">huynhgiact65@gmail.com</a></strong>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-info-icon"><i class="fa fa-clock-o"></i></div>
+                        <div class="contact-info-copy">
+                            <span>Gio lam viec</span>
+                            <strong>Thu 2 - Chu nhat: 07:00 - 20:00</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-map-card">
+                <div class="contact-map-frame">
+                    <iframe src="https://www.google.com/maps?q=37A%20Ph%E1%BA%A1m%20H%C3%B9ng%2C%20Long%20Ch%C3%A2u%2C%20V%C4%A9nh%20Long&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ban do Huynh Gia 3"></iframe>
+                </div>
+                <div class="contact-map-footer">
+                    <span><i class="fa fa-map-pin"></i> 37A Pham Hung, P. Long Chau, Vinh Long</span>
+                    <a href="https://maps.app.goo.gl/9vQHNgan1NUNShSMA" target="_blank" rel="noopener noreferrer">Mo Google Maps</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="contact-form-shell">
+        <div class="contact-form-side">
+            <div class="contact-section-card contact-note-card">
+                <div class="contact-section-heading contact-section-heading--compact">
+                    <p class="contact-section-eyebrow">Ho tro</p>
+                    <h2>Thong tin nhanh</h2>
+                </div>
+                <div class="contact-note-content">{LANG.note}</div>
+            </div>
+        </div>
+
+        <div class="contact-form-main">
             <!-- BEGIN: error -->
             <div class="alert alert-danger fade in contact-alert">
                 <em data-dismiss="alert" aria-hidden="true" class="fa fa-times fa-fix fa-pointer pull-right fa-lg">&nbsp;</em>
@@ -67,9 +247,10 @@
 
             <!-- BEGIN: form -->
             <div class="contact-section-card contact-form-card">
-                <div class="contact-section-head">
-                    <h2>Gửi yêu cầu hỗ trợ</h2>
-                    <p>Bạn vui lòng điền các thông tin cần thiết để gửi yêu cầu hỗ trợ !</p>
+                <div class="contact-section-heading contact-section-heading--compact">
+                    <p class="contact-section-eyebrow">Lien he</p>
+                    <h2>Gui yeu cau ho tro</h2>
+                    <p class="contact-section-sub">Ban vui long dien day du thong tin de chung toi lien he lai nhanh hon.</p>
                 </div>
 
                 <form id="fcontact" method="post" action="{ACTION_FILE}" onsubmit="return sendcontact('{NV_GFX_NUM}');">
@@ -79,39 +260,44 @@
                     </div>
 
                     <!-- BEGIN: iguest -->
-                    <div class="form-group">
-                        <label for="fname">{LANG.fullname}</label>
-                        <input type="text" maxlength="100" value="{CONTENT.fname}" id="fname" name="fname" class="form-control" placeholder="{LANG.fullname}" />
-                    </div>
-                    <div class="form-group">
-                        <label for="femail_iavim">{LANG.email}</label>
-                        <input type="text" maxlength="60" value="{CONTENT.femail}" id="femail_iavim" name="femail" class="form-control" placeholder="{LANG.email}" />
+                    <div class="contact-form-grid">
+                        <div class="form-group">
+                            <label for="fname">{LANG.fullname}</label>
+                            <input type="text" maxlength="100" value="{CONTENT.fname}" id="fname" name="fname" class="form-control" placeholder="{LANG.fullname}" />
+                        </div>
+                        <div class="form-group">
+                            <label for="femail_iavim">{LANG.email}</label>
+                            <input type="text" maxlength="60" value="{CONTENT.femail}" id="femail_iavim" name="femail" class="form-control" placeholder="{LANG.email}" />
+                        </div>
                     </div>
                     <!-- END: iguest -->
 
                     <!-- BEGIN: iuser -->
-                    <div class="form-group">
-                        <label for="fname">{LANG.fullname}</label>
-                        <input type="text" maxlength="100" value="{CONTENT.fname}" id="fname" name="fname" class="form-control" disabled="disabled" />
-                    </div>
-                    <div class="form-group">
-                        <label for="femail_iavim">{LANG.email}</label>
-                        <input type="text" maxlength="60" value="{CONTENT.femail}" id="femail_iavim" name="femail" class="form-control" disabled="disabled" />
+                    <div class="contact-form-grid">
+                        <div class="form-group">
+                            <label for="fname">{LANG.fullname}</label>
+                            <input type="text" maxlength="100" value="{CONTENT.fname}" id="fname" name="fname" class="form-control" disabled="disabled" />
+                        </div>
+                        <div class="form-group">
+                            <label for="femail_iavim">{LANG.email}</label>
+                            <input type="text" maxlength="60" value="{CONTENT.femail}" id="femail_iavim" name="femail" class="form-control" disabled="disabled" />
+                        </div>
                     </div>
                     <!-- END: iuser -->
 
-                    <div class="form-group">
-                        <label for="fphone">{LANG.phone}</label>
-                        <input type="text" maxlength="60" value="{CONTENT.fphone}" id="fphone" name="fphone" class="form-control" placeholder="{LANG.phone}" />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="fpart">{LANG.part}</label>
-                        <select class="form-control" id="fpart" name="fpart">
-                            <!-- BEGIN: select_option_loop -->
-                            <option value="{SELECT_VALUE}" {SELECTED}>{SELECT_NAME}</option>
-                            <!-- END: select_option_loop -->
-                        </select>
+                    <div class="contact-form-grid">
+                        <div class="form-group">
+                            <label for="fphone">{LANG.phone}</label>
+                            <input type="text" maxlength="60" value="{CONTENT.fphone}" id="fphone" name="fphone" class="form-control" placeholder="{LANG.phone}" />
+                        </div>
+                        <div class="form-group">
+                            <label for="fpart">{LANG.part}</label>
+                            <select class="form-control" id="fpart" name="fpart">
+                                <!-- BEGIN: select_option_loop -->
+                                <option value="{SELECT_VALUE}" {SELECTED}>{SELECT_NAME}</option>
+                                <!-- END: select_option_loop -->
+                            </select>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -143,4 +329,30 @@
         </div>
     </div>
 </div>
+
+<script>
+function contactShowBranch(id, btn) {
+    var panels = document.querySelectorAll('.contact-branch-panel');
+    var tabs = document.querySelectorAll('.contact-tab');
+
+    for (var i = 0; i < panels.length; i++) {
+        panels[i].classList.remove('is-active');
+    }
+
+    for (var j = 0; j < tabs.length; j++) {
+        tabs[j].classList.remove('is-active');
+        tabs[j].setAttribute('aria-selected', 'false');
+    }
+
+    var activePanel = document.getElementById('contact-panel-' + id);
+    if (activePanel) {
+        activePanel.classList.add('is-active');
+    }
+
+    if (btn) {
+        btn.classList.add('is-active');
+        btn.setAttribute('aria-selected', 'true');
+    }
+}
+</script>
 <!-- END: main -->

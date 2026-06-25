@@ -40,17 +40,17 @@
 				<div class="footer-branch-list">
 					<div class="footer-branch-item">
 						<strong>Huỳnh Gia 1 - Cần Thơ</strong>
-						<p><i class="fa fa-map-marker"></i> 04-06 Xuân Thủy, KDC Hồng Phát, phường An Bình</p>
+						<p><i class="fa fa-map-marker"></i> 04-06 Xuân Thủy, KDC Hồng Phát, P. An Bình - <a href="https://maps.app.goo.gl/uDUfXCfNCLhtHfzd8" target="_blank" rel="noopener noreferrer" style="color: var(--brand-green-strong) !important;">Xem bản đồ <i class="fa fa-external-link" style="color: var(--brand-green-strong) !important;"></i></a></p>
 						<p><i class="fa fa-phone"></i><a href="tel:0906377086"> 0906 377 086</a> - <a href="tel:0899060456">0899 060 456</a></p>
 					</div>
 					<div class="footer-branch-item">
 						<strong>Huỳnh Gia 2 - Cần Thơ</strong>
-						<p><i class="fa fa-map-marker"></i> 369B Nguyễn Văn Cừ nối dài, phường Tân An</p>
+						<p><i class="fa fa-map-marker"></i> 369B Nguyễn Văn Cừ nối dài, P. Tân An - <a href="https://maps.app.goo.gl/u7kfQd8XQ6CZnLBr9" target="_blank" rel="noopener noreferrer" style="color: var(--brand-green-strong) !important;">Xem bản đồ <i class="fa fa-external-link" style="color: var(--brand-green-strong) !important;"></i></a></p>
 						<p><i class="fa fa-phone"></i><a href="tel:0907694868"> 0907 694 868</a> - <a href="tel:0899070456">0899 070 456</a></p>
 					</div>
 					<div class="footer-branch-item">
 						<strong>Huỳnh Gia 3 - Vĩnh Long</strong>
-						<p><i class="fa fa-map-marker"></i> 37A Phạm Hùng, Khóm 2, phường Long Châu</p>
+						<p><i class="fa fa-map-marker"></i> 37A Phạm Hùng, Khóm 2, P. Long Châu - <a href="https://maps.app.goo.gl/9vQHNgan1NUNShSMA" target="_blank" rel="noopener noreferrer" style="color: var(--brand-green-strong) !important;">Xem bản đồ <i class="fa fa-external-link" style="color: var(--brand-green-strong) !important;"></i></a></p>
 						<p><i class="fa fa-phone"></i><a href="tel:0907694868"> 0907 694 868</a> - <a href="tel:0939310467">0939 310 467</a></p>
 					</div>
 				</div>
