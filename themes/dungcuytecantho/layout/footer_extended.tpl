@@ -8,8 +8,6 @@
 				<p class="footer-card__text">Cung cấp các loại thiết bị y tế phổ biến nhất hiện nay như: máy đo huyết áp, máy siêu âm, vật tư y tế ...</p>
 				<div class="footer-company-meta">
 					<p><i class="fa fa-map-marker"></i>4AB1 Xuân Thủy, phường An Bình, thành phố Cần Thơ</p>
-					<p><i class="fa fa-phone"></i><a href="tel:0937037770">0937 037 770</a> - <a href="tel:0906377086">0906 377 086</a></p>
-					<p><i class="fa fa-envelope"></i><a href="mailto:huynhgiact65@gmail.com">huynhgiact65@gmail.com</a></p>
 				</div>
 			</section>
 
@@ -32,10 +30,8 @@
 						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops"><i class="fa fa-fire"></i>Nồi hấp tiệt trùng</a></li>
 						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops"><i class="fa fa-medkit"></i>Vật lý trị liệu</a></li>
 					</ul>
-				</div>
-				<a class="footer-inline-cta" href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops">Xem tất cả sản phẩm</a>
+				</div>				
 			</section>
-
 			<section class="footer-card footer-card--branches">
 				<h3 class="footer-card__title"><i class="fa fa-map-marker"></i> Hệ thống chi nhánh</h3>
 				<div class="footer-branch-list">
@@ -67,6 +63,8 @@
 				<div class="footer-social-row social-icons">
 					[SOCIAL_ICONS]
 				</div>
+				</br>
+				<a class="footer-inline-cta" href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=san-pham-moi">Xem tất cả sản phẩm</a>
 			</section>
 
 			<section class="footer-card footer-card--policies">

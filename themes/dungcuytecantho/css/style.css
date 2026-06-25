@@ -931,6 +931,7 @@ ol {
 
 .footer__top p {
   font-size: 14px;
+  margin-bottom: 8px;
 }
 
 .footer__top small {
@@ -7245,7 +7246,6 @@ img {
 }
 .footer-company-meta i {
   width: 16px;
-  margin-right: 8px;
 }
 .footer-company-meta a {
   color: var(--brand-green-strong);
@@ -7384,8 +7384,8 @@ img {
   color: #ffffff;
 }
 .footer__copyright {
-  margin-top: 22px;
-  padding: 20px 0 0;
+  margin-top: 10px;
+  padding: 10px 0 0;
   border-top: 1px solid #d6e8cf;
   text-align: center;
 }
