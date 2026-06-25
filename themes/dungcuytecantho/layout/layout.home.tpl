@@ -35,14 +35,16 @@
 	<section class="hero-banner">
 		<div class="container">
 			<div class="hero-banner__panel">
-				<div class="hero-banner__content">
-					<span class="hero-banner__eyebrow">Cửa hàng cung cấp thiết bị y tế và dụng cụ thể dục uy tín tại Cần Thơ</span>
+				<div class="hero-banner__content">					
 					<h1>Dụng cụ y tế Cần Thơ – Thiết bị y Khoa chính hãng | Huỳnh Gia Alpha</h1>
-					<p>Huỳnh Gia Alpha có hơn 12 năm chuyên cung cấp thiết bị y tế và dụng cụ thể dục phục vụ Bệnh viện, Phòng khám và Gia đình tại khu vực Đồng bằng sông Cửu Long. Hàng đảm bảo chất lượng và có bảo hành chính hảng.</p>
+					<p>Công ty TNHH Huỳnh Gia Alpha chuyên bán sỉ & lẻ:</p>
 					<div class="hero-banner__tags">
-						<span><i class="fa fa-hospital-o"></i>Bệnh viện và phòng khám</span>
-						<span><i class="fa fa-heartbeat"></i>Cho thuê máy tại nhà</span>
-						<span><i class="fa fa-wrench"></i>Bảo trình và sửa chữa</span>
+						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=vat-tu-y-te"><i class="fa fa-medkit"></i>Thiết bị & vật tư y tế</a>
+						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=dich-vu&op=Cho-thue-may-tao-oxy"><i class="fa fa-heartbeat"></i>Cho thuê máy tạo oxy</a>
+						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=dich-vu&op=Chuyen-sua-chua-dung-cu-phau-thuat"><i class="fa fa-scissors"></i>Sửa dụng cụ phẫu thuật</a>
+						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=dich-vu&op=bao-tri-thiet-bi-y-te"><i class="fa fa-wrench"></i>Sửa thiết bị y tế</a>
+						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=Dung-cu-the-duc"><i class="fa fa-graduation-cap"></i>Thiết bị thể thao trường học</a>
+						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=Dung-cu-the-duc"><i class="fa fa-futbol-o"></i>Thiết bị thể dục</a>
 					</div>
 					<div class="hero-banner__actions">
 						<a class="hero-banner__button hero-banner__button--light" href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=san-pham-moi"><i class="fa fa-th-large"></i> Xem sản phẩm</a>

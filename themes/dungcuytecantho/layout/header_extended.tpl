@@ -15,20 +15,6 @@
 		<nav class="humberger__menu__nav mobile-menu" aria-label="Dieu huong di dong"></nav>
 	</div>
 	<header class="header site-header">
-		<div class="header__top">
-			<div class="container">
-				<div class="header-top-bar">
-					<div class="header-top-bar__group">
-						<a href="mailto:huynhgiact65@gmail.com"><i class="fa fa-envelope"></i> huynhgiact65@gmail.com</a>
-						<span><i class="fa fa-clock-o"></i> Thu 2-CN: 07:00-20:00</span>
-					</div>
-					<div class="header-top-bar__group header-top-bar__group--right">
-						<span><i class="fa fa-truck"></i> Giao hang toan quoc</span>
-						<span><i class="fa fa-certificate"></i> Đã được cấp phep So KHDT TPCT</span>
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="header__brand">
 			<div class="container">
 				<div class="site-brand site-brand--header">
@@ -137,7 +123,7 @@
 						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=contact"><span class="site-nav-branch__text">Hệ thống cửa hàng</span></a>
 					</div>
 					<div class="mobile-nav-actions">
-						<button class="mobile-search-toggle" type="button" aria-label="Tim kiem" aria-controls="mobileSearchPanel" aria-expanded="false">
+						<button class="mobile-search-toggle" type="button" aria-label="Tìm kiếm" aria-controls="mobileSearchPanel" aria-expanded="false">
 							<i class="fa fa-search"></i>
 						</button>
 						<button class="mobile-cart-toggle" id="cart-mobile" type="button" aria-label="Giỏ hàng">
@@ -154,7 +140,7 @@
 			<div class="mobile-search-panel__head">
 				<div class="mobile-search-panel__title">
 					<span class="mobile-search-panel__eyebrow">Tìm kiếm</span>
-					<strong>Công Ty TNHH Huỳnh Gia Alpha</strong>
+					<strong>Công ty TNHH Huỳnh Gia Alpha</strong>
 				</div>
 				<button class="mobile-search-close" type="button" aria-label="Tìm kiếm">
 					<i class="fa fa-times"></i>

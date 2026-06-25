@@ -5,6 +5,7 @@
 				<h3 class="footer-card__title"><i class="fa fa-heart-o"></i> Huỳnh Gia Alpha</h3>
 				<p class="footer-card__subtitle">Công ty TNHH Huỳnh Gia Alpha</p>
 				<p class="footer-card__text">Chuyên cung cấp thiết bị y tế và dụng cụ thể dục chính hãng cho bệnh viện, phòng khám và gia đình tại khu vực Đồng bằng sông Cửu Long từ năm 2013.</p>
+				<p class="footer-card__text">Cung cấp các loại thiết bị y tế phổ biến nhất hiện nay như: máy đo huyết áp, máy siêu âm, vật tư y tế ...</p>
 				<div class="footer-company-meta">
 					<p><i class="fa fa-map-marker"></i>4AB1 Xuân Thủy, phường An Bình, thành phố Cần Thơ</p>
 					<p><i class="fa fa-phone"></i><a href="tel:0937037770">0937 037 770</a> - <a href="tel:0906377086">0906 377 086</a></p>
@@ -41,7 +42,7 @@
 					<div class="footer-branch-item">
 						<strong>Huỳnh Gia 1 - Cần Thơ</strong>
 						<p><i class="fa fa-map-marker"></i> 04-06 Xuân Thủy, KDC Hồng Phát, P. An Bình - <a href="https://maps.app.goo.gl/uDUfXCfNCLhtHfzd8" target="_blank" rel="noopener noreferrer" style="color: var(--brand-green-strong) !important;">Xem bản đồ <i class="fa fa-external-link" style="color: var(--brand-green-strong) !important;"></i></a></p>
-						<p><i class="fa fa-phone"></i><a href="tel:0906377086"> 0906 377 086</a> - <a href="tel:0899060456">0899 060 456</a></p>
+						<p><i class="fa fa-phone"></i><a href="tel:0907694868"> 0907 694 868</a> - <a href="tel:0899060456">0899 060 456</a></p>
 					</div>
 					<div class="footer-branch-item">
 						<strong>Huỳnh Gia 2 - Cần Thơ</strong>
