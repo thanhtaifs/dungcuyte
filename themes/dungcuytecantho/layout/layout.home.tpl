@@ -131,6 +131,66 @@
 			</div>
 		</div>
 	</section>
+	<!-- [TESTIMONIALS SECTION ADDED BELOW WHY-CHOOSE-US] -->
+        <section class="testimonials" aria-labelledby="testimonials-title">
+            <div class="container">
+                <div class="testimonials__head">
+                    <span class="testimonials__eyebrow">Đánh giá từ khách hàng</span>
+                    <h2 id="testimonials-title">Khách hàng nói gì về Huỳnh Gia Alpha?</h2>
+                </div>
+                <div class="row">
+                    <div class="col-xs-24 col-sm-8 col-md-8">
+                        <div class="testimonial-card">
+                            <div class="testimonial-card__quote"><i class="fa fa-quote-left"></i></div>
+                            <div class="testimonial-card__stars">
+                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                            </div>
+                            <p class="testimonial-card__text">"Chúng tôi đã hợp tác với Huỳnh Gia Alpha trong suốt 5 năm qua để trang bị thiết bị cho khoa Nội. Máy đo huyết áp và máy siêu âm chất lượng rất tốt, độ chính xác cao. Đặc biệt là dịch vụ bảo hành và bảo trì định kỳ rất chuyên nghiệp."</p>
+                            <div class="testimonial-card__author">
+                                <div class="testimonial-card__avatar"><i class="fa fa-user-md"></i></div>
+                                <div>
+                                    <p class="testimonial-card__name">BS. Nguyễn Minh Tuấn</p>
+                                    <p class="testimonial-card__role">Trưởng khoa Nội, BVĐK TP. Cần Thơ</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-24 col-sm-8 col-md-8">
+                        <div class="testimonial-card">
+                            <div class="testimonial-card__quote"><i class="fa fa-quote-left"></i></div>
+                            <div class="testimonial-card__stars">
+                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                            </div>
+                            <p class="testimonial-card__text">"Khi mở phòng khám, tôi được đội ngũ Huỳnh Gia tư vấn tận tình từ A-Z về thiết bị cần thiết. Họ không chỉ bán hàng mà còn hỗ trợ setup, hướng dẫn sử dụng chi tiết. Giá cả hợp lý, chiết khấu tốt cho phòng khám mới."</p>
+                            <div class="testimonial-card__author">
+                                <div class="testimonial-card__avatar"><i class="fa fa-hospital-o"></i></div>
+                                <div>
+                                    <p class="testimonial-card__name">Chị Trần Thị Hồng</p>
+                                    <p class="testimonial-card__role">Chủ PK Chuyên khoa Nhi - Cần Thơ</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-24 col-sm-8 col-md-8">
+                        <div class="testimonial-card">
+                            <div class="testimonial-card__quote"><i class="fa fa-quote-left"></i></div>
+                            <div class="testimonial-card__stars">
+                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i>
+                            </div>
+                            <p class="testimonial-card__text">"Mua xe lăn và giường bệnh cho ba tôi, nhân viên giao hàng tận nhà và lắp đặt tận tình. Sản phẩm chính hãng, bảo hành đầy đủ. Khi cần thuê máy tạo oxy, cũng được hỗ trợ nhanh chóng 24/7. Rất tin tưởng!"</p>
+                            <div class="testimonial-card__author">
+                                <div class="testimonial-card__avatar"><i class="fa fa-user"></i></div>
+                                <div>
+                                    <p class="testimonial-card__name">Anh Lê Hoàng Nam</p>
+                                    <p class="testimonial-card__role">Khách hàng cá nhân - Q. Ninh Kiều</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- [/TESTIMONIALS SECTION] -->
 </main>
 {FILE "footer_extended.tpl"}
 {FILE "footer_only.tpl"}

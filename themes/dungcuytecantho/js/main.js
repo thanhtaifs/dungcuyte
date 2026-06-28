@@ -1173,3 +1173,48 @@ $(function() {
     window.addEventListener("resize", restoreDesktopCartDropdown);
 });
 
+$(function() {
+    var $whyChooseList = $(".why-choose-us__list");
+
+    if (!$whyChooseList.length || typeof $.fn.owlCarousel !== "function") {
+        return;
+    }
+
+    function initWhyChooseSlider() {
+        if (!$whyChooseList.hasClass("owl-loaded")) {
+            $whyChooseList.addClass("owl-carousel");
+            $whyChooseList.owlCarousel({
+                items: 1.12,
+                margin: 12,
+                stagePadding: 6,
+                loop: false,
+                nav: false,
+                dots: true,
+                mouseDrag: true,
+                touchDrag: true,
+                pullDrag: true,
+                smartSpeed: 450,
+                autoHeight: true
+            });
+        }
+    }
+
+    function destroyWhyChooseSlider() {
+        if ($whyChooseList.hasClass("owl-loaded")) {
+            $whyChooseList.trigger("destroy.owl.carousel");
+            $whyChooseList.removeClass("owl-carousel owl-loaded");
+        }
+    }
+
+    function syncWhyChooseSlider() {
+        if (window.matchMedia("(max-width: 767px)").matches) {
+            initWhyChooseSlider();
+        } else {
+            destroyWhyChooseSlider();
+        }
+    }
+
+    syncWhyChooseSlider();
+    $(window).on("resize.whyChooseSlider", syncWhyChooseSlider);
+});
+
