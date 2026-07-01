@@ -15,20 +15,20 @@
 				<h3 class="footer-card__title"><i class="fa fa-th-large"></i> Danh mục sản phẩm</h3>
 				<div class="footer-link-columns">
 					<ul class="footer-links">
-						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops"><i class="fa fa-picture-o"></i>Máy siêu âm</a></li>
-						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops"><i class="fa fa-desktop"></i>Monitor theo dõi</a></li>
-						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops"><i class="fa fa-wheelchair"></i>Xe lăn các loại</a></li>
-						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops"><i class="fa fa-bed"></i>Giường y tế</a></li>
-						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops"><i class="fa fa-tint"></i>Máy tạo oxy</a></li>
-						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops"><i class="fa fa-heartbeat"></i>Máy đo SpO2</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=may-sieu-am" aria-label="Máy siêu âm" title="Máy siêu âm"><i class="fa fa-picture-o" aria-hidden="true" data-menu-link="/shops/may-sieu-am" data-menu-title="Máy siêu âm"></i>Máy siêu âm</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=monitor-theo-doi" aria-label="Monitor theo dõi" title="Monitor theo dõi"><i class="fa fa-desktop" aria-hidden="true" data-menu-link="/shops/monitor-theo-doi" data-menu-title="Monitor theo dõi"></i>Monitor theo dõi</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=xe-lan" aria-label="Xe lăn các loại" title="Xe lăn các loại"><i class="fa fa-wheelchair" aria-hidden="true" data-menu-link="/shops/xe-lan-cac-loai" data-menu-title="Xe lăn các loại"></i>Xe lăn các loại</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=giuong-y-te" aria-label="Giường y tế" title="Giường y tế"><i class="fa fa-bed" aria-hidden="true" data-menu-link="/shops/giuong-y-te" data-menu-title="Giường y tế"></i>Giường y tế</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=may-tao-oxy" aria-label="Máy tạo oxy" title="Máy tạo oxy"><i class="fa fa-tint" aria-hidden="true" data-menu-link="/shops/may-tao-oxy" data-menu-title="Máy tạo oxy"></i>Máy tạo oxy</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=may-do-spo2" aria-label="Máy đo SpO2" title="Máy đo SpO2"><i class="fa fa-heartbeat" aria-hidden="true" data-menu-link="/shops/may-do-spo2" data-menu-title="Máy đo SpO2"></i>Máy đo SpO2</a></li>
 					</ul>
 					<ul class="footer-links">
-						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops"><i class="fa fa-scissors"></i>Chỉ phẫu thuật</a></li>
-						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops"><i class="fa fa-bed"></i>Nệm chống loét</a></li>
-						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops"><i class="fa fa-male"></i>Khung tập đi</a></li>
-						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops"><i class="fa fa-flask"></i>Que Test nhanh</a></li>
-						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops"><i class="fa fa-fire"></i>Nồi hấp tiệt trùng</a></li>
-						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops"><i class="fa fa-medkit"></i>Vật lý trị liệu</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=chi-phau-thuat" aria-label="Chỉ phẫu thuật" title="Chỉ phẫu thuật"><i class="fa fa-scissors" aria-hidden="true" data-menu-link="/shops/chi-phau-thuat" data-menu-title="Chỉ phẫu thuật"></i>Chỉ phẫu thuật</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=Nem-chong-loet" aria-label="Nệm chống loét" title="Nệm chống loét"><i class="fa fa-bed" aria-hidden="true" data-menu-link="/shops/nem-chong-loet" data-menu-title="Nệm chống loét"></i>Nệm chống loét</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=khung-tap-di" aria-label="Khung tập đi" title="Khung tập đi"><i class="fa fa-male" aria-hidden="true" data-menu-link="/shops/khung-tap-di" data-menu-title="Khung tập đi"></i>Khung tập đi</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=que-test-nhanh" aria-label="Que Test nhanh" title="Que Test nhanh"><i class="fa fa-flask" aria-hidden="true" data-menu-link="/shops/que-test-nhanh" data-menu-title="Que Test nhanh"></i>Que Test nhanh</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=Noi-hap-tiet-trung" aria-label="Nồi hấp tiệt trùng" title="Nồi hấp tiệt trùng"><i class="fa fa-fire" aria-hidden="true" data-menu-link="/shops/noi-hap-tiet-trung" data-menu-title="Nồi hấp tiệt trùng"></i>Nồi hấp tiệt trùng</a></li>
+						<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=vat-ly-tri-lieu" aria-label="Vật lý trị liệu" title="Vật lý trị liệu"><i class="fa fa-medkit" aria-hidden="true" data-menu-link="/shops/vat-ly-tri-lieu" data-menu-title="Vật lý trị liệu"></i>Vật lý trị liệu</a></li>
 					</ul>
 				</div>				
 			</section>
@@ -56,24 +56,24 @@
 			<section class="footer-card footer-card--about">
 				<h3 class="footer-card__title"><i class="fa fa-info-circle"></i> Về chúng tôi</h3>
 				<ul class="footer-links footer-links--single">
-					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=gioi-thieu"><i class="fa fa-info-circle"></i>Giới thiệu công ty</a></li>
-					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=gioi-thieu&op=Giay-phep-DKKD"><i class="fa fa-certificate"></i>Giấy phép ĐKKD</a></li>
-					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=tuyen-dung"><i class="fa fa-users"></i>Tuyển dụng</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=gioi-thieu" aria-label="Giới thiệu công ty" title="Giới thiệu công ty"><i class="fa fa-info-circle" aria-hidden="true"></i>Giới thiệu công ty</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=gioi-thieu&op=Giay-phep-DKKD" aria-label="Giấy phép đăng ký kinh doanh" title="Giấy phép đăng ký kinh doanh"><i class="fa fa-certificate" aria-hidden="true"></i>Giấy phép ĐKKD</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=tuyen-dung" aria-label="Tuyển dụng" title="Tuyển dụng"><i class="fa fa-users" aria-hidden="true"></i>Tuyển dụng</a></li>
 				</ul>
 				<div class="footer-social-row social-icons">
 					[SOCIAL_ICONS]
 				</div>
 				</br>
-				<a class="footer-inline-cta" href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=san-pham-moi">Xem tất cả sản phẩm</a>
+				<a class="footer-inline-cta" href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=san-pham-moi" aria-label="Xem tất cả sản phẩm" title="Xem tất cả sản phẩm">Xem tất cả sản phẩm</a>
 			</section>
 
 			<section class="footer-card footer-card--policies">
 				<h3 class="footer-card__title"><i class="fa fa-shield"></i> Chính sách</h3>
 				<ul class="footer-links footer-links--single">
-					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Chinh-sach-doi-tra"><i class="fa fa-refresh"></i>Chính sách đổi trả</a></li>
-					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Chinh-sach-bao-hanh"><i class="fa fa-shield"></i>Chính sách bảo hành</a></li>
-					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Phuong-thuc-thanh-toan"><i class="fa fa-truck"></i>Vận chuyển và giao nhận</a></li>
-					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Phuong-thuc-thanh-toan"><i class="fa fa-credit-card"></i>Phương thức thanh toán</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Chinh-sach-doi-tra" aria-label="Chính sách đổi trả" title="Chính sách đổi trả"><i class="fa fa-refresh" aria-hidden="true"></i>Chính sách đổi trả</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Chinh-sach-bao-hanh" aria-label="Chính sách bảo hành" title="Chính sách bảo hành"><i class="fa fa-shield" aria-hidden="true"></i>Chính sách bảo hành</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Phuong-thuc-thanh-toan" aria-label="Vận chuyển và giao nhận" title="Vận chuyển và giao nhận"><i class="fa fa-truck" aria-hidden="true"></i>Vận chuyển và giao nhận</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Phuong-thuc-thanh-toan" aria-label="Phương thức thanh toán" title="Phương thức thanh toán"><i class="fa fa-credit-card" aria-hidden="true"></i>Phương thức thanh toán</a></li>
 				</ul>
 				<div class="footer-verify">
 					<a href="http://online.gov.vn/Home/WebDetails/139158" target="_blank" rel="noopener noreferrer">

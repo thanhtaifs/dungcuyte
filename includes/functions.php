@@ -1144,7 +1144,7 @@ function nv_generate_page( $base_url, $num_items, $per_page, $on_page, $add_prev
 		for( $i = 1; $i <= $init_page_max; ++$i )
 		{
 			$href = ( $i > 1 ) ? $base_url . $amp . $i : $base_url;
-			$href = ! $onclick ? "href=\"" . $href . "\"" : "href=\"javascript:void(0)\" onclick=\"" . $js_func_name . "('" . rawurlencode( nv_unhtmlspecialchars( $href ) ) . "','" . $containerid . "')\"";
+			$href = ! $onclick ? "href=\"" . $href . "\"" : "href=\"" . $href . "\" onclick=\"" . $js_func_name . "('" . rawurlencode( nv_unhtmlspecialchars( $href ) ) . "','" . $containerid . "');return false;\"";
 			$page_string .= '<li' . ( $i == $on_page ? ' class="page-item active"' : '' ) . '><a class="page-link"' . ( $i == $on_page ? ' href="#"' : ' ' . $href ) . '>' . $i . '</a></li>';
 		}
 
@@ -1163,7 +1163,7 @@ function nv_generate_page( $base_url, $num_items, $per_page, $on_page, $add_prev
 				for( $i = $init_page_min - 1; $i < $init_page_max + 2; ++$i )
 				{
 					$href = ( $i > 1 ) ? $base_url . $amp . $i : $base_url;
-					$href = ! $onclick ? "href=\"" . $href . "\"" : "href=\"javascript:void(0)\" onclick=\"" . $js_func_name . "('" . rawurlencode( nv_unhtmlspecialchars( $href ) ) . "','" . $containerid . "')\"";
+					$href = ! $onclick ? "href=\"" . $href . "\"" : "href=\"" . $href . "\" onclick=\"" . $js_func_name . "('" . rawurlencode( nv_unhtmlspecialchars( $href ) ) . "','" . $containerid . "');return false;\"";
 					$page_string .= '<li' . ( $i == $on_page ? ' class="page-item active"' : '' ) . '><a' . ( $i == $on_page ? ' href="#"' : ' ' . $href ) . '>' . $i . '</a></li>';
 				}
 
@@ -1180,7 +1180,7 @@ function nv_generate_page( $base_url, $num_items, $per_page, $on_page, $add_prev
 			for( $i = $total_pages - 2; $i < $total_pages + 1; ++$i )
 			{
 				$href = ( $i > 1 ) ? $base_url . $amp . $i : $base_url;
-				$href = ! $onclick ? "href=\"" . $href . "\"" : "href=\"javascript:void(0)\" onclick=\"" . $js_func_name . "('" . rawurlencode( nv_unhtmlspecialchars( $href ) ) . "','" . $containerid . "')\"";
+				$href = ! $onclick ? "href=\"" . $href . "\"" : "href=\"" . $href . "\" onclick=\"" . $js_func_name . "('" . rawurlencode( nv_unhtmlspecialchars( $href ) ) . "','" . $containerid . "');return false;\"";
 				$page_string .= '<li' . ( $i == $on_page ? ' class="page-item active"' : '' ) . '><a' . ( $i == $on_page ? ' href="#"' : ' ' . $href ) . '>' . $i . '</a></li>';
 			}
 		}
@@ -1190,7 +1190,7 @@ function nv_generate_page( $base_url, $num_items, $per_page, $on_page, $add_prev
 		for( $i = 1; $i < $total_pages + 1; ++$i )
 		{
 			$href = ( $i > 1 ) ? $base_url . $amp . $i : $base_url;
-			$href = ! $onclick ? "href=\"" . $href . "\"" : "href=\"javascript:void(0)\" onclick=\"" . $js_func_name . "('" . rawurlencode( nv_unhtmlspecialchars( $href ) ) . "','" . $containerid . "')\"";
+			$href = ! $onclick ? "href=\"" . $href . "\"" : "href=\"" . $href . "\" onclick=\"" . $js_func_name . "('" . rawurlencode( nv_unhtmlspecialchars( $href ) ) . "','" . $containerid . "');return false;\"";
 			$page_string .= '<li' . ( $i == $on_page ? ' class="page-item active"' : '' ) . '><a' . ( $i == $on_page ? ' href="#"' : ' ' . $href ) . '>' . $i . '</a></li>';
 		}
 	}
@@ -1200,7 +1200,7 @@ function nv_generate_page( $base_url, $num_items, $per_page, $on_page, $add_prev
 		if( $on_page > 1 )
 		{
 			$href = ( $on_page > 2 ) ? $base_url . $amp . ( $on_page - 1 ) : $base_url;
-			$href = ! $onclick ? "href=\"" . $href . "\"" : "href=\"javascript:void(0)\" onclick=\"" . $js_func_name . "('" . rawurlencode( nv_unhtmlspecialchars( $href ) ) . "','" . $containerid . "')\"";
+			$href = ! $onclick ? "href=\"" . $href . "\"" : "href=\"" . $href . "\" onclick=\"" . $js_func_name . "('" . rawurlencode( nv_unhtmlspecialchars( $href ) ) . "','" . $containerid . "');return false;\"";
 			$page_string = '<li class="page-item"><a class="page-link"' . $href . " title=\"" . $lang_global['pageprev'] . "\">&laquo;</a></li>" . $page_string;
 		}
 		else
@@ -1211,7 +1211,7 @@ function nv_generate_page( $base_url, $num_items, $per_page, $on_page, $add_prev
 		if( $on_page < $total_pages )
 		{
 			$href = ( $on_page ) ? $base_url . $amp . ( $on_page + 1 ) : $base_url;
-			$href = ! $onclick ? "href=\"" . $href . "\"" : "href=\"javascript:void(0)\" onclick=\"" . $js_func_name . "('" . rawurlencode( nv_unhtmlspecialchars( $href ) ) . "','" . $containerid . "')\"";
+			$href = ! $onclick ? "href=\"" . $href . "\"" : "href=\"" . $href . "\" onclick=\"" . $js_func_name . "('" . rawurlencode( nv_unhtmlspecialchars( $href ) ) . "','" . $containerid . "');return false;\"";
 			$page_string .= '<li class="page-item"><a class="page-link"' . $href . ' title="' . $lang_global['pagenext'] . '">&raquo;</a></li>';
 		}
 		else

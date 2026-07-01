@@ -8336,7 +8336,6 @@ html,
 body {
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
 }
 #wraper,
 #top,
@@ -12593,6 +12592,9 @@ body.mobile_search_open {
 }
 #maincontent.site-main--catalog .page-shell__content {
   padding: 16px;
+  height: auto;
+  max-height: none;
+  overflow: visible;
 }
 #maincontent.site-main--catalog #category,
 #maincontent.site-main--catalog #category .list-product,
@@ -12600,6 +12602,9 @@ body.mobile_search_open {
 #maincontent.site-main--catalog #category > .panel > .panel-body {
   width: 100%;
   max-width: none;
+  height: auto;
+  max-height: none;
+  overflow: visible;
 }
 #maincontent.site-main--catalog #category .page-header {
   margin: 0 0 14px;
@@ -12621,6 +12626,9 @@ body.mobile_search_open {
   width: calc(100% + 12px);
   margin-left: -6px;
   margin-right: -6px;
+  height: auto;
+  max-height: none;
+  overflow: visible;
 }
 #maincontent.site-main--catalog #category .list-product > .row > [class*="col-"],
 #maincontent.site-main--catalog #category .panel-body > [class*="col-"],

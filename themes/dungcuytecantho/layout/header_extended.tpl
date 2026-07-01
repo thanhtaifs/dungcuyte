@@ -40,7 +40,7 @@
 								</div>
 								<input type="text" name="q" id="topmenu_search_query" maxlength="{THEME_SEARCH_QUERY_MAX_LENGTH}" placeholder="{LANG.search}..." />
 								<div class="search__button">
-									<button type="submit" id="topmenu_search_submit" aria-label="Tim kiem">
+									<button type="submit" id="topmenu_search_submit" aria-label="Tìm kiềm sản phẩm">
 										<i class="fa fa-search"></i>
 									</button>
 								</div>
@@ -48,7 +48,7 @@
 						</div>
 					</div>
 					<div class="site-brand__aside">
-						<a class="header-hotline" href="tel:0907694868" aria-label="Goi hotline 0907 694 868">
+						<a class="header-hotline" href="tel:0907694868" aria-label="Gọi hotline 0907 694 868">
 							<div class="header-hotline__icon">
 								<i class="fa fa-phone"></i>
 							</div>
@@ -57,7 +57,7 @@
 								<span class="header-hotline__number">0907 694 868</span>
 							</div>
 						</a>
-						<a class="header-hotline" href="mailto:huynhgiact65@gmail.com" aria-label="Gui email huynhgiact65@gmail.com">
+						<a class="header-hotline" href="mailto:huynhgiact65@gmail.com" aria-label="Gửi thư điện tử cho huynhgiact65@gmail.com">
 							<div class="header-hotline__icon">
 								<i class="fa fa-envelope"></i>
 							</div>
@@ -120,7 +120,7 @@
 					[MENU_SITE]
 					<div class="site-nav-branch">
 						<span class="site-nav-branch__icon"><i class="fa fa-map-marker"></i></span>
-						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=contact"><span class="site-nav-branch__text">Hệ thống cửa hàng</span></a>
+						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=contact" aria-label="Xem hệ thống cửa hàng và bản đồ chi nhánh"><span class="site-nav-branch__text">Hệ thống cửa hàng và bản đồ</span></a>
 					</div>
 					<div class="mobile-nav-actions">
 						<button class="mobile-search-toggle" type="button" aria-label="Tìm kiếm" aria-controls="mobileSearchPanel" aria-expanded="false">

@@ -117,7 +117,7 @@ $(document).ready(function(){
 		var link = normalizeMenuText($(this).attr('data-menu-link'));
 		var title = normalizeMenuText($(this).attr('data-menu-title'));
 		var haystack = link + ' ' + title;
-		var foundIcon = 'fa-folder'; // default icon
+		var foundIcon = 'fa-angle-right'; // default icon
 		
 		for(var categoryKeyword in categoryIconMap) {
 			if(haystack.indexOf(categoryKeyword) !== -1) {
@@ -127,7 +127,7 @@ $(document).ready(function(){
 		}
 
 		// Find matching icon from map
-		if(foundIcon === 'fa-folder') {
+		if(foundIcon === 'fa-angle-right') {
 			for(var keyword in iconMap) {
 				if(link.indexOf(keyword) !== -1) {
 					foundIcon = iconMap[keyword];
@@ -138,6 +138,25 @@ $(document).ready(function(){
 		
 		// Add Font Awesome icon class
 		$(this).addClass(foundIcon);
+	});
+
+	// Ensure every menu link has descriptive text and a stable accessible name.
+	$('#menu-site-default a').each(function() {
+		var $link = $(this);
+		var rawText = $.trim($link.text());
+		var labelText = rawText;
+
+		if (!labelText) {
+			labelText = $.trim($link.find('.menu-item__label').text()) || $.trim($link.attr('title')) || $.trim($link.attr('rel')) || 'Menu link';
+		}
+
+		if (!$link.attr('aria-label') && labelText) {
+			$link.attr('aria-label', labelText);
+		}
+
+		if (!rawText && labelText) {
+			$link.append('<span class="sr-only menu-item__sr-label">' + labelText + '</span>');
+		}
 	});
 
 	// Mark home item active when the current page is the site root.

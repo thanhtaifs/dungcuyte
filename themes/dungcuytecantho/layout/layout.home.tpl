@@ -39,12 +39,12 @@
 					<h1>Dụng cụ y tế Cần Thơ – Thiết bị y Khoa chính hãng | Huỳnh Gia Alpha</h1>
 					<p>Công ty TNHH Huỳnh Gia Alpha chuyên bán sỉ & lẻ:</p>
 					<div class="hero-banner__tags">
-						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=vat-tu-y-te"><i class="fa fa-medkit"></i>Thiết bị & vật tư y tế</a>
-						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=dich-vu&op=Cho-thue-may-tao-oxy"><i class="fa fa-heartbeat"></i>Cho thuê máy tạo oxy</a>
-						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=dich-vu&op=Chuyen-sua-chua-dung-cu-phau-thuat"><i class="fa fa-scissors"></i>Sửa dụng cụ phẫu thuật</a>
-						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=dich-vu&op=bao-tri-thiet-bi-y-te"><i class="fa fa-wrench"></i>Sửa thiết bị y tế</a>
-						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=Dung-cu-the-duc"><i class="fa fa-graduation-cap"></i>Thiết bị thể thao trường học</a>
-						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=Dung-cu-the-duc"><i class="fa fa-futbol-o"></i>Thiết bị thể dục</a>
+						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=vat-tu-y-te" aria-label="Thiết bị và vật tư y tế" title="Thiết bị và vật tư y tế"><i class="fa fa-medkit" aria-hidden="true"></i>Thiết bị & vật tư y tế</a>
+						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=dich-vu&op=Cho-thue-may-tao-oxy" aria-label="Cho thuê máy tạo oxy" title="Cho thuê máy tạo oxy"><i class="fa fa-heartbeat" aria-hidden="true"></i>Cho thuê máy tạo oxy</a>
+						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=dich-vu&op=Chuyen-sua-chua-dung-cu-phau-thuat" aria-label="Sửa dụng cụ phẫu thuật" title="Sửa dụng cụ phẫu thuật"><i class="fa fa-scissors" aria-hidden="true"></i>Sửa dụng cụ phẫu thuật</a>
+						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=dich-vu&op=bao-tri-thiet-bi-y-te" aria-label="Sửa thiết bị y tế" title="Sửa thiết bị y tế"><i class="fa fa-wrench" aria-hidden="true"></i>Sửa thiết bị y tế</a>
+						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=Dung-cu-the-duc" aria-label="Thiết bị thể thao trường học" title="Thiết bị thể thao trường học"><i class="fa fa-graduation-cap" aria-hidden="true"></i>Thiết bị thể thao trường học</a>
+						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=Dung-cu-the-duc" aria-label="Thiết bị thể dục" title="Thiết bị thể dục"><i class="fa fa-futbol-o" aria-hidden="true"></i>Thiết bị thể dục</a>
 					</div>
 					<div class="hero-banner__actions">
 						<a class="hero-banner__button hero-banner__button--light" href="{NV_BASE_SITEURL}index.php?language=vi&nv=shops&op=san-pham-moi"><i class="fa fa-th-large"></i> Xem sản phẩm</a>
@@ -86,6 +86,7 @@
 								<i class="fa fa-th-large"></i>
 								<span>Danh mục sản phẩm</span>
 							</div>
+							<h2 class="sr-only">Danh mục sản phẩm</h2>
 							[RIGHT_TOP]
 						</div>
 					</div>

@@ -7,12 +7,6 @@
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 		<meta name="apple-mobile-web-app-title" content="{SITE_NAME}" />
-		<meta property="og:type" content="website" />
-		<meta property="og:site_name" content="{SITE_NAME}" />
-		<meta property="og:image" content="https://dungcuytecantho.com/images/Banner.webp" />
-		<meta property="og:image:width" content="1200" />
-		<meta property="og:image:height" content="630" />
-		<meta property="og:image:alt" content="{SITE_NAME} - Thiết bị y tế Cần Thơ" />
 		<meta name="twitter:card" content="summary_large_image" />
 		{THEME_PAGE_TITLE} {THEME_META_TAGS}
         <!-- BEGIN: viewport -->
@@ -62,6 +56,34 @@
 						preview: true
 					});
 				}
+
+				var skitterControlLabels = {
+					prev_button: 'Slide trước',
+					next_button: 'Slide tiếp theo',
+					play_pause_button: 'Tạm dừng hoặc tiếp tục slideshow',
+					focus_button: 'Phóng to slideshow'
+				};
+
+				document.querySelectorAll('.box_skitter a.prev_button, .box_skitter a.next_button, .box_skitter a.play_pause_button, .box_skitter a.focus_button').forEach(function(link) {
+					Object.keys(skitterControlLabels).forEach(function(className) {
+						if (link.classList.contains(className)) {
+							link.setAttribute('aria-label', skitterControlLabels[className]);
+							link.setAttribute('title', skitterControlLabels[className]);
+						}
+					});
+
+					if (link.getAttribute('href') === '#') {
+						link.setAttribute('href', window.location.pathname + '#hero-banner');
+					}
+				});
+
+				document.querySelectorAll('.box_skitter a[href=""]').forEach(function(link) {
+					link.setAttribute('href', window.location.pathname + '#hero-banner');
+					if (!link.getAttribute('aria-label')) {
+						link.setAttribute('aria-label', 'Xem banner nổi bật');
+						link.setAttribute('title', 'Xem banner nổi bật');
+					}
+				});
 			});
 
 			window.addEventListener('pageshow', function() {
@@ -78,7 +100,7 @@
 		<!-- END: lt_ie9 -->
 	</head>
 	<body>
-		<a class="skip-link" href="#maincontent">Chuyen den noi dung</a>
+		<a class="skip-link" href="#maincontent">Chuyển đến nội dung</a>
 		<div id="timeoutsess" class="chromeframe">
 		{LANG_TIMEOUTSESS_NOUSER}, <a onclick="timeoutsesscancel();" href="#">{LANG_TIMEOUTSESS_CLICK}</a>. {LANG_TIMEOUTSESS_TIMEOUT}: <span id="secField"> 60 </span> {LANG_TIMEOUTSESS_SEC}
 		</div>
