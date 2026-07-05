@@ -775,11 +775,23 @@ $(function() {
     });
 
     function closeMobileSearch() {
-        $(".mobile-search-panel")
+        var $panel = $(".mobile-search-panel");
+        var $toggle = $(".mobile-search-toggle");
+        var activeElement = document.activeElement;
+
+        if (activeElement && $panel.has(activeElement).length) {
+            $toggle.trigger("focus");
+        }
+
+        $panel
             .removeClass("is-open")
-            .attr("aria-hidden", "true");
-        $(".mobile-search-toggle").attr("aria-expanded", "false");
+            .attr("aria-hidden", "true")
+            .attr("inert", "");
+        $toggle.attr("aria-expanded", "false");
         $("body").removeClass("mobile_search_open");
+        document.documentElement.scrollLeft = 0;
+        document.body.scrollLeft = 0;
+        window.scrollTo(window.pageXOffset || 0, window.pageYOffset || 0);
     }
 
     $(".mobile-search-toggle").on("click", function () {
@@ -800,7 +812,7 @@ $(function() {
             $panelBody.append($searchClone);
         }
 
-        $panel.addClass("is-open").attr("aria-hidden", "false");
+        $panel.removeAttr("inert").addClass("is-open").attr("aria-hidden", "false");
         $(this).attr("aria-expanded", "true");
         $("body").addClass("mobile_search_open");
         setTimeout(function () {
@@ -1114,7 +1126,9 @@ $(document).ready(function() {
 		
 	});
 
-	$('#cartContentWrapper').on('click', '.checkout-btn', function() {
+	$(document).on('click touchend', '.checkout-btn', function(e) {
+		e.preventDefault();
+		e.stopPropagation();
         window.location.href = themeSiteUrl('index.php?nv=shops&op=cart');
     });
 	
@@ -1168,6 +1182,19 @@ $(function() {
         document.body.appendChild(dropdown);
         dropdown.classList.toggle("open");
         return false;
+    }, true);
+
+    document.addEventListener("click", function(e) {
+        if (!isMobileViewport()) {
+            return;
+        }
+
+        var checkoutButton = e.target.closest(".checkout-btn");
+        if (checkoutButton) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.location.href = themeSiteUrl('index.php?nv=shops&op=cart');
+        }
     }, true);
 
     window.addEventListener("resize", restoreDesktopCartDropdown);

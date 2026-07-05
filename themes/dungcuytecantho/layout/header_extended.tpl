@@ -93,10 +93,10 @@
 												<span>Tong cong:</span>
 												<span class="total-price" id="totalPrice-popup">0 VND</span>
 											</div>
-											<button class="checkout-btn">
+											<a class="checkout-btn" href="{NV_BASE_SITEURL}index.php?nv=shops&amp;op=cart" onclick="window.location.href='{NV_BASE_SITEURL}index.php?nv=shops&op=cart'; return false;" ontouchend="window.location.href='{NV_BASE_SITEURL}index.php?nv=shops&op=cart'; return false;">
 												<i class="fa fa-credit-card"></i>
 												<span>Xem giỏ hàng</span>
-											</button>
+											</a>
 										</div>
 									</div>
 								</div>
