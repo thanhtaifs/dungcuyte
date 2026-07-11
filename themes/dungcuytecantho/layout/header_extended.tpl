@@ -8,7 +8,7 @@
 	<div class="humberger__menu__wrapper" id="mobileMenuDrawer" aria-hidden="true">
 		<div class="mobile-drawer__header">
 			<div class="mobile-drawer__title">Công ty TNHH Huỳnh Gia Alpha</div>
-			<button class="mobile-drawer__close" type="button" aria-label="Huỳnh Gia Alpha">
+			<button class="mobile-drawer__close" type="button" aria-label="Đóng menu">
 				<i class="fa fa-times"></i>
 			</button>
 		</div>
@@ -21,7 +21,7 @@
 					<div class="site-brand__identity-wrap">
 						<a class="site-brand__identity" href="{THEME_SITE_HREF}" aria-label="{SITE_NAME}">
 							<span class="site-brand__logo">
-								<img src="{LOGO_SRC}" width="{LOGO_WIDTH}" height="{LOGO_HEIGHT}" alt="{SITE_NAME}" />
+								<img src="{LOGO_SRC}" width="{LOGO_WIDTH}" height="{LOGO_HEIGHT}" alt="{SITE_NAME}" loading="eager" decoding="async" fetchpriority="high" />
 							</span>
 							<span class="site-brand__copy">
 								<span class="site-brand__eyebrow">Huỳnh Gia Alpha</span>
@@ -40,7 +40,7 @@
 								</div>
 								<input type="text" name="q" id="topmenu_search_query" maxlength="{THEME_SEARCH_QUERY_MAX_LENGTH}" placeholder="{LANG.search}..." />
 								<div class="search__button">
-									<button type="submit" id="topmenu_search_submit" aria-label="Tìm kiềm sản phẩm">
+									<button type="submit" id="topmenu_search_submit" aria-label="Tìm kiếm sản phẩm">
 										<i class="fa fa-search"></i>
 									</button>
 								</div>
@@ -110,12 +110,12 @@
 			<div class="container">
 				<div class="site-nav-shell">
 					<div class="site-nav-shell__cta">
-						<button class="humberger__open" type="button" aria-label="Mo menu" aria-controls="mobileMenuDrawer" aria-expanded="false">
+						<button class="humberger__open" type="button" aria-label="Mở menu" aria-controls="mobileMenuDrawer" aria-expanded="false">
 							<i class="fa fa-bars"></i>
 						</button>
 					</div>
 					<a class="mobile-nav-brand" href="{THEME_SITE_HREF}" aria-label="{SITE_NAME}">
-						<img src="{LOGO_SRC}" width="{LOGO_WIDTH}" height="{LOGO_HEIGHT}" alt="{SITE_NAME}" />
+						<img src="{LOGO_SRC}" width="{LOGO_WIDTH}" height="{LOGO_HEIGHT}" alt="{SITE_NAME}" loading="eager" decoding="async" fetchpriority="high" />
 					</a>
 					[MENU_SITE]
 					<div class="site-nav-branch">
@@ -142,7 +142,7 @@
 					<span class="mobile-search-panel__eyebrow">Tìm kiếm</span>
 					<strong>Công ty TNHH Huỳnh Gia Alpha</strong>
 				</div>
-				<button class="mobile-search-close" type="button" aria-label="Tìm kiếm">
+				<button class="mobile-search-close" type="button" aria-label="Đóng tìm kiếm">
 					<i class="fa fa-times"></i>
 				</button>
 			</div>

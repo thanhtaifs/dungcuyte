@@ -77,7 +77,7 @@
 				</ul>
 				<div class="footer-verify">
 					<a href="http://online.gov.vn/Home/WebDetails/139158" target="_blank" rel="noopener noreferrer">
-						<img src="/images/logobct.webp" alt="Thông báo từ Bộ Công Thương" />
+						<img src="/images/logobct.webp" alt="Thông báo từ Bộ Công Thương" width="160" height="70" loading="lazy" decoding="async" />
 					</a>
 				</div>
 			</section>

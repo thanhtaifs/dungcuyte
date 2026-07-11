@@ -63,7 +63,7 @@
 		<div id="hometext">
 			<!-- BEGIN: imgthumb -->
 			<div class="imghome pull-left text-center" style="width:{DETAIL.image.width}px;">
-				<a href="#" id="pop" title="{DETAIL.image.alt}">
+				<a href="{DETAIL.url}" id="pop" title="{DETAIL.image.alt}">
 				    <img id="imageresource" alt="{DETAIL.image.alt}" src="{DETAIL.homeimgfile}" alt="{DETAIL.image.note}" width="{DETAIL.image.width}" class="img-thumbnail" >
                 </a>
 

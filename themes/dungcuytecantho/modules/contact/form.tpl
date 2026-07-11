@@ -65,7 +65,7 @@
 
             <div class="contact-map-card">
                 <div class="contact-map-frame">
-                    <iframe src="https://www.google.com/maps?q=04-06%20Xu%C3%A2n%20Th%E1%BB%A7y%2C%20KDC%20H%E1%BB%93ng%20Ph%C3%A1t%2C%20An%20B%C3%ACnh%2C%20C%E1%BA%A7n%20Th%C6%A1&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ban do Huynh Gia 1"></iframe>
+                    <iframe src="https://www.google.com/maps?q=04-06%20Xu%C3%A2n%20Th%E1%BB%A7y%2C%20KDC%20H%E1%BB%93ng%20Ph%C3%A1t%2C%20An%20B%C3%ACnh%2C%20C%E1%BA%A7n%20Th%C6%A1&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Bản đồ chi nhánh Huỳnh Gia 1"></iframe>
                 </div>
                 <div class="contact-map-footer">
                     <span><i class="fa fa-map-pin"></i> 04-06 Xuân Thủy, KDC Hồng Phát, P. An Bình, TP Cần Thơ</span>
@@ -120,7 +120,7 @@
 
             <div class="contact-map-card">
                 <div class="contact-map-frame">
-                    <iframe src="https://www.google.com/maps?q=369B%20Nguy%E1%BB%85n%20V%C4%83n%20C%E1%BB%AB%20n%E1%BB%91i%20d%C3%A0i%2C%20T%C3%A2n%20An%2C%20C%E1%BA%A7n%20Th%C6%A1&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ban do Huynh Gia 2"></iframe>
+                    <iframe src="https://www.google.com/maps?q=369B%20Nguy%E1%BB%85n%20V%C4%83n%20C%E1%BB%AB%20n%E1%BB%91i%20d%C3%A0i%2C%20T%C3%A2n%20An%2C%20C%E1%BA%A7n%20Th%C6%A1&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Bản đồ chi nhánh Huỳnh Gia 2"></iframe>
                 </div>
                 <div class="contact-map-footer">
                     <span><i class="fa fa-map-pin"></i> 369B Nguyễn Văn Cừ nối dài, P. Tân An, TP Cần Thơ</span>
@@ -175,7 +175,7 @@
 
             <div class="contact-map-card">
                 <div class="contact-map-frame">
-                    <iframe src="https://www.google.com/maps?q=37A%20Ph%E1%BA%A1m%20H%C3%B9ng%2C%20Long%20Ch%C3%A2u%2C%20V%C4%A9nh%20Long&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Bản đồ Huỳnh Gia Alpha 3"></iframe>
+                    <iframe src="https://www.google.com/maps?q=37A%20Ph%E1%BA%A1m%20H%C3%B9ng%2C%20Long%20Ch%C3%A2u%2C%20V%C4%A9nh%20Long&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Bản đồ chi nhánh Huỳnh Gia 3"></iframe>
                 </div>
                 <div class="contact-map-footer">
                     <span><i class="fa fa-map-pin"></i> 37A Phạm Hùng, P. Long Châu, tỉnh Vĩnh Long</span>

@@ -7,7 +7,12 @@
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 		<meta name="apple-mobile-web-app-title" content="{SITE_NAME}" />
+		<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+		<meta property="og:locale" content="vi_VN" />
+		<meta property="og:image" content="{LOGO_SRC}" />
+		<meta property="og:image:alt" content="{SITE_NAME}" />
 		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:image" content="{LOGO_SRC}" />
 		{THEME_PAGE_TITLE} {THEME_META_TAGS}
         <!-- BEGIN: viewport -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,6 +21,8 @@
 
 		<link rel="shortcut icon" href="{NV_BASE_SITEURL}themes/{TEMPLATE}/favicon.ico" />
 		<link rel="preload" as="image" href="{NV_BASE_SITEURL}images/Banner.webp" type="image/webp" fetchpriority="high" />
+		<link rel="preload" href="{NV_BASE_SITEURL}themes/dungcuytecantho/fonts/roboto-400.woff" as="font" type="font/woff" crossorigin />
+		<link rel="preload" href="{NV_BASE_SITEURL}themes/dungcuytecantho/fonts/roboto-700.woff" as="font" type="font/woff" crossorigin />
 
         <!-- BEGIN: responsive -->
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/bootstrap.min.css" rel="stylesheet" />
@@ -34,7 +41,6 @@
         <script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/modernizr.custom.js" defer></script>
 		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.cbpFWSlider.min.js" defer></script>
 		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.slicknav.js" defer></script>
-		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/owl.carousel.min.js" defer></script>
 		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery-ui.min.js" defer></script>
 		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.nice-select.min.js" defer></script>
 		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.easing.1.3.js" defer></script>
