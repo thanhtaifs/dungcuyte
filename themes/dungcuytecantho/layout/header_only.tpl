@@ -20,7 +20,6 @@
 		{THEME_SITE_RSS}
 
 		<link rel="shortcut icon" href="{NV_BASE_SITEURL}themes/{TEMPLATE}/favicon.ico" />
-		<link rel="preload" as="image" href="{NV_BASE_SITEURL}images/Banner.webp" type="image/webp" fetchpriority="high" />
 		<link rel="preload" href="{NV_BASE_SITEURL}themes/dungcuytecantho/fonts/roboto-400.woff" as="font" type="font/woff" crossorigin />
 		<link rel="preload" href="{NV_BASE_SITEURL}themes/dungcuytecantho/fonts/roboto-700.woff" as="font" type="font/woff" crossorigin />
 
@@ -99,13 +98,14 @@
                 }
             });
 		</script>
+		
 		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/main.js?v=20260705e" defer></script>
 		<!-- BEGIN: lt_ie9 -->
 		<script src="{NV_BASE_SITEURL}themes/dungcuytecantho/js/html5shiv.js" defer></script>
 		<script src="{NV_BASE_SITEURL}themes/dungcuytecantho/js/respond.min.js" defer></script>
 		<!-- END: lt_ie9 -->
 		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-2N0VZ7L4MN"></script>
+		<script async src="https://www.googletagmanager.com/gtag/jfs?id=G-2N0VZ7L4MN"></script>
 		<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag(){dataLayer.push(arguments);}
@@ -115,7 +115,7 @@
 		</script>
 	</head>
 	<body>
-		<a class="skip-link" href="#maincontent">Chuyển đến nội dung</a>
+		<!-- <a class="skip-link" href="#maincontent">Chuyển đến nội dung</a>
 		<div id="timeoutsess" class="chromeframe">
 		{LANG_TIMEOUTSESS_NOUSER}, <a onclick="timeoutsesscancel();" href="#">{LANG_TIMEOUTSESS_CLICK}</a>. {LANG_TIMEOUTSESS_TIMEOUT}: <span id="secField"> 60 </span> {LANG_TIMEOUTSESS_SEC}
-		</div>
+		</div> -->

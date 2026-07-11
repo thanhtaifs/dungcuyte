@@ -7,7 +7,7 @@
             <div class="thumbnail">
                 <div class="image_center">
                     <a href="{link}" title="{title}">
-						<img src="{src_img}" alt="{title}" data-content='{intro}' data-rel="tooltip" class="img-thumbnail">
+						<img src="{src_img}" alt="{title}" data-content='{intro}' data-rel="tooltip" class="img-thumbnail" loading="lazy" decoding="async" width="160" height="160">
 					</a>
                 <div class="new">New</div>
                 </div>

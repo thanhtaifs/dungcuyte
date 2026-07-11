@@ -616,7 +616,14 @@ $(function() {
 	winResize();
 	fix_banner_center();
 	// Modify all empty link
-	$('a[href="#"], a[href=""]').attr("href", "javascript:void(0);");
+	$('a[href="#"], a[href=""]').each(function() {
+		var $link = $(this);
+		var text = $.trim($link.text());
+		if (!text) {
+			$link.attr('aria-label', 'Liên kết nội bộ');
+		}
+		$link.attr('href', 'javascript:void(0);');
+	});
 	// Smooth scroll to top
 	$("#totop,#bttop,.bttop").click(function() {
 		$("html,body").animate({

@@ -25,7 +25,7 @@
 
         <!-- BEGIN: image -->
         <div class="content-detail-media text-center">
-            <a href="#" id="pop" title="{CONTENT.title}">
+            <a href="{CONTENT.link}" id="pop" title="{CONTENT.title}">
                 <img id="imageresource" alt="{CONTENT.imagealt}" src="{CONTENT.image}" class="img-thumbnail">
             </a>
             <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -12,8 +12,5 @@
 	<!-- BEGIN: twitter -->
 	<li><a href="{DATA.twitter}" target="_blank" rel="noopener noreferrer" aria-label="Twitter Huỳnh Gia Alpha" title="Twitter Huynh Gia Alpha"><i class="fa fa-twitter" aria-hidden="true"></i><span class="sr-only">Twitter Huỳnh Gia Alpha</span></a></li>
 	<!-- END: twitter -->
-	<!-- BEGIN: feeds -->
-	<li style="display:none"><a href="{FEEDS_HREF}" target="_blank" rel="noopener noreferrer" aria-label="RSS Huynh Gia Alpha" title="RSS Huỳnh Gia Alpha"><i class="fa fa-rss" aria-hidden="true"></i><span class="sr-only">RSS Huỳnh Gia Alpha</span></a></li>
-	<!-- END: feeds -->
 </ul>
 <!-- END: main -->

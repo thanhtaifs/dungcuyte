@@ -21,7 +21,7 @@
                 <div class="col-12 col-sm-6 col-md-3">
                         <div class="thumbnail">
                             <div class="image_center">
-                                <a href="{LINK}" title="{TITLE}"><img src="{IMG_SRC}" alt="{TITLE}" data-content='{hometext}' data-rel="tooltip" class="img-thumbnail" style="max-height:220px"></a>
+                                <a href="{LINK}" title="{TITLE}"><img src="{IMG_SRC}" alt="{TITLE}" data-content='{hometext}' data-rel="tooltip" class="img-thumbnail" style="max-height:220px" loading="lazy" decoding="async" width="220" height="220"></a>
                             </div>
                              <div class="caption text-center">
                                 <h3>

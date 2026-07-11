@@ -20,7 +20,7 @@ $meta_property = array(
 	'og:url' => ''
 );
 
-//tài kho?n Google+
+//tï¿½i kho?n Google+
 $id_profile_googleplus = 0;
 
 /**
@@ -153,12 +153,12 @@ function nv_blocks_content( $sitecontent )
 
 			if( $client_info['is_mobile'] and ( $_row['hide_device'] == 1 or $_row['hide_device'] == 3 ) )
 			{
-				//?n trên mobile
+				//?n trï¿½n mobile
 				continue;
 			}
 			elseif( $client_info['is_tablet'] and ( $_row['hide_device'] == 2 or $_row['hide_device'] == 3 ) )
 			{
-				// ?n trên Máy tính b?ng
+				// ?n trï¿½n Mï¿½y tï¿½nh b?ng
 				continue;
 			}
 
@@ -364,6 +364,24 @@ function nv_html_meta_tags()
 	}
 
 	$return .= "<meta name=\"generator\" content=\"NukeViet v4.0\" />" . PHP_EOL;
+	$return .= "<meta name=\"robots\" content=\"index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1\" />" . PHP_EOL;
+
+	if( ! empty( $meta_property['twitter:card'] ) )
+	{
+		$return .= "<meta name=\"twitter:card\" content=\"" . $meta_property['twitter:card'] . "\" />" . PHP_EOL;
+	}
+	if( ! empty( $meta_property['twitter:title'] ) )
+	{
+		$return .= "<meta name=\"twitter:title\" content=\"" . $meta_property['twitter:title'] . "\" />" . PHP_EOL;
+	}
+	if( ! empty( $meta_property['twitter:description'] ) )
+	{
+		$return .= "<meta name=\"twitter:description\" content=\"" . $meta_property['twitter:description'] . "\" />" . PHP_EOL;
+	}
+	if( ! empty( $meta_property['twitter:image'] ) )
+	{
+		$return .= "<meta name=\"twitter:image\" content=\"" . $meta_property['twitter:image'] . "\" />" . PHP_EOL;
+	}
 
 	if( $home )
 	{
@@ -387,6 +405,11 @@ function nv_html_meta_tags()
 		if( empty( $meta_property['og:description'] ) ) $meta_property['og:description'] = $site_description;
 		if( empty( $meta_property['og:type'] ) ) $meta_property['og:type'] = 'WebPage';
 		if( empty( $meta_property['og:url'] ) ) $meta_property['og:url'] = $canonicalUrl;
+		if( empty( $meta_property['og:image'] ) and ! empty( $global_config['site_logo'] ) ) $meta_property['og:image'] = NV_BASE_SITEURL . $global_config['site_logo'];
+		if( empty( $meta_property['twitter:card'] ) ) $meta_property['twitter:card'] = 'summary_large_image';
+		if( empty( $meta_property['twitter:title'] ) ) $meta_property['twitter:title'] = ! empty( $page_title ) ? $page_title : $global_config['site_name'];
+		if( empty( $meta_property['twitter:description'] ) ) $meta_property['twitter:description'] = $site_description;
+		if( empty( $meta_property['twitter:image'] ) and ! empty( $global_config['site_logo'] ) ) $meta_property['twitter:image'] = NV_BASE_SITEURL . $global_config['site_logo'];
 		$meta_property['og:site_name'] = $global_config['site_name'];
 
 		foreach( $meta_property as $key => $value )
@@ -408,7 +431,7 @@ function nv_html_meta_tags()
 		}
 	}
 
-	//tài kho?n Google+
+	//tï¿½i kho?n Google+
 	if( $id_profile_googleplus == 0 )
 	{
 		$id_profile_googleplus = $module_info['gid'];
