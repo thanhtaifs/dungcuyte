@@ -98,6 +98,15 @@
 		<script src="{NV_BASE_SITEURL}themes/dungcuytecantho/js/html5shiv.js" defer></script>
 		<script src="{NV_BASE_SITEURL}themes/dungcuytecantho/js/respond.min.js" defer></script>
 		<!-- END: lt_ie9 -->
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-2N0VZ7L4MN"></script>
+		<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-2N0VZ7L4MN');
+		</script>
 	</head>
 	<body>
 		<a class="skip-link" href="#maincontent">Chuyển đến nội dung</a>
