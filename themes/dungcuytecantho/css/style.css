@@ -2229,15 +2229,6 @@ textarea:focus {
   }
 }
 
-/* Làm cho tất cả iframe YouTube responsive */
-iframe[src*="youtube.com"] {
-  width: 100% !important;
-  height: auto !important;
-  aspect-ratio: 16 / 9;
-  display: block;
-  max-width: 100%;
-}
-
 
 
 /*--------------------------------- Responsive Media Quaries -----------------------------*/
@@ -2381,6 +2372,7 @@ iframe[src*="youtube.com"] {
   .container {
     padding: 0 15px;
   }
+
   #body .col-md-18,
   #body .col-sm-8 {
     width: 100%;
@@ -2813,6 +2805,15 @@ iframe[src*="youtube.com"] {
 
 /* Mobile Device = up to 767px */
 @media only screen and (max-width: 767px) {
+
+  iframe[src*="youtube.com"] {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 16 / 9;
+        display: block;
+        max-width: 100%;
+  }
+
   .cart_postion {
     padding-right: 10px;
   }

@@ -1686,11 +1686,7 @@ img.calendar {
   -webkit-overflow-scrolling: touch;
 }
 
-.product-section-body iframe,
-.product-section-body embed,
-.product-section-body object {
-  width: 100% !important;
-}
+
 
 .product-section-detail .product-section-body p,
 .product-section-detail .product-section-body li {

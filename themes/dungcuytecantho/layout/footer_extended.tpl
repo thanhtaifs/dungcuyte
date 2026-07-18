@@ -1,4 +1,4 @@
-﻿<div class="footer__top">
+﻿<footer class="footer__top">
 	<div class="container">
 		<div class="footer-grid">
 			<section class="footer-card footer-card--company" aria-label="Thông tin công ty">
@@ -87,4 +87,4 @@
 			<p>Website: <a href="https://www.dungcuytecantho.com">dungcuytecantho.com</a> | Hotline: <a href="tel:0937037770">0937 037 770</a> | Email: <a href="mailto:huynhgiact65@gmail.com">huynhgiact65@gmail.com</a></p>
 		</div> 
 	</div>
-</div>
+</footer>
