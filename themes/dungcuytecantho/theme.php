@@ -394,7 +394,15 @@ function nv_site_theme( $contents, $full = true )
 	// Header variables
 	$xtpl->assign( 'SITE_NAME', $global_config['site_name'] );
 	$xtpl->assign( 'THEME_SITE_HREF', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA );
-	$xtpl->assign( 'LOGO_SRC', NV_BASE_SITEURL . $global_config['site_logo'] );
+	// Ưu tiên dùng ảnh og:image nếu module đã thiết lập
+	$logo_src = NV_BASE_SITEURL . $global_config['site_logo'];
+
+	if (!empty($meta_property['og:image'])) {
+		$logo_src = $meta_property['og:image'];
+	}
+
+	$xtpl->assign('LOGO_SRC', $logo_src);
+
 	$size = @getimagesize( NV_ROOTDIR . '/' . $global_config['site_logo'] );
 	$xtpl->assign( 'LOGO_WIDTH', $size[0] );
 	$xtpl->assign( 'LOGO_HEIGHT', $size[1] );

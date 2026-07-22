@@ -8,11 +8,6 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 		<meta name="apple-mobile-web-app-title" content="{SITE_NAME}" />
 		<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
-		<meta property="og:locale" content="vi_VN" />
-		<meta property="og:image" content="{LOGO_SRC}" />
-		<meta property="og:image:alt" content="{SITE_NAME}" />
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:image" content="{LOGO_SRC}" />
 		{THEME_PAGE_TITLE} {THEME_META_TAGS}
         <!-- BEGIN: viewport -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
