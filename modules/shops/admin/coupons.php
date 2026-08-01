@@ -230,11 +230,15 @@ $q = $nv_Request->get_title( 'q', 'post,get' );
 
 // Fetch Limit
 $show_view = false;
+$page = $nv_Request->get_int( 'page', 'post,get', 1 );
+if( $page < 1 )
+{
+	$page = 1;
+}
 if( !$nv_Request->isset_request( 'id', 'post,get' ) )
 {
 	$show_view = true;
 	$per_page = 5;
-	$page = $nv_Request->get_int( 'page', 'post,get', 1 );
 	$db->sqlreset( )->select( 'COUNT(*)' )->from( $db_config['prefix'] . '_' . $module_data . '_coupons' );
 
 	if( !empty( $q ) )
@@ -254,6 +258,11 @@ if( !$nv_Request->isset_request( 'id', 'post,get' ) )
 	}
 	$sth->execute( );
 	$num_items = $sth->fetchColumn( );
+	$total_pages = ( $num_items > 0 ) ? (int)ceil( $num_items / $per_page ) : 1;
+	if( $page > $total_pages )
+	{
+		$page = $total_pages;
+	}
 
 	$db->select( '*' )->order( 'id DESC' )->limit( $per_page )->offset( ($page - 1) * $per_page );
 	$sth = $db->prepare( $db->sql( ) );
@@ -284,6 +293,7 @@ $xtpl->assign( 'MODULE_NAME', $module_name );
 $xtpl->assign( 'OP', $op );
 $xtpl->assign( 'ROW', $row );
 $xtpl->assign( 'Q', $q );
+$xtpl->assign( 'PAGE', $page );
 
 if( $show_view )
 {

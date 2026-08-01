@@ -1,6 +1,13 @@
 <!-- BEGIN: main -->
+<style type="text/css">
+	.shop-pagination { overflow-x: auto; padding: 6px 0; }
+	.shop-pagination .pagination { margin: 0; display: inline-flex; flex-wrap: wrap; gap: 4px; }
+	.shop-pagination .pagination > li > a,
+	.shop-pagination .pagination > li > span { padding: 4px 8px; min-width: 32px; text-align: center; }
+</style>
 <!-- BEGIN: view -->
 <form class="form-inline" action="{NV_BASE_ADMINURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
+	<input type="hidden" name="page" value="{PAGE}" />
 	<div class="table-responsive">
 		<table class="table table-striped table-bordered table-hover">
 			<thead>
@@ -50,6 +57,13 @@
 				</tr>
 				<!-- END: loop -->
 			</tbody>
+			<!-- BEGIN: generate_page -->
+			<tfoot>
+				<tr>
+					<td colspan="7"><div class="shop-pagination">{NV_GENERATE_PAGE}</div></td>
+				</tr>
+			</tfoot>
+			<!-- END: generate_page -->
 		</table>
 	</div>
 </form>

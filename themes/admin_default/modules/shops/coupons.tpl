@@ -1,9 +1,16 @@
 <!-- BEGIN: main -->
+<style type="text/css">
+	.shop-pagination { overflow-x: auto; padding: 6px 0; }
+	.shop-pagination .pagination { margin: 0; display: inline-flex; flex-wrap: wrap; gap: 4px; }
+	.shop-pagination .pagination > li > a,
+	.shop-pagination .pagination > li > span { padding: 4px 8px; min-width: 32px; text-align: center; }
+</style>
 <!-- BEGIN: view -->
 <form class="form-inline" action="{NV_BASE_ADMINURL}index.php" method="get">
 	<input type="hidden" name="{NV_LANG_VARIABLE}"  value="{NV_LANG_DATA}" />
 	<input type="hidden" name="{NV_NAME_VARIABLE}"  value="{MODULE_NAME}" />
 	<input type="hidden" name="{NV_OP_VARIABLE}"  value="{OP}" />
+	<input type="hidden" name="page" value="{PAGE}" />
 	<input class="form-control" type="text" value="{Q}" name="q" maxlength="255" placeholder="{LANG.search_key}" />&nbsp;
 	<input class="btn btn-primary" type="submit" value="{LANG.search}" />
 </form>
@@ -31,7 +38,7 @@
 			<!-- BEGIN: generate_page -->
 			<tfoot>
 				<tr>
-					<td colspan="7">{NV_GENERATE_PAGE}</td>
+					<td colspan="7"><div class="shop-pagination">{NV_GENERATE_PAGE}</div></td>
 				</tr>
 			</tfoot>
 			<!-- END: generate_page -->

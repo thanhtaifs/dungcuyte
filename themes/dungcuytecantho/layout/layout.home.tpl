@@ -54,25 +54,26 @@
 				<div class="hero-banner__stats">
 					<div class="hero-stat-card">
 						<i class="fa fa-cubes"></i>
-						<strong>2,700+</strong>
+						<strong>{HOME_STATS_PRODUCTS}</strong>
 						<span>Sản phẩm đa dạng</span>
 					</div>
 					<div class="hero-stat-card">
 						<i class="fa fa-hospital-o"></i>
-						<strong>500+</strong>
+						<strong>{HOME_STATS_FACILITIES}</strong>
 						<span>Cở sở khám chữa bệnh</span>
 					</div>
 					<div class="hero-stat-card">
 						<i class="fa fa-clock-o"></i>
-						<strong>12+</strong>
+						<strong>{HOME_STATS_EXPERIENCE}</strong>
 						<span>Năm kinh nghiệm</span>
 					</div>
 					<div class="hero-stat-card">
 						<i class="fa fa-map-marker"></i>
-						<strong>03</strong>
+						<strong>{HOME_STATS_BRANCHES}</strong>
 						<span>Chi nhánh Đồng bằng sông Cửu Long</span>
 					</div>
 				</div>
+
 			</div>
 		</div>
 	</section>
@@ -110,17 +111,17 @@
 				<ul class="why-choose-us__list">
 					<li>
 						<i class="fa fa-clock-o"></i>
-						<strong>Hơn 12 năm kinh nghiệm</strong>
+						<strong>{HOME_STATS_EXPERIENCE_TEXT}</strong>
 						<span>Tư vấn đúng nhu cầu cho cơ sở y tế và người dùng tại nhà.</span>
 					</li>
 					<li>
 						<i class="fa fa-cubes"></i>
-						<strong>2,700+ sản phẩm chính hãng</strong>
+						<strong>{HOME_STATS_PRODUCTS_TEXT}</strong>
 						<span>Đa dạng thiết bị y tế, dụng cụ phục hồi và chăm sóc sức khỏe.</span>
 					</li>
 					<li>
 						<i class="fa fa-hospital-o"></i>
-						<strong>500+ cơ sở khám chữa bệnh tin tưởng</strong>
+						<strong>{HOME_STATS_FACILITIES} cơ sở khám chữa bệnh tin tưởng</strong>
 						<span>Phục vụ phòng khám, bệnh viện, nhà thuốc và đơn vị chăm sóc sức khỏe.</span>
 					</li>
 					<li>

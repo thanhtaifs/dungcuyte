@@ -264,6 +264,31 @@ function dungcuyte_build_breadcrumb_schema( $breadcrumbs )
 	);
 }
 
+function dungcuyte_get_home_stats()
+{
+	global $db, $db_config, $module_data, $module_name, $global_array_shops_cat;
+
+	$products_count = 0;
+
+	if( $module_name === 'shops' && ! empty( $global_array_shops_cat ) && is_array( $global_array_shops_cat ) )
+	{
+		foreach( $global_array_shops_cat as $cat )
+		{
+			if( ! empty( $cat['total_products'] ) )
+			{
+				$products_count += (int) $cat['total_products'];
+			}
+		}
+	}
+
+	return array(
+		'products' => $products_count > 0 ? $products_count : 0,
+		'facilities' => 500,
+		'experience_years' => (int) date( 'Y' ) - 2010,
+		'branches' => 3
+	);
+}
+
 function nv_site_theme( $contents, $full = true )
 {
 	global $home, $array_mod_title, $lang_global, $language_array, $global_config, $site_mods, $module_name, $module_info, $op_file, $mod_title, $my_head, $my_footer, $client_info, $module_config, $op;
@@ -348,6 +373,14 @@ function nv_site_theme( $contents, $full = true )
 	$xtpl->assign( 'LANG_TIMEOUTSESS_SEC', $lang_global['sec'] );
 	$xtpl->assign( 'LANG_TIMEOUTSESS_TIMEOUT', $lang_global['timeoutsess_timeout'] );
 	$xtpl->assign( 'MSGBEFOREUNLOAD', $lang_global['msgbeforeunload'] );
+
+	$home_stats = dungcuyte_get_home_stats();
+	$xtpl->assign( 'HOME_STATS_PRODUCTS', number_format( $home_stats['products'], 0, ',', '.' ) . '+' );
+	$xtpl->assign( 'HOME_STATS_FACILITIES', number_format( $home_stats['facilities'], 0, ',', '.' ) . '+' );
+	$xtpl->assign( 'HOME_STATS_EXPERIENCE', $home_stats['experience_years'] . '+' );
+	$xtpl->assign( 'HOME_STATS_BRANCHES', $home_stats['branches'] );
+	$xtpl->assign( 'HOME_STATS_EXPERIENCE_TEXT', 'Hơn ' . $home_stats['experience_years'] . ' năm kinh nghiệm' );
+	$xtpl->assign( 'HOME_STATS_PRODUCTS_TEXT', number_format( $home_stats['products'], 0, ',', '.' ) . '+ sản phẩm chính hãng' );
 
 	// System variables
 	$theme_page_title = nv_html_page_title();

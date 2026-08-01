@@ -219,15 +219,24 @@ else
 
 // Fetch Limit
 $show_view = false;
+$page = $nv_Request->get_int( 'page', 'post,get', 1 );
+if( $page < 1 )
+{
+	$page = 1;
+}
 if( !$nv_Request->isset_request( 'id', 'post,get' ) )
 {
 	$show_view = true;
 	$per_page = 5;
-	$page = $nv_Request->get_int( 'page', 'post,get', 1 );
 	$db->sqlreset()->select( 'COUNT(*)' )->from( '' . $db_config['prefix'] . '_' . $module_data . '_discounts' );
 	$sth = $db->prepare( $db->sql() );
 	$sth->execute();
 	$num_items = $sth->fetchColumn();
+	$total_pages = ( $num_items > 0 ) ? (int)ceil( $num_items / $per_page ) : 1;
+	if( $page > $total_pages )
+	{
+		$page = $total_pages;
+	}
 
 	$db->select( '*' )->order( 'weight ASC' )->limit( $per_page )->offset( ($page - 1) * $per_page );
 	$sth = $db->prepare( $db->sql() );
@@ -246,10 +255,18 @@ $xtpl->assign( 'NV_OP_VARIABLE', NV_OP_VARIABLE );
 $xtpl->assign( 'MODULE_NAME', $module_name );
 $xtpl->assign( 'OP', $op );
 $xtpl->assign( 'ROW', $row );
+$xtpl->assign( 'PAGE', $page );
 $xtpl->assign( 'CAPTION', ($row['did']) ? $lang_module['discount_edit'] : $lang_module['discount_add'] );
 
 if( $show_view )
 {
+	$base_url = NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op;
+	$generate_page = nv_generate_page( $base_url, $num_items, $per_page, $page );
+	if( !empty( $generate_page ) )
+	{
+		$xtpl->assign( 'NV_GENERATE_PAGE', $generate_page );
+		$xtpl->parse( 'main.view.generate_page' );
+	}
 	while( $view = $sth->fetch() )
 	{
 		for( $i = 1; $i <= $num_items; ++$i )

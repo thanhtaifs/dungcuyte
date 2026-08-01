@@ -12,6 +12,45 @@ if( ! defined( 'NV_MAINFILE' ) ) die( 'Stop!!!' );
 
 if( ! function_exists( 'nv_pro_catalogs' ) )
 {
+	function nv_shops_get_effective_total_products( $cat, $array_cat_shops )
+	{
+		$total = isset( $cat['total_products'] ) ? intval( $cat['total_products'] ) : 0;
+		$subcatids = array();
+
+		if( ! empty( $cat['subcatid'] ) )
+		{
+			foreach( explode( ',', $cat['subcatid'] ) as $subcatid )
+			{
+				$subcatid = trim( $subcatid );
+				if( ! empty( $subcatid ) )
+				{
+					$subcatids[] = $subcatid;
+				}
+			}
+		}
+
+		$title = strtolower( $cat['title'] );
+		$alias = strtolower( $cat['alias'] );
+		if( $alias === 'dung-cu-the-duc' || strpos( $title, 'dung cu the duc' ) !== false || strpos( $title, 'dụng cụ thể dục' ) !== false )
+		{
+			foreach( array( 145, 147, 146, 149, 154 ) as $subcatid )
+			{
+				$subcatids[] = (string)$subcatid;
+			}
+		}
+
+		$subcatids = array_unique( $subcatids );
+		foreach( $subcatids as $subcatid )
+		{
+			if( isset( $array_cat_shops[$subcatid] ) )
+			{
+				$total += isset( $array_cat_shops[$subcatid]['total_products'] ) ? intval( $array_cat_shops[$subcatid]['total_products'] ) : 0;
+			}
+		}
+
+		return $total;
+	}
+
 	/**
 	 * nv_block_config_product_catalogs_blocks()
 	 *
@@ -80,7 +119,7 @@ if( ! function_exists( 'nv_pro_catalogs' ) )
 
 		if( $module != $module_name )
 		{
-			$sql = "SELECT catid, parentid, lev, " . NV_LANG_DATA . "_title AS title, " . NV_LANG_DATA . "_alias AS alias, viewcat, numsubcat, subcatid, numlinks, " . NV_LANG_DATA . "_description AS description, inhome, " . NV_LANG_DATA . "_keywords AS keywords, groups_view FROM " . $db_config['prefix'] . "_" . $mod_data . "_catalogs ORDER BY sort ASC";
+			$sql = "SELECT catid, parentid, lev, " . NV_LANG_DATA . "_title AS title, " . NV_LANG_DATA . "_alias AS alias, viewcat, numsubcat, subcatid, numlinks, " . NV_LANG_DATA . "_description AS description, inhome, " . NV_LANG_DATA . "_keywords AS keywords, groups_view, total_products FROM " . $db_config['prefix'] . "_" . $mod_data . "_catalogs ORDER BY sort ASC";
 			$list = nv_db_cache( $sql, "catid", $module );
 			foreach( $list as $row )
 			{
@@ -98,6 +137,7 @@ if( ! function_exists( 'nv_pro_catalogs' ) )
 					"inhome" => $row['inhome'],
 					"keywords" => $row['keywords'],
 					"groups_view" => $row['groups_view'],
+					"total_products" => isset($row['total_products']) ? intval($row['total_products']) : 0,
 					'lev' => $row['lev']
 				);
 				
@@ -123,14 +163,10 @@ if( ! function_exists( 'nv_pro_catalogs' ) )
     
                 $html .= "<li{$class}>\n";
                 $html .= "<a title=\"" . $cat['title'] . "\" href=\"" . $cat['link'] . "\">" . nv_clean60($cat['title'], $cut_num);
-                
-                if ($has_sub) {
-                    $html .= ' <span class="arrow arrow-small"><i class="fa fa-arrow-right"></i></span>';
-                }
-    
-    
+                $html .= ' <span class="arrow arrow-small">' . nv_shops_get_effective_total_products($cat, $array_cat_shops) . '</span>';
+
                 $html .= "</a>\n";
-    
+
                 if ($has_sub) {
                     $html .= html_viewsub($cat['subcatid'], $block_config);
                 }
@@ -170,7 +206,7 @@ if( ! function_exists( 'nv_pro_catalogs' ) )
     
             $html .= "<li{$class}>\n";
             $html .= "<a title=\"" . $cat['title'] . "\" href=\"" . $cat['link'] . "\">" . nv_clean60($cat['title'], $cut_num);
-            
+            $html .= ' <span class="cat-count">(' . nv_shops_get_effective_total_products($cat, $array_cat_shops) . ')</span>';
             if ($has_sub) {
                 $html .= ' <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>';
             }

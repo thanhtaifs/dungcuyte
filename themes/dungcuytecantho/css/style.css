@@ -490,8 +490,26 @@ ol {
   font-size: 14px;
   margin-left: 6px;
   cursor: pointer;
-  font-family: "FontAwesome";
-  color: #65aa00;
+}
+
+.arrow.arrow-small {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2c9b28, #63bd10);
+  color: #fff;
+  font-size: 11px;
+  line-height: 1;
+  margin-left: 8px;
+  text-align: center;
+}
+
+.arrow.arrow-small i {
+  display: none;
 }
 
 .header__menu ul li.active a {
@@ -7251,7 +7269,7 @@ textarea:focus-visible {
   align-items: center;
   justify-content: space-between;
   min-height: 40px;
-  padding: 8px 16px;
+  padding: 4px 12px;
   border-bottom: 1px solid rgba(46, 159, 60, 0.08);
   color: var(--text-main);
   font-size: 13px;
@@ -11902,6 +11920,12 @@ body {
 .mobile-drawer__quicklinks,
   .humberger__menu__contact {
     display: none;
+  }
+}
+
+@media (max-width: 991px) {
+  .trust-strip {
+    display: none !important;
   }
 }
 
