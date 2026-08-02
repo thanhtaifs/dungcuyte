@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="{LANG.Content_Language}" xmlns="http://www.w3.org/1999/xhtml" prefix="og: http://ogp.me/ns#">
 	<head>
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-WL67PFLC');</script>
+		<!-- End Google Tag Manager -->
 	    <meta name="google-site-verification" content="jnnyrcztwUgPu4zdrwvnsy51f0OfS0BQneZGMkIYiAM" />
 		<meta name="theme-color" content="#3ca32f" />
 		<meta name="format-detection" content="telephone=yes" />
@@ -110,6 +117,10 @@
 		</script>
 	</head>
 	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WL67PFLC"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
 		<!-- <a class="skip-link" href="#maincontent">Chuyển đến nội dung</a>
 		<div id="timeoutsess" class="chromeframe">
 		{LANG_TIMEOUTSESS_NOUSER}, <a onclick="timeoutsesscancel();" href="#">{LANG_TIMEOUTSESS_CLICK}</a>. {LANG_TIMEOUTSESS_TIMEOUT}: <span id="secField"> 60 </span> {LANG_TIMEOUTSESS_SEC}
