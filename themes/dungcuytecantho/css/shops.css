@@ -1680,10 +1680,8 @@ img.calendar {
 }
 
 .product-section-body table {
-  display: block;
   width: 100%;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
 }
 
 
