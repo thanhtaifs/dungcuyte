@@ -1097,6 +1097,12 @@ function view_search_all($data_content, $compare_id, $html_pages = '')
         $num_row = 24 / $pro_config['per_row'];
 
         foreach ($data_content as $data_row) {
+            $listcatid_value = 0;
+            if (!empty($data_row['listcatid'])) {
+                $listcatid_array = array_filter(array_map('intval', explode(',', (string) $data_row['listcatid'])), 'strlen');
+                $listcatid_value = !empty($listcatid_array) ? (int) end($listcatid_array) : 0;
+            }
+
             $xtpl->assign('ID', $data_row['id']);
             $xtpl->assign('LINK', $data_row['link_pro']);
             $xtpl->assign('TITLE', $data_row['title']);
@@ -1107,30 +1113,6 @@ function view_search_all($data_content, $compare_id, $html_pages = '')
             $xtpl->assign('width', $pro_config['homewidth']);
             $xtpl->assign('hometext', $data_row['hometext']);
             $xtpl->assign('num', $num_row);
-
-            if ($pro_config['active_order'] == '1' and $pro_config['active_order_non_detail'] == '1') {
-                if (nv_shops_can_show_price($data_row)) {
-                    if ($data_row['product_number'] > 0) {
-                        // Kiem tra nhom bat buoc chon khi dat hang
-                        $listgroupid = GetGroupID($data_row['id']);
-                        $group_requie = 0;
-                        if (!empty($listgroupid) and !empty($global_array_group)) {
-                            foreach ($global_array_group as $groupinfo) {
-                                if ($groupinfo['in_order']) {
-                                    $group_requie = 1;
-                                    break;
-                                }
-                            }
-                        }
-                        $group_requie = $pro_config['active_order_popup'] ? 1 : $group_requie;
-                        $xtpl->assign('GROUP_REQUIE', $group_requie);
-
-                        $xtpl->parse('main.items.order');
-                    } else {
-                        $xtpl->parse('main.items.product_empty');
-                    }
-                }
-            }
 
             $price = nv_get_price($data_row['id'], $pro_config['money_unit']);
 
@@ -1160,36 +1142,6 @@ function view_search_all($data_content, $compare_id, $html_pages = '')
             // Qua tang
             if ($pro_config['active_gift'] and !empty($data_row['gift_content']) and NV_CURRENTTIME >= $data_row['gift_from'] and NV_CURRENTTIME <= $data_row['gift_to']) {
                 $xtpl->parse('main.items.gift');
-            }
-
-            // So sanh san pham
-            if ($pro_config['show_compare'] == 1) {
-                if (!empty($compare_id)) {
-                    $ch = (in_array($data_row['id'], $compare_id)) ? ' checked="checked"' : '';
-                    $xtpl->assign('ch', $ch);
-                }
-                $xtpl->parse('main.items.compare');
-            }
-
-            // San pham yeu thich
-            if ($pro_config['active_wishlist']) {
-                if (!empty($array_wishlist_id)) {
-                    if (in_array($data_row['id'], $array_wishlist_id)) {
-                        $xtpl->parse('main.items.wishlist.disabled');
-                    }
-                }
-                $xtpl->parse('main.items.wishlist');
-            }
-
-            if ($data_row['discount_id'] and $price['discount_percent'] > 0 and nv_shops_can_show_price($data_row)) {
-                $xtpl->parse('main.items.discounts');
-            }
-
-            // Hien thi bieu tuong tich luy diem
-            if ($pro_config['point_active'] and $global_array_shops_cat[$data_row['listcatid']]['cat_allow_point'] and !empty($global_array_shops_cat[$data_row['listcatid']]['cat_number_point'])) {
-                $xtpl->assign('point', $global_array_shops_cat[$data_row['listcatid']]['cat_number_point']);
-                $xtpl->assign('point_note', sprintf($lang_module['point_product_note'], $global_array_shops_cat[$data_row['listcatid']]['cat_number_point']));
-                $xtpl->parse('main.items.point');
             }
 
             $newday = $data_row['publtime'] + (86400 * $data_row['newday']);

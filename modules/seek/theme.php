@@ -134,6 +134,13 @@ function search_result_theme($result_array, $mod, $mod_custom_title, $search, $i
         $base_url .= "&l=" . $search['logic'];
     }
 
+    if ($mod != 'all' && file_exists(NV_ROOTDIR . '/modules/' . $mod . '/funcs/search_result.php')) {
+        $base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $mod . '&' . NV_OP_VARIABLE . '=search_result&keyword=' . urlencode_rfc_3986($search['key']);
+        if (! empty($search['mod']) && $search['mod'] == $mod) {
+            $base_url .= '&page=1';
+        }
+    }
+
     if ($is_generate_page) {
         $generate_page = nv_generate_page($base_url, $num_items, $limit, $search['page']);
         if (! empty($generate_page)) {

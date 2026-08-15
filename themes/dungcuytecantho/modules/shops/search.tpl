@@ -101,7 +101,7 @@
 		<div class="text-center">
 			{VIEW_PAGES}
 		</div>
-		<!-- END: pages_viewpages -->
+		<!-- END: pages_result -->
 
         <div class="alert alert-info">
             <p><em>{LANG.search_sum_title} <strong>{NUMRECORD}</strong> {LANG.result_title}

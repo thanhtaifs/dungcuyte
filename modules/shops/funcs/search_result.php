@@ -17,13 +17,21 @@ $key_words = $module_info['keywords'];
 
 $bid = 1;
 // block host
-$num = $pro_config['per_page'];
+$per_page = isset($pro_config['per_page']) ? (int) $pro_config['per_page'] : 20;
+$num = $per_page;
 $data_content = array();
 $search = "";
 $url = '';
 
 $keyword = $nv_Request->get_string('keyword', 'get');
+if ($keyword === '' && $nv_Request->isset_request('q', 'get')) {
+    $keyword = $nv_Request->get_string('q', 'get');
+}
+if ($keyword === '' && isset($_GET['keyword']) && is_array($_GET['keyword'])) {
+    $keyword = (string) reset($_GET['keyword']);
+}
 $keyword = str_replace('+', ' ', $keyword);
+$keyword = trim(preg_replace('/\s+/', ' ', (string) $keyword));
 $kwhtml = nv_htmlspecialchars($keyword);
 $price1_temp = $nv_Request->get_string('price1', 'get', '');
 $price2_temp = $nv_Request->get_string('price2', 'get', '');
@@ -146,7 +154,7 @@ if (! empty($groupid)) {
 }
 
 if ($keyword != "") {
-    $search .= " AND (t1." . NV_LANG_DATA . "_title LIKE '%" . $db->dblikeescape($kwhtml) . "%' OR product_code LIKE '%" . $db->dblikeescape($keyword) . "%')";
+    $search .= " AND (t1." . NV_LANG_DATA . "_title LIKE '%" . $db->dblikeescape($kwhtml) . "%' OR t1." . NV_LANG_DATA . "_alias LIKE '%" . $db->dblikeescape($kwhtml) . "%' OR t1." . NV_LANG_DATA . "_hometext LIKE '%" . $db->dblikeescape($kwhtml) . "%' OR t1." . NV_LANG_DATA . "_bodytext LIKE '%" . $db->dblikeescape($kwhtml) . "%' OR product_code LIKE '%" . $db->dblikeescape($keyword) . "%')";
 }
 
 if (($price1 >= 0 and $price2 > 0)) {
@@ -206,7 +214,7 @@ $db->select("DISTINCT t1.id, t1.listcatid, t1.publtime, t1." . NV_LANG_DATA . "_
     ->offset(($page - 1) * $per_page);
 $result = $db->query($db->sql());
 
-$base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=search_result&keyword=' . $keyword . '&price1=' . $price1 . '&price2=' . $price2 . '&typemoney=' . $typemoney . '&cata=' . $cataid . $url;
+$base_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=search_result&keyword=' . rawurlencode($keyword) . '&price1=' . rawurlencode((string) $price1_temp) . '&price2=' . rawurlencode((string) $price2_temp) . '&typemoney=' . rawurlencode((string) $typemoney) . '&cata=' . (int) $cataid . $url;
 $html_pages = nv_generate_page($base_url, $num_items, $per_page, $page);
 
 $link = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=';
@@ -232,6 +240,13 @@ while (list($id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, 
         $thumb = NV_BASE_SITEURL . 'themes/' . $module_info['template'] . '/images/' . $module_file . '/no-image.jpg';
     }
 
+    $listcatid_array = array_filter(array_map('intval', explode(',', (string) $listcatid)), 'strlen');
+    $catid_for_link = !empty($listcatid_array) ? (int) end($listcatid_array) : 0;
+    $cat_alias = 'other';
+    if ($catid_for_link > 0 && isset($global_array_shops_cat[$catid_for_link]['alias'])) {
+        $cat_alias = $global_array_shops_cat[$catid_for_link]['alias'];
+    }
+
     $data_content[] = array(
         'id' => $id,
         'listcatid' => $listcatid,
@@ -250,7 +265,7 @@ while (list($id, $listcatid, $publtime, $title, $alias, $hometext, $homeimgalt, 
         'gift_from' => $gift_from,
         'gift_to' => $gift_to,
         'newday' => $newday,
-        'link_pro' => $link . $global_array_shops_cat[$listcatid]['alias'] . '/' . $alias . $global_config['rewrite_exturl'],
+        'link_pro' => $link . $cat_alias . '/' . $alias . $global_config['rewrite_exturl'],
         'link_order' => $link . 'setcart&amp;id=' . $id
     );
 }

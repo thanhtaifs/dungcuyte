@@ -1,17 +1,11 @@
 <!-- BEGIN: main -->
 <form id="search_form_shops" action="{NV_BASE_SITEURL}index.php" method="get" role="form" name="frm_search">
-    <input type="hidden" name="{NV_NAME_VARIABLE}" value="seek">
-    <input type="text" name="q" id="keyword" class="text" placeholder="Từ khóa tìm kiếm...">
-    <input type="submit" value="Tìm kiếm" class="btn2">
-
-    <input type="hidden" name="nv" value="shops">
-    <input type="hidden" name="op" value="search">
-    <input type="hidden" name="module" value="shops"> <!-- Thêm tham số module -->
-
+    <input type="hidden" name="{NV_LANG_VARIABLE}" value="{NV_LANG_DATA}" />
+    <input type="hidden" name="{NV_NAME_VARIABLE}" value="shops" />
+    <input type="hidden" name="{NV_OP_VARIABLE}" value="search_result" />
     <label style="display:none">{LANG.keyword}</label>
-    <input id="keyword" type="text" value="{value_keyword}" name="q" class="text">
-
-    <input type="submit" name="submit" id="submit" value="" class="btn2">
+    <input type="text" name="keyword" id="keyword" value="{value_keyword}" class="text" placeholder="Từ khóa tìm kiếm...">
+    <input type="submit" name="submit" id="submit" value="Tìm kiếm" class="btn2">
 
     <div class="form-group" style="display:none">
         <label>{LANG.price1}</label>
@@ -41,6 +35,6 @@
             <option {ROW.selected} value="{ROW.catid}">{ROW.xtitle}</option>
             <!-- END: loopcata -->
         </select>
-    </div>  
+    </div>
 </form>
 <!-- END: main -->
