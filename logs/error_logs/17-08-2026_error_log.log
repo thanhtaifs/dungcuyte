@@ -1,0 +1,3 @@
+[Mon, 17 Aug 2026 04:07:59 +0700] [Array] [User Error(256): GD not installed] [FILE: /includes/ini.php] [LINE: 80]
+[Mon, 17 Aug 2026 04:08:42 +0700] [Array] [User Notice(1024): SQLSTATE[HY000] [1049] Unknown database 'ndungcu39mo_db'] [FILE: /includes/class/sql_db.class.php] [LINE: 80]
+[Mon, 17 Aug 2026 04:08:42 +0700] [Array] [User Error(256): Sorry! Could not connect to data server] [FILE: /mainfile.php] [LINE: 330]

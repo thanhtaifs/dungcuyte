@@ -372,7 +372,7 @@ $xtpl->assign( 'BASE_URL_NUM_SELL', $base_url_num_sell );
 
 $base_url = NV_BASE_ADMINURL . 'index.php?' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $op . '&amp;per_page=' . $per_page . '&amp;catid=' . $catid . '&amp;stype=' . $stype . '&amp;q=' . $q . '&amp;checkss=' . $checkss . '&amp;ordername=' . $ordername . '&amp;order=' . $order;
 $ord_sql = ($ordername == 'title' ? NV_LANG_DATA . '_title' : $ordername) . ' ' . $order;
-$db->sqlreset( )->select( 'id, listcatid, user_id, homeimgfile, homeimgthumb, ' . NV_LANG_DATA . '_title, ' . NV_LANG_DATA . '_alias, hitstotal, status, edittime, publtime, exptime, product_number, product_price, money_unit, product_unit, num_sell, username, contact_price' )->from( $from )->order( $ord_sql )->limit( $per_page )->offset( ($page - 1) * $per_page );
+$db->sqlreset( )->select( 'id, listcatid, user_id, homeimgfile, homeimgthumb, ' . NV_LANG_DATA . '_title, ' . NV_LANG_DATA . '_alias, hitstotal, status, inhome, edittime, publtime, exptime, product_number, product_price, money_unit, product_unit, num_sell, username, contact_price' )->from( $from )->order( $ord_sql )->limit( $per_page )->offset( ($page - 1) * $per_page );
 $result = $db->query( $db->sql( ) );
 
 $rows = array();
@@ -417,6 +417,7 @@ while( !empty( $rows ) && ( $row = array_shift( $rows ) ) )
 	$alias = $row[NV_LANG_DATA . '_alias'];
 	$hitstotal = intval( $row['hitstotal'] );
 	$status = intval( $row['status'] );
+	$inhome = intval( $row['inhome'] );
 	$edittime = intval( $row['edittime'] );
 	$publtime = intval( $row['publtime'] );
 	$exptime = intval( $row['exptime'] );
@@ -482,6 +483,7 @@ while( !empty( $rows ) && ( $row = array_shift( $rows ) ) )
 		$variant_price_text = ( $variant_price_map[$id]['min_price'] == $variant_price_map[$id]['max_price'] ) ? $variant_min : $variant_min . ' - ' . $variant_max;
 	}
 
+	$home_status = $inhome ? 'Hiển thị' : 'Ẩn';
 	$xtpl->assign( 'ROW', array(
 		'id' => $id,
 		'link' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $global_array_shops_cat[$catid_i]['alias'] . '/' . $alias . $global_config['rewrite_exturl'],
@@ -494,7 +496,8 @@ while( !empty( $rows ) && ( $row = array_shift( $rows ) ) )
 		'hitstotal' => $hitstotal,
 		'num_sell' => $num_sell,
 		'product_unit' => isset( $array_unit[$product_unit] ) ? $array_unit[$product_unit][NV_LANG_DATA . '_title'] : '',
-		'status' => $lang_module['status_' . $status],
+		'status' => $home_status,
+		'real_status' => $lang_module['status_' . $status],
 		'admin_id' => !empty( $username ) ? $username : '',
 		'product_number' => $product_number,
 		'product_price' => nv_number_format( $product_price, nv_get_decimals( $money_unit ) ),

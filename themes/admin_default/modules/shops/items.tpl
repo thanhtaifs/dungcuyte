@@ -107,7 +107,8 @@
 					</p>
 					<div class="product-info">
 						{LANG.order_update}: <span class="other">{ROW.edittime}</span> |
-						{LANG.content_admin}: <span class="other">{ROW.admin_id}</span>
+						{LANG.content_admin}: <span class="other">{ROW.admin_id}</span> |
+						{LANG.status}: <span class="other">{ROW.real_status}</span>
 					</div></td>
 					<td class="text-center">{ROW.publtime}</td>
 					<td class="text-right">

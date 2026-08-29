@@ -1,0 +1,111 @@
+/*
+ * Admin palette derived from the public "dungcuytecantho" theme.
+ * Primary: #2c9b28, accent: #63bd10, ink: #17301a.
+ */
+:root {
+	--admin-primary: #2c9b28;
+	--admin-primary-dark: #1f7a25;
+	--admin-accent: #63bd10;
+	--admin-ink: #17301a;
+	--admin-muted: #607165;
+	--admin-surface: #ffffff;
+	--admin-soft: #f7fff4;
+	--admin-soft-strong: #eef8e8;
+	--admin-border: #d8e8d2;
+}
+
+html, body {
+	background: var(--admin-soft);
+	color: var(--admin-ink);
+}
+
+a { color: var(--admin-primary-dark); }
+a:hover, a:active, a:focus { color: var(--admin-primary); }
+
+#header {
+	background: linear-gradient(135deg, var(--admin-primary-dark), var(--admin-primary));
+	border-bottom: 3px solid var(--admin-accent);
+}
+
+#header .menu > li:hover, #header .menu > li.open { background: rgba(16, 61, 20, .36); }
+#header .menu > li > .dropdown-menu { background: var(--admin-primary-dark); }
+#header .dropdown-menu a:hover { background: rgba(255, 255, 255, .14); }
+
+.navbar.navbar-light.bg-light {
+	background: var(--admin-surface) !important;
+	border-bottom: 1px solid var(--admin-border);
+}
+.navbar-nav .nav-link, .navbar-nav > li > a { color: var(--admin-ink); }
+.navbar-nav .nav-link:hover, .navbar-nav .dropdown:hover > .nav-link,
+.dropdown-menu .dropdown-item:hover {
+	background: var(--admin-soft-strong);
+	color: var(--admin-primary-dark) !important;
+}
+.dropdown-menu {
+	border-color: var(--admin-border);
+	box-shadow: 0 8px 20px rgba(23, 48, 26, .12);
+}
+
+#left-menu-bg { background-image: none; background: linear-gradient(180deg, #fbfff9, var(--admin-soft-strong)); }
+#left-menu .nav > li > a { color: var(--admin-ink); }
+#left-menu .nav > li > a:hover, #left-menu .nav > li > a:focus,
+#left-menu .nav > li.open > a, #left-menu .nav > li a.subcurrent {
+	background: #eff9eb;
+	color: var(--admin-primary-dark);
+}
+#left-menu .nav > li.active > a, #left-menu .nav > li.active > a:hover {
+	background: linear-gradient(135deg, var(--admin-primary), var(--admin-accent));
+	color: #fff;
+}
+#left-menu .nav > li.active .arrow { border-right-color: #fff !important; }
+#left-menu .nav > li.open .arrow { border-right-color: var(--admin-primary); }
+#left-menu .nav > li a.subactive, #left-menu .dropdown-menu > li > a:hover,
+#left-menu .dropdown-menu > li > a:focus { color: var(--admin-primary-dark); }
+#left-menu .dropdown-menu { background: var(--admin-soft); }
+
+#info_tab {
+	background: linear-gradient(90deg, var(--admin-soft), #fff);
+	border-bottom: 1px solid var(--admin-border);
+}
+#info_tab .cell_left, .breadcrumb > .active { color: var(--admin-primary-dark); }
+
+.btn-primary, .btn-primary:focus {
+	background-color: var(--admin-primary);
+	border-color: var(--admin-primary-dark);
+}
+.btn-primary:hover, .btn-primary:active, .btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+	background-color: var(--admin-primary-dark);
+	border-color: #185f1d;
+}
+.btn-default:hover, .btn-default:focus {
+	background: var(--admin-soft-strong);
+	border-color: var(--admin-border);
+	color: var(--admin-primary-dark);
+}
+
+.form-control:focus {
+	border-color: var(--admin-primary);
+	box-shadow: 0 0 0 3px rgba(44, 155, 40, .14);
+}
+input[type=checkbox]:checked:before { color: var(--admin-primary); }
+input[type=radio]:checked:before { background-color: var(--admin-primary); }
+
+.panel, .well { border-color: var(--admin-border); }
+.panel-heading { background: var(--admin-soft) !important; border-color: var(--admin-border) !important; color: var(--admin-ink) !important; }
+.table > thead > tr > th { border-bottom-color: var(--admin-border); color: var(--admin-primary-dark); }
+.table-hover > tbody > tr:hover { background-color: var(--admin-soft); }
+.table-bordered, .table-bordered > tbody > tr > td, .table-bordered > thead > tr > th { border-color: var(--admin-border); }
+.pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > span {
+	background-color: var(--admin-primary);
+	border-color: var(--admin-primary);
+}
+.pagination > li > a, .pagination > li > span { color: var(--admin-primary-dark); }
+
+.alert-success { color: #185f1d; background-color: #edf8e8; border-color: var(--admin-border); }
+.label-success, .badge { background-color: var(--admin-primary); }
+#footer .footer-content { border-top-color: var(--admin-primary); }
+
+/* Login uses the same accent while preserving its compact legacy layout. */
+#login-content h3 { color: var(--admin-primary-dark); }
+#login-content { border-color: var(--admin-border); }

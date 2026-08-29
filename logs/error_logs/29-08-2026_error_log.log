@@ -1,0 +1,8 @@
+[Sat, 29 Aug 2026 22:15:13 +0700] [Array] [User Notice(1024): SQLSTATE[HY000] [1049] Unknown database 'ndungcu39mo_db'] [FILE: /includes/class/sql_db.class.php] [LINE: 80]
+[Sat, 29 Aug 2026 22:15:13 +0700] [Array] [User Error(256): Sorry! Could not connect to data server] [FILE: /mainfile.php] [LINE: 330]
+[Sat, 29 Aug 2026 22:45:15 +0700] [Array] [Warning(2): getimagesize(C:/xampp/htdocs/dungcuyte/images/logo_dung_cu_y_te.webp): Failed to open stream: No such file or directory] [FILE: /themes/dungcuytecantho/theme.php] [LINE: 439]
+[Sat, 29 Aug 2026 22:45:15 +0700] [Array] [Warning(2): Trying to access array offset on value of type bool] [FILE: /themes/dungcuytecantho/theme.php] [LINE: 440]
+[Sat, 29 Aug 2026 22:45:15 +0700] [Array] [Warning(2): Trying to access array offset on value of type bool] [FILE: /themes/dungcuytecantho/theme.php] [LINE: 441]
+[Sat, 29 Aug 2026 22:45:22 +0700] [Array] [Warning(2): getimagesize(C:/xampp/htdocs/dungcuyte/images/logo_dung_cu_y_te.webp): Failed to open stream: No such file or directory] [FILE: /includes/core/admin_login.php] [LINE: 184]
+[Sat, 29 Aug 2026 22:45:27 +0700] [Array] [Warning(2): getimagesize(C:/xampp/htdocs/dungcuyte/images/logo_dung_cu_y_te.webp): Failed to open stream: No such file or directory] [FILE: /includes/core/theme_functions.php] [LINE: 162]
+[Sat, 29 Aug 2026 22:45:36 +0700] [Array] [Warning(2): chmod(): Permission denied] [FILE: /includes/core/filesystem_functions.php] [LINE: 452]

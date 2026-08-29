@@ -15,6 +15,7 @@
 		<!-- BEGIN: css_module -->
 		<link rel="stylesheet" href="{NV_CSS_MODULE_THEME}" type="text/css">
 		<!-- END: css_module -->
+		<link rel="stylesheet" href="{NV_BASE_SITEURL}themes/{NV_ADMIN_THEME}/css/user-tone.css">
 
 		<script type="text/javascript">
 			var nv_siteroot = '{NV_BASE_SITEURL}';
