@@ -5310,6 +5310,47 @@ a {
   margin: 0 0 18px;
 }
 
+.recruitment-share {
+  gap: 8px;
+  align-items: center;
+}
+
+.recruitment-share li {
+  padding-top: 0;
+}
+
+.recruitment-share__link {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.recruitment-share__link--facebook {
+  background: #1877f2;
+}
+
+.recruitment-share__link--x {
+  background: #111;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.recruitment-share__link:hover,
+.recruitment-share__link:focus {
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(17, 17, 17, 0.2);
+  text-decoration: none;
+}
+
 .content-detail-media img {
   border-radius: 12px;
 }

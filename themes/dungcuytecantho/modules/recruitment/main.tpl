@@ -9,15 +9,18 @@
 
         <!-- BEGIN: socialbutton -->
         <div class="content-detail-share well well-sm">
-            <ul class="nv-social-share">
-                <!-- BEGIN: facebook -->
+            <ul class="nv-social-share recruitment-share">
                 <li class="facebook">
-                    <div class="fb-like" data-href="{SELFURL}" data-layout="button_count" data-width="200" data-layout="button_count" data-action="like" data-size="small" data-share="true">Facebook</div>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={SHARE_URL}" class="recruitment-share__link recruitment-share__link--facebook" target="_blank" rel="noopener noreferrer" aria-label="Chia sẻ bài tuyển dụng lên Facebook" title="Chia sẻ lên Facebook">
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                        <span class="sr-only">Facebook</span>
+                    </a>
                 </li>
-                <!-- END: facebook -->
                 <li class="twitter">
-                    <a href="https://twitter.com/share" class="twitter-share"> <i class="fa fa-twitter"></i> Tweet</a>
-                    <script type="text/javascript" src="https://platform.twitter.com/widgets.js" data-show="after"></script>
+                    <a href="https://x.com/intent/post?text={SHARE_TITLE}&amp;url={SHARE_URL}" class="recruitment-share__link recruitment-share__link--x" target="_blank" rel="noopener noreferrer" aria-label="Chia sẻ bài tuyển dụng lên X" title="Chia sẻ lên X">
+                        <span aria-hidden="true">X</span>
+                        <span class="sr-only">X</span>
+                    </a>
                 </li>
             </ul>
         </div>

@@ -31,17 +31,11 @@ function nv_page_main($row, $ab_links, $content_comment)
         $xtpl->parse('main.description');
     }
 
-    if ($row['socialbutton']) {
-        if (! empty($page_config['facebookapi'])) {
-            $meta_property['fb:app_id'] = $page_config['facebookapi'];
-            $meta_property['og:locale'] = (NV_LANG_DATA == 'vi') ? 'vi_VN' : 'en_US';
-
-            $xtpl->assign('SELFURL', $client_info['selfurl']);
-            $xtpl->parse('main.socialbutton.facebook');
-        }
-
-        $xtpl->parse('main.socialbutton');
-    }
+    $share_url = rawurlencode($client_info['selfurl']);
+    $share_title = rawurlencode(nv_unhtmlspecialchars($row['title']));
+    $xtpl->assign('SHARE_URL', $share_url);
+    $xtpl->assign('SHARE_TITLE', $share_title);
+    $xtpl->parse('main.socialbutton');
     
     
 
