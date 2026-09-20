@@ -26,7 +26,7 @@
 					</div>
 					<div class="product-image">
 						<a href="{LINK}" title="{TITLE}">
-							<img src="{SRC_PRO_LAGE}" alt="{TITLE}" class="img-fluid" loading="lazy" />
+							<img src="{IMG_SRC}" alt="{TITLE}" class="img-fluid" width="500" height="500" loading="lazy" decoding="async" />
 						</a>
 					</div>
 					<div class="product-body product-body--home">
@@ -77,7 +77,7 @@
 					</div>
 					<div class="product-image">
 						<a href="{LINK}" title="{TITLE}">
-							<img src="{SRC_PRO_LAGE}" alt="{TITLE}" class="img-fluid" loading="lazy" />
+							<img src="{IMG_SRC}" alt="{TITLE}" class="img-fluid" width="500" height="500" loading="lazy" decoding="async" />
 						</a>
 					</div>
 					<div class="product-body product-body--home">
@@ -124,7 +124,7 @@
 				<div class="product-card">
 					<div class="product-image">
 						<a href="{LINK}" title="{TITLE}">
-							<img src="{SRC_PRO_LAGE}" alt="{TITLE}" class="img-fluid" loading="lazy" />
+							<img src="{IMG_SRC}" alt="{TITLE}" class="img-fluid" width="500" height="500" loading="lazy" decoding="async" />
 						</a>
 					</div>
 					<div class="product-body product-body--home">

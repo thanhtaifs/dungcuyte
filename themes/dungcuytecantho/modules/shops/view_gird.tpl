@@ -45,7 +45,7 @@
                       <div class="product-image">
                           <div class="image_center">
                                 <a href="{link_pro}" title="{title_pro}">
-                                <img src="{img_pro}" alt="{TITLE}" class="img-fluid" loading="lazy"/>
+                                <img src="{img_pro}" alt="{TITLE}" class="img-fluid" width="500" height="500" loading="lazy" decoding="async" />
                                 </a>
                                  <div class="product-overlay">
                                     <div class="quick-actions">

@@ -88,7 +88,7 @@
 				</tr>
 				<tr>
 					<td><strong>{LANG.setting_homesite}</strong></td>
-					<td><input class="form-control" type="text" value="{DATA.homewidth}" style="width: 60px;" name="homewidth" /><span class="text-middle"> x </span><input class="form-control" type="text" value="{DATA.homeheight}" style="width: 60px;" name="homeheight" /></td>
+					<td><input class="form-control" type="text" value="{DATA.homewidth}" style="width: 60px;" name="homewidth" /><span class="text-middle"> x </span><input class="form-control" type="text" value="{DATA.homeheight}" style="width: 60px;" name="homeheight" /><p class="help-block">Chuẩn giao diện: 500 x 500 px. Nên tải ảnh gốc vuông từ 1000 x 1000 px để ảnh nét trên màn hình Retina.</p></td>
 				</tr>
 				<tr>
 					<td><strong>{LANG.setting_per_page}</strong></td>

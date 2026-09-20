@@ -28,7 +28,7 @@
 						<option value="{TYPE.id}" {TYPE.selected}>{TYPE.name}</option>
 						<!-- END: thumb_type -->
 					</select></td>
-					<td><input class="form-control w50 pull-left" type="text" value="{DATA.thumb_width}" name="thumb_width[{DATA.did}]" maxlength="3"/><span class="pull-left text-middle">&nbsp;x&nbsp;</span><input class="form-control pull-left w50" type="text" value="{DATA.thumb_height}" name="thumb_height[{DATA.did}]" maxlength="3"/></td>
+					<td><input class="form-control w50 pull-left" type="text" value="{DATA.thumb_width}" name="thumb_width[{DATA.did}]" maxlength="4"/><span class="pull-left text-middle">&nbsp;x&nbsp;</span><input class="form-control pull-left w50" type="text" value="{DATA.thumb_height}" name="thumb_height[{DATA.did}]" maxlength="4"/></td>
 					<td><input class="form-control w50" type="text" value="{DATA.thumb_quality}" name="thumb_quality[{DATA.did}]" maxlength="2"/></td>
 				</tr>
 				<!-- END: loop -->
@@ -46,7 +46,7 @@
 						<option value="{TYPE.id}">{TYPE.name}</option>
 						<!-- END: other_type -->
 					</select></td>
-					<td><input class="form-control w50 pull-left" type="text" value="100" name="other_thumb_width" maxlength="3"/><span class="pull-left text-middle">&nbsp;x&nbsp;</span><input class="form-control w50 pull-left" type="text" value="120" name="other_thumb_height" maxlength="3"/></td>
+					<td><input class="form-control w50 pull-left" type="text" value="100" name="other_thumb_width" maxlength="4"/><span class="pull-left text-middle">&nbsp;x&nbsp;</span><input class="form-control w50 pull-left" type="text" value="120" name="other_thumb_height" maxlength="4"/></td>
 					<td><input class="form-control w50" type="text" value="90" name="other_thumb_quality" maxlength="2"/></td>
 				</tr>
 			</tbody>

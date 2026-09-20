@@ -93,6 +93,7 @@
 				</table>
 			</div>
 
+			<p class="help-block">Ảnh biến thể nên là ảnh vuông tối thiểu 1000 x 1000 px. Ảnh cũ 363 x 363 px vẫn được giữ nguyên để tránh phóng lớn làm mờ.</p>
 			<div class="table-responsive">
 				<table class="table table-striped table-bordered table-hover">
 					<thead>

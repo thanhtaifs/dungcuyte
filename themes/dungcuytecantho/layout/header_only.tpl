@@ -27,13 +27,13 @@
 
         <!-- BEGIN: responsive -->
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css?v=20260705e" rel="stylesheet" />
+        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css?v=20260919a" rel="stylesheet" />
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.responsive.css?v=20260705e" rel="stylesheet" />
         <!-- END: responsive -->
 
         <!-- BEGIN: non_responsive -->
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/bootstrap.non-responsive.css" rel="stylesheet" />
-        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css?v=20260705e" rel="stylesheet" />
+        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css?v=20260919a" rel="stylesheet" />
         <!-- END: non_responsive -->
 
 		<link href="{NV_BASE_SITEURL}themes/dungcuytecantho/css/font-awesome.min.css" rel="stylesheet" />

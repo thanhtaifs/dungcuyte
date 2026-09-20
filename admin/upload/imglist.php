@@ -123,6 +123,10 @@ if( isset( $check_allow_upload_dir['view_dir'] ) and isset( $array_dirname[$path
 		$sth->execute();
 		while( $file = $sth->fetch() )
 		{
+			if( $file['type'] == 'image' and ! file_exists( NV_ROOTDIR . '/' . ltrim( $file['src'], '/' ) ) )
+			{
+				$file['src'] = $path . '/' . $file['title'];
+			}
 			$file['data'] = $file['sizes'];
 			if( $file['type'] == 'image' or $file['ext'] == 'swf' )
 			{

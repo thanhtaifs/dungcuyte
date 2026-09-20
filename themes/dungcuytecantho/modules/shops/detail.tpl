@@ -5,7 +5,7 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-5 text-center images-thumb">
-					<img src="{SRC_PRO_LAGE}" alt="{IMAGE_ALT}" width="363px" id="imageproduct" data-target="#imagemodal">
+					<img src="{SRC_PRO}" alt="{IMAGE_ALT}" width="500" height="500" id="imageproduct" class="product-main-image" data-full-src="{SRC_PRO_LAGE}" data-target="#imagemodal" decoding="async" fetchpriority="high">
             <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -14,7 +14,7 @@
 									<h4 class="modal-title" id="myModalLabel">{TITLE}</h4>
 								</div>
 								<div class="modal-body" style="display:none">
-									<img src="{SRC_PRO_LAGE}" id="imagepreview" class="img-thumbnail" alt="{IMAGE_ALT}">
+									<img id="imagepreview" class="img-thumbnail" alt="{IMAGE_ALT}" width="500" height="500" decoding="async">
 								</div>
 							</div>
 						</div>
@@ -389,7 +389,8 @@ $(document).ready(function() {
             }
             $('#product_number').html('{LANG.detail_pro_number}: <strong>' + stock + '</strong> {pro_unit}');
             if (imageUrl) {
-                $('#imageproduct, #imagepreview').attr('src', imageUrl);
+                $('#imageproduct').attr({ src: imageUrl, 'data-full-src': imageUrl });
+                $('#imagepreview').removeAttr('src');
             }
             if (imageAlt) {
                 $('#imageproduct, #imagepreview').attr('alt', imageAlt);
@@ -425,7 +426,9 @@ $(document).ready(function() {
 <!-- BEGIN: imagemodal -->
 <script type="text/javascript">
     $("#imageproduct").on("click", function() {
-    	$('#imagemodal').modal('show');
+        var fullImage = $(this).attr('data-full-src') || $(this).attr('src');
+        $('#imagepreview').attr('src', fullImage);
+        $('#imagemodal').modal('show');
     });
 </script>
 <!-- END: imagemodal -->

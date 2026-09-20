@@ -4015,6 +4015,26 @@ a {
   object-fit: contain;
 }
 
+/* Ảnh chính dùng thumbnail 500×500; co giãn theo khung nhìn nhưng không phóng quá kích thước chuẩn. */
+.shop-detail .product-main-image {
+  display: block;
+  width: min(500px, 100%);
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  margin: 0 auto;
+  object-fit: contain;
+  cursor: zoom-in;
+}
+
+.shop-detail #imagepreview {
+  display: block;
+  width: min(500px, 100%);
+  height: auto;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
 /* Removed empty ruleset for .shop-detail .images-thumb #imageproduct */
 .shop-detail .images-thumb .tab-pane {
   position: absolute;

@@ -22,7 +22,7 @@
 					</div>
 					<div class="product-image">
 						<a href="{LINK}" title="{TITLE}" data-content='{hometext}' data-rel="tooltip">
-							<img src="{IMG_SRC}" alt="{TITLE}" class="img-fluid" loading="lazy" />
+							<img src="{IMG_SRC}" alt="{TITLE}" class="img-fluid" width="500" height="500" loading="lazy" decoding="async" />
 						</a>
 					</div>
 					<div class="product-body product-body--home">

@@ -340,7 +340,7 @@ var nv_min_width = '{NV_MIN_WIDTH}';
 var nv_min_height = '{NV_MIN_HEIGHT}';
 var nv_module_url = "{NV_BASE_ADMINURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&{NV_NAME_VARIABLE}={MODULE_NAME}&{NV_OP_VARIABLE}=";
 var nv_namecheck = /^([a-zA-Z0-9_-])+$/;
-var array_images = ["gif", "jpg", "jpeg", "pjpeg", "png"];
+var array_images = ["gif", "jpg", "jpeg", "pjpeg", "png", "webp"];
 var nv_loading_data = '<p class="upload-loading"><em class="fa fa-spin fa-spinner fa-2x m-bottom upload-fa-loading">&nbsp;</em><br />{LANG.waiting}...</p>';
 var nv_filters = {
 	mime_types : [

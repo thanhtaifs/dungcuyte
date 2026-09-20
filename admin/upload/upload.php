@@ -14,6 +14,10 @@ if( ! defined( 'NV_IS_FILE_ADMIN' ) ) die( 'Stop!!!' );
 
 $path = nv_check_path_upload( $nv_Request->get_string( 'path', 'post,get', NV_UPLOADS_DIR ) );
 $check_allow_upload_dir = nv_check_allow_upload_dir( $path );
+$area = $nv_Request->get_string( 'area', 'post,get' );
+$variant_image_upload = ( preg_match( '/^variant_image_[0-9]+$/', $area ) or preg_match( '#^' . preg_quote( NV_UPLOADS_DIR, '#' ) . '/shops/[0-9]{4}_[0-9]{2}$#', $path ) );
+$upload_max_width = $variant_image_upload ? 1000 : NV_MAX_WIDTH;
+$upload_max_height = $variant_image_upload ? 1000 : NV_MAX_HEIGHT;
 
 $error = '';
 if( ! isset( $check_allow_upload_dir['upload_file'] ) )
@@ -49,7 +53,7 @@ else
 		$allow_files_type = array();
 	}
 
-	$upload = new upload( $allow_files_type, $global_config['forbid_extensions'], $global_config['forbid_mimes'], NV_UPLOAD_MAX_FILESIZE, NV_MAX_WIDTH, NV_MAX_HEIGHT );
+	$upload = new upload( $allow_files_type, $global_config['forbid_extensions'], $global_config['forbid_mimes'], NV_UPLOAD_MAX_FILESIZE, $upload_max_width, $upload_max_height );
 
 	if( isset( $_FILES['upload']['tmp_name'] ) and is_uploaded_file( $_FILES['upload']['tmp_name'] ) )
 	{
@@ -67,10 +71,11 @@ else
 	}
 	elseif( preg_match( '#image\/[x\-]*([a-z]+)#', $upload_info['mime'] ) )
 	{
-		if( $global_config['nv_auto_resize'] and ( $upload_info['img_info'][0] > NV_MAX_WIDTH or $upload_info['img_info'][0] > NV_MAX_HEIGHT ) )
+		$is_webp = strtolower( pathinfo( $upload_info['basename'], PATHINFO_EXTENSION ) ) == 'webp';
+		if( ! $is_webp and $global_config['nv_auto_resize'] and ( $upload_info['img_info'][0] > $upload_max_width or $upload_info['img_info'][1] > $upload_max_height ) )
 		{
 			$createImage = new image( NV_ROOTDIR . '/' . $path . '/' . $upload_info['basename'], $upload_info['img_info'][0], $upload_info['img_info'][1] );
-			$createImage->resizeXY( NV_MAX_WIDTH, NV_MAX_HEIGHT );
+			$createImage->resizeXY( $upload_max_width, $upload_max_height );
 			$createImage->save( NV_ROOTDIR . '/' . $path, $upload_info['basename'], 90 );
 			$createImage->close();
 			$info = $createImage->create_Image_info;
@@ -86,16 +91,16 @@ else
 		}
 		else
 		{
-			if( $upload_info['img_info'][0] > NV_MAX_WIDTH or $upload_info['img_info'][1] > NV_MAX_HEIGHT )
+			if( $upload_info['img_info'][0] > $upload_max_width or $upload_info['img_info'][1] > $upload_max_height )
 			{
 				nv_deletefile( NV_ROOTDIR . '/' . $path . '/' . $upload_info['basename'] );
-				if( $upload_info['img_info'][0] > NV_MAX_WIDTH )
+				if( $upload_info['img_info'][0] > $upload_max_width )
 				{
-					$error = sprintf( $lang_global['error_upload_image_width'], NV_MAX_WIDTH );
+					$error = sprintf( $lang_global['error_upload_image_width'], $upload_max_width );
 				}
 				else
 				{
-					$error = sprintf( $lang_global['error_upload_image_height'], NV_MAX_HEIGHT );
+					$error = sprintf( $lang_global['error_upload_image_height'], $upload_max_height );
 				}
 			}
 			else
@@ -105,7 +110,7 @@ else
 				$dir = rtrim( $dir, '/' );
 				$arr_dir = explode( '/', $dir );
 
-				if( $global_config['autologomod'] == 'all' or ( $arr_dir[0] == NV_UPLOADS_DIR and isset( $arr_dir[1] ) and in_array( $arr_dir[1], $autologomod ) ) )
+				if( ! $is_webp and ( $global_config['autologomod'] == 'all' or ( $arr_dir[0] == NV_UPLOADS_DIR and isset( $arr_dir[1] ) and in_array( $arr_dir[1], $autologomod ) ) ) )
 				{
 					$upload_logo = '';
 
@@ -157,7 +162,7 @@ else
 						$config_logo['w'] = $w;
 						$config_logo['h'] = $h;
 
-						$createImage = new image( NV_ROOTDIR . '/' . $path . '/' . $upload_info['basename'], NV_MAX_WIDTH, NV_MAX_HEIGHT );
+						$createImage = new image( NV_ROOTDIR . '/' . $path . '/' . $upload_info['basename'], $upload_max_width, $upload_max_height );
 						$createImage->addlogo( NV_ROOTDIR . '/' . $upload_logo, '', '', $config_logo );
 						$createImage->save( NV_ROOTDIR . '/' . $path, $upload_info['basename'] );
 					}

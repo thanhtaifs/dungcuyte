@@ -37,8 +37,9 @@ if( $popup )
 	$xtpl->assign( 'MODULE_NAME', $module_name );
 	$xtpl->assign( 'NV_LANG_INTERFACE', NV_LANG_INTERFACE );
 	$xtpl->assign( 'LANG', $lang_module );
-	$xtpl->assign( 'NV_MAX_WIDTH', NV_MAX_WIDTH );
-	$xtpl->assign( 'NV_MAX_HEIGHT', NV_MAX_HEIGHT );
+	$variant_image_upload = preg_match( '/^variant_image_[0-9]+$/', $area );
+	$xtpl->assign( 'NV_MAX_WIDTH', $variant_image_upload ? 1000 : NV_MAX_WIDTH );
+	$xtpl->assign( 'NV_MAX_HEIGHT', $variant_image_upload ? 1000 : NV_MAX_HEIGHT );
 	$xtpl->assign( 'NV_MIN_WIDTH', 10 );
 	$xtpl->assign( 'NV_MIN_HEIGHT', 10 );
 	$xtpl->assign( 'CURRENTPATH', $currentpath );
