@@ -163,7 +163,7 @@
 						<th>{LANG.content_hometext} <span class="require">(*)</span> {LANG.content_notehome}</th>
 					</tr>
 					<tr>
-						<td>{edit_hometext}<span id="seo-hometext-counter" class="seo-counter" data-seo-counter="hometext" data-min="120" data-max="160"></span></td>
+						<td>{edit_hometext}<span id="seo-hometext-counter" class="seo-counter" data-seo-counter="hometext" data-min="150" data-max="300"></span></td>
 					</tr>
 					<tr>
 						<th>{LANG.content_bodytext} <span class="require">(*)</span> {LANG.content_bodytext_note}</th>
