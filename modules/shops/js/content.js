@@ -7,6 +7,8 @@
  */
 
 $(document).ready(function() {
+	initSeoCounters();
+
 	$("#publ_date,#exp_date").datepicker({
 		showOn : "both",
 		dateFormat : "dd/mm/yy",
@@ -98,6 +100,50 @@ $(document).ready(function() {
 	});
 
 });
+
+function initSeoCounters() {
+	var counterFields = {
+		title: $('#idtitle'),
+		hometext: $('#shops_hometext, #hometext'),
+		bodytext: $('#shops_bodytext, #bodytext')
+	};
+
+	$.each(counterFields, function(type, field) {
+		if (!field.length) {
+			return;
+		}
+
+		var updateCounter = function(value) {
+			var counter = $('[data-seo-counter="' + type + '"]');
+			var text = $('<div>').html(value || '').text().replace(/\s+/g, ' ').trim();
+			var count = Array.from(text).length;
+			var min = parseInt(counter.data('min'), 10) || 0;
+			var max = parseInt(counter.data('max'), 10) || 0;
+			var state = count < min ? 'bad' : (max && count > max ? 'warn' : 'good');
+
+			counter.removeClass('seo-counter--good seo-counter--warn seo-counter--bad')
+				.addClass('seo-counter--' + state)
+				.text(type === 'bodytext' ? 'Đã nhập ' + count + ' ký tự (khuyến nghị tối thiểu ' + min + ')' : 'Đã nhập ' + count + ' ký tự (khuyến nghị ' + min + '-' + max + ')');
+		};
+
+		field.on('input keyup change', function() {
+			updateCounter(field.val());
+		});
+		updateCounter(field.val());
+
+		if (typeof CKEDITOR !== 'undefined') {
+			var editor = CKEDITOR.instances[field.attr('id')];
+			if (editor) {
+				editor.on('change key', function() {
+					updateCounter(editor.getData());
+				});
+				editor.on('instanceReady', function() {
+					updateCounter(editor.getData());
+				});
+			}
+		}
+	});
+}
 
 function split(val) {
 	return val.split(/,\s*/);

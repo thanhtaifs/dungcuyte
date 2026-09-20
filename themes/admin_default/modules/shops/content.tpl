@@ -12,6 +12,14 @@
 <link type="text/css" href="{NV_BASE_SITEURL}js/ui/jquery.ui.autocomplete.css" rel="stylesheet" />
 <link type="text/css" href="{NV_BASE_SITEURL}js/ui/jquery.ui.datepicker.css" rel="stylesheet" />
 <style type="text/css">
+.seo-counter {
+	display: block;
+	margin-top: 5px;
+	font-size: 12px;
+}
+.seo-counter--good { color: #3c763d; }
+.seo-counter--warn { color: #8a6d3b; }
+.seo-counter--bad { color: #a94442; }
 </style>
 
 <script type="text/javascript">var inrow = '{inrow}';</script>
@@ -25,7 +33,7 @@
 					<tbody>
 						<tr>
 							<th class="150px">{LANG.name} <span class="require">(*)</span></th>
-							<td colspan="3"><input type="text" maxlength="255" value="{rowcontent.title}" name="title" id="idtitle" class="form-control" style="width: 400px" /></td>
+							<td colspan="3"><input type="text" maxlength="255" value="{rowcontent.title}" name="title" id="idtitle" class="form-control" style="width: 400px" aria-describedby="seo-title-counter" /><span id="seo-title-counter" class="seo-counter" data-seo-counter="title" data-min="50" data-max="60"></span></td>
 						</tr>
 						<tr>
 							<th>{LANG.alias}: </th>
@@ -155,7 +163,7 @@
 						<th>{LANG.content_hometext} <span class="require">(*)</span> {LANG.content_notehome}</th>
 					</tr>
 					<tr>
-						<td>{edit_hometext}</td>
+						<td>{edit_hometext}<span id="seo-hometext-counter" class="seo-counter" data-seo-counter="hometext" data-min="120" data-max="160"></span></td>
 					</tr>
 					<tr>
 						<th>{LANG.content_bodytext} <span class="require">(*)</span> {LANG.content_bodytext_note}</th>
@@ -164,7 +172,7 @@
 						<td>
 						<div style="padding:2px; background:#CCCCCC; margin:0; display:block; position:relative">
 							{edit_bodytext}
-						</div></td>
+						</div><span id="seo-bodytext-counter" class="seo-counter" data-seo-counter="bodytext" data-min="300" data-max="0"></span></td>
 					</tr>
 					<!-- BEGIN: files -->
 					<tr>
@@ -184,7 +192,7 @@
 									<span class="text-middle">{LANG.download_file_or}</span>
 								</div>
 								<div class="col-md-4">
-									<button class="btn btn-primary" id="add_file">{LANG.download_file_add}</button>
+									<button type="button" class="btn btn-primary" id="add_file">{LANG.download_file_add}</button>
 									<div class="modal fade" id="idmodals" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 										<div class="modal-dialog">
 											<div class="modal-content">
