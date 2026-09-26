@@ -640,7 +640,7 @@ if( $post_order == 1 )
 						sprintf($email_title, $module_info['custom_title'], $data_order['order_code']),
 						$email_contents_to_admin
 					);
-					error_log( '[shops][order_mail] order_id=' . $data_order['id'] . ' admin_send=' . ( $send_admin_mail ? 'success' : 'failed' ) . ' recipients=' . implode( ',', (array)$listmail_notify ) );
+					//error_log( '[shops][order_mail] order_id=' . $data_order['id'] . ' admin_send=' . ( $send_admin_mail ? 'success' : 'failed' ) . ' recipients=' . implode( ',', (array)$listmail_notify ) );
 					
 				} catch (Throwable $e)
 				{

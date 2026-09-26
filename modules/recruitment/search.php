@@ -11,7 +11,7 @@
 if (! defined('NV_IS_MOD_SEARCH')) {
     die('Stop!!!');
 }
-file_put_contents(NV_ROOTDIR . '/debug_seek.log', "search.php của page được include\n", FILE_APPEND);
+//file_put_contents(NV_ROOTDIR . '/debug_seek.log', "search.php của page được include\n", FILE_APPEND);
 
 $db_slave->sqlreset()
     ->select('COUNT(*)')
