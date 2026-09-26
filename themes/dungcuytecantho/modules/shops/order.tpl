@@ -9,9 +9,10 @@
             </div>
             <h2>Đặt hàng thành công!</h2>
             <p>Cảm ơn bạn đã tin tưởng và mua sắm tại cửa hàng chúng tôi</p>
+            <p>Mã đơn hàng: <strong>{ORDER.order_code}</strong></p>
         </div>
         <div class="text-center my-3">
-            <a href="/" class="btn btn-home">
+            <a href="{NV_BASE_SITEURL}" class="btn btn-home">
                 <i class="fa fa-home"></i> Về trang chủ
             </a>
         </div>
@@ -25,7 +26,7 @@
     <i class="fa fa-info-circle"></i> Không có thông tin đơn hàng.
 </div>
 <div class="text-center mt-3">
-    <a href="/shops/" class="btn btn-outline-primary">
+    <a href="{NV_BASE_SITEURL}index.php?nv=shops" class="btn btn-outline-primary">
         <i class="fa fa-shopping-cart"></i> Tiếp tục mua sắm
     </a>
 </div>

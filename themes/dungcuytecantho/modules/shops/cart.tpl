@@ -54,14 +54,14 @@
             <div class="cart-products-total">
                 <h4 class="cart-title">Thông tin giỏ hàng</h4>
                 <div class="coupon-box mb-3">
-                    <form action="{LINK_CART}" method="post">
+                    <div>
                         <div class="form-group">
                             <label for="coupons_code"><strong>Mã giảm giá</strong></label>
                             <input type="text" class="form-control" id="coupons_code" name="coupons_code" value="{C_CODE}" placeholder="Nhập mã giảm giá">
                         </div>
                         <button type="submit" name="coupon_apply_submit" value="1" class="btn btn-primary btn-block">Áp dụng mã</button>
                         <button type="submit" name="coupon_clear_submit" value="1" class="btn btn-default btn-block">Xóa mã</button>
-                    </form>
+                    </div>
                 </div>
                 <!-- BEGIN: coupon_error -->
                 <div class="alert alert-danger">{COUPON_ERROR}</div>
@@ -90,6 +90,10 @@
                 <button type="button" class="btn btn-success btn-block" id="goToPayment">
                     <i class="fa fa-credit-card mr-1"></i> Thanh toán
                 </button>
+                <div id="cartPaymentStatus" class="alert alert-info mt-2" role="status" aria-live="polite" hidden>
+                    <i class="fa fa-spinner fa-spin mr-1" aria-hidden="true"></i>
+                    Đang chuyển đến bước đặt hàng, vui lòng chờ...
+                </div>
             </div>
         </div>
     </div>
@@ -109,8 +113,33 @@ $(document).ready(function() {
             alert('Giỏ hàng trống!');
             return false;
         }
-        $('#fpro').submit();
-        window.location.href = '{NV_BASE_SITEURL}index.php?nv=shops&op=payment';
+
+        var $form = $('#fpro');
+        var $button = $(this);
+        $button
+            .prop('disabled', true)
+            .attr('aria-disabled', 'true')
+            .html('<i class="fa fa-spinner fa-spin mr-1" aria-hidden="true"></i> Đang xử lý...');
+        $('#cartPaymentStatus').prop('hidden', false);
+
+        $.ajax({
+            type: 'POST',
+            url: $form.attr('action'),
+            data: $form.serialize(),
+            success: function() {
+                window.location.href = '{NV_BASE_SITEURL}index.php?nv=shops&op=payment';
+            },
+            error: function() {
+                    $button
+                        .prop('disabled', false)
+                        .removeAttr('aria-disabled')
+                        .html('<i class="fa fa-credit-card mr-1"></i> Thanh toán');
+                    $('#cartPaymentStatus').prop('hidden', true);
+                alert('Không thể cập nhật giỏ hàng. Vui lòng thử lại.');
+            }
+        });
+
+        return false;
     });
 });
 </script>

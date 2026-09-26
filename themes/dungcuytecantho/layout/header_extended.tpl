@@ -90,7 +90,7 @@
 										</div>
 										<div class="cart-footer" id="cartFooter" style="display: none;">
 											<div class="cart-total">
-												<span>Tong cong:</span>
+												<span>Tổng cộng:</span>
 												<span class="total-price" id="totalPrice-popup">0 VND</span>
 											</div>
 											<a class="checkout-btn" href="{NV_BASE_SITEURL}index.php?nv=shops&amp;op=cart" onclick="window.location.href='{NV_BASE_SITEURL}index.php?nv=shops&op=cart'; return false;" ontouchend="window.location.href='{NV_BASE_SITEURL}index.php?nv=shops&op=cart'; return false;">

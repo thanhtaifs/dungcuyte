@@ -98,7 +98,7 @@ if( $nv_Request->isset_request( 'coupons_clear', 'post' ) )
 	die();
 }
 
-$base_url_rewrite = nv_url_rewrite( NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=cart', true );
+$base_url_rewrite = nv_url_rewrite( NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=cart', true );
 if( $_SERVER['REQUEST_URI'] != $base_url_rewrite )
 {
 	Header( 'Location: ' . $base_url_rewrite );
@@ -383,8 +383,8 @@ if( ! empty( $_SESSION[$module_data . '_cart'] ) )
 }
 else
 {
-	Header( 'Location: ' . nv_url_rewrite( NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name, true ) );
-	exit();
+	$data_content = array();
+	$total_cart = '0 ' . nv_shops_get_display_money_unit( $pro_config['money_unit'] );
 }
 
 $page_title = $lang_module['cart_title'];

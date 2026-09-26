@@ -915,8 +915,16 @@ ol {
 }
 
 .checkout-btn:hover {
-  background: linear-gradient(135deg, #5a9600, #65aa00);
-  transform: translateY(-1px);
+
+  transform: translateY(-2px);
+}
+
+.checkout-btn span {
+  color: white;
+}
+
+.checkout-btn i {
+  color: white;
 }
 
 .empty-cart {

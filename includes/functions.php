@@ -1010,6 +1010,7 @@ function nv_sendmail( $from, $to, $subject, $message, $files = '' )
 		{
 
 			$mail->isSMTP();
+			$mail->Timeout = 8;
 			$mail->SMTPAuth = true;
 			$mail->Port = $global_config['smtp_port'];
 			$mail->Host = $global_config['smtp_host'];

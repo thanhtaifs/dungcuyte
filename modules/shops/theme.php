@@ -2388,6 +2388,7 @@ function nv_theme_shops_order_page($success, $error, $order_info)
 {
     global $module_info, $module_file;
     $xtpl = new XTemplate('order.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
+    $xtpl->assign('NV_BASE_SITEURL', NV_BASE_SITEURL);
 
     if ($success) {
         $xtpl->assign('ORDER', $order_info);

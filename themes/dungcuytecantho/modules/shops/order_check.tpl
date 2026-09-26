@@ -130,9 +130,13 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-success btn-block">
+                <button type="submit" id="submitOrder" class="btn btn-success btn-block">
                     <i class="fa fa-credit-card mr-1"></i> Xác nhận đặt hàng
                 </button>
+                <div id="orderSubmitStatus" class="alert alert-info mt-2" role="status" aria-live="polite" hidden>
+                    <i class="fa fa-spinner fa-spin mr-1" aria-hidden="true"></i>
+                    Đang xử lý đơn hàng, vui lòng chờ...
+                </div>
                 <div class="back_to_cart" id="back_to_cart">
                   <button type="button" class="btn-outline-secondary btn-block mt-2">
                     <i class="fa fa-arrow-left mr-1"></i> Quay lại giỏ hàng
@@ -148,6 +152,19 @@
 $(document).ready(function() {
     let now = new Date();
     $("#orderTime").text(now.toLocaleString('vi-VN'));        
+        let orderSubmitting = false;
+        $("#fpost").on("submit", function() {
+            if (orderSubmitting) {
+                return false;
+            }
+
+            orderSubmitting = true;
+            $("#submitOrder")
+                .prop("disabled", true)
+                .attr("aria-disabled", "true")
+                .html('<i class="fa fa-spinner fa-spin mr-1" aria-hidden="true"></i> Đang xử lý...');
+            $("#orderSubmitStatus").prop("hidden", false);
+        });
 });
 </script>
 <!-- END: main -->
