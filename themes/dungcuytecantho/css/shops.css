@@ -1222,6 +1222,116 @@ img.calendar {
   margin-bottom: 10px;
 }
 
+.compare-toolbar {
+  margin-bottom: 10px;
+  text-align: right;
+}
+
+.compare-table {
+  min-width: 860px;
+}
+
+.compare-table > thead > tr > th {
+  vertical-align: top;
+}
+
+.compare-table > thead > tr > th:first-child {
+  width: 150px;
+}
+
+.compare-table .compare-card {
+  min-width: 180px;
+  height: 100%;
+  margin-bottom: 0;
+  overflow: hidden;
+  border: 1px solid rgba(44, 155, 40, 0.14);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 8px 22px rgba(31, 122, 37, 0.07);
+}
+
+.compare-table .compare-card:hover {
+  border-color: rgba(44, 155, 40, 0.32);
+  box-shadow: 0 14px 28px rgba(31, 122, 37, 0.11);
+}
+
+.compare-table .compare-card .image_center {
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f0faec, #fbfff8);
+}
+
+.compare-table .compare-card .image_center img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.compare-table .compare-card .caption h3 {
+  height: auto;
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.compare-table .compare-card .caption h3 a {
+  color: #17301a;
+  text-decoration: none;
+}
+
+.compare-table .compare-card .caption h3 a:hover {
+  color: #2c9b28;
+}
+
+.compare-table .compare-card .price .money {
+  color: #d71920;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.compare-table .compare-card .price .discounts_money {
+  color: #97a397;
+  font-size: 12px;
+}
+
+.compare-table .compare-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+}
+
+.compare-table .compare-actions .btn-primary {
+  border-color: #2c9b28;
+  background: linear-gradient(135deg, #2c9b28, #63bd10);
+  color: #ffffff;
+}
+
+.compare-table .compare-actions .btn-primary:hover,
+.compare-table .compare-actions .btn-primary:focus {
+  border-color: #1f7a25;
+  background: linear-gradient(135deg, #1f7a25, #4f9600);
+  color: #ffffff;
+}
+
+.compare-table .compare-actions .btn-warning {
+  border-color: rgba(44, 155, 40, 0.28);
+  background: #ffffff;
+  color: #2c9b28;
+}
+
+.compare-table .compare-actions .btn-warning:hover,
+.compare-table .compare-actions .btn-warning:focus {
+  border-color: #2c9b28;
+  background: #f0faec;
+  color: #1f7a25;
+}
+
 .tabs {
   position: relative;
   width: 100%;

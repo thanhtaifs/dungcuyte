@@ -941,6 +941,22 @@ function view_home_all($data_content, $compare_id, $html_pages = '', $sort = 0, 
             $xtpl->assign('hometext', $data_row['hometext']);
             $xtpl->assign('PRODUCT_CODE', $data_row['product_code']);
           
+            $can_show_price = nv_shops_can_show_price($data_row);
+            $xtpl->assign('BUTTON_CLASS', $can_show_price ? '' : ' btn-add-to-cart--quote');
+            $xtpl->assign('BUTTON_ICON', $can_show_price ? 'fa-shopping-cart' : 'fa-phone');
+            $xtpl->assign('BUTTON_TEXT', $can_show_price ? 'Thêm vào giỏ hàng' : 'Liên hệ báo giá');
+            $xtpl->assign('BUTTON_ACTION', $can_show_price ? 'addToCart(' . $data_row['id'] . ')' : "window.location.href='tel:0937037770'");
+
+            if (!empty($data_row['listcatid'])) {
+                $cat_ids = explode(',', $data_row['listcatid']);
+                $main_cat_id = trim($cat_ids[0]);
+                if (isset($global_array_shops_cat[$main_cat_id])) {
+                    $xtpl->assign('CATEGORY_NAME', $global_array_shops_cat[$main_cat_id]['title']);
+                    $xtpl->assign('CATEGORY_LINK', $global_array_shops_cat[$main_cat_id]['link']);
+                    $xtpl->assign('CATEGORY_ALIAS', $global_array_shops_cat[$main_cat_id]['alias']);
+                }
+            }
+
             if ($pro_config['active_gift'] and !empty($data_row['gift_content'])) {
                 $xtpl->parse('main.items.gift_content');
             }
@@ -3135,20 +3151,13 @@ function compare($data_pro)
     foreach ($data_pro as $data_row) {
         $xtpl->assign('title_pro', $data_row['title']);
         $xtpl->assign('link_pro', $data_row['link_pro']);
-        $xtpl->parse('main.title');
-        $xtpl->assign('link_pro', $data_row['link_pro']);
         $xtpl->assign('img_pro', $data_row['homeimgthumb']);
-        $xtpl->parse('main.homeimgthumb');
-        $xtpl->assign('intro', $data_row['hometext']);
-        $xtpl->parse('main.hometext');
-        $xtpl->assign('bodytext', nv_clean60($data_row['bodytext'], 400));
-        $xtpl->parse('main.bodytext');
         $xtpl->assign('id', $data_row['id']);
+        $xtpl->assign('LINK', $data_row['link_order']);
 
         if ($pro_config['active_order'] == '1' and $pro_config['active_order_non_detail'] == '1') {
             if (nv_shops_can_show_price($data_row)) {
                 if ($data_row['product_number'] > 0) {
-                    // Kiem tra nhom bat buoc chon khi dat hang
                     $listgroupid = GetGroupID($data_row['id']);
                     $group_requie = 0;
                     if (!empty($listgroupid) and !empty($global_array_group)) {
@@ -3161,29 +3170,33 @@ function compare($data_pro)
                     }
                     $group_requie = $pro_config['active_order_popup'] ? 1 : $group_requie;
                     $xtpl->assign('GROUP_REQUIE', $group_requie);
-
-                    $xtpl->parse('main.button.order');
+                    $xtpl->parse('main.product.order');
                 } else {
-                    $xtpl->parse('main.button.product_empty');
+                    $xtpl->parse('main.product.product_empty');
                 }
             }
         }
-        $xtpl->parse('main.button');
 
         $price = nv_get_price($data_row['id'], $pro_config['money_unit']);
         if ($pro_config['active_price'] == '1') {
             if (nv_shops_can_show_price($data_row)) {
                 $xtpl->assign('PRICE', $price);
-                if ($data_row['discount_id'] and $price['discount_percent'] > 0 and nv_shops_can_show_price($data_row)) {
-                    $xtpl->parse('main.price.discounts');
+                if ($data_row['discount_id'] and $price['discount_percent'] > 0) {
+                    $xtpl->parse('main.product.price.discounts');
                 } else {
-                    $xtpl->parse('main.price.no_discounts');
+                    $xtpl->parse('main.product.price.no_discounts');
                 }
-                $xtpl->parse('main.price');
+                $xtpl->parse('main.product.price');
             } else {
-                $xtpl->parse('main.contact');
+                $xtpl->parse('main.product.contact');
             }
         }
+        $xtpl->parse('main.product');
+
+        $xtpl->assign('intro', $data_row['hometext']);
+        $xtpl->parse('main.hometext');
+        $xtpl->assign('bodytext', nv_clean60($data_row['bodytext'], 400));
+        $xtpl->parse('main.bodytext');
     }
 
     $xtpl->parse('main');

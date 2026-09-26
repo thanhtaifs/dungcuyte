@@ -1,90 +1,69 @@
 <!-- BEGIN: main -->
-<div class="container">
-    <div id="category">  
-    <div class="row ">
+<div class="home-products">
+    <div class="row home-product-row">
 	<!-- BEGIN: loop -->
-        <div class="col-12 col-sm-6 col-md-3">
-            <div class="thumbnail">
-                <div class="image_center">
-                    <a href="{link}" title="{title}">
-						<img src="{src_img}" alt="{title}" data-content='{intro}' data-rel="tooltip" class="img-thumbnail" loading="lazy" decoding="async" width="160" height="160">
-					</a>
-                <div class="new">New</div>
-                </div>
-                <div class="info_pro">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+            <div class="product-card">
+                <div class="product-badges">
                 	<!-- BEGIN: new -->
-                	<span class="label label-success newday">{LANG.newday}</span>
+                	<span class="badge badge-new">New</span>
                 	<!-- END: new -->
-                	<!-- BEGIN: discounts -->
-                	<span class="label label-danger">-{PRICE.discount_percent}{PRICE.discount_unit}</span>
-                	<!-- END: discounts -->
-                	<!-- BEGIN: point -->
-                	<span class="label label-info" title="{point_note}">+{point}</span>
-                	<!-- END: point -->
-                	<!-- BEGIN: gift -->
-                	<span class="label label-success">+<em class="fa fa-gift fa-lg">&nbsp;</em></span>
-                	<!-- END: gift -->
                 </div>
-                <div class="caption text-center">                 
-					<a href="{link}" title="{title_pro}"> {title} </a>			
-    
+                <div class="product-image">
+                    <a href="{link}" title="{title}" data-content='{intro}' data-rel="tooltip">
+						<img src="{src_img}" alt="{title}" class="img-fluid" width="500" height="500" loading="lazy" decoding="async">
+					</a>
+                </div>
+                <div class="product-body product-body--home">
+                    <h3 class="product-title">
+					   <a href="{link}" title="{title}"> {title} </a>
+                    </h3>
+
                     <!-- BEGIN: product_code -->
-                    <p class="label label-default">{PRODUCT_CODE}</p>
+                    <p class="label label-default" style="display:none">{PRODUCT_CODE}</p>
                     <!-- END: product_code -->
-    
+
                     <!-- BEGIN: adminlink -->
                     <p style="display:none">{ADMINLINK}</p>
                     <!-- END: adminlink -->
-    
+
     				<!-- BEGIN: price -->
-    				<p class="price">
+    				<div class="product-price">
                         <!-- BEGIN: discounts -->
-                        <span class="money">{PRICE.sale_format} </span>
-                        <span class="discounts_money">{PRICE.price_format} </span>
+                        <p class="current-price">{PRICE.sale_format} {PRICE.unit}</p>
+                        <p class="old-price discounts_money">{PRICE.price_format} {PRICE.unit}</p>
                         <!-- END: discounts -->
-    
+
     					<!-- BEGIN: no_discounts -->
-    					<span class="money">{PRICE.price_format}</span>
+    					<p class="current-price">{PRICE.price_format} {PRICE.unit}</p>
     					<!-- END: no_discounts -->
-    				</p>
+    				</div>
     				<!-- END: price -->
-    
+
                     <!-- BEGIN: contact -->
-                    <p class="price">
-                        {LANG.detail_pro_price}: <span class="money">{LANG.price_contact}</span>
-                    </p>
+                    <div class="product-price product-price--contact">
+                        <p class="current-price">Liên hệ</p>
+                    </div>
                     <!-- END: contact -->
-    
-                    <!-- BEGIN: compare -->
-                    <p>
-                        <input type="checkbox" value="{ID}"{ch} onclick="nv_compare({ID});" id="compare_{ID}" />
-                        <a href="#" onclick="nv_compare_click();"> &nbsp;{LANG.compare} </a>
-                    </p>
-                    <!-- END: compare -->
-                   
-                    <!--<div class="clearfix deail-more">                    -->
-                    <!--    <a href="{link}"><button type="button" class="btn btn-primary btn-xs">Xem chi tiết</button></a>-->
-                        <!-- BEGIN: product_empty -->
-                    <!--    <button class="btn btn-danger disabled btn-xs">{LANG.product_empty}</button>-->
-                        <!-- END: product_empty -->
-    	               <!-- <a href="javascript:void(0)" title="{link}"  style="display:none"><button type="button" class="btn btn-primary btn-xs">Chi tiết sản phẩm</button></a>-->
-                    <!--</div> -->
+
+                    <button class="btn-add-to-cart" onclick="addToCart({ID})" data-id="{ID}">
+                        <i class="fa fa-shopping-cart"></i>
+                        Thêm vào giỏ hàng
+                    </button>
                 </div>
             </div>
         </div>
     	<!-- END: loop -->
-    	<div class="clearfix">
-    	</div>
-    	<div class="text-center">
-    		{pages}
-    	</div>
 	</div>
+	<!-- BEGIN: pages -->
+	<div aria-label="Page navigation" class="d-flex justify-content-center my-4 home-products-pagination">
+		{pages}
+	</div>
+	<!-- END: pages -->
 </div>
-</div>
-
 
 <!-- BEGIN: modal_loaded -->
-<div class="modal fade" id="idmodals" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="idmodals" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -99,8 +78,7 @@
 </div>
 <!-- END: modal_loaded -->
 
-<div class="msgshow" id="msgshow">
-</div>
+<div class="msgshow" id="msgshow">&nbsp;</div>
 <!-- BEGIN: tooltip_js -->
 <script type="text/javascript">
 	$(document).ready(function() {$("[data-rel='tooltip']").tooltip({

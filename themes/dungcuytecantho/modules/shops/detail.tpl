@@ -342,26 +342,22 @@
 		</div>
 		<!-- END: keywords -->
 
-        		<!-- BEGIN: other -->
-		<div class="panel panel-default under-product">
-			<div class="panel-heading">
-				{LANG.detail_others}
+		<!-- BEGIN: other -->
+		<section class="home-product-section detail-product-section under-product">
+			<div class="home-section-head">
+				<h2 class="section-title"><i class="fa fa-th-large"></i> {LANG.detail_others}</h2>
 			</div>
-			<div class="panel-body">
-				{OTHER}
-			</div>
-		</div>
+			{OTHER}
+		</section>
 		<!-- END: other -->
 
 		<!-- BEGIN: other_view -->
-		<div class="panel panel-default under-product-view">
-			<div class="panel-heading">
-				{LANG.detail_others_view}
+		<section class="home-product-section detail-product-section under-product-view">
+			<div class="home-section-head">
+				<h2 class="section-title"><i class="fa fa-history"></i> {LANG.detail_others_view}</h2>
 			</div>
-			<div class="panel-body">
-				{OTHER_VIEW}
-			</div>
-		</div>
+			{OTHER_VIEW}
+		</section>
 		<!-- END: other_view -->
 	<!-- END: product_detail -->
 </div>
