@@ -437,8 +437,13 @@ function nv_site_theme( $contents, $full = true )
 	$xtpl->assign('LOGO_SRC', $logo_src);
 
 	$size = @getimagesize( NV_ROOTDIR . '/' . $global_config['site_logo'] );
-	$xtpl->assign( 'LOGO_WIDTH', $size[0] );
-	$xtpl->assign( 'LOGO_HEIGHT', $size[1] );
+	if ($size !== false) {
+		$xtpl->assign('LOGO_WIDTH', $size[0]);
+		$xtpl->assign('LOGO_HEIGHT', $size[1]);
+	} else {
+		$xtpl->assign('LOGO_WIDTH', '');
+		$xtpl->assign('LOGO_HEIGHT', '');
+	}
 
 	if( isset( $size['mime'] ) and $size['mime'] == 'application/x-shockwave-flash' )
 	{
