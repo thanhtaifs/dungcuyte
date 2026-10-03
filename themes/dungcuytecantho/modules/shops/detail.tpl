@@ -163,7 +163,11 @@
 						</li>
 					</ul>
 
-					<div class="order-buttons" style="margin-top: 10px;">
+					<div class="detail-promo-notice">
+						<i class="fa fa-tag"></i>
+						<span>Giá ưu đãi chỉ áp dụng cho đơn hàng đặt trực tuyến thành công</span>
+					</div>
+					<div class="order-buttons">
 							<button class="btn btn-danger btn-order" data-id="{proid}" onclick="buyNow(this)">
 							<em class="fa fa-paper-plane-o fa-lg">&nbsp;</em>
 							Mua ngay
