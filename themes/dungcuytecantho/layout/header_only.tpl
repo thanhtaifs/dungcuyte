@@ -62,60 +62,7 @@
 
 		{THEME_CSS}
 		{THEME_SITE_JS}
-        <script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/modernizr.custom.js" defer></script>
-		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.cbpFWSlider.min.js" defer></script>
-		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.slicknav.js" defer></script>
-		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery-ui.min.js" defer></script>
-		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.nice-select.min.js" defer></script>
-		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.easing.1.3.js" defer></script>
-        <script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/jquery.skitter.min.js" defer></script>
-
-
-        <script>
-			window.addEventListener('DOMContentLoaded', function() {
-				if (window.jQuery && $('#cbp-fwslider').length && $.fn.cbpFWSlider) {
-					$('#cbp-fwslider').cbpFWSlider();
-				}
-
-				if (window.jQuery && $('.box_skitter_large').length && $.fn.skitter) {
-					$('.box_skitter_large').skitter({
-						theme: 'clean',
-						numbers_align: 'center',
-						progressbar: true,
-						dots: true,
-						preview: true
-					});
-				}
-
-				var skitterControlLabels = {
-					prev_button: 'Slide trước',
-					next_button: 'Slide tiếp theo',
-					play_pause_button: 'Tạm dừng hoặc tiếp tục slideshow',
-					focus_button: 'Phóng to slideshow'
-				};
-
-				document.querySelectorAll('.box_skitter a.prev_button, .box_skitter a.next_button, .box_skitter a.play_pause_button, .box_skitter a.focus_button').forEach(function(link) {
-					Object.keys(skitterControlLabels).forEach(function(className) {
-						if (link.classList.contains(className)) {
-							link.setAttribute('aria-label', skitterControlLabels[className]);
-							link.setAttribute('title', skitterControlLabels[className]);
-						}
-					});
-
-					if (link.getAttribute('href') === '#') {
-						link.setAttribute('href', window.location.pathname + '#hero-banner');
-					}
-				});
-
-				document.querySelectorAll('.box_skitter a[href=""]').forEach(function(link) {
-					link.setAttribute('href', window.location.pathname + '#hero-banner');
-					if (!link.getAttribute('aria-label')) {
-						link.setAttribute('aria-label', 'Xem banner nổi bật');
-						link.setAttribute('title', 'Xem banner nổi bật');
-					}
-				});
-			});
-
+		<script>
 			window.addEventListener('pageshow', function() {
                 var btn = document.getElementById('topmenu_search_submit');
                 if (btn && btn.disabled) {
