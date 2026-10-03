@@ -22,21 +22,44 @@
 		{THEME_SITE_RSS}
 
 		<link rel="shortcut icon" href="{NV_BASE_SITEURL}themes/{TEMPLATE}/favicon.ico" />
+		<!-- Critical above-the-fold CSS -->
+		<style>
+		*,*::before,*::after{box-sizing:border-box}
+		body{margin:0;font-family:Roboto,Arial,sans-serif;background:#fff;color:#333;font-size:15px;line-height:1.6}
+		img{max-width:100%;height:auto;display:block}
+		a{text-decoration:none;color:#3ca32f}
+		.site-header{background:#fff;border-bottom:1px solid #e8e8e8;position:sticky;top:0;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+		.header__brand{background:#fff}
+		.header__top_menu{background:#3ca32f}
+		.container{width:100%;margin:0 auto;padding:0 15px;max-width:1200px}
+		.site-nav-shell{display:flex;align-items:center;min-height:48px;gap:8px}
+		.humberger__open{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;padding:8px;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center}
+		.humberger__menu__overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1040}
+		.humberger__menu__wrapper{position:fixed;top:0;left:-320px;width:300px;height:100%;background:#fff;z-index:1050;overflow-y:auto;transition:left .3s}
+		.site-brand--header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}
+		.site-brand__logo img{max-height:60px;width:auto}
+		.mobile-nav-brand{display:none}
+		@media(max-width:991px){.header-hotline{display:none}.site-brand__search{flex:1;max-width:400px}.mobile-nav-brand{display:block}}
+		@media(max-width:767px){.site-brand--header{flex-wrap:wrap}.site-brand__search{order:3;width:100%}}
+		</style>
 		<link rel="preload" href="{NV_BASE_SITEURL}themes/dungcuytecantho/fonts/roboto-400.woff" as="font" type="font/woff" crossorigin />
 		<link rel="preload" href="{NV_BASE_SITEURL}themes/dungcuytecantho/fonts/roboto-700.woff" as="font" type="font/woff" crossorigin />
 
         <!-- BEGIN: responsive -->
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css?v=20260919a" rel="stylesheet" />
+        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css?v=20261003a" rel="stylesheet" />
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.responsive.css?v=20260705e" rel="stylesheet" />
         <!-- END: responsive -->
 
         <!-- BEGIN: non_responsive -->
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/bootstrap.non-responsive.css" rel="stylesheet" />
-        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css?v=20260919a" rel="stylesheet" />
+        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css?v=20261003a" rel="stylesheet" />
         <!-- END: non_responsive -->
 
-		<link href="{NV_BASE_SITEURL}themes/dungcuytecantho/css/font-awesome.min.css" rel="stylesheet" />
+		<!-- Font Awesome: non-blocking load -->
+		<link rel="preload" href="{NV_BASE_SITEURL}themes/dungcuytecantho/css/font-awesome.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+		<noscript><link href="{NV_BASE_SITEURL}themes/dungcuytecantho/css/font-awesome.min.css" rel="stylesheet" /></noscript>
+
 		{THEME_CSS}
 		{THEME_SITE_JS}
         <script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/modernizr.custom.js" defer></script>

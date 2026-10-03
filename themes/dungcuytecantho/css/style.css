@@ -13840,3 +13840,153 @@ body {
     min-width: unset;
   }
 }
+
+/* ============================================================
+   LIGHTHOUSE MOBILE OPTIMIZATIONS
+   Applied: 2026-10-03
+   ============================================================ */
+
+/* 1. content-visibility: lazy render for below-fold sections
+   → Giảm rendering time, cải thiện LCP và TBT trên mobile */
+.home-product-section,
+.home-cta-section,
+.home-stats-section,
+.home-about-section,
+.site-footer,
+.shop-detail .panel ~ .detail-product-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+}
+
+/* 2. Touch target minimum 44×44px (WCAG 2.5.5) cho mobile
+   → Sửa lỗi "Tap targets are not sized appropriately" */
+@media (max-width: 767px) {
+  .btn,
+  .btn-order,
+  .btn-add-to-cart,
+  .stock-status-btn,
+  .variant-btn,
+  .nav > li > a,
+  .humberger__open,
+  .mobile-search-toggle,
+  .mobile-cart-toggle,
+  .mobile-drawer__close,
+  .mobile-search-close,
+  .cart-icon-btn,
+  .hero-banner__button,
+  .trust-item,
+  a[href^="tel:"],
+  a[href^="mailto:"],
+  .checkout-btn,
+  .product-title a,
+  .site-nav-branch a {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Nav links: đảm bảo đủ padding dọc cho touch */
+  .humberger__menu__nav li a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Form inputs tối thiểu 44px */
+  input[type="text"],
+  input[type="search"],
+  input[type="email"],
+  select.form-control {
+    min-height: 44px;
+    font-size: 16px; /* Ngăn iOS zoom khi focus */
+  }
+}
+
+/* 3. Ngăn iOS auto-zoom khi focus input trên toàn bộ mobile */
+@media (max-width: 767px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* 4. Tối ưu font rendering
+   → Giảm layout shift (CLS) */
+body {
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 5. Image aspect-ratio để tránh CLS (Cumulative Layout Shift)
+   → Trình duyệt biết trước kích thước, không bị giật layout khi ảnh load */
+.product-image img,
+.product-main-image,
+img[width][height] {
+  aspect-ratio: attr(width) / attr(height);
+}
+
+.product-image {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+/* 6. Skeleton loading placeholder giảm CLS cảm nhận */
+.product-card {
+  contain: layout style;
+}
+
+/* 7. Tối ưu scroll performance */
+.site-header,
+.humberger__menu__wrapper,
+.cart-dropdown {
+  will-change: transform;
+}
+
+/* 8. Giảm paint area không cần thiết */
+.site-header {
+  isolation: isolate;
+}
+
+/* 9. Responsive table – tránh overflow ngang trên mobile */
+@media (max-width: 575px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* 10. Cải thiện readability trên mobile (line-height, font-size) */
+@media (max-width: 575px) {
+  body {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  h1 { font-size: clamp(1.4rem, 5vw, 2rem); }
+  h2 { font-size: clamp(1.2rem, 4vw, 1.6rem); }
+  h3 { font-size: clamp(1rem, 3.5vw, 1.3rem); }
+
+  .product-title a {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  /* Nút mua hàng trên mobile: to hơn, dễ bấm hơn */
+  .btn-add-to-cart {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  /* Giảm padding thừa trong container mobile */
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
