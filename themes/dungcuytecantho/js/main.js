@@ -1214,3 +1214,35 @@ $(function() {
 });
 
 
+
+/* ============================================================
+   USER ACCOUNT BUTTON – Header UI Logic
+   Đọc trạng thái login từ NukeViet qua data attribute
+   được inject bởi theme.php hoặc từ cookie prefix
+   ============================================================ */
+(function () {
+    'use strict';
+
+    function getLoginUrl() {
+        var el = document.getElementById('nv-user-state');
+        return el ? el.getAttribute('data-login-url') || '' : '';
+    }
+
+    function initUserLoginButtons(loginUrl) {
+        if (!loginUrl) return;
+
+        ['userToggle', 'mobileUserToggle'].forEach(function (id) {
+            var button = document.getElementById(id);
+            if (button) {
+                button.addEventListener('click', function () {
+                    window.location.assign(loginUrl);
+                });
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        initUserLoginButtons(getLoginUrl());
+    });
+
+})();

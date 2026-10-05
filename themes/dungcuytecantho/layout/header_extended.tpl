@@ -53,7 +53,7 @@
 								<i class="fa fa-phone"></i>
 							</div>
 							<div class="header-hotline__content">
-								<span class="header-hotline__label">Hotline:</span>
+								<span class="header-hotline__label">Hotline</span>
 								<span class="header-hotline__number">0907 694 868</span>
 							</div>
 						</a>
@@ -62,10 +62,18 @@
 								<i class="fa fa-envelope"></i>
 							</div>
 							<div class="header-hotline__content">
-								<span class="header-hotline__label">Email:</span>
+								<span class="header-hotline__label">Email</span>
 								<span class="header-hotline__number">huynhgiact65@gmail.com</span>
 							</div>
 						</a>
+
+				<!-- User Account Button (Desktop) -->
+				<div class="header-user-btn" id="headerUserBtn">
+					<button class="user-icon-btn" id="userToggle" type="button" aria-label="Tài khoản - Đăng nhập">
+						<i class="fa fa-user"></i>
+						<span class="user-icon-btn__label">TÀI KHOẢN</span>
+					</button>
+				</div>
 						<div class="cart_postion">
 							<div class="position-relative d-inline-block">
 								<button class="cart-icon-btn" id="cartToggle">
@@ -123,6 +131,10 @@
 						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=contact" aria-label="Xem hệ thống cửa hàng và bản đồ chi nhánh"><span class="site-nav-branch__text">Hệ thống cửa hàng và bản đồ</span></a>
 					</div>
 					<div class="mobile-nav-actions">
+							<button class="mobile-user-toggle" id="mobileUserToggle" type="button" aria-label="Đăng nhập">
+								<i class="fa fa-user"></i>
+								<span class="mobile-user-toggle__label">Tài khoản</span>
+							</button>
 						<button class="mobile-search-toggle" type="button" aria-label="Tìm kiếm" aria-controls="mobileSearchPanel" aria-expanded="false">
 							<i class="fa fa-search"></i>
 						</button>
@@ -148,5 +160,6 @@
 			</div>
 			<div class="mobile-search-panel__body"></div>
 		</div>
+
 	</header>
 	[THEME_ERROR_INFO]

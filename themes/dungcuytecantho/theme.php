@@ -600,5 +600,46 @@ function nv_site_theme( $contents, $full = true )
 	if( ! empty( $my_head ) ) $sitecontent = preg_replace( '/(<\/head>)/i', $my_head . '\\1', $sitecontent, 1 );
 	if( ! empty( $my_footer ) ) $sitecontent = preg_replace( '/(<\/body>)/i', $my_footer . '\\1', $sitecontent, 1 );
 
+	// ── Inject user state element cho JavaScript header user button ──
+	$_base = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=users&' . NV_OP_VARIABLE . '=';
+	$_openid_base = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=users&' . NV_OP_VARIABLE . '=oauth&server=';
+	$_is_logged = defined( 'NV_IS_USER' ) ? '1' : '0';
+	$_user_name = '';
+	$_user_email = '';
+	$_user_avatar = '';
+	$_logout_url = '';
+	if( defined( 'NV_IS_USER' ) && ! empty( $user_info ) ) {
+		$_user_name = htmlspecialchars( ! empty( $user_info['first_name'] ) ? $user_info['first_name'] . ' ' . $user_info['last_name'] : $user_info['username'], ENT_QUOTES );
+		$_user_email = htmlspecialchars( $user_info['email'] ?? '', ENT_QUOTES );
+		$_user_avatar = ! empty( $user_info['photo'] ) ? NV_BASE_SITEURL . $user_info['photo'] : '';
+		$_logout_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=users&' . NV_OP_VARIABLE . '=logout';
+	}
+	// Detect OAuth servers
+	$_google_url = '';
+	$_facebook_url = '';
+	if( defined( 'NV_OPENID_ALLOWED' ) && ! empty( $global_config['openid_servers'] ) ) {
+		if( in_array( 'google', $global_config['openid_servers'] ) ) {
+			$_google_url = $_openid_base . 'google';
+		}
+		if( in_array( 'facebook', $global_config['openid_servers'] ) ) {
+			$_facebook_url = $_openid_base . 'facebook';
+		}
+	}
+	$_user_state_html = '<div id="nv-user-state" style="display:none" aria-hidden="true"'
+		. ' data-logged="' . $_is_logged . '"'
+		. ' data-name="' . $_user_name . '"'
+		. ' data-email="' . $_user_email . '"'
+		. ' data-avatar="' . $_user_avatar . '"'
+		. ' data-login-url="' . htmlspecialchars( $_base . 'login', ENT_QUOTES ) . '"'
+		. ' data-register-url="' . htmlspecialchars( $_base . 'register', ENT_QUOTES ) . '"'
+		. ' data-logout-url="' . htmlspecialchars( $_logout_url, ENT_QUOTES ) . '"'
+		. ' data-info-url="' . htmlspecialchars( $_base . 'info', ENT_QUOTES ) . '"'
+		. ' data-pass-url="' . htmlspecialchars( $_base . 'changepass', ENT_QUOTES ) . '"'
+		. ' data-google-url="' . htmlspecialchars( $_google_url, ENT_QUOTES ) . '"'
+		. ' data-facebook-url="' . htmlspecialchars( $_facebook_url, ENT_QUOTES ) . '"'
+		. '></div>';
+	$sitecontent = preg_replace( '/(<\/body>)/i', $_user_state_html . '\\1', $sitecontent, 1 );
+
 	return $sitecontent;
 }
+

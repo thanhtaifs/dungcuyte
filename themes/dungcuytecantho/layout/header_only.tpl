@@ -26,7 +26,7 @@
 		<style>
 		*,*::before,*::after{box-sizing:border-box}
 		body{margin:0;font-family:Roboto,Arial,sans-serif;background:#fff;color:#333;font-size:15px;line-height:1.6}
-		img{max-width:100%;height:auto;display:block}
+		img{max-width:100%;height:auto;}
 		a{text-decoration:none;color:#3ca32f}
 		.site-header{background:#fff;border-bottom:1px solid #e8e8e8;position:sticky;top:0;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.08)}
 		.header__brand{background:#fff}
@@ -47,13 +47,13 @@
 
         <!-- BEGIN: responsive -->
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css?v=20261003a" rel="stylesheet" />
+        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css?v=20261004q" rel="stylesheet" />
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.responsive.css?v=20260705e" rel="stylesheet" />
         <!-- END: responsive -->
 
         <!-- BEGIN: non_responsive -->
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/bootstrap.non-responsive.css" rel="stylesheet" />
-        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css?v=20261003a" rel="stylesheet" />
+        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css?v=20261004q" rel="stylesheet" />
         <!-- END: non_responsive -->
 
 		<!-- Font Awesome: non-blocking load -->
@@ -71,7 +71,7 @@
             });
 		</script>
 		
-		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/main.js?v=20260705e" defer></script>
+		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/main.js?v=20261004c" defer></script>
 		<!-- BEGIN: lt_ie9 -->
 		<script src="{NV_BASE_SITEURL}themes/dungcuytecantho/js/html5shiv.js" defer></script>
 		<script src="{NV_BASE_SITEURL}themes/dungcuytecantho/js/respond.min.js" defer></script>
