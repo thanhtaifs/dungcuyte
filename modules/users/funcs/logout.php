@@ -23,6 +23,7 @@ if( defined( 'NV_IS_ADMIN' ) )
 }
 
 $url_redirect = ! empty( $client_info['referer'] ) ? $client_info['referer'] : ( isset( $_SERVER['SCRIPT_URI'] ) ? $_SERVER['SCRIPT_URI'] : NV_BASE_SITEURL . "index.php?" . NV_LANG_VARIABLE . "=" . NV_LANG_DATA );
+$url_redirect = nv_auth_safe_redirect($url_redirect);
 if( defined( 'NV_IS_USER_FORUM' ) )
 {
 	require_once NV_ROOTDIR . '/' . DIR_FORUM . '/nukeviet/logout.php' ;

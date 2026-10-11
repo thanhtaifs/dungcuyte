@@ -13,5 +13,6 @@
 		<option value="{DISCOUNT.did}" {DISCOUNT.selected} >{DISCOUNT.title}</option>
 		<!-- END: discount -->
 	</select>
+	<input type="hidden" id="typepriceold" value="{TYPEPRICE_OLD}" />
 </td>
 <!-- END:main -->

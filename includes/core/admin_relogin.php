@@ -25,6 +25,8 @@ if( defined( 'NV_IS_ADMIN' ) )
 			$password = '';
 			if( $nv_Request->get_int( 'save', 'post' ) == '1' )
 			{
+				nv_auth_require_csrf();
+				nv_auth_require_rate('admin-relogin', 10, 900);
 				if( $client_info['is_myreferer'] != 1 ) trigger_error( 'Wrong URL', 256 );
 				$nv_password = $nv_Request->get_title( 'nv_password', 'post', '', '' );
 				if( empty( $nv_password ) )
@@ -51,6 +53,7 @@ if( defined( 'NV_IS_ADMIN' ) )
 					}
 					else
 					{
+						nv_auth_rotate_session();
 						$nv_Request->set_Session( 'online', '1|' . NV_CURRENTTIME . '|' . NV_CURRENTTIME . '|0' );
 						$nv_Request->unset_request( 'admin_login_redirect', 'session' );
 
@@ -119,6 +122,7 @@ if( defined( 'NV_IS_ADMIN' ) )
 			$xtpl->assign( 'LOGIN_TITLE', $lang_global['adminlogin'] );
 			$xtpl->assign( 'LOGIN_INFO', $info );
 			$xtpl->assign( 'N_PASSWORD', $lang_global['password'] );
+			$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 			$xtpl->assign( 'N_SUBMIT', $lang_global['loginsubmit'] );
 
 			$xtpl->assign( 'NV_LOGOUT', $lang_global['admin_logout_title'] );

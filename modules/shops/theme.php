@@ -2406,8 +2406,12 @@ function nv_theme_shops_order_page($success, $error, $order_info)
     $xtpl = new XTemplate('order.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
     $xtpl->assign('NV_BASE_SITEURL', NV_BASE_SITEURL);
 
-    if ($success) {
+    if ($success && !empty($order_info)) {
         $xtpl->assign('ORDER', $order_info);
+        $reference = nv_shops_transfer_from_note($order_info['order_note'] ?? '');
+        if ($reference !== '' && !in_array((int)($order_info['transaction_status'] ?? 0), array(3, 4), true)) {
+            $xtpl->assign('BANK_TRANSFER_PANEL', nv_shops_transfer_panel($order_info['order_total'], $reference, $order_info['unit_total']));
+        }
         $xtpl->parse('main.success');
     } elseif (!empty($error)) {
         $xtpl->assign('ERROR', $error);
@@ -2434,6 +2438,10 @@ function users_order($data_content, $data_order, $total_coupons, $order_info, $e
     global $module_info, $lang_module, $lang_global, $module_config, $module_data, $module_file, $module_name, $pro_config, $money_config, $global_array_group, $shipping_data;
     //error_log( 'cell users_order');
     $xtpl = new XTemplate('order_check.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
+    $invoice_requested = isset($data_order['invoice_requested']) ? $data_order['invoice_requested']
+        : strpos($data_order['order_note'] ?? '', 'Yêu cầu xuất hóa đơn mua hàng.') !== false;
+    $xtpl->assign('INVOICE_CHECKED', $invoice_requested ? 'checked' : '');
+    $xtpl->assign('PAYMENT_CHECKSS', md5($GLOBALS['client_info']['session_id'] . $GLOBALS['global_config']['sitekey'] . 'payment'));
     $xtpl->assign('LANG', $lang_module);
     $xtpl->assign('TEMPLATE', $module_info['template']);
     $xtpl->assign('NV_BASE_SITEURL', NV_BASE_SITEURL);
@@ -2536,6 +2544,7 @@ function users_order($data_content, $data_order, $total_coupons, $order_info, $e
     }
 
     $xtpl->assign('price_coupons', nv_number_format($total_coupons, nv_get_decimals($pro_config['money_unit'])));
+    $xtpl->assign('BANK_TRANSFER_PANEL', nv_shops_transfer_panel(max(0, $price_total - $total_coupons), nv_shops_transfer_reference(), $pro_config['money_unit']));
     $xtpl->assign('price_total', nv_number_format($price_total - $total_coupons, nv_get_decimals($pro_config['money_unit'])));
     $xtpl->assign('ORDER_SUBTOTAL', nv_number_format($price_total, nv_get_decimals($pro_config['money_unit'])) . ' ' . nv_shops_get_display_money_unit($pro_config['money_unit']));
     $xtpl->assign('ORDER_COUPON_DISCOUNT', nv_number_format($total_coupons, nv_get_decimals($pro_config['money_unit'])) . ' ' . nv_shops_get_display_money_unit($pro_config['money_unit']));

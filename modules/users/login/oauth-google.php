@@ -25,7 +25,9 @@ $storage = new Session();
 $serviceFactory = new \OAuth\ServiceFactory();
 
 // Setup the credentials for the requests
-$credentials = new Credentials( $global_config['google_client_id'], $global_config['google_client_secret'], NV_MAIN_DOMAIN . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=oauth&server=google' );
+// Local OAuth callbacks must return to the local session, even when the main domain is configured for production.
+$google_callback_domain = in_array( strtolower( NV_SERVER_NAME ), array( 'localhost', '127.0.0.1', '::1', '[::1]' ), true ) ? NV_MY_DOMAIN : NV_MAIN_DOMAIN;
+$credentials = new Credentials( $global_config['google_client_id'], $global_config['google_client_secret'], $google_callback_domain . NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=oauth&server=google' );
 
 // Instantiate the Google service using the credentials, http client and storage mechanism for the token
 /** @var $googleService Google */
@@ -36,22 +38,23 @@ $googleService = $serviceFactory->createService( 'google', $credentials, $storag
 
 if( !empty( $_GET['code'] ) )
 {
+	nv_auth_oauth_state('google', true);
 	// This was a callback request from google, get the token
 	$googleService->requestAccessToken( $_GET['code'] );
 
 	// Send a request with it
 	$result = json_decode( $googleService->request( 'https://www.googleapis.com/oauth2/v1/userinfo' ), true );
-	if( isset( $result['email'] ) )
+	if( !empty($result['id']) && !empty($result['email']) && isset($result['verified_email']) && $result['verified_email'] === true )
 	{
 		$attribs = array(
-			'identity' => $result['link'],
+			'identity' => isset($result['link']) ? $result['link'] : '',
 			'result' => 'is_res',
 			'id' => $result['id'],
 			'contact/email' => $result['email'],
-			'namePerson/first' => $result['family_name'],
-			'namePerson/last' => $result['given_name'],
-			'namePerson' => $result['name'],
-			'person/gender' => $result['gender'],
+			'namePerson/first' => isset($result['given_name']) ? $result['given_name'] : '',
+			'namePerson/last' => isset($result['family_name']) ? $result['family_name'] : '',
+			'namePerson' => isset($result['name']) ? $result['name'] : '',
+			'person/gender' => isset($result['gender']) ? $result['gender'] : '',
 			'server' => $server,
 			'current_mode' => 3
 		);
@@ -59,6 +62,9 @@ if( !empty( $_GET['code'] ) )
 	else
 	{
 		$attribs = array( 'result' => 'notlogin' );
+	}
+	foreach (array('namePerson/first', 'namePerson/last', 'namePerson') as $name_key) {
+		if (isset($attribs[$name_key])) $attribs[$name_key] = nv_htmlspecialchars(strip_tags($attribs[$name_key]));
 	}
 	$nv_Request->set_Session( 'openid_attribs', serialize( $attribs ) );
 
@@ -68,7 +74,7 @@ if( !empty( $_GET['code'] ) )
 }
 else
 {
-	$url = $googleService->getAuthorizationUri();
+	$url = $googleService->getAuthorizationUri(array('state' => nv_auth_oauth_state('google')));
 	Header( 'Location: ' . $url );
 	exit();
 }

@@ -48,6 +48,7 @@ else
 $admin_login_redirect = $nv_Request->get_string( 'admin_login_redirect', 'session', '' );
 if( $nv_Request->isset_request( 'nv_login,nv_password', 'post' ) and $nv_Request->get_title( 'checkss', 'post' ) == $checkss)
 {
+	nv_auth_require_rate('admin-login', 10, 900);
 	$nv_username = $nv_Request->get_title( 'nv_login', 'post', '', 1 );
 	$nv_password = $nv_Request->get_title( 'nv_password', 'post', '' );
 	if( $global_config['gfx_chk'] == 1 )
@@ -97,6 +98,7 @@ if( $nv_Request->isset_request( 'nv_login,nv_password', 'post' ) and $nv_Request
 			if( ( ( $row['username'] == $nv_username and $login_email == false ) or ( $row['email'] == $nv_username and $login_email == true ) ) and $crypt->validate_password( $nv_password, $row['password'] ) )
 			{
 				$userid = $row['userid'];
+				nv_auth_upgrade_password($row, $nv_password);
 			}
 		}
 		$error = $lang_global['loginincorrect'];
@@ -120,7 +122,8 @@ if( $nv_Request->isset_request( 'nv_login,nv_password', 'post' ) and $nv_Request
 				{
 					nv_insert_logs( NV_LANG_DATA, 'login', '[' . $nv_username . '] ' . $lang_global['loginsubmit'], ' Client IP:' . NV_CLIENT_IP, 0 );
 					$admin_id = intval( $row['admin_id'] );
-					$checknum = md5( nv_genpass( 10 ) );
+					nv_auth_rotate_session();
+					$checknum = bin2hex( random_bytes( 16 ) );
 					$array_admin = array(
 						'admin_id' => $admin_id,
 						'checknum' => $checknum,

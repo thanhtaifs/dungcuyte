@@ -9,6 +9,7 @@
  */
 
 if( ! defined( 'NV_IS_MOD_USER' ) ) die( 'Stop!!!' );
+if (!defined('NV_IS_USER')) { http_response_code(403); exit('Authentication required'); }
 
 $page_title = $lang_module['in_group'];
 
@@ -22,6 +23,7 @@ if( $global_config['allowuserpublic'] == 0 )
 else
 {
 	$groups_list = nv_groups_list_pub();
+	foreach (array(1, 2, 3, 4, 5, 6) as $reserved_group) unset($groups_list[$reserved_group]);
 
 	if( empty( $groups_list ) )
 	{

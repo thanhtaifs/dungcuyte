@@ -13,12 +13,25 @@ if( ! defined( 'NV_IS_MOD_USER' ) ) die( 'Stop!!!' );
 if( $global_config['allowuserlogin'] and defined( 'NV_OPENID_ALLOWED' ) )
 {
 	$nv_redirect = $nv_Request->get_title( 'nv_redirect', 'post,get', '' );
+	if (!empty($nv_redirect)) $nv_redirect = nv_base64_encode(nv_auth_safe_redirect(nv_base64_decode($nv_redirect)));
 	$server = $nv_Request->get_string( 'server', 'get', '' );
 	if( ! empty( $server ) and in_array( $server, $global_config['openid_servers'] ) )
 	{
+		if( in_array( $server, array( 'google', 'facebook' ) ) and ( empty( $global_config[$server . '_client_id'] ) or empty( $global_config[$server . '_client_secret'] ) ) )
+		{
+			$nv_Request->set_Session( 'register_oauth_error', $lang_module['register_oauth_unconfigured'] );
+			Header( 'Location: ' . nv_url_rewrite( NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=register', true ) );
+			exit();
+		}
 		if( file_exists(NV_ROOTDIR . '/modules/users/login/oauth-' . $server . '.php') )
 		{
-			include NV_ROOTDIR . '/modules/users/login/oauth-' . $server . '.php';
+			try {
+				include NV_ROOTDIR . '/modules/users/login/oauth-' . $server . '.php';
+			} catch (Throwable $oauth_error) {
+				$nv_Request->unset_request('openid_attribs', 'session');
+				http_response_code(403);
+				exit('Khong the xac thuc dang nhap mang xa hoi. Vui long thu lai.');
+			}
 		}
 		elseif( file_exists(NV_ROOTDIR . '/modules/users/login/cas-' . $server . '.php') )
 		{

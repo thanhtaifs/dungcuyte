@@ -8,6 +8,7 @@
     	<img alt="{LANG.openid_login}" src="{OPENID_IMG_SRC}" width="{OPENID_IMG_WIDTH}" height="{OPENID_IMG_HEIGHT}" />
     </p>
     <form id="loginForm" action="{USER_LOGIN}" method="post" role="form" class="form-horizontal form-tooltip m-bottom">
+		<input type="hidden" name="checkss" value="{AUTH_CHECKSS}" />
     	<div class="m-bottom text-center">
     		{DATA.login_info}
     	</div>

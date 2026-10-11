@@ -9,6 +9,10 @@
  */
 
 if( ! defined( 'NV_IS_MOD_USER' ) ) die( 'Stop!!!' );
+if (!defined('NV_IS_USER')) {
+    http_response_code(403);
+    exit('Authentication required');
+}
 
 $page_title = $lang_module['avata_pagetitle'];
 

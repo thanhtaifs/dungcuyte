@@ -11,6 +11,7 @@
             <p>Cảm ơn bạn đã tin tưởng và mua sắm tại cửa hàng chúng tôi</p>
             <p>Mã đơn hàng: <strong>{ORDER.order_code}</strong></p>
         </div>
+        {BANK_TRANSFER_PANEL}
         <div class="text-center my-3">
             <a href="{NV_BASE_SITEURL}" class="btn btn-home">
                 <i class="fa fa-home"></i> Về trang chủ

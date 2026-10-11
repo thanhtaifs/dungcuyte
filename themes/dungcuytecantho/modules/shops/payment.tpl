@@ -1,48 +1,11 @@
 <!-- BEGIN: main -->
-<form action="{NV_BASE_SITEURL}index.php?nv=shops&op=order" method="post" name="fpost" id="fpost" id="paymentForm">
+<form action="{PAYMENT_ACTION}" method="post" name="fpost" id="fpost">
     <input type="hidden" value="1" name="postorder">    
-    <div class="row">
-        <!-- Cột trái: Thông tin khách hàng và giỏ hàng -->
+    <input type="hidden" name="payment_checkss" value="{PAYMENT_CHECKSS}">
+    <div class="row checkout-layout">
+        <!-- Cột trái: Giỏ hàng, giao hàng và ghi chú -->
         <div class="col-md-8">
-            <!-- Thông tin khách hàng -->
-            <div class="cart-products mb-4">
-                <!-- Vùng hiển thị lỗi -->
-                <div id="formErrorContainer"></div>
-                <h4 class="cart-title mb-3">Thông tin khách hàng</h4>                
-                <div class="form-group row mb-3">
-                    <label class="col-md-3 col-form-label"><strong>Họ và tên:</strong></label>
-                    <div class="col-md-9">
-                        <input type="text" name="order_name" class="form-control" placeholder="Nhập họ và tên" required>
-                    </div>
-                </div>
-                
-                <div class="form-group row mb-3">
-                    <label class="col-md-3 col-form-label"><strong>Email:</strong></label>
-                    <div class="col-md-9">
-                        <input type="email" name="order_email" class="form-control" placeholder="Nhập email" required>
-                    </div>
-                </div>
-                
-                <div class="form-group row mb-3">
-                    <label class="col-md-3 col-form-label"><strong>Số điện thoại:</strong></label>
-                     <div class="col-md-9">
-                        <input type="text" name="order_phone" class="form-control" placeholder="Nhập số điện thoại" required  minlength="10"   maxlength="12">
-                    </div>
-                </div>
-                
-                <div class="form-group row mb-3">
-                    <label class="col-md-3 col-form-label"><strong>Địa chỉ:</strong></label>
-                    <div class="col-md-9">
-                        <textarea name="order_address" class="form-control" rows="3" placeholder="Nhập địa chỉ giao hàng" required></textarea>
-                    </div>
-                </div>
-                <div class="form-group mt-3">
-                    <label>
-                        <input type="checkbox" name="check" value="1" require checked>
-                        {LANG.cart_confirm_info}
-                    </label>
-                </div>
-            </div>
+            <div id="formErrorContainer"></div>
 
             <!-- Giỏ hàng -->
             <div class="cart-products">
@@ -74,6 +37,28 @@
                 </div>
                 <!-- END: loop -->
             </div>
+            <!-- BEGIN: checkout_details -->
+            <div class="checkout-customer-details">
+                <section class="payment-delivery-review" aria-labelledby="paymentDeliveryTitle">
+                    <h5 id="paymentDeliveryTitle"><i class="fa fa-truck" aria-hidden="true"></i> Thông tin giao hàng</h5>
+                    <dl>
+                        <dt>Số điện thoại</dt>
+                        <dd>{DELIVERY_PHONE}</dd>
+                        <dt>Địa chỉ giao hàng</dt>
+                        <dd>{DELIVERY_ADDRESS}</dd>
+                    </dl>
+                    <p>Vui lòng kiểm tra thông tin giao hàng trước khi đặt hàng.</p>
+                    <a href="{PROFILE_URL}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Chỉnh sửa thông tin</a>
+                </section>
+                <section class="payment-invoice-request" aria-labelledby="invoiceNoteTitle">
+                    <h5 id="invoiceNoteTitle">Ghi chú</h5>
+                    <label for="invoiceRequested">
+                        <input type="checkbox" id="invoiceRequested" name="invoice_requested" value="1" {INVOICE_CHECKED}>
+                        Tôi muốn xuất hóa đơn mua hàng
+                    </label>
+                </section>
+            </div>
+            <!-- END: checkout_details -->
         </div>
 
         <!-- Cột phải: Tổng kết đơn hàng -->
@@ -111,6 +96,30 @@
                     </div>
                 </div>
 
+                <div id="bankTransferPanel" hidden>
+                    <p class="alert alert-info">Vui lòng xác nhận đặt hàng trước khi chuyển khoản. QR chính thức sẽ hiển thị cùng mã đơn hàng sau khi đặt hàng thành công.</p>
+                    {BANK_TRANSFER_PANEL}
+                </div>
+                <!-- BEGIN: auth_required -->
+                <div class="alert alert-info payment-auth-required">
+                    <p>{LANG.payment_auth_message}</p>
+                    <a href="{REGISTER_URL}" class="btn btn-default">{LANG.payment_auth_register}</a>
+                    <a href="{LOGIN_URL}" class="btn btn-primary">{LANG.payment_auth_login}</a>
+                </div>
+                <!-- END: auth_required -->
+                <!-- BEGIN: profile_required -->
+                <div class="alert alert-warning">
+                    <p>{LANG.payment_profile_message}</p>
+                    <a href="{PROFILE_URL}" class="btn btn-primary">{LANG.payment_profile_update}</a>
+                </div>
+                <!-- END: profile_required -->
+                <!-- BEGIN: submit_error -->
+                <div class="alert alert-danger">{LANG.payment_submit_error}</div>
+                <!-- END: submit_error -->
+                <!-- BEGIN: authenticated -->
+                <div class="form-group">
+                    <label><input type="checkbox" name="check" value="1" required checked> {LANG.cart_confirm_info}</label>
+                </div>
                 <button type="submit" id="paymentSubmitOrder" class="btn btn-success btn-block">
                     <i class="fa fa-credit-card mr-1"></i> Xác nhận đặt hàng
                 </button>
@@ -118,6 +127,7 @@
                     <i class="fa fa-spinner fa-spin mr-1" aria-hidden="true"></i>
                     Đang xử lý đơn hàng, vui lòng chờ...
                 </div>
+                <!-- END: authenticated -->
                 <div class="back_to_cart" id="back_to_cart">
                   <button type="button" class="btn-outline-secondary btn-block mt-2">
                     <i class="fa fa-arrow-left mr-1"></i> Quay lại giỏ hàng

@@ -270,6 +270,7 @@
 					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Chinh-sach-bao-hanh" aria-label="Chính sách bảo hành" title="Chính sách bảo hành"><i class="fa fa-shield" aria-hidden="true"></i>Chính sách bảo hành</a></li>
 					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Phuong-thuc-thanh-toan" aria-label="Vận chuyển và giao nhận" title="Vận chuyển và giao nhận"><i class="fa fa-truck" aria-hidden="true"></i>Vận chuyển và giao nhận</a></li>
 					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&nv=chinh-sach&op=Phuong-thuc-thanh-toan" aria-label="Phương thức thanh toán" title="Phương thức thanh toán"><i class="fa fa-credit-card" aria-hidden="true"></i>Phương thức thanh toán</a></li>
+					<li><a href="{NV_BASE_SITEURL}index.php?language=vi&amp;nv=chinh-sach&amp;op=huong-dan-xoa-du-lieu-facebook" title="Hướng dẫn yêu cầu xóa dữ liệu Facebook"><i class="fa fa-user-times" aria-hidden="true"></i>Xóa dữ liệu Facebook</a></li>
 				</ul>
 				<div class="footer-verify">
 					<a href="http://online.gov.vn/nen-tang/b5029ee0-9623-46f7-94c5-871262813190" target="_blank" rel="noopener noreferrer">

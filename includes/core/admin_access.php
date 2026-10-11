@@ -145,7 +145,7 @@ function nv_admin_checkdata( $adm_session_value )
 {
 	global $db, $global_config, $db_config;
 
-	$array_admin = unserialize( $adm_session_value );
+	$array_admin = nv_auth_unserialize_array( $adm_session_value );
 
 	if( ! isset( $array_admin['admin_id'] ) or ! is_numeric( $array_admin['admin_id'] ) or $array_admin['admin_id'] <= 0 or ! isset( $array_admin['checknum'] ) or ! preg_match( '/^[a-z0-9]{32}$/', $array_admin['checknum'] ) ) return array();
 
@@ -155,7 +155,7 @@ function nv_admin_checkdata( $adm_session_value )
 		b.sig AS sig, b.gender AS gender, b.photo AS photo, b.birthday AS birthday, b.in_groups AS in_groups, b.last_openid AS last_openid,
 		b.password AS password, b.question AS question, b.answer AS answer
 		FROM ' . NV_AUTHORS_GLOBALTABLE . ' a, ' . NV_USERS_GLOBALTABLE . ' b
-		WHERE a.admin_id = ' . $array_admin['admin_id'] . '
+		WHERE a.admin_id = ' . (int) $array_admin['admin_id'] . '
 		AND a.lev!=0
 		AND a.is_suspend=0
 		AND b.userid=a.admin_id

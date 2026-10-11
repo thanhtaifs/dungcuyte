@@ -2,16 +2,26 @@
 <script type="text/javascript" src="{NV_BASE_SITEURL}js/jquery/jquery.validate.min.js" data-show="after"></script>
 <script type="text/javascript" src="{NV_BASE_SITEURL}js/language/jquery.validator-{NV_LANG_INTERFACE}.js" data-show="after"></script>
 
-<div class="page">
-    <ul class="nav nav-tabs m-bottom">
-    	<li><a href="{URL_MODULE}">{LANG.user_info}</a></li>
-    	<li><a href="{URL_HREF}editinfo">{LANG.editinfo}</a></li>
-    	<li class="active"><a href="{URL_HREF}changepass">{LANG.changepass_title}</a></li>
-    	<li><a href="{URL_HREF}changequestion">{LANG.question2}</a></li>
-    	<!-- BEGIN: allowopenid --><li><a href="{URL_HREF}openid">{LANG.openid_administrator}</a></li><!-- END: allowopenid -->
-    	<!-- BEGIN: regroups --><li><a href="{URL_HREF}regroups">{LANG.in_group}</a></li><!-- END: regroups -->
-    	<!-- BEGIN: logout --><li><a href="{URL_HREF}logout">{LANG.logout_title}</a></li><!-- END: logout -->
-    </ul>
+<div class="page user-account-page">
+    <nav class="user-account-nav" aria-label="{LANG.account_navigation}">
+<div class="user-account-nav__title"><i class="fa fa-user" aria-hidden="true"></i> {LANG.account_navigation}</div>
+<ul class="nav">
+	<li><a href="{URL_MODULE}"><i class="fa fa-user" aria-hidden="true"></i><span>{LANG.user_info}</span></a></li>
+	<li><a href="{URL_HREF}editinfo"><i class="fa fa-pencil-square-o" aria-hidden="true"></i><span>{LANG.editinfo}</span></a></li>
+	<li class="active"><a href="{URL_HREF}changepass" aria-current="page"><i class="fa fa-lock" aria-hidden="true"></i><span>{LANG.changepass_title}</span></a></li>
+	<li><a href="{URL_HREF}changequestion"><i class="fa fa-shield" aria-hidden="true"></i><span>{LANG.question2}</span></a></li>
+	<!-- BEGIN: allowopenid -->
+	<li><a href="{URL_HREF}openid"><i class="fa fa-link" aria-hidden="true"></i><span>{LANG.openid_administrator}</span></a></li>
+	<!-- END: allowopenid -->
+	<!-- BEGIN: regroups -->
+	<li><a href="{URL_HREF}regroups"><i class="fa fa-users" aria-hidden="true"></i><span>{LANG.in_group}</span></a></li>
+	<!-- END: regroups -->
+	<!-- BEGIN: logout -->
+	<li><a href="{URL_HREF}logout" class="user-account-nav__logout"><i class="fa fa-sign-out" aria-hidden="true"></i><span>{LANG.logout_title}</span></a></li>
+	<!-- END: logout -->
+</ul>
+</nav>
+<div class="user-account-content">
     <h2>{LANG.change_pass}</h2>
     <form action="{USER_CHANGEPASS}" method="post" role="form" class="form-horizontal form-tooltip m-bottom">
     	<p class="text-info">
@@ -44,6 +54,7 @@
     		<input type="submit" name="submit" value="{LANG.change_pass}" class="btn btn-primary"/>
     	</div>
     </form>
+</div>
 </div>
 <script type="text/javascript" data-show="after">
 $(document).ready(function(){

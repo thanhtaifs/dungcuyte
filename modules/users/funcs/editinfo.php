@@ -216,7 +216,7 @@ if( $checkss == $array_data['checkss'] )
 			$md5_username = nv_md5safe( $array_data['username'] );
 
 			$stmt = $db->prepare( 'DELETE FROM ' . NV_USERS_GLOBALTABLE . '_reg WHERE md5username= :md5username' );
-			$stmt->bindParam( ':md5username', $md5username, PDO::PARAM_STR );
+			$stmt->bindParam( ':md5username', $md5_username, PDO::PARAM_STR );
 			$stmt->execute();
 			$error_email_change = nv_check_email_change( $email_new );
 			if( ! empty( $error_email_change ) )
@@ -270,7 +270,7 @@ if( $checkss == $array_data['checkss'] )
 		{
 			$tmp_photo = NV_ROOTDIR . '/' . NV_TEMP_DIR . '/' . $array_data['photo'];
 
-			if( ! file_exists( $tmp_photo ) )
+			if( ! nv_auth_valid_avatar( $array_data['photo'], $user_info['userid'] ) )
 			{
 				$array_data['photo'] = '';
 				$error[] = $lang_module['avata_news_not_exists'];

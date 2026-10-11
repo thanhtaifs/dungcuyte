@@ -1,3 +1,5 @@
 # Bỏ thư mục upload/media (ảnh nặng)
 /uploads/
 /images/
+/config.php
+/data/config_global.php

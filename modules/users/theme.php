@@ -30,12 +30,43 @@ function user_register( $gfx_chk, $array_register, $siteterms, $data_questions, 
 	}
 
 	$xtpl = new XTemplate( 'register.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 	$xtpl->assign( 'USER_REGISTER', $user_register );
 	$xtpl->assign( 'NICK_MAXLENGTH', NV_UNICKMAX );
 	$xtpl->assign( 'PASS_MAXLENGTH', NV_UPASSMAX );
 	$xtpl->assign( 'LANG', $lang_module );
 	$xtpl->assign( 'DATA', $array_register );
 	$xtpl->assign( 'NV_SITETERMS', $siteterms );
+	$xtpl->assign( 'OTP_BUTTON', ! empty( $array_register['email_otp_sent'] ) ? $lang_module['register_email_resend_otp'] : $lang_module['register_email_send_otp'] );
+	if( ! empty( $array_register['email_otp_sent'] ) )
+	{
+		$xtpl->parse( 'main.otp_sent' );
+	}
+
+	$social_servers = array();
+	if( $global_config['allowuserlogin'] and defined( 'NV_OPENID_ALLOWED' ) and ! empty( $global_config['openid_servers'] ) )
+	{
+		foreach( array( 'google', 'facebook' ) as $server )
+		{
+			if( in_array( $server, $global_config['openid_servers'] ) )
+			{
+				$social_servers[] = array(
+					'href' => NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=oauth&amp;server=' . $server,
+					'title' => $lang_module['register_email_social_' . $server],
+					'icon' => $server
+				);
+			}
+		}
+	}
+	foreach( $social_servers as $social_server )
+	{
+		$xtpl->assign( 'SOCIAL', $social_server );
+		$xtpl->parse( 'main.social_login.loop' );
+	}
+	if( ! empty( $social_servers ) )
+	{
+		$xtpl->parse( 'main.social_login' );
+	}
 
 	foreach( $data_questions as $array_question_i )
 	{
@@ -216,6 +247,7 @@ function openid_register( $array_register, $siteterms, $data_questions )
 	global $module_info, $module_file, $global_config, $lang_global, $lang_module, $module_name, $nv_redirect;
 
 	$xtpl = new XTemplate( 'openid_register.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 	$xtpl->assign( 'USER_REGISTER', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=register&amp;openid=1' );
 	$xtpl->assign( 'NICK_MAXLENGTH', NV_UNICKMAX );
 	$xtpl->assign( 'PASS_MAXLENGTH', NV_UPASSMAX );
@@ -247,6 +279,7 @@ function user_login( $gfx_chk, $array_login )
 	global $module_info, $module_file, $global_config, $lang_global, $lang_module, $module_name;
 
 	$xtpl = new XTemplate( 'login.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/users' );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 
 	$user_register = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=register';
 	$user_lostpass = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=lostpass';
@@ -260,6 +293,7 @@ function user_login( $gfx_chk, $array_login )
 	$xtpl->assign( 'USER_REGISTER', $user_register );
 	$xtpl->assign( 'USER_LOSTPASS', $user_lostpass );
 	$xtpl->assign( 'LANG', $lang_module );
+	$array_login['nv_password'] = '';
 	$xtpl->assign( 'DATA', $array_login );
 
 	if( $gfx_chk )
@@ -285,8 +319,8 @@ function user_login( $gfx_chk, $array_login )
 		{
 			$assigns['href'] = NV_BASE_SITEURL . "index.php?" . NV_LANG_VARIABLE . "=" . NV_LANG_DATA . "&amp;" . NV_NAME_VARIABLE . "=" . $module_name . "&amp;" . NV_OP_VARIABLE . "=oauth&amp;server=" . $server;
 			$assigns['title'] = ucfirst( $server );
-			$assigns['img_src'] = NV_BASE_SITEURL . "themes/" . $module_info['template'] . "/images/" . $module_file . "/" . $server . ".gif";
-			$assigns['img_width'] = $assigns['img_height'] = 24;
+			$assigns['provider'] = in_array( $server, array( 'google', 'facebook' ) ) ? $server : 'default';
+			$assigns['icon'] = in_array( $server, array( 'google', 'facebook', 'yahoo' ) ) ? $server : 'sign-in';
 
 			$xtpl->assign( 'OPENID', $assigns );
 			$xtpl->parse( 'main.openid.server' );
@@ -313,6 +347,7 @@ function user_openid_login( $gfx_chk, $array_login, $attribs )
 	global $module_info, $module_file, $global_config, $lang_global, $lang_module, $module_name;
 
 	$xtpl = new XTemplate( 'openid_login.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/users' );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 
 	$xtpl->assign( 'USER_LOGIN', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=login&amp;server=' . $attribs['server'] . '&amp;result=1&amp;option=3' );
 	$xtpl->assign( 'USER_REGISTER', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=register' );
@@ -336,6 +371,7 @@ function user_openid_login( $gfx_chk, $array_login, $attribs )
 	}
 
 	$xtpl->assign( 'LANG', $lang_module );
+	$array_login['nv_password'] = '';
 	$xtpl->assign( 'DATA', $array_login );
 
 	if( $gfx_chk )
@@ -367,6 +403,7 @@ function user_openid_login2( $attribs, $array_user_login )
 	global $module_info, $module_file, $global_config, $lang_global, $lang_module, $module_name, $nv_redirect;
 
 	$xtpl = new XTemplate( 'openid_login2.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/users' );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 
 	$xtpl->assign( 'USER_REGISTER', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=register&amp;nv_redirect=' . $nv_redirect );
 	$xtpl->assign( 'USER_LOSTPASS', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=lostpass&amp;nv_redirect=' . $nv_redirect );
@@ -410,6 +447,7 @@ function user_lostpass( $data, $question )
 	global $module_info, $module_file, $global_config, $lang_global, $lang_module, $module_name;
 
 	$xtpl = new XTemplate( 'lostpass.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 
 	$xtpl->assign( 'LANG', $lang_module );
 	$xtpl->assign( 'DATA', $data );
@@ -455,6 +493,7 @@ function user_lostpass_new( $userid, $k )
 	global $module_info, $module_file, $global_config, $lang_global, $lang_module, $module_name;
 
 	$xtpl = new XTemplate( 'lostpass.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 	$xtpl->assign( 'LANG', $lang_module );
 	$xtpl->assign( 'FORM_ACTION', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=lostpass' );
 	$xtpl->assign( 'USERID', $userid );
@@ -477,6 +516,7 @@ function user_lostactivelink( $data, $question )
 	global $module_info, $module_file, $global_config, $lang_global, $lang_module, $module_name;
 
 	$xtpl = new XTemplate( 'lostactivelink.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 	$xtpl->assign( 'LANG', $lang_module );
 	$xtpl->assign( 'DATA', $data );
 
@@ -516,6 +556,7 @@ function user_changepass( $array_data = array() )
 	$groups_list = nv_groups_list_pub();
 
 	$xtpl = new XTemplate( 'changepass.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 	$xtpl->assign( 'USER_CHANGEPASS', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=changepass' );
 	$xtpl->assign( 'LANG', $lang_module );
 	$xtpl->assign( 'DATA', $array_data );
@@ -560,6 +601,7 @@ function user_changequestion( $array_data )
 	$groups_list = nv_groups_list_pub();
 
 	$xtpl = new XTemplate( 'changequestion.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 	$xtpl->assign( 'LANG', $lang_module );
 	$xtpl->assign( 'URL_HREF', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' );
 	$xtpl->assign( 'URL_MODULE', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name );
@@ -609,11 +651,12 @@ function user_changequestion( $array_data )
  */
 function user_info( $data, $array_field_config, $custom_fields, $error )
 {
-	global $module_info, $module_file, $global_config, $lang_global, $lang_module, $module_name;
+	global $module_info, $module_file, $global_config, $lang_global, $lang_module, $module_name, $user_info;
 
 	$groups_list = nv_groups_list_pub();
 
 	$xtpl = new XTemplate( 'info.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 	$xtpl->assign( 'EDITINFO_FORM', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=editinfo' );
 	$xtpl->assign( 'NV_BASE_SITEURL', NV_BASE_SITEURL );
 	$xtpl->assign( 'NV_LANG_INTERFACE', NV_LANG_INTERFACE );
@@ -682,11 +725,11 @@ function user_info( $data, $array_field_config, $custom_fields, $error )
 
 	$xtpl->parse( 'main.name_show_' . $global_config['name_show'] );
 
-	// Parse custom fields
+	// Parse editable fields for the signed-in account, including fields hidden at registration.
 	if( ! empty( $array_field_config ) )
 	{
 		$a = 0;
-		$userid = 0;
+		$userid = (int) $user_info['userid'];
 		foreach( $array_field_config as $row )
 		{
 			if( ( $row['show_register'] and $userid == 0 ) or $userid > 0 )
@@ -838,9 +881,10 @@ function user_info( $data, $array_field_config, $custom_fields, $error )
  */
 function user_welcome()
 {
-	global $module_info, $module_file, $global_config, $lang_global, $lang_module, $module_name, $user_info, $lang_global, $module_config;
+	global $module_info, $module_file, $global_config, $lang_global, $lang_module, $module_name, $user_info, $lang_global, $module_config, $db;
 
 	$xtpl = new XTemplate( 'userinfo.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 	$xtpl->assign( 'LANG', $lang_module );
 	$xtpl->assign( 'URL_HREF', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' );
 	$xtpl->assign( 'URL_MODULE', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name );
@@ -895,6 +939,12 @@ function user_welcome()
 	$user_info['pass_empty_note'] = sprintf( $lang_module['pass_empty_note'], NV_BASE_SITEURL . "index.php?" . NV_LANG_VARIABLE . "=" . NV_LANG_DATA . "&amp;" . NV_NAME_VARIABLE . "=" . $module_name . "&amp;" . NV_OP_VARIABLE . "=changepass" );
 	$user_info['question_empty_note'] = sprintf( $lang_module['question_empty_note'], NV_BASE_SITEURL . "index.php?" . NV_LANG_VARIABLE . "=" . NV_LANG_DATA . "&amp;" . NV_NAME_VARIABLE . "=" . $module_name . "&amp;" . NV_OP_VARIABLE . "=editinfo&amp;changequestion" );
 
+	$delivery_info = $db->query( 'SELECT * FROM ' . NV_USERS_GLOBALTABLE . '_info WHERE userid=' . (int) $user_info['userid'] )->fetch();
+	foreach( array( 'phone', 'address' ) as $field )
+	{
+		$value = isset( $delivery_info[$field] ) ? trim( nv_br2nl( $delivery_info[$field] ) ) : '';
+		$xtpl->assign( 'DELIVERY_' . strtoupper( $field ), $value === '' ? $lang_module['na'] : nl2br( nv_htmlspecialchars( $value ) ) );
+	}
 	$xtpl->assign( 'USER', $user_info );
 
 	if( ! $global_config['allowloginchange'] and ! empty( $user_info['current_openid'] ) and empty( $user_info['last_login'] ) and empty( $user_info['last_agent'] ) and empty( $user_info['last_ip'] ) and empty( $user_info['last_openid'] ) )
@@ -927,6 +977,7 @@ function user_info_exit( $info )
 	global $module_info, $module_file;
 
 	$xtpl = new XTemplate( 'info_exit.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 	$xtpl->assign( 'INFO', $info );
 	$xtpl->parse( 'main' );
 	return $xtpl->text( 'main' );
@@ -944,6 +995,7 @@ function openid_account_confirm( $gfx_chk, $attribs )
 	global $lang_global, $lang_module, $module_info, $module_file, $module_name, $nv_redirect;
 
 	$xtpl = new XTemplate( 'confirm.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 	$xtpl->assign( 'LANG', $lang_module );
 	$xtpl->assign( 'OPENID_LOGIN', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=login&amp;server=' . $attribs['server'] . '&amp;result=1' );
 	$xtpl->assign( 'OPENID_IMG_SRC', NV_BASE_SITEURL . 'themes/' . $module_info['template'] . '/images/' . $module_file . '/openid.gif' );
@@ -991,6 +1043,7 @@ function openid_active_confirm( $gfx_chk, $attribs )
 	global $lang_global, $lang_module, $module_info, $module_file, $module_name;
 
 	$xtpl = new XTemplate( 'active_confirm.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 	$xtpl->assign( 'LANG', $lang_module );
 	$xtpl->assign( 'OPENID_LOGIN', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=login&amp;server=' . $attribs['server'] . '&amp;result=1' );
 	$xtpl->assign( 'OPENID_IMG_SRC', NV_BASE_SITEURL . 'themes/' . $module_info['template'] . '/images/' . $module_file . '/openid.gif' );
@@ -1038,6 +1091,7 @@ function user_openid_administrator( $data )
 	$groups_list = nv_groups_list_pub();
 
 	$xtpl = new XTemplate( 'openid_administrator.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 	$xtpl->assign( 'LANG', $lang_module );
 	$xtpl->assign( 'OPENID_IMG_SRC', NV_BASE_SITEURL . 'themes/' . $module_info['template'] . '/images/' . $module_file . '/openid.gif' );
 	$xtpl->assign( 'OPENID_IMG_WIDTH', 150 );
@@ -1107,6 +1161,7 @@ function nv_regroup_theme( $groups )
 {
 	global $module_info, $module_file, $module_name, $lang_module;
 	$xtpl = new XTemplate( 're_groups.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 	$xtpl->assign( 'URL_HREF', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' );
 	$xtpl->assign( 'URL_MODULE', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name );
 	$xtpl->assign( 'LANG', $lang_module );
@@ -1141,6 +1196,7 @@ function nv_memberslist_theme( $users_array, $array_order_new, $generate_page )
 	global $module_info, $module_file, $lang_module;
 
 	$xtpl = new XTemplate( 'memberslist.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 	$xtpl->assign( 'LANG', $lang_module );
 
 	foreach( $array_order_new as $key => $link )
@@ -1180,6 +1236,7 @@ function nv_memberslist_detail_theme( $item, $array_field_config, $custom_fields
 	global $module_info, $module_file, $lang_module, $module_name, $global_config;
 
 	$xtpl = new XTemplate( 'viewdetailusers.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 	$xtpl->assign( 'LANG', $lang_module );
 	$xtpl->assign( 'URL_HREF', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' );
 	$xtpl->assign( 'URL_MODULE', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name );
@@ -1255,6 +1312,7 @@ function user_info_exit_redirect( $info, $nv_redirect )
 	global $module_info, $module_file, $lang_module;
 
 	$xtpl = new XTemplate( 'info_exit_redirect.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 	$xtpl->assign( 'LANG', $lang_module );
 	$xtpl->assign( 'NV_BASE_SITEURL', NV_BASE_SITEURL );
 	$xtpl->assign( 'INFO', $info );
@@ -1281,6 +1339,7 @@ function nv_avatar( $array )
 	global $module_info, $module_file, $module_name, $lang_module, $global_config;
 
 	$xtpl = new XTemplate( 'avatar.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 	$xtpl->assign( 'NV_BASE_SITEURL', NV_BASE_SITEURL );
 	$xtpl->assign( 'TEMPLATE', $global_config['module_theme'] );
 	$xtpl->assign( 'MODULE_FILE', $module_file );

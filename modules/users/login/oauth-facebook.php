@@ -33,22 +33,23 @@ $facebookService = $serviceFactory->createService( 'facebook', $credentials, $st
 
 if( !empty( $_GET['code'] ) )
 {
+	nv_auth_oauth_state('facebook', true);
 	// This was a callback request from facebook, get the token
 	$token = $facebookService->requestAccessToken( $_GET['code'] );
 
 	// Send a request with it
 	$result = json_decode( $facebookService->request( '/me' ), true );
-	if( isset( $result['email'] ) )
+	if( !empty($result['id']) && !empty($result['email']) )
 	{
 		$attribs = array(
-			'identity' => $result['link'],
+			'identity' => isset($result['link']) ? $result['link'] : '',
 			'result' => 'is_res',
 			'id' => $result['id'],
 			'contact/email' => $result['email'],
-			'namePerson/first' => $result['first_name'],
-			'namePerson/last' => $result['last_name'],
-			'namePerson' => $result['name'],
-			'person/gender' => $result['gender'],
+			'namePerson/first' => isset($result['first_name']) ? $result['first_name'] : '',
+			'namePerson/last' => isset($result['last_name']) ? $result['last_name'] : '',
+			'namePerson' => isset($result['name']) ? $result['name'] : '',
+			'person/gender' => isset($result['gender']) ? $result['gender'] : '',
 			'server' => $server,
 			'current_mode' => 3
 		);
@@ -58,6 +59,9 @@ if( !empty( $_GET['code'] ) )
 
 		$attribs = array( 'result' => 'notlogin' );
 	}
+	foreach (array('namePerson/first', 'namePerson/last', 'namePerson') as $name_key) {
+		if (isset($attribs[$name_key])) $attribs[$name_key] = nv_htmlspecialchars(strip_tags($attribs[$name_key]));
+	}
 	$nv_Request->set_Session( 'openid_attribs', serialize( $attribs ) );
 
 	$op_redirect = ( defined( 'NV_IS_USER' )) ? 'openid' : 'login';
@@ -66,7 +70,7 @@ if( !empty( $_GET['code'] ) )
 }
 else
 {
-	$url = $facebookService->getAuthorizationUri();
+	$url = $facebookService->getAuthorizationUri(array('state' => nv_auth_oauth_state('facebook')));
 	Header( 'Location: ' . $url );
 	exit();
 }

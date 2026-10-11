@@ -41,10 +41,17 @@ $error = array( );
 $success = false;
 //error_log('order.php request: method=' . $_SERVER['REQUEST_METHOD'] . ', postorder=' . $post_order . ', success=' . $nv_Request->get_int( 'success', 'get', 0 ));
 
-if( $nv_Request->get_int( 'success', 'get', 0 ) == 1 )
+if( $nv_Request->get_int( 'success', 'get', 0 ) == 1 || $nv_Request->get_int('order_id', 'get', 0) > 0 && !$post_order )
 {
-    $success_order = isset( $_SESSION[$module_data . '_order_success'] ) ? $_SESSION[$module_data . '_order_success'] : array();
-    unset( $_SESSION[$module_data . '_order_success'] );
+    $success_order = array();
+    $requested_order_id = $nv_Request->get_int('order_id', 'get', 0);
+    $order_token = $nv_Request->get_title('checkss', 'get', '');
+    $expected_token = md5($requested_order_id . $global_config['sitekey'] . session_id());
+    if ($requested_order_id > 0 && hash_equals($expected_token, $order_token)) {
+        $saved_order = $db->query('SELECT order_id, order_code, order_total, unit_total, order_note, transaction_status, user_id FROM '
+            . $db_config['prefix'] . '_' . $module_data . '_orders WHERE order_id=' . $requested_order_id)->fetch();
+        if ($saved_order && (int)$saved_order['user_id'] === (int)($user_info['userid'] ?? 0)) $success_order = $saved_order;
+    }
 
     $contents = nv_theme_shops_order_page( true, array(), $success_order );
 
@@ -124,6 +131,16 @@ if( !empty( $array_counpons['code'] ) and $array_counpons['check'] )
 
 if( $post_order == 1 )
 {	
+    $checkout_token = md5($client_info['session_id'] . $global_config['sitekey'] . 'payment');
+    if (!hash_equals($checkout_token, $nv_Request->get_title('payment_checkss', 'post', ''))) {
+        http_response_code(403);
+        exit('Invalid checkout token');
+    }
+    $payment_method = $nv_Request->get_title('payment_method', 'post', 'cod');
+    if (!in_array($payment_method, array('cod', 'banking'), true)) {
+        http_response_code(400);
+        exit('Invalid payment method');
+    }
 	//error_log('order.php entered submit branch');
 	//error_log('post_order is 1');
 	$total = 0;
@@ -147,7 +164,7 @@ if( $post_order == 1 )
 			$unit_price = isset( $info['price'] ) ? doubleval( $info['price'] ) : 0;
 			if( $unit_price <= 0 )
 			{
-				$price = nv_get_price( $pro_id, $pro_config['money_unit'], ( int )$info['num'] );
+				$price = nv_get_price( $pro_id, $pro_config['money_unit'], ( int )$info['num'], true );
 				$unit_price = $price['sale'];
 			}
 			$line_price = $unit_price * ( int )$info['num'];
@@ -199,6 +216,14 @@ if( $post_order == 1 )
 	$data_order['order_address'] = nv_substr( $nv_Request->get_title( 'order_address', 'post', '', 1 ), 0, 250 );
 	$data_order['order_phone'] = nv_substr( $nv_Request->get_title( 'order_phone', 'post', '', 1 ), 0, 20 );
 	$data_order['order_note'] = nv_substr( $nv_Request->get_title( 'order_note', 'post', '', 1 ), 0, 2000 );
+    $invoice_note = 'Yêu cầu xuất hóa đơn mua hàng.';
+    $data_order['order_note'] = trim(str_replace($invoice_note, '', $data_order['order_note']));
+    $data_order['invoice_requested'] = $nv_Request->get_int('invoice_requested', 'post', 0) === 1;
+    if ($data_order['invoice_requested']) {
+        $data_order['order_note'] .= ($data_order['order_note'] !== '' ? "\n" : '') . $invoice_note;
+    }
+    $data_order['order_note'] = nv_shops_transfer_note($payment_method, $data_order['order_note'],
+        $payment_method === 'banking' ? nv_shops_transfer_reference() : '');
 	$data_order['order_shipping'] = $nv_Request->get_int( 'order_shipping', 'post', 0 );
 	$check = $nv_Request->get_int( 'check', 'post', 0 );
 
@@ -224,6 +249,7 @@ if( $post_order == 1 )
 	}
 	$_SESSION[$module_data . '_coupons']['discount'] = $total_coupons;
 	
+    if ($data_order['unit_total'] === 'VND') $total = round($total);
 	$data_order['order_total'] = $total;
 	if( empty( $data_order['order_name'] ) )
 		$error['order_name'] = $lang_module['order_name_err'];
@@ -657,12 +683,14 @@ if( $post_order == 1 )
 				'order_phone' => $data_order['order_phone'],
 				'order_address' => $data_order['order_address'],
 				'order_total' => $data_order['order_total'],
-				'unit_total' => $data_order['unit_total']
+				'unit_total' => $data_order['unit_total'],
+                'order_note' => $data_order['order_note']
 			);
 
 			unset( $_SESSION[$module_data . '_cart'] );
 			unset( $_SESSION[$module_data . '_order_info'] );
 			unset( $_SESSION[$module_data . '_coupons'] );
+            unset($_SESSION[$module_data . '_bank_reference']);
 
 			$success_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=order&success=1&order_id=' . $data_order['id'] . '&checkss=' . md5( $data_order['id'] . $global_config['sitekey'] . session_id() );
 			//error_log('order.php redirecting to success page: ' . $success_url);

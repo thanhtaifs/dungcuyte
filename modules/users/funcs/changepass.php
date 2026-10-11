@@ -62,6 +62,7 @@ if( $checkss == $array_data['checkss'] )
 		$stmt = $db->prepare( 'UPDATE ' . NV_USERS_GLOBALTABLE . ' SET password= :password WHERE userid=' . $user_info['userid'] );
 		$stmt->bindParam( ':password', $new_password, PDO::PARAM_STR );
 		$stmt->execute();
+		nv_auth_invalidate_credentials($user_info['userid']);
 
 		$contents = user_info_exit( $lang_module['change_pass_ok'] );
 		$contents .= "<meta http-equiv=\"refresh\" content=\"5;url=" . nv_url_rewrite( NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name, true ) . "\" />";

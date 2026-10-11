@@ -138,7 +138,8 @@ class NV_Error
 			ini_set( 'display_startup_errors', 0 );
 			ini_set( 'track_errors', 1 );
 
-			ini_set( 'log_errors', 0 );
+			// PHP fatal errors bypass error_handler and must remain in the server log.
+			ini_set( 'log_errors', 1 );
 			ini_set( 'display_errors', 0 );
 		}
 	}

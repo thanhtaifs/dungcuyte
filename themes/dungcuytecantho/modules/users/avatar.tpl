@@ -5,6 +5,7 @@
     <div class="users-avupload form-tooltip">
     	<div class="panel-body">
     		<form id="upload-form" method="post" enctype="multipart/form-data" action="{NV_AVATAR_UPLOAD}">
+		<input type="hidden" name="checkss" value="{AUTH_CHECKSS}" />
     			<input type="hidden" id="x1" name="x1"/>
     			<input type="hidden" id="y1" name="y1"/>
     			<input type="hidden" id="x2" name="x2"/>

@@ -415,7 +415,7 @@ function addToCartAndGo(id) {
     success: function (res) {
       console.log('addToCartAndGo success:', res);
       if (res && res.status === 'success') {
-        window.location.href = themeSiteUrl('index.php?nv=shops&op=order');
+        window.location.href = themeSiteUrl('index.php?nv=shops&op=payment');
       } else {
         showMessage('Không thể thêm sản phẩm vào giỏ hàng');
       }

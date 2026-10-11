@@ -78,7 +78,8 @@
     </form>
     <!-- END: step2 -->
     <!-- BEGIN: new_pass -->
-    <form id="lostpassForm" action="{FORM_ACTION}" method="post" role="form" class="form-horizontal m-bottom">   	
+    <form id="lostpassForm" action="{FORM_ACTION}" method="post" role="form" class="form-horizontal m-bottom">
+		<input type="hidden" name="checkss" value="{AUTH_CHECKSS}" />
     	<div class="form-group">
     		<label for="answer" class="col-sm-8 control-label">{LANG.pass_new}<span class="text-danger"> (*)</span>:</label>
     		<div class="col-sm-16">

@@ -33,32 +33,25 @@ $xtpl->assign( 'LANG', $lang_module );
 $xtpl->assign( 'rowcontent', $rowcontent );
 
 $typeprice = ( $cid ) ? $global_array_shops_cat[$cid]['typeprice'] : 1;
+$xtpl->assign( 'TYPEPRICE_OLD', $typeprice );
+
+// Keep the product discount selector available for every category, as in content.tpl.
+$sql = 'SELECT * FROM ' . $db_config['prefix'] . '_' . $module_data . '_discounts';
+$_result = $db->query( $sql );
+while( $_discount = $_result->fetch( ) )
+{
+	$_discount['selected'] = ($_discount['did'] == $rowcontent['discount_id']) ? "selected=\"selected\"" : "";
+	$xtpl->assign( 'DISCOUNT', $_discount );
+	$xtpl->parse( 'main.discount' );
+}
+
 if( $typeprice == 1 )
 {
-	// List discount
-	$sql = 'SELECT * FROM ' . $db_config['prefix'] . '_' . $module_data . '_discounts';
-	$_result = $db->query( $sql );
-	while( $_discount = $_result->fetch( ) )
-	{
-		$_discount['selected'] = ($_discount['did'] == $rowcontent['discount_id']) ? "selected=\"selected\"" : "";
-		$xtpl->assign( 'DISCOUNT', $_discount );
-		$xtpl->parse( 'main.typeprice1.discount' );
-	}
 	$xtpl->parse( 'main.typeprice1' );
 	$xtpl->parse( 'main.product_price' );
 }
 elseif( $typeprice == 2 )
 {
-	// List discount
-	$sql = 'SELECT * FROM ' . $db_config['prefix'] . '_' . $module_data . '_discounts';
-	$_result = $db->query( $sql );
-	while( $_discount = $_result->fetch( ) )
-	{
-		$_discount['selected'] = ($_discount['did'] == $rowcontent['discount_id']) ? "selected=\"selected\"" : "";
-		$xtpl->assign( 'DISCOUNT', $_discount );
-		$xtpl->parse( 'main.typeprice2.discount' );
-	}
-
 	$_arr_price_config = (empty( $rowcontent['price_config'] )) ? array( ) : unserialize( $rowcontent['price_config'] );
 	$i = sizeof( $_arr_price_config );
 	++$i;

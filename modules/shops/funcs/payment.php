@@ -315,6 +315,12 @@ if (!defined('NV_IS_MOD_SHOPS')) die('Stop!!!');
 
 global $module_data, $module_name, $pro_config;
 
+// Existing order links must work after checkout has cleared the cart.
+if ($nv_Request->get_int('order_id', 'get', 0) > 0) {
+    require NV_ROOTDIR . '/modules/' . $module_file . '/funcs/order.php';
+    exit();
+}
+
 // Kiểm tra giỏ hàng rỗng → chuyển hướng về giỏ hàng
 if (empty($_SESSION[$module_data . '_cart'])) {
     header('Location: ' . NV_BASE_SITEURL . 'index.php?' 
@@ -326,18 +332,62 @@ if (empty($_SESSION[$module_data . '_cart'])) {
 //         . NV_LANG_VARIABLE . '=vi&' . NV_NAME_VARIABLE . '=' . $module_name 
 //         . '&' . NV_OP_VARIABLE . '=cart');
 
+$payment_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=payment';
+$payment_checkss = md5($client_info['session_id'] . $global_config['sitekey'] . 'payment');
+$payment_profile_ready = false;
+$payment_submit_error = false;
+if (defined('NV_IS_USER')) {
+    $payment_profile = $db->query('SELECT phone, address FROM ' . NV_USERS_GLOBALTABLE . '_info WHERE userid=' . intval($user_info['userid']))->fetch();
+    $payment_customer = array(
+        'order_name' => nv_show_name_user($user_info['first_name'], $user_info['last_name'], $user_info['username']),
+        'order_email' => $user_info['email'],
+        'order_phone' => trim($payment_profile['phone'] ?? ''),
+        'order_address' => trim($payment_profile['address'] ?? '')
+    );
+    $payment_profile_ready = $payment_customer['order_name'] !== ''
+        && nv_check_valid_email($payment_customer['order_email']) === ''
+        && preg_match('/^\+?[0-9][0-9\s().-]{8,19}$/', $payment_customer['order_phone'])
+        && $payment_customer['order_address'] !== '';
+
+    if ($nv_Request->get_int('postorder', 'post', 0) === 1 && $payment_profile_ready) {
+        if (hash_equals($payment_checkss, $nv_Request->get_title('payment_checkss', 'post', ''))) {
+            // Use saved account details instead of customer-supplied checkout fields.
+            foreach ($payment_customer as $field => $value) {
+                $_POST[$field] = $value;
+            }
+            // The current checkout has no separate shipping form.
+            $_POST['order_shipping'] = 0;
+            require NV_ROOTDIR . '/modules/' . $module_file . '/funcs/order.php';
+            exit();
+        }
+        $payment_submit_error = true;
+    }
+}
+
 // Lấy giỏ hàng từ session
 $cart = $_SESSION[$module_data . '_cart'] ?? [];
 $items = [];
 $total = 0;
+$eligible_total = 0;
+$coupon = array();
+$coupon_session = $_SESSION[$module_data . '_coupons'] ?? array();
+if (!empty($coupon_session['check']) && !empty($coupon_session['code'])) {
+    $coupon = nv_shops_get_coupon_info($coupon_session['code']);
+}
 
 foreach ($cart as $pid => $row) {
+    if (empty($row['order'])) continue;
     $cart_id = $pid;
     $pid = isset($row['proid']) ? intval($row['proid']) : intval($pid);
     $qty = intval($row['num'] ?? 1);
     $price = floatval($row['price'] ?? 0);
+    if ($price <= 0) {
+        $current_price = nv_get_price($pid, $pro_config['money_unit'], $qty, true);
+        $price = $current_price['sale'];
+    }
     $subtotal = $qty * $price;
     $total += $subtotal;
+    if (!empty($coupon['product']) && in_array($pid, $coupon['product'])) $eligible_total += $subtotal;
     $product_image = '';
 
     if (!empty($row['variant_image'])) {
@@ -384,9 +434,38 @@ foreach ($cart as $pid => $row) {
     ];
 }
 
+$coupon_calc = nv_shops_get_coupon_discount($coupon, $total, $eligible_total);
+if ($coupon_calc['is_valid']) $total = $coupon_calc['final_total'];
+if (($pro_config['money_unit'] ?? 'VND') === 'VND') $total = round($total);
+
 // Chuẩn bị dữ liệu cho template payment.tpl
 $xtpl = new XTemplate("payment.tpl", NV_ROOTDIR . "/themes/" . $module_info['template'] . "/modules/" . $module_file);
 $xtpl->assign('LANG', $lang_module);
+$xtpl->assign('PAYMENT_ACTION', htmlspecialchars($payment_url, ENT_QUOTES, 'UTF-8'));
+$xtpl->assign('PAYMENT_CHECKSS', $payment_checkss);
+$xtpl->assign('INVOICE_CHECKED', $nv_Request->get_int('invoice_requested', 'post', 0) === 1 ? 'checked' : '');
+$xtpl->assign('BANK_TRANSFER_PANEL', nv_shops_transfer_panel($total, nv_shops_transfer_reference(), $pro_config['money_unit'] ?? 'VND'));
+if (!defined('NV_IS_USER')) {
+    $auth_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=users&' . NV_OP_VARIABLE . '=';
+    $return_url = '&nv_redirect=' . rawurlencode(nv_base64_encode($payment_url));
+    $xtpl->assign('LOGIN_URL', htmlspecialchars($auth_url . 'login' . $return_url, ENT_QUOTES, 'UTF-8'));
+    $xtpl->assign('REGISTER_URL', htmlspecialchars($auth_url . 'register' . $return_url, ENT_QUOTES, 'UTF-8'));
+    $xtpl->parse('main.auth_required');
+} elseif (!$payment_profile_ready) {
+    $profile_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=users&' . NV_OP_VARIABLE . '=editinfo';
+    $xtpl->assign('PROFILE_URL', htmlspecialchars($profile_url, ENT_QUOTES, 'UTF-8'));
+    $xtpl->parse('main.profile_required');
+} else {
+    $profile_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=users&' . NV_OP_VARIABLE . '=editinfo';
+    $xtpl->assign('PROFILE_URL', htmlspecialchars($profile_url, ENT_QUOTES, 'UTF-8'));
+    $xtpl->assign('DELIVERY_PHONE', htmlspecialchars($payment_customer['order_phone'], ENT_QUOTES, 'UTF-8'));
+    $xtpl->assign('DELIVERY_ADDRESS', nl2br(htmlspecialchars(nv_br2nl($payment_customer['order_address']), ENT_QUOTES, 'UTF-8')));
+    $xtpl->parse('main.checkout_details');
+    $xtpl->parse('main.authenticated');
+}
+if ($payment_submit_error) {
+    $xtpl->parse('main.submit_error');
+}
 $xtpl->assign('unit', $pro_config['money_unit'] ?? 'VND');
 $xtpl->assign('dateup', date('d/m/Y'));
 $xtpl->assign('moment', date('H:i:s'));

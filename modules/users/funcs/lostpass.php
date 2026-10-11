@@ -34,14 +34,16 @@ if( ! empty( $u ) and ! empty( $k ) )
 	$row = $db->query( $sql )->fetch();
 	if( ! empty( $row ) )
 	{
-		if( ! empty( $row['passlostkey'] ) and $k == md5( $row['userid'] . $row['passlostkey'] . $global_config['sitekey'] ) )
+		$reset_time = preg_match('/^[a-f0-9]{32}$/D', $row['passlostkey']) ? hexdec(substr($row['passlostkey'], 0, 8)) : 0;
+		if( $reset_time > 0 && $reset_time <= time() && time() - $reset_time < 3600 && hash_equals(md5( $row['userid'] . $row['passlostkey'] . $global_config['sitekey'] ), $k) )
 		{
 			$pass_new = $nv_Request->get_string( 'pass_new', 'post' );
 			$pass_new_re = $nv_Request->get_string( 'pass_new_re', 'post' );
-			if( $pass_new == $pass_new_re and !empty( $pass_new ) )
+			if( $pass_new === $pass_new_re && nv_check_valid_pass($pass_new, NV_UPASSMAX, NV_UPASSMIN) === '' )
 			{
 				$password = $crypt->hash_password( $pass_new, $global_config['hashprefix'] );
 				$db->query( "UPDATE " . NV_USERS_GLOBALTABLE . " SET password=" . $db->quote( $password ) . ", passlostkey='' WHERE userid=" . $u );
+				nv_auth_invalidate_credentials($u);
 				$contents = $lang_module['change_pass_ok'];
 				$contents .= '<meta http-equiv="refresh" content="10;url=' . nv_url_rewrite( NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name, true ) . '" />';
 			}
@@ -137,7 +139,7 @@ else
 							if ( $rand < 6) $rand = 6;
 							$password_new = nv_genpass( $rand );
 
-							$passlostkey = md5( $row['userid'] . $password_new . $global_config['sitekey'] );
+							$passlostkey = sprintf('%08x', time()) . bin2hex(random_bytes(12));
 							$k = md5( $row['userid'] . $passlostkey . $global_config['sitekey'] );
 
 							$subject = sprintf( $lang_module['lostpass_email_subject'], $global_config['site_name'] );
@@ -162,7 +164,7 @@ else
 								$info = $lang_global['error_sendmail'];
 							}
 
-							$nv_redirect = ! empty( $data['nv_redirect'] ) ? nv_base64_decode( $data['nv_redirect'] ) : nv_url_rewrite( NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name, true );
+							$nv_redirect = ! empty( $data['nv_redirect'] ) ? nv_auth_safe_redirect(nv_base64_decode( $data['nv_redirect'] )) : nv_url_rewrite( NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name, true );
 							$contents = user_info_exit( $info );
 							$contents .= '<meta http-equiv="refresh" content="10;url=' . $nv_redirect . '" />';
 

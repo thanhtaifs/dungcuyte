@@ -12,6 +12,13 @@ if( ! defined( 'NV_SYSTEM' ) ) die( 'Stop!!!' );
 
 define( 'NV_IS_MOD_USER', true );
 
+if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    nv_auth_require_csrf();
+    nv_auth_require_rate('users-post', 60, 900);
+    if ($op === 'login') nv_auth_require_rate('user-login', 20, 900);
+    if ($op === 'lostpass') nv_auth_require_rate('password-reset', 5, 900);
+}
+
 $lang_module['in_groups'] = $lang_global['in_groups'];
 
 /**
@@ -26,12 +33,19 @@ function validUserLog( $array_user, $remember, $opid, $current_mode = 0 )
 {
 	global $db, $db_config, $global_config, $nv_Request;
 
+	if ($opid !== '' && nv_auth_is_admin_user($array_user['userid'])) {
+		http_response_code(403);
+		exit('Administrator social login is not allowed');
+	}
+	nv_auth_rotate_session();
+
 	$remember = intval( $remember );
-	$checknum = md5( nv_genpass( 10 ) );
+	$checknum = bin2hex( random_bytes( 16 ) );
 	$user = array(
 		'userid' => $array_user['userid'],
 		'current_mode' => $current_mode,
 		'checknum' => $checknum,
+		'credential_hash' => hash_hmac('sha256', $array_user['password'], $global_config['sitekey']),
 		'checkhash' => md5( $array_user['userid'] . $checknum . $global_config['sitekey'] . NV_USER_AGENT ),
 		'current_agent' => NV_USER_AGENT,
 		'last_agent' => $array_user['last_agent'],

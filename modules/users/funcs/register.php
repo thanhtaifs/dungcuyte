@@ -25,6 +25,7 @@ if( defined( 'NV_IS_USER_FORUM' ) )
 }
 
 $nv_redirect = $nv_Request->get_title( 'nv_redirect', 'post,get', '' );
+if (!empty($nv_redirect)) $nv_redirect = nv_base64_encode(nv_auth_safe_redirect(nv_base64_decode($nv_redirect)));
 
 // Ngung dang ki thanh vien
 if( ! $global_config['allowuserreg'] )
@@ -293,7 +294,7 @@ if( defined( 'NV_OPENID_ALLOWED' ) and $nv_Request->get_bool( 'openid', 'get', f
 
 			nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['register'], $array_register['username'] . ' | ' . $client_info['ip'] . ' | OpenID', 0 );
 
-			$nv_redirect = ! empty( $nv_redirect ) ? nv_base64_decode( $nv_redirect ) : NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;
+			$nv_redirect = ! empty( $nv_redirect ) ? nv_auth_safe_redirect(nv_base64_decode( $nv_redirect )) : NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;
 
 			Header( 'Location: ' . $nv_redirect );
 			exit();
@@ -323,6 +324,8 @@ if( defined( 'NV_OPENID_ALLOWED' ) and $nv_Request->get_bool( 'openid', 'get', f
 	include NV_ROOTDIR . '/includes/footer.php';
 	exit();
 }
+
+require NV_ROOTDIR . '/modules/users/funcs/register_email_otp.php';
 
 // Dang ky thong thuong
 $page_title = $lang_module['register'];

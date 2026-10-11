@@ -496,7 +496,18 @@ class Request
 			trigger_error( Request::IS_HEADERS_SENT, 256 );
 		}
 
-		session_set_cookie_params( NV_LIVE_SESSION_TIME, $this->cookie_path, $this->cookie_domain, 0, 1 );
+		ini_set('session.use_strict_mode', '1');
+		ini_set('session.use_only_cookies', '1');
+		$https = !empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off';
+		$this->secure = $this->secure || $https;
+		session_set_cookie_params(array(
+			'lifetime' => NV_LIVE_SESSION_TIME,
+			'path' => $this->cookie_path,
+			'domain' => $this->cookie_domain,
+			'secure' => $this->secure,
+			'httponly' => true,
+			'samesite' => 'Lax'
+		));
 
 		session_name( $this->cookie_prefix . '_sess' );
 		session_start();
@@ -1046,7 +1057,7 @@ class Request
 		$expire = intval( $expire );
 		if( ! empty( $expire ) ) $expire += NV_CURRENTTIME;
 
-		return setcookie( $name, $value, $expire, $this->cookie_path, $this->cookie_domain, $this->secure, $this->httponly );
+		return setcookie($name, $value, array('expires' => $expire, 'path' => $this->cookie_path, 'domain' => $this->cookie_domain, 'secure' => $this->secure, 'httponly' => $this->httponly, 'samesite' => 'Lax'));
 	}
 
 	/**

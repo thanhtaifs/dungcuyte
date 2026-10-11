@@ -34,6 +34,7 @@ if( $global_config['allowuserlogin'] and $module_name != 'users' )
 	}
 
 	$xtpl = new XTemplate( 'block.login.tpl', NV_ROOTDIR . '/themes/' . $block_theme . '/modules/users' );
+	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
 
 	if( defined( 'NV_IS_USER' ) )
 	{

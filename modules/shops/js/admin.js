@@ -393,8 +393,12 @@ function nv_change_catid(obj, id) {
 	typeprice = $(obj).find('option:selected').attr("data-label");
 	if (typeprice!=typepriceold)
 	{
-		$('#priceproduct').load(script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=getprice&cid=' + cid + "&id=" + id);
-		$("#typepriceold").val(typeprice);
+		var discountId = $('#priceproduct [name="discount_id"]').val();
+		var moneyUnit = $('#priceproduct [name="money_unit"]').val();
+		$('#priceproduct').load(script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=getprice&cid=' + cid + "&id=" + id, function() {
+			$(this).find('[name="discount_id"]').val(discountId);
+			$(this).find('[name="money_unit"]').val(moneyUnit);
+		});
 	}
 	$('#custom_form').load(script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=custom_form&cid=' + cid + "&id=" + id);
 	$.get( script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=getgroup&cid=' + cid, function( data ) {

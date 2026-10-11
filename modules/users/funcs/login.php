@@ -33,7 +33,7 @@ function openidLogin_Res0( $info )
 	$key_words = $module_info['keywords'];
 	$mod_title = $lang_module['openid_login'];
 	$contents = user_info_exit( $info );
-	$nv_redirect = ! empty( $nv_redirect ) ? nv_base64_decode( $nv_redirect ) : NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;
+	$nv_redirect = ! empty( $nv_redirect ) ? nv_auth_safe_redirect(nv_base64_decode( $nv_redirect )) : NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;
 	$contents .= '<meta http-equiv="refresh" content="3;url=' . nv_url_rewrite( $nv_redirect ) . '" />';
 	include NV_ROOTDIR . '/includes/header.php';
 	echo nv_site_theme( $contents );
@@ -142,15 +142,22 @@ function openidLogin_Res1( $attribs )
 
 	$stmt = $db->prepare( 'SELECT a.userid AS uid, a.email AS uemail, b.active AS uactive FROM ' . NV_USERS_GLOBALTABLE . '_openid a, ' . NV_USERS_GLOBALTABLE . ' b
 		WHERE a.opid= :opid
+		AND a.openid= :server
 		AND a.email= :email
 		AND a.userid=b.userid'
 	);
 	$stmt->bindParam( ':opid', $opid, PDO::PARAM_STR );
+	$stmt->bindParam( ':server', $attribs['server'], PDO::PARAM_STR );
 	$stmt->bindParam( ':email', $email, PDO::PARAM_STR );
 	$stmt->execute();
 	list( $user_id, $op_email, $user_active ) = $stmt->fetch( 3 );
 	if( $user_id )
 	{
+		if (nv_auth_is_admin_user($user_id)) {
+			$nv_Request->unset_request('openid_attribs', 'session');
+			openidLogin_Res0($lang_module['not_logged_in']);
+			die();
+		}
 		$nv_Request->unset_request( 'openid_attribs', 'session' );
 
 		if( $op_email != $email )
@@ -171,7 +178,7 @@ function openidLogin_Res1( $attribs )
 
 			if( defined( 'NV_IS_USER_LOGIN_FORUM_OK' ) )
 			{
-				$nv_redirect = ! empty( $nv_redirect ) ? nv_base64_decode( $nv_redirect ) : NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;
+				$nv_redirect = ! empty( $nv_redirect ) ? nv_auth_safe_redirect(nv_base64_decode( $nv_redirect )) : NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;
 			}
 			else
 			{
@@ -185,7 +192,7 @@ function openidLogin_Res1( $attribs )
 			if( ! empty( $row ) )
 			{
 				validUserLog( $row, 1, $opid, $current_mode );
-				$nv_redirect = ! empty( $nv_redirect ) ? nv_base64_decode( $nv_redirect ) : NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;
+				$nv_redirect = ! empty( $nv_redirect ) ? nv_auth_safe_redirect(nv_base64_decode( $nv_redirect )) : NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;
 			}
 			else
 			{
@@ -203,6 +210,11 @@ function openidLogin_Res1( $attribs )
 
 	if( ! empty( $nv_row ) )
 	{
+		if (nv_auth_is_admin_user($nv_row['userid'])) {
+			$nv_Request->unset_request('openid_attribs', 'session');
+			openidLogin_Res0($lang_module['not_logged_in']);
+			die();
+		}
 		$login_allowed = false;
 
 		if( empty( $nv_row['password'] ) )
@@ -448,7 +460,7 @@ function openidLogin_Res1( $attribs )
 					$row = $db->query( $sql )->fetch();
 					if( ! empty( $row ) )
 					{
-						if( $row['username'] == $nv_username and $crypt->validate( $nv_password, $row['password'] ) )
+						if( $row['username'] == $nv_username and $crypt->validate_password( $nv_password, $row['password'] ) )
 						{
 							if( ! $row['active'] )
 							{
@@ -463,6 +475,7 @@ function openidLogin_Res1( $attribs )
 								$stmt->bindParam( ':email', $email, PDO::PARAM_STR );
 								$stmt->execute();
 								validUserLog( $row, 1, $opid );
+
 							}
 						}
 					}
@@ -473,7 +486,7 @@ function openidLogin_Res1( $attribs )
 			{
 				$nv_Request->unset_request( 'openid_attribs', 'session' );
 
-				$nv_redirect = ! empty( $nv_redirect ) ? nv_base64_decode( $nv_redirect ) : NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;
+				$nv_redirect = ! empty( $nv_redirect ) ? nv_auth_safe_redirect(nv_base64_decode( $nv_redirect )) : NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;
 				$info = $lang_module['login_ok'] . "<br /><br />\n";
 				$info .= "<img border=\"0\" src=\"" . NV_BASE_SITEURL . "images/load_bar.gif\"><br /><br />\n";
 				$info .= '[<a href="' . $nv_redirect . '">' . $lang_module['redirect_to_back'] . '</a>]';
@@ -580,7 +593,7 @@ function openidLogin_Res1( $attribs )
 			$stmt->execute();
 
 			validUserLog( $row, 1, $reg_attribs['opid'], $current_mode );
-			$nv_redirect = ! empty( $nv_redirect ) ? nv_base64_decode( $nv_redirect ) : NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;
+			$nv_redirect = ! empty( $nv_redirect ) ? nv_auth_safe_redirect(nv_base64_decode( $nv_redirect )) : NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;
 
 			Header( 'Location: ' . nv_url_rewrite( $nv_redirect, true ) );
 			exit();
@@ -619,6 +632,7 @@ function openidLogin_Res1( $attribs )
 }
 
 $nv_redirect = $nv_Request->get_title( 'nv_redirect', 'post,get', '' );
+if (!empty($nv_redirect)) $nv_redirect = nv_base64_encode(nv_auth_safe_redirect(nv_base64_decode($nv_redirect)));
 
 //Dang nhap bang Open ID
 if( defined( 'NV_OPENID_ALLOWED' ) )
@@ -629,12 +643,12 @@ if( defined( 'NV_OPENID_ALLOWED' ) )
 		if( $nv_Request->isset_request( 'result', 'get' ) )
 		{
 			$openid_attribs = $nv_Request->get_string( 'openid_attribs', 'session', '' );
-			$openid_attribs = ! empty( $openid_attribs ) ? unserialize( $openid_attribs ) : array();
+			$openid_attribs = ! empty( $openid_attribs ) ? nv_auth_unserialize_array( $openid_attribs ) : array();
 
 			if( empty( $openid_attribs ) or $openid_attribs['server'] != $server )
 			{
 				$nv_Request->unset_request( 'openid_attribs', 'session' );
-				$nv_redirect = ! empty( $nv_redirect ) ? nv_base64_decode( $nv_redirect ) : NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;
+				$nv_redirect = ! empty( $nv_redirect ) ? nv_auth_safe_redirect(nv_base64_decode( $nv_redirect )) : NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;
 				Header( 'Location: ' . nv_url_rewrite( $nv_redirect ) );
 				die();
 			}
@@ -723,6 +737,7 @@ if( $nv_Request->isset_request( 'nv_login', 'post' ) )
 					else
 					{
 						$error = '';
+						nv_auth_upgrade_password($row, $nv_password);
 						validUserLog( $row, 1, '' );
 					}
 				}
@@ -732,7 +747,7 @@ if( $nv_Request->isset_request( 'nv_login', 'post' ) )
 
 	if( empty( $error ) )
 	{
-		$nv_redirect = ! empty( $nv_redirect ) ? nv_base64_decode( $nv_redirect ) : NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;
+		$nv_redirect = ! empty( $nv_redirect ) ? nv_auth_safe_redirect(nv_base64_decode( $nv_redirect )) : NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name;
 		$info = $lang_module['login_ok'] . "<br /><br />\n";
 		$info .= "<img border=\"0\" src=\"" . NV_BASE_SITEURL . "images/load_bar.gif\"><br /><br />\n";
 		$info .= '[<a href="' . $nv_redirect . '">' . $lang_module['redirect_to_back'] . '</a>]';

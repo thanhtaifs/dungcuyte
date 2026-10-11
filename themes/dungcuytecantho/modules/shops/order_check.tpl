@@ -12,7 +12,8 @@
 
 	<form action="{NV_BASE_SITEURL}index.php?nv=shops&op=order" method="post" name="fpost" id="fpost" id="paymentForm">
     <input type="hidden" value="1" name="postorder">    
-    <div class="row">
+    <input type="hidden" name="payment_checkss" value="{PAYMENT_CHECKSS}">
+    <div class="row checkout-layout">
         <!-- Cột trái: Thông tin khách hàng và giỏ hàng -->
         <div class="col-md-8">
             <!-- Thông tin khách hàng -->
@@ -85,6 +86,13 @@
                 </div>
                 <!-- END: rows -->
             </div>
+            <section class="payment-invoice-request checkout-note" aria-labelledby="invoiceNoteTitle">
+                <h5 id="invoiceNoteTitle">Ghi chú</h5>
+                <label for="invoiceRequested">
+                    <input type="checkbox" id="invoiceRequested" name="invoice_requested" value="1" {INVOICE_CHECKED}>
+                    Tôi muốn xuất hóa đơn mua hàng
+                </label>
+            </section>
         </div>
 
         <!-- Cột phải: Tổng kết đơn hàng -->
@@ -130,6 +138,10 @@
                     </div>
                 </div>
 
+                <div id="bankTransferPanel" hidden>
+                    <p class="alert alert-info">Vui lòng xác nhận đặt hàng trước khi chuyển khoản. Kiểm tra số tiền trên QR chính thức sau khi đặt hàng thành công.</p>
+                    {BANK_TRANSFER_PANEL}
+                </div>
                 <button type="submit" id="submitOrder" class="btn btn-success btn-block">
                     <i class="fa fa-credit-card mr-1"></i> Xác nhận đặt hàng
                 </button>

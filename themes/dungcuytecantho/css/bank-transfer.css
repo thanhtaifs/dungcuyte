@@ -1,0 +1,11 @@
+.bank-transfer-card { margin: 16px 0; padding: 18px; border: 1px solid #c9dce9; border-radius: 10px; background: #f6fbff; text-align: left; overflow-wrap: anywhere; }
+.bank-transfer-card h4 { margin: 0 0 12px; text-align: center; }
+.bank-transfer-qr { display: block; max-width: 100%; height: auto; margin: 0 auto 16px; background: #fff; }
+.bank-transfer-card dl { margin-bottom: 12px; }
+.bank-transfer-card dt { color: #526577; margin-top: 10px; font-size: 13px; }
+.bank-transfer-card dd { margin: 3px 0 0; }
+.bank-transfer-card p { font-size: 13px; line-height: 1.6; }
+.bank-copy { border: 1px solid #bdcede; border-radius: 4px; padding: 2px 7px; background: #fff; color: #125c90; font-size: 12px; cursor: pointer; }
+.bank-copy-status { color: #125c90; margin: 0; }
+#bankTransferPanel[hidden], .bank-qr-error[hidden] { display: none !important; }
+

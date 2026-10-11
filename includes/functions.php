@@ -440,12 +440,12 @@ function nv_capcha_txt( $seccode )
  */
 function nv_genpass( $length = 8 )
 {
-	$pass = chr( mt_rand( 65, 90 ) );
+	$pass = chr( random_int( 65, 90 ) );
 
 	for( $k = 0; $k < $length - 1; ++$k )
 	{
-		$probab = mt_rand( 1, 10 );
-		$pass .= ( $probab <= 8 ) ? chr( mt_rand( 97, 122 ) ) : chr( mt_rand( 48, 57 ) );
+		$probab = random_int( 1, 10 );
+		$pass .= ( $probab <= 8 ) ? chr( random_int( 97, 122 ) ) : chr( random_int( 48, 57 ) );
 	}
 
 	return $pass;

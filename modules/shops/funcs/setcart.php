@@ -134,8 +134,17 @@ if (!$row) {
     return_output($contents_msg, $type);
 }
 
+if ($num < 1 || $num > 10000) {
+    return_output('ER_Số lượng sản phẩm không hợp lệ', $type);
+}
+
 if (!empty($variant_id)) {
     $variant_data = nv_shops_get_variant_data_by_id($variant_id, $id);
+    if (empty($variant_data) || (int)$variant_data['status'] !== 1) {
+        return_output('ER_Phân loại sản phẩm không hợp lệ', $type);
+    }
+    // The price used for the order and QR must come from the database.
+    $variant_price = (float)($variant_data['price'] ?? 0);
     if (!empty($variant_data) && empty($variant_label)) {
         $parts = array_filter(array(
             trim($variant_data['option_1']),
@@ -149,7 +158,7 @@ if (!empty($variant_id)) {
 //  CHẶN SẢN PHẨM LIÊN HỆ
 // ==========================
 // Sử dụng hàm nv_get_price() để lấy giá đã áp dụng discount
-$price_info = nv_get_price($id, $row['money_unit'], $num);
+$price_info = nv_get_price($id, $pro_config['money_unit'], $num, true);
 
 // $price_info trả về:
 // - 'price' = giá gốc (original)
@@ -161,6 +170,11 @@ $price_info = nv_get_price($id, $row['money_unit'], $num);
 $price = $price_info['sale'];
 
 if (!empty($variant_id) && $variant_price > 0) {
+    $variant_price = nv_currency_conversion($variant_price, $row['money_unit'], $pro_config['money_unit']);
+    $discount = (float)str_replace(array(',', ' '), array('.', ''), $price_info['discount_percent']);
+    if ($discount > 0) {
+        $variant_price = $price_info['discount_unit'] === '%' ? $variant_price * (1 - $discount / 100) : $variant_price - $discount;
+    }
     $price = $variant_price;
 }
 
@@ -207,6 +221,10 @@ $link = NV_BASE_SITEURL
 //  CẬP NHẬT SESSION GIỎ HÀNG
 // ==========================
 $cart_key = $module_data . '_cart';
+if ($buy_now && !empty($_SESSION[$cart_key])) {
+    foreach ($_SESSION[$cart_key] as &$previous_item) $previous_item['order'] = 0;
+    unset($previous_item);
+}
 $cart_item_key = $id;
 if (!empty($variant_id)) {
     $cart_item_key = $id . '_' . preg_replace('/[^a-zA-Z0-9_\-]/', '', $variant_id);

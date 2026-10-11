@@ -52,6 +52,7 @@
 						</p>
 						<input name="redirect" value="{REDIRECT}" type="hidden"/>
 						<input name="save" id="save" type="hidden" value="1" />
+						<input name="checkss" type="hidden" value="{AUTH_CHECKSS}" />
 						<input class="submitform btn btn-primary" type="submit" value="{N_SUBMIT}" />
 					</form>
 					<p class="text-right" style="padding:10px;">

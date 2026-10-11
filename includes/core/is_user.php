@@ -55,12 +55,12 @@ else
 
 		if( ! empty( $user ) and $global_config['allowuserlogin'] )
 		{
-			$user = unserialize( nv_base64_decode( $user ) );
+			$user = nv_auth_unserialize_array( nv_base64_decode( $user ) );
 
 			if( isset( $user['userid'] ) and isset( $user['checknum'] ) and isset( $user['checkhash'] ) )
 			{
 				$user['userid'] = intval( $user['userid'] );
-				if( $user['checkhash'] == md5( $user['userid'] . $user['checknum'] . $global_config['sitekey'] . NV_USER_AGENT ) )
+				if( is_string($user['checkhash']) && is_string($user['checknum']) && preg_match('/^[a-f0-9]{32}$/D', $user['checknum']) && hash_equals(md5( $user['userid'] . $user['checknum'] . $global_config['sitekey'] . NV_USER_AGENT ), $user['checkhash']) )
 				{
 					$_sql = 'SELECT userid, username, email, first_name, last_name, gender, photo, birthday, regdate,
 						view_mail, remember, in_groups, checknum, last_agent AS current_agent, last_ip AS current_ip, last_login AS current_login,
@@ -68,6 +68,7 @@ else
 						FROM ' . NV_USERS_GLOBALTABLE . ' WHERE userid = ' . $user['userid'] . ' AND active=1';
 
 					$user_info = $db->query( $_sql )->fetch();
+					if (!empty($user_info) && (!isset($user['credential_hash']) || !is_string($user['credential_hash']) || !hash_equals(hash_hmac('sha256', $user_info['password'], $global_config['sitekey']), $user['credential_hash']))) $user_info = array();
 					if( ! empty( $user_info ) )
 					{
 						if( empty( $global_config['allowuserloginmulti'] ) )

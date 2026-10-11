@@ -1,5 +1,6 @@
 <!-- BEGIN: main -->
 <form action="{USER_LOGIN}" method="post" role="form" class="form-tooltip">
+		<input type="hidden" name="checkss" value="{AUTH_CHECKSS}" />
 	<div class="form-group">
 		<div class="input-group">
 			<span class="input-group-addon"><em class="fa fa-user fa-lg">&nbsp;</em></span>

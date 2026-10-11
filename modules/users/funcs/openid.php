@@ -27,7 +27,7 @@ if( $nv_Request->isset_request( 'del', 'get' ) )
 		{
 			if( ! empty( $opid ) and ( empty( $user_info['current_openid'] ) or ( ! empty( $user_info['current_openid'] ) and $user_info['current_openid'] != $opid ) ) )
 			{
-				$stmt = $db->prepare( 'DELETE FROM ' . NV_USERS_GLOBALTABLE . '_openid WHERE opid= :opid' );
+				$stmt = $db->prepare( 'DELETE FROM ' . NV_USERS_GLOBALTABLE . '_openid WHERE opid= :opid AND userid=' . (int) $user_info['userid'] );
 				$stmt->bindParam( ':opid', $opid, PDO::PARAM_STR );
 				$stmt->execute();
 			}
@@ -45,7 +45,12 @@ if( $nv_Request->isset_request( 'server', 'get' ) )
 		if( $nv_Request->isset_request( 'result', 'get' ) )
 		{
 			$attribs = $nv_Request->get_string( 'openid_attribs', 'session', '' );
-			$attribs = ! empty( $attribs ) ? unserialize( $attribs ) : array();
+			$attribs = ! empty( $attribs ) ? nv_auth_unserialize_array( $attribs ) : array();
+			$nv_Request->unset_request('openid_attribs', 'session');
+			if (empty($attribs['server']) || $attribs['server'] !== $server || empty($attribs['id']) || empty($attribs['result']) || $attribs['result'] !== 'is_res' || nv_auth_is_admin_user($user_info['userid'])) {
+				http_response_code(403);
+				exit('Social account linking is not allowed');
+			}
 
 			$email = ( isset( $attribs['contact/email'] ) and nv_check_valid_email( $attribs['contact/email'] ) == '' ) ? $attribs['contact/email'] : '';
 			if( empty( $email ) )

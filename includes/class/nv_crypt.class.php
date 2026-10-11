@@ -60,23 +60,7 @@ class nv_Crypt
 	 */
 	public function hash_password( $password, $hashprefix = '{SSHA}' )
 	{
-		if( $hashprefix == '{SSHA}' )
-		{
-			$salt = substr( str_shuffle( str_repeat( 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789', 4 ) ), 0, 4 );
-			return '{SSHA}' . base64_encode( sha1( $password . $salt, TRUE ) . $salt );
-		}
-		elseif( $hashprefix == '{SHA}' )
-		{
-			return '{SHA}' . base64_encode( sha1( $password, TRUE ) );
-		}
-		elseif( $hashprefix == '{MD5}' )
-		{
-			return '{MD5}' . base64_encode( md5( $password, TRUE ) );
-		}
-		else
-		{
-			return $this->hash( $password );
-		}
+		return password_hash($password, PASSWORD_DEFAULT);
 	}
 	/**
 	 * nv_Crypt::validate_password()
@@ -87,6 +71,8 @@ class nv_Crypt
 	 */
 	public function validate_password( $password, $hash )
 	{
+		if (!is_string($password) || !is_string($hash) || $hash === '') return false;
+		if (!empty(password_get_info($hash)['algo'])) return password_verify($password, $hash);
 		if( substr( $hash, 0, 6 ) == '{SSHA}' )
 		{
 			$salt = substr( base64_decode( substr( $hash, 6 ) ), 20 );
@@ -104,7 +90,7 @@ class nv_Crypt
 		{
 			$validate_hash = $this->hash( $password );
 		}
-		if( $hash == $validate_hash ) return true;
+		if( hash_equals($hash, $validate_hash) ) return true;
 		return false;
 	}
 
