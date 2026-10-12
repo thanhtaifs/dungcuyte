@@ -69,10 +69,10 @@
 
 				<!-- User Account Button (Desktop) -->
 				<div class="header-user-btn" id="headerUserBtn">
-					<button class="user-icon-btn" id="userToggle" type="button" aria-label="Tài khoản - Đăng nhập">
+					<a class="user-icon-btn" id="userToggle" href="{NV_BASE_SITEURL}index.php?nv=users&amp;op=login" aria-label="Tài khoản - Đăng nhập">
 						<i class="fa fa-user"></i>
 						<span class="user-icon-btn__label">TÀI KHOẢN</span>
-					</button>
+					</a>
 				</div>
 						<div class="cart_postion">
 							<div class="position-relative d-inline-block">
@@ -131,10 +131,10 @@
 						<a href="{NV_BASE_SITEURL}index.php?language=vi&nv=contact" aria-label="Xem hệ thống cửa hàng và bản đồ chi nhánh"><span class="site-nav-branch__text">Hệ thống cửa hàng và bản đồ</span></a>
 					</div>
 					<div class="mobile-nav-actions">
-							<button class="mobile-user-toggle" id="mobileUserToggle" type="button" aria-label="Đăng nhập">
+							<a class="mobile-user-toggle" id="mobileUserToggle" href="{NV_BASE_SITEURL}index.php?nv=users&amp;op=login" aria-label="Đăng nhập">
 								<i class="fa fa-user"></i>
 								<span class="mobile-user-toggle__label">Tài khoản</span>
-							</button>
+							</a>
 						<button class="mobile-search-toggle" type="button" aria-label="Tìm kiếm" aria-controls="mobileSearchPanel" aria-expanded="false">
 							<i class="fa fa-search"></i>
 						</button>

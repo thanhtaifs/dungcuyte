@@ -337,7 +337,13 @@ $payment_checkss = md5($client_info['session_id'] . $global_config['sitekey'] . 
 $payment_profile_ready = false;
 $payment_submit_error = false;
 if (defined('NV_IS_USER')) {
-    $payment_profile = $db->query('SELECT phone, address FROM ' . NV_USERS_GLOBALTABLE . '_info WHERE userid=' . intval($user_info['userid']))->fetch();
+    // Allow legacy databases to render checkout before delivery fields are migrated.
+    $nv_frontend_diagnostic_stage = 'checkout_profile:before';
+    $payment_profile = $db->query('SELECT * FROM ' . NV_USERS_GLOBALTABLE . '_info WHERE userid=' . intval($user_info['userid']))->fetch();
+    if ($payment_profile && (!array_key_exists('phone', $payment_profile) || !array_key_exists('address', $payment_profile))) {
+        error_log('[shops-checkout] Missing delivery profile columns phone/address; run tools/setup_checkout_profile.php on hosting.');
+    }
+    $nv_frontend_diagnostic_stage = 'checkout_profile:done';
     $payment_customer = array(
         'order_name' => nv_show_name_user($user_info['first_name'], $user_info['last_name'], $user_info['username']),
         'order_email' => $user_info['email'],
@@ -452,11 +458,11 @@ if (!defined('NV_IS_USER')) {
     $xtpl->assign('REGISTER_URL', htmlspecialchars($auth_url . 'register' . $return_url, ENT_QUOTES, 'UTF-8'));
     $xtpl->parse('main.auth_required');
 } elseif (!$payment_profile_ready) {
-    $profile_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=users&' . NV_OP_VARIABLE . '=editinfo';
+    $profile_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=users&' . NV_OP_VARIABLE . '=editinfo&nv_redirect=' . rawurlencode(nv_base64_encode($payment_url));
     $xtpl->assign('PROFILE_URL', htmlspecialchars($profile_url, ENT_QUOTES, 'UTF-8'));
     $xtpl->parse('main.profile_required');
 } else {
-    $profile_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=users&' . NV_OP_VARIABLE . '=editinfo';
+    $profile_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=users&' . NV_OP_VARIABLE . '=editinfo&nv_redirect=' . rawurlencode(nv_base64_encode($payment_url));
     $xtpl->assign('PROFILE_URL', htmlspecialchars($profile_url, ENT_QUOTES, 'UTF-8'));
     $xtpl->assign('DELIVERY_PHONE', htmlspecialchars($payment_customer['order_phone'], ENT_QUOTES, 'UTF-8'));
     $xtpl->assign('DELIVERY_ADDRESS', nl2br(htmlspecialchars(nv_br2nl($payment_customer['order_address']), ENT_QUOTES, 'UTF-8')));

@@ -9,6 +9,8 @@
  */
 
 if( ! defined( 'NV_MAINFILE' ) ) die( 'Stop!!!' );
+// This file must load its authentication dependency before checking admin sessions.
+require_once NV_ROOTDIR . '/includes/core/auth_security.php';
 /**
  * nv_admin_checkip()
  *

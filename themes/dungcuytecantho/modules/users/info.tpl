@@ -22,9 +22,9 @@
 	<!-- BEGIN: regroups -->
 	<li><a href="{URL_HREF}regroups"><i class="fa fa-users" aria-hidden="true"></i><span>{LANG.in_group}</span></a></li>
 	<!-- END: regroups -->
-	<!-- BEGIN: logout -->
+	<!-- BEGIN: logout --><!-- END: logout -->
+	<!-- account-logout-visible-v2: authenticated account page; empty block supports older renderers. -->
 	<li><a href="{URL_HREF}logout" class="user-account-nav__logout"><i class="fa fa-sign-out" aria-hidden="true"></i><span>{LANG.logout_title}</span></a></li>
-	<!-- END: logout -->
 </ul>
 </nav>
 <div class="user-account-content">
@@ -59,11 +59,23 @@
 	</div>
 	<!-- BEGIN: name_show_0 -->
 	<div class="form-group">
-        <label for="last_name" class="col-sm-6 control-label">{LANG.last_name}:</label>
+        <label for="last_name" class="col-sm-6 control-label">{LANG.last_name} <span class="text-danger"> (*)</span>:</label>
         <div class="col-sm-18">
             <input type="text" class="form-control required" name="last_name" value="{DATA.last_name}" id="last_name" maxlength="100"  placeholder="{LANG.last_name}"/>
         </div>
     </div>
+	<!-- BEGIN: delivery_phone -->
+	<div class="form-group">
+		<label for="profile_phone" class="col-sm-6 control-label">Số điện thoại<span class="text-danger"> (*)</span>:</label>
+		<div class="col-sm-18"><input id="profile_phone" class="form-control required deliveryRequired" type="tel" name="custom_fields[phone]" value="{DELIVERY_VALUE}" maxlength="20" autocomplete="tel" required="required" aria-required="true" /></div>
+	</div>
+	<!-- END: delivery_phone -->
+	<!-- BEGIN: delivery_address -->
+	<div class="form-group">
+		<label for="profile_address" class="col-sm-6 control-label">Địa chỉ giao hàng<span class="text-danger"> (*)</span>:</label>
+		<div class="col-sm-18"><textarea id="profile_address" class="form-control required deliveryRequired" name="custom_fields[address]" maxlength="250" autocomplete="street-address" required="required" aria-required="true">{DELIVERY_VALUE}</textarea></div>
+	</div>
+	<!-- END: delivery_address -->
 	<div class="form-group">
 		<label for="first_name" class="col-sm-6 control-label">{LANG.first_name}:</label>
 		<div class="col-sm-18">
@@ -84,6 +96,18 @@
             <input type="text" class="form-control required" name="last_name" value="{DATA.last_name}" id="last_name" maxlength="100"  placeholder="{LANG.last_name}"/>
         </div>
     </div>
+	<!-- BEGIN: delivery_phone -->
+	<div class="form-group">
+		<label for="profile_phone" class="col-sm-6 control-label">Số điện thoại<span class="text-danger"> (*)</span>:</label>
+		<div class="col-sm-18"><input id="profile_phone" class="form-control required deliveryRequired" type="tel" name="custom_fields[phone]" value="{DELIVERY_VALUE}" maxlength="20" autocomplete="tel" required="required" aria-required="true" /></div>
+	</div>
+	<!-- END: delivery_phone -->
+	<!-- BEGIN: delivery_address -->
+	<div class="form-group">
+		<label for="profile_address" class="col-sm-6 control-label">Địa chỉ giao hàng<span class="text-danger"> (*)</span>:</label>
+		<div class="col-sm-18"><textarea id="profile_address" class="form-control required deliveryRequired" name="custom_fields[address]" maxlength="250" autocomplete="street-address" required="required" aria-required="true">{DELIVERY_VALUE}</textarea></div>
+	</div>
+	<!-- END: delivery_address -->
     <!-- END: name_show_1 -->
 	<div class="form-group">
 		<label for="gender" class="col-sm-6 control-label">{LANG.gender}:</label>
@@ -139,6 +163,7 @@
 		</div>
 	</div>
 	<!-- BEGIN: field -->
+	<!-- profile-editable-fields-v2 -->
 	<!-- BEGIN: loop -->
 	<div class="form-group">
 		<label class="col-sm-6 control-label" data-toggle="tooltip" data-placement="right" title="{FIELD.description}">{FIELD.title}<!-- BEGIN: required --><span class="text-danger"> (*)</span><!-- END: required -->:</label>
@@ -191,6 +216,9 @@
 </form>
 <script type="text/javascript" data-show="after">
 $(document).ready(function() {
+	$.validator.addMethod('deliveryRequired', function(value) {
+		return $.trim(value).length > 0;
+	}, 'Vui lòng nhập thông tin này.');
 	$('#frm').validate();
 	$(".datepicker").datepicker({
 		dateFormat : "dd/mm/yy",

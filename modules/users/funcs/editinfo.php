@@ -104,7 +104,7 @@ $result_field = $db->query( 'SELECT * FROM ' . NV_USERS_GLOBALTABLE . '_field WH
 while( $row_field = $result_field->fetch() )
 {
 	$language = unserialize( $row_field['language'] );
-	$row_field['title'] = ( isset( $language[NV_LANG_DATA] ) ) ? $language[NV_LANG_DATA][0] : $row['field'];
+	$row_field['title'] = ( isset( $language[NV_LANG_DATA] ) ) ? $language[NV_LANG_DATA][0] : $row_field['field'];
 	$row_field['description'] = ( isset( $language[NV_LANG_DATA] ) ) ? nv_htmlspecialchars( $language[NV_LANG_DATA][1] ) : '';
 	if( ! empty( $row_field['field_choices'] ) ) $row_field['field_choices'] = unserialize( $row_field['field_choices'] );
 	elseif( ! empty( $row_field['sql_choices'] ) )
@@ -131,6 +131,21 @@ $query = $db->query( $sql );
 $row = $query->fetch();
 
 $array_data = array();
+$profile_redirect = '';
+$array_data['nv_redirect'] = '';
+$redirect_token = $nv_Request->get_title( 'nv_redirect', 'post,get', '' );
+if( $redirect_token !== '' )
+{
+	$profile_redirect = nv_auth_safe_redirect( nv_base64_decode( $redirect_token ) );
+	if( $profile_redirect !== NV_BASE_SITEURL )
+	{
+		$array_data['nv_redirect'] = nv_base64_encode( $profile_redirect );
+	}
+	else
+	{
+		$profile_redirect = '';
+	}
+}
 $info = '';
 $array_data['checkss'] = md5( $client_info['session_id'] . $global_config['sitekey'] );
 $checkss = $nv_Request->get_title( 'checkss', 'post', '' );
@@ -138,6 +153,34 @@ $checkss = $nv_Request->get_title( 'checkss', 'post', '' );
 $sql = 'SELECT * FROM ' . NV_USERS_GLOBALTABLE . '_info WHERE userid=' . $user_info['userid'];
 $result = $db->query( $sql );
 $custom_fields = $result->fetch();
+
+// Older hosting databases may have delivery columns without custom-field metadata.
+$delivery_columns = $db->query('SHOW COLUMNS FROM ' . NV_USERS_GLOBALTABLE . '_info')->fetchAll(PDO::FETCH_COLUMN);
+$editable_field_names = array_column($array_field_config, 'field');
+foreach (array('phone' => array('Số điện thoại', 'textbox', 20), 'address' => array('Địa chỉ giao hàng', 'textarea', 250)) as $delivery_field => $delivery_settings)
+{
+	if (in_array($delivery_field, $delivery_columns, true) && !in_array($delivery_field, $editable_field_names, true))
+	{
+		$array_field_config[] = array(
+			'field' => $delivery_field, 'title' => $delivery_settings[0], 'description' => '',
+			'field_type' => $delivery_settings[1], 'field_choices' => array(), 'sql_choices' => '',
+			'match_type' => 'none', 'match_regex' => '', 'func_callback' => '',
+			'min_length' => 0, 'max_length' => $delivery_settings[2], 'required' => 1,
+			'show_register' => 0, 'user_editable' => 1, 'show_profile' => 0,
+			'class' => '', 'default_value' => ''
+		);
+	}
+}
+
+// Delivery details are mandatory when editing a member profile.
+foreach ($array_field_config as &$profile_field)
+{
+	if ($profile_field['field'] === 'phone' || $profile_field['field'] === 'address')
+	{
+		$profile_field['required'] = 1;
+	}
+}
+unset($profile_field);
 
 // Thay doi thong tin khac
 $page_title = $mod_title = $lang_module['editinfo_pagetitle'];
@@ -149,7 +192,23 @@ $array_data['email'] = $row['email'];
 $array_data['allowmailchange'] = $global_config['allowmailchange'];
 $array_data['allowloginchange'] = ( $global_config['allowloginchange'] or ( ! empty( $row['last_openid'] ) and empty( $user_info['last_login'] ) and empty( $user_info['last_agent'] ) and empty( $user_info['last_ip'] ) and empty( $user_info['last_openid'] ) ) ) ? 1 : 0;
 
-if( $checkss == $array_data['checkss'] )
+$custom_field_error = '';
+$query_field = array();
+if( $checkss == $array_data['checkss'] && ! empty( $array_field_config ) )
+{
+	$userid = $user_info['userid'];
+	$error = '';
+	$custom_fields = $nv_Request->get_array( 'custom_fields', 'post' );
+	foreach (array('phone', 'address') as $delivery_field)
+	{
+		$custom_fields[$delivery_field] = isset($custom_fields[$delivery_field]) && is_string($custom_fields[$delivery_field])
+			? trim($custom_fields[$delivery_field]) : '';
+	}
+	require NV_ROOTDIR . '/modules/users/fields.check.php';
+	$custom_field_error = $error;
+}
+
+if( $checkss == $array_data['checkss'] && $custom_field_error === '' )
 {
 	$error = array();
 
@@ -347,7 +406,7 @@ if( $checkss == $array_data['checkss'] )
 	$stmt->bindParam( ':photo', $photo, PDO::PARAM_STR );
 	$stmt->bindParam( ':birthday', $array_data['birthday'], PDO::PARAM_STR );
 	$stmt->bindParam( ':view_mail', $array_data['view_mail'], PDO::PARAM_STR );
-	$stmt->execute();
+	$account_saved = $stmt->execute();
 
 	$info = $lang_module['editinfo_ok'];
 	$sec = 3;
@@ -357,30 +416,28 @@ if( $checkss == $array_data['checkss'] )
 		$info = $info . ', ' . sprintf( $lang_module['editinfo_error'], '<span style="color:#fb490b;">' . $error . '</span>' );
 		$sec = 5;
 	}
-	$query_field = array();
 	if( ! empty( $array_field_config ) )
 	{
-		$userid = $user_info['userid'];
-		$error = '';
-		$custom_fields = $nv_Request->get_array( 'custom_fields', 'post' );
-		require NV_ROOTDIR . '/modules/users/fields.check.php';
-		if( empty( $error ) )
+		$profile_saved = $db->query( 'UPDATE ' . NV_USERS_GLOBALTABLE . '_info SET ' . implode( ', ', $query_field ) . ' WHERE userid=' . $user_info['userid'] );
+		if( $account_saved && $profile_saved && $sec == 3 && $profile_redirect !== '' )
 		{
-			$db->query( 'UPDATE ' . NV_USERS_GLOBALTABLE . '_info SET ' . implode( ', ', $query_field ) . ' WHERE userid=' . $user_info['userid'] );
-			$contents = user_info_exit( $info );
-			$contents .= '<meta http-equiv="refresh" content="' . $sec . ';url=' . nv_url_rewrite( NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name, true ) . '" />';
+			Header( 'Location: ' . nv_url_rewrite( $profile_redirect, true ) );
+			exit();
+		}
+		$contents = user_info_exit( $info );
+		$contents .= '<meta http-equiv="refresh" content="' . $sec . ';url=' . nv_url_rewrite( NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name, true ) . '" />';
 
-			include NV_ROOTDIR . '/includes/header.php';
-			echo nv_site_theme( $contents );
-			include NV_ROOTDIR . '/includes/footer.php';
-		}
-		else
-		{
-			$info = $error;
-		}
+		include NV_ROOTDIR . '/includes/header.php';
+		echo nv_site_theme( $contents );
+		include NV_ROOTDIR . '/includes/footer.php';
 	}
 	else
 	{
+		if( $account_saved && $sec == 3 && $profile_redirect !== '' )
+		{
+			Header( 'Location: ' . nv_url_rewrite( $profile_redirect, true ) );
+			exit();
+		}
 		$contents = user_info_exit( $info );
 		$contents .= '<meta http-equiv="refresh" content="' . $sec . ';url=' . nv_url_rewrite( NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name, true ) . '" />';
 
@@ -398,6 +455,15 @@ else
 	$array_data['view_mail'] = intval( $row['view_mail'] );
 	$array_data['photo'] = $row['photo'];
 	$array_data['photo_delete'] = 0;
+	if( $custom_field_error !== '' )
+	{
+		$info = $custom_field_error;
+		$array_data['first_name'] = nv_substr( $nv_Request->get_title( 'first_name', 'post', '', 1 ), 0, 255 );
+		$array_data['last_name'] = nv_substr( $nv_Request->get_title( 'last_name', 'post', '', 1 ), 0, 255 );
+		$array_data['gender'] = nv_substr( $nv_Request->get_title( 'gender', 'post', '', 1 ), 0, 1 );
+		$array_data['birthday'] = nv_substr( $nv_Request->get_title( 'birthday', 'post', '', 0 ), 0, 10 );
+		$array_data['view_mail'] = $nv_Request->get_int( 'view_mail', 'post', 0 );
+	}
 }
 
 // Checked viewmail

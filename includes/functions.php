@@ -10,6 +10,9 @@
 
 if( ! defined( 'NV_MAINFILE' ) ) die( 'Stop!!!' );
 
+// Also initialize authentication helpers when an older hosting mainfile is used.
+require_once NV_ROOTDIR . '/includes/core/auth_security.php';
+
 /**
  * nv_object2array()
  *

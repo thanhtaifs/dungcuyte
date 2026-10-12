@@ -19,7 +19,8 @@ foreach (array('hash_equals', 'random_bytes', 'password_hash', 'password_verify'
     hosting_check(function_exists($function), 'Function: ' . $function);
 }
 $files = array(
-    'mainfile.php', 'includes/constants.php', 'includes/class/error.class.php',
+    'index.php', 'mainfile.php', 'includes/constants.php', 'includes/class/error.class.php',
+    'includes/functions.php', 'includes/core/admin_access.php',
     'includes/core/auth_security.php', 'includes/core/is_user.php',
     'includes/class/request.class.php', 'includes/class/nv_crypt.class.php',
     'modules/shops/functions.php', 'modules/shops/theme.php', 'modules/shops/bank_transfer.php',

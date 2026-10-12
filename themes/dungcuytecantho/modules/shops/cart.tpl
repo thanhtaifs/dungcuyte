@@ -101,6 +101,25 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+    var $paymentButton = $('#goToPayment');
+    var paymentButtonLabel = $paymentButton.html();
+
+    function resetPaymentButton() {
+        $paymentButton
+            .prop('disabled', false)
+            .removeAttr('aria-disabled')
+            .html(paymentButtonLabel);
+        $('#cartPaymentStatus').prop('hidden', true);
+    }
+
+    resetPaymentButton();
+    // Back/Forward can restore the page with its previous loading state.
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted) {
+            resetPaymentButton();
+        }
+    });
+
     let now = new Date();
     $("#cartTime").text(now.toLocaleString('vi-VN'));
 
@@ -130,11 +149,7 @@ $(document).ready(function() {
                 window.location.href = '{NV_BASE_SITEURL}index.php?nv=shops&op=payment';
             },
             error: function() {
-                    $button
-                        .prop('disabled', false)
-                        .removeAttr('aria-disabled')
-                        .html('<i class="fa fa-credit-card mr-1"></i> Thanh toán');
-                    $('#cartPaymentStatus').prop('hidden', true);
+                resetPaymentButton();
                 alert('Không thể cập nhật giỏ hàng. Vui lòng thử lại.');
             }
         });

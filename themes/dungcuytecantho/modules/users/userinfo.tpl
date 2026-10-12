@@ -13,9 +13,9 @@
 	<!-- BEGIN: regroups -->
 	<li><a href="{URL_HREF}regroups"><i class="fa fa-users" aria-hidden="true"></i><span>{LANG.in_group}</span></a></li>
 	<!-- END: regroups -->
-	<!-- BEGIN: logout -->
+	<!-- BEGIN: logout --><!-- END: logout -->
+	<!-- account-logout-visible-v2: authenticated account page; empty block supports older renderers. -->
 	<li><a href="{URL_HREF}logout" class="user-account-nav__logout"><i class="fa fa-sign-out" aria-hidden="true"></i><span>{LANG.logout_title}</span></a></li>
-	<!-- END: logout -->
 </ul>
 </nav>
 <div class="user-account-content">

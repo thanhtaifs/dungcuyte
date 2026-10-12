@@ -47,13 +47,13 @@
 
         <!-- BEGIN: responsive -->
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css?v=20261011-delivery" rel="stylesheet" />
+        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css?v=20261011-checkout-account" rel="stylesheet" />
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.responsive.css?v=20260705e" rel="stylesheet" />
         <!-- END: responsive -->
 
         <!-- BEGIN: non_responsive -->
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/bootstrap.non-responsive.css" rel="stylesheet" />
-        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css?v=20261011-delivery" rel="stylesheet" />
+        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css?v=20261011-checkout-account" rel="stylesheet" />
         <!-- END: non_responsive -->
 
 		<!-- Font Awesome: non-blocking load -->
@@ -71,7 +71,7 @@
             });
 		</script>
 		
-		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/main.js?v=20261010-payment" defer></script>
+		<script src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/main.js?v=20261011-checkout-account" defer></script>
 		<!-- BEGIN: lt_ie9 -->
 		<script src="{NV_BASE_SITEURL}themes/dungcuytecantho/js/html5shiv.js" defer></script>
 		<script src="{NV_BASE_SITEURL}themes/dungcuytecantho/js/respond.min.js" defer></script>

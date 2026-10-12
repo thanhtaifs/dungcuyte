@@ -15602,6 +15602,20 @@ img[width][height] {
   margin: 20px 0;
 }
 
+.site-header a.user-icon-btn,
+.site-header a.mobile-user-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+@media (min-width: 992px) {
+  .site-header a.mobile-user-toggle {
+    display: none;
+  }
+}
+
 @media (max-width: 767px) {
   .checkout-layout .checkout-customer-details {
     grid-template-columns: minmax(0, 1fr);

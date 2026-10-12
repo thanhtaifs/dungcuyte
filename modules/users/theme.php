@@ -570,7 +570,7 @@ function user_changepass( $array_data = array() )
 		$xtpl->parse( 'main.allowopenid' );
 	}
 
-	if( ! defined( 'NV_IS_ADMIN' ) )
+	if( defined( 'NV_IS_USER' ) )
 	{
 		$xtpl->parse( 'main.logout' );
 	}
@@ -614,7 +614,7 @@ function user_changequestion( $array_data )
 	{
 		$xtpl->parse( 'main.regroups' );
 	}
-	if( ! defined( 'NV_IS_ADMIN' ) )
+	if( defined( 'NV_IS_USER' ) )
 	{
 		$xtpl->parse( 'main.logout' );
 	}
@@ -657,7 +657,12 @@ function user_info( $data, $array_field_config, $custom_fields, $error )
 
 	$xtpl = new XTemplate( 'info.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
 	$xtpl->assign('AUTH_CHECKSS', nv_auth_csrf_token());
-	$xtpl->assign( 'EDITINFO_FORM', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=editinfo' );
+	$editinfo_form = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=editinfo';
+	if( ! empty( $data['nv_redirect'] ) )
+	{
+		$editinfo_form .= '&amp;nv_redirect=' . rawurlencode( $data['nv_redirect'] );
+	}
+	$xtpl->assign( 'EDITINFO_FORM', $editinfo_form );
 	$xtpl->assign( 'NV_BASE_SITEURL', NV_BASE_SITEURL );
 	$xtpl->assign( 'NV_LANG_INTERFACE', NV_LANG_INTERFACE );
 	$xtpl->assign( 'LANG', $lang_module );
@@ -681,7 +686,7 @@ function user_info( $data, $array_field_config, $custom_fields, $error )
 		$xtpl->parse( 'main.regroups' );
 	}
 
-	if( ! defined( 'NV_IS_ADMIN' ) )
+	if( defined( 'NV_IS_USER' ) )
 	{
 		$xtpl->parse( 'main.logout' );
 	}
@@ -723,15 +728,25 @@ function user_info( $data, $array_field_config, $custom_fields, $error )
 		$xtpl->parse( 'main.add_photo' );
 	}
 
-	$xtpl->parse( 'main.name_show_' . $global_config['name_show'] );
-
 	// Parse editable fields for the signed-in account, including fields hidden at registration.
+	foreach ($array_field_config as $delivery_config)
+	{
+		if ($delivery_config['field'] === 'phone' || $delivery_config['field'] === 'address')
+		{
+			$delivery_field = $delivery_config['field'];
+			$delivery_value = isset($custom_fields[$delivery_field]) ? $custom_fields[$delivery_field] : '';
+			$xtpl->assign('DELIVERY_VALUE', nv_htmlspecialchars(nv_br2nl($delivery_value)));
+			$xtpl->parse('main.name_show_' . $global_config['name_show'] . '.delivery_' . $delivery_field);
+		}
+	}
+	$xtpl->parse( 'main.name_show_' . $global_config['name_show'] );
 	if( ! empty( $array_field_config ) )
 	{
 		$a = 0;
 		$userid = (int) $user_info['userid'];
 		foreach( $array_field_config as $row )
 		{
+			if ($row['field'] === 'phone' || $row['field'] === 'address') continue;
 			if( ( $row['show_register'] and $userid == 0 ) or $userid > 0 )
 			{
 				$row['tbodyclass'] = ( $a % 2 ) ? " class=\"second\"" : "";
@@ -896,7 +911,7 @@ function user_welcome()
 		$xtpl->parse( 'main.allowopenid' );
 	}
 
-	if( ! defined( 'NV_IS_ADMIN' ) )
+	if( defined( 'NV_IS_USER' ) )
 	{
 		$xtpl->parse( 'main.logout' );
 	}
@@ -1108,7 +1123,7 @@ function user_openid_administrator( $data )
 	{
 		$xtpl->parse( 'main.regroups' );
 	}
-	if( ! defined( 'NV_IS_ADMIN' ) )
+	if( defined( 'NV_IS_USER' ) )
 	{
 		$xtpl->parse( 'main.logout' );
 	}
@@ -1177,7 +1192,7 @@ function nv_regroup_theme( $groups )
 		$xtpl->parse( 'main.list' );
 	}
 
-	if( ! defined( 'NV_IS_ADMIN' ) ) $xtpl->parse( 'main.logout' );
+	if( defined( 'NV_IS_USER' ) ) $xtpl->parse( 'main.logout' );
 
 	$xtpl->parse( 'main' );
 	return $xtpl->text( 'main' );
