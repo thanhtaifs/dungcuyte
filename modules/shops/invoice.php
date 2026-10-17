@@ -1,5 +1,5 @@
 <?php
-if (!defined('NV_IS_MOD_SHOPS')) die('Stop!!!');
+if (!defined('NV_IS_MOD_SHOPS') && !defined('NV_IS_FILE_ADMIN')) die('Stop!!!');
 
 function nv_shops_invoice_fields()
 {
@@ -66,6 +66,36 @@ function nv_shops_invoice_from_note($note)
         }
     }
     return $data;
+}
+
+function nv_shops_invoice_presentation($note)
+{
+    $has_invoice = strpos($note, '[Thông tin xuất hóa đơn]') !== false
+        || strpos($note, 'Yêu cầu xuất hóa đơn mua hàng.') !== false;
+    $data = nv_shops_invoice_from_note($note);
+    $clean_note = preg_replace('/\[Thông tin xuất hóa đơn\]\R.*?\[\/Thông tin xuất hóa đơn\]/su', '', $note);
+    $clean_note = trim(str_replace('Yêu cầu xuất hóa đơn mua hàng.', '', $clean_note));
+    $result = array('note' => htmlspecialchars($clean_note, ENT_QUOTES, 'UTF-8', false), 'invoice' => '');
+    if (!$has_invoice) return $result;
+
+    $xtpl = new XTemplate('invoice_summary.tpl', NV_ROOTDIR . '/modules/shops/templates');
+    $requested = !empty($data['invoice_requested']);
+    $xtpl->assign('STATUS', $requested ? 'Có yêu cầu xuất hóa đơn' : 'Không yêu cầu xuất hóa đơn');
+    $xtpl->assign('STATUS_COLOR', $requested ? '#087f5b' : '#64748b');
+    $xtpl->assign('STATUS_BACKGROUND', $requested ? '#e6f6ee' : '#edf2f7');
+    if ($requested) {
+        foreach (nv_shops_invoice_fields() as $key => $field) {
+            $xtpl->assign('FIELD', array(
+                'label' => $field[0],
+                'value' => htmlspecialchars($data[$key] ?? 'Chưa cung cấp', ENT_QUOTES, 'UTF-8', false)
+            ));
+            $xtpl->parse('main.details.field');
+        }
+        $xtpl->parse('main.details');
+    }
+    $xtpl->parse('main');
+    $result['invoice'] = $xtpl->text('main');
+    return $result;
 }
 
 function nv_shops_invoice_form($data = array(), $errors = array())

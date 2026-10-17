@@ -178,6 +178,9 @@ $xtpl = new XTemplate( 'or_view.tpl', NV_ROOTDIR . '/themes/' . $global_config['
 $xtpl->assign( 'LANG', $lang_module );
 $xtpl->assign( 'dateup', date( 'd-m-Y', $data_content['order_time'] ) );
 $xtpl->assign( 'moment', date( 'H:i', $data_content['order_time'] ) );
+$invoice_presentation = nv_shops_invoice_presentation($data_content['order_note']);
+$data_content['order_note'] = $invoice_presentation['note'];
+$xtpl->assign('INVOICE_SUMMARY', $invoice_presentation['invoice']);
 $xtpl->assign( 'DATA', $data_content );
 $xtpl->assign( 'order_id', $data_content['order_id'] );
 

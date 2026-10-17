@@ -2809,6 +2809,9 @@ function print_pay($data_content, $data_pro)
     global $module_info, $lang_module, $module_file, $pro_config, $money_config, $global_array_group;
 
     $xtpl = new XTemplate('print.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
+    $invoice_presentation = nv_shops_invoice_presentation($data_content['order_note']);
+    $data_content['order_note'] = $invoice_presentation['note'];
+    $xtpl->assign('INVOICE_SUMMARY', $invoice_presentation['invoice']);
     $xtpl->assign('LANG', $lang_module);
     $xtpl->assign('dateup', date('d-m-Y', $data_content['order_time']));
     $xtpl->assign('moment', date("H:i' ", $data_content['order_time']));
@@ -3095,6 +3098,9 @@ function email_new_order($content, $data_content, $data_pro, $data_table = false
 
     if ($data_table) {
         $xtpl = new XTemplate("email_new_order.tpl", NV_ROOTDIR . "/themes/" . $module_info['template'] . "/modules/" . $module_file);
+        $invoice_presentation = nv_shops_invoice_presentation($data_content['order_note']);
+        $data_content['order_note'] = $invoice_presentation['note'];
+        $xtpl->assign('INVOICE_SUMMARY', $invoice_presentation['invoice']);
         $xtpl->assign('LANG', $lang_module);
         $xtpl->assign('DATA', $data_content);
 

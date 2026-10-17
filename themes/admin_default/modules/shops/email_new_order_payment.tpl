@@ -48,4 +48,5 @@
 		<!-- END: price3 -->
 	</tr>
 </table>
+{INVOICE_SUMMARY}
 <!-- END: data_product -->

@@ -119,6 +119,7 @@
 <!-- BEGIN: order_note -->
 <span style="font-style: italic; white-space: pre-line;">{LANG.order_products_note} : {DATA.order_note}</span>
 <!-- END: order_note -->
+{INVOICE_SUMMARY}
 <table style="margin-top: 2px">
 	<tr>
 		<td><!-- BEGIN: admin_process --> - {LANG.order_admin_process} : {admin_process} <!-- END: admin_process --></td>

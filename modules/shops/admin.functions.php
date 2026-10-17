@@ -100,6 +100,7 @@ $array_viewcat_nosub = array(
 );
 
 define( 'NV_IS_FILE_ADMIN', true );
+require_once NV_ROOTDIR . '/modules/' . $module_file . '/invoice.php';
 
 require_once NV_ROOTDIR . '/modules/' . $module_file . '/global.functions.php';
 require_once NV_ROOTDIR . '/modules/' . $module_file . '/site.functions.php';
@@ -916,6 +917,9 @@ function email_new_order_payment( $content, $data_content, $data_pro, $data_tabl
 	if( $data_table )
 	{
 		$xtpl = new XTemplate( "email_new_order_payment.tpl", NV_ROOTDIR . "/themes/" . $global_config['module_theme'] . "/modules/" . $module_file );
+		$invoice_presentation = nv_shops_invoice_presentation($data_content['order_note']);
+		$data_content['order_note'] = $invoice_presentation['note'];
+		$xtpl->assign('INVOICE_SUMMARY', $invoice_presentation['invoice']);
 		$xtpl->assign( 'LANG', $lang_module );
 		$xtpl->assign( 'DATA', $data_content );
 

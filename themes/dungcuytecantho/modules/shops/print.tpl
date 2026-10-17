@@ -92,6 +92,7 @@ body {
 			<!-- BEGIN: order_note -->
 			<em style="white-space: pre-line;">{LANG.cart_note} : {DATA.order_note}</em>
 			<!-- END: order_note -->
+            {INVOICE_SUMMARY}
 		</div>
 		<div class="col-xs-12 text-right">
 			<!-- BEGIN: price3 -->
