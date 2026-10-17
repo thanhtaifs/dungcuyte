@@ -336,6 +336,8 @@ $payment_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG
 $payment_checkss = md5($client_info['session_id'] . $global_config['sitekey'] . 'payment');
 $payment_profile_ready = false;
 $payment_submit_error = false;
+$payment_invoice = nv_shops_invoice_read($nv_Request);
+$payment_invoice_errors = array();
 if (defined('NV_IS_USER')) {
     // Allow legacy databases to render checkout before delivery fields are migrated.
     $nv_frontend_diagnostic_stage = 'checkout_profile:before';
@@ -357,16 +359,20 @@ if (defined('NV_IS_USER')) {
 
     if ($nv_Request->get_int('postorder', 'post', 0) === 1 && $payment_profile_ready) {
         if (hash_equals($payment_checkss, $nv_Request->get_title('payment_checkss', 'post', ''))) {
-            // Use saved account details instead of customer-supplied checkout fields.
-            foreach ($payment_customer as $field => $value) {
-                $_POST[$field] = $value;
+            $payment_invoice_errors = nv_shops_invoice_validate($payment_invoice);
+            if (empty($payment_invoice_errors)) {
+                // Use saved account details instead of customer-supplied checkout fields.
+                foreach ($payment_customer as $field => $value) {
+                    $_POST[$field] = $value;
+                }
+                // The current checkout has no separate shipping form.
+                $_POST['order_shipping'] = 0;
+                require NV_ROOTDIR . '/modules/' . $module_file . '/funcs/order.php';
+                exit();
             }
-            // The current checkout has no separate shipping form.
-            $_POST['order_shipping'] = 0;
-            require NV_ROOTDIR . '/modules/' . $module_file . '/funcs/order.php';
-            exit();
+        } else {
+            $payment_submit_error = true;
         }
-        $payment_submit_error = true;
     }
 }
 
@@ -449,7 +455,10 @@ $xtpl = new XTemplate("payment.tpl", NV_ROOTDIR . "/themes/" . $module_info['tem
 $xtpl->assign('LANG', $lang_module);
 $xtpl->assign('PAYMENT_ACTION', htmlspecialchars($payment_url, ENT_QUOTES, 'UTF-8'));
 $xtpl->assign('PAYMENT_CHECKSS', $payment_checkss);
-$xtpl->assign('INVOICE_CHECKED', $nv_Request->get_int('invoice_requested', 'post', 0) === 1 ? 'checked' : '');
+$xtpl->assign('INVOICE_FORM', nv_shops_invoice_form($payment_invoice, $payment_invoice_errors));
+$payment_banking = $nv_Request->get_title('payment_method', 'post', 'cod') === 'banking';
+$xtpl->assign('PAYMENT_COD_CHECKED', $payment_banking ? '' : 'checked');
+$xtpl->assign('PAYMENT_BANKING_CHECKED', $payment_banking ? 'checked' : '');
 $xtpl->assign('BANK_TRANSFER_PANEL', nv_shops_transfer_panel($total, nv_shops_transfer_reference(), $pro_config['money_unit'] ?? 'VND'));
 if (!defined('NV_IS_USER')) {
     $auth_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=users&' . NV_OP_VARIABLE . '=';

@@ -216,12 +216,9 @@ if( $post_order == 1 )
 	$data_order['order_address'] = nv_substr( $nv_Request->get_title( 'order_address', 'post', '', 1 ), 0, 250 );
 	$data_order['order_phone'] = nv_substr( $nv_Request->get_title( 'order_phone', 'post', '', 1 ), 0, 20 );
 	$data_order['order_note'] = nv_substr( $nv_Request->get_title( 'order_note', 'post', '', 1 ), 0, 2000 );
-    $invoice_note = 'Yêu cầu xuất hóa đơn mua hàng.';
-    $data_order['order_note'] = trim(str_replace($invoice_note, '', $data_order['order_note']));
-    $data_order['invoice_requested'] = $nv_Request->get_int('invoice_requested', 'post', 0) === 1;
-    if ($data_order['invoice_requested']) {
-        $data_order['order_note'] .= ($data_order['order_note'] !== '' ? "\n" : '') . $invoice_note;
-    }
+    $data_order = array_merge($data_order, nv_shops_invoice_read($nv_Request));
+    $error = array_merge($error, nv_shops_invoice_validate($data_order));
+    $data_order['order_note'] = nv_shops_invoice_note($data_order['order_note'], $data_order);
     $data_order['order_note'] = nv_shops_transfer_note($payment_method, $data_order['order_note'],
         $payment_method === 'banking' ? nv_shops_transfer_reference() : '');
 	$data_order['order_shipping'] = $nv_Request->get_int( 'order_shipping', 'post', 0 );

@@ -41,7 +41,7 @@
 <table class="rows" style="margin-top:2px;width:100%;border:1px solid #F5F5F5;">
 	<tr>
 		<!-- BEGIN: order_note -->
-		<td valign="top" style="padding:5px"><span style="font-style:italic;"> {LANG.cart_note} : {DATA.order_note} </span></td>
+		<td valign="top" style="padding:5px"><span style="font-style:italic; white-space:pre-line;"> {LANG.cart_note} : {DATA.order_note} </span></td>
 		<!-- END: order_note -->
 		<!-- BEGIN: price3 -->
 		<td align="right" valign="top" style="padding:5px"> {LANG.cart_total_print}: <strong id="total">{order_total}</strong> {unit} </td>

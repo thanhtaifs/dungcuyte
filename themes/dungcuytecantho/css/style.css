@@ -6,6 +6,46 @@
  * @Createdate Thu, 17 Apr 2014 04:03:46 GMT
  */
 
+/* Account status and redirect messages */
+.user-status-page {
+  padding: 24px 12px;
+}
+
+.user-status-page .user-status-message {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 28px 20px;
+  border: 1px solid #d8e9f1;
+  border-radius: 16px;
+  background: #f3faff;
+  color: #24566e;
+  box-shadow: 0 8px 24px rgba(36, 86, 110, 0.08);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.user-status-page .user-status-message img[src$="load_bar.gif"] {
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  max-width: 100%;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+.user-status-page .user-status-message a {
+  color: #087ca7;
+  font-weight: 600;
+  text-underline-offset: 3px;
+}
+
+.user-status-page .user-status-message a:hover,
+.user-status-page .user-status-message a:focus {
+  color: #055774;
+  text-decoration: underline;
+}
+
 /* Fix bootstrap */
 .clear {
   clear: both;

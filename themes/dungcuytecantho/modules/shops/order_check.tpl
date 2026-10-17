@@ -86,13 +86,7 @@
                 </div>
                 <!-- END: rows -->
             </div>
-            <section class="payment-invoice-request checkout-note" aria-labelledby="invoiceNoteTitle">
-                <h5 id="invoiceNoteTitle">Ghi chú</h5>
-                <label for="invoiceRequested">
-                    <input type="checkbox" id="invoiceRequested" name="invoice_requested" value="1" {INVOICE_CHECKED}>
-                    Tôi muốn xuất hóa đơn mua hàng
-                </label>
-            </section>
+            {INVOICE_FORM}
         </div>
 
         <!-- Cột phải: Tổng kết đơn hàng -->
@@ -125,13 +119,13 @@
                 <div class="payment-method mb-3">
                     <h6><strong>Phương thức thanh toán:</strong></h6>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="payment_method" id="cod" value="cod" checked>
+                        <input class="form-check-input" type="radio" name="payment_method" id="cod" value="cod" {PAYMENT_COD_CHECKED}>
                         <label class="form-check-label" for="cod">
                             Thanh toán khi nhận hàng (COD)
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="payment_method" id="banking" value="banking">
+                        <input class="form-check-input" type="radio" name="payment_method" id="banking" value="banking" {PAYMENT_BANKING_CHECKED}>
                         <label class="form-check-label" for="banking">
                             Chuyển khoản ngân hàng
                         </label>

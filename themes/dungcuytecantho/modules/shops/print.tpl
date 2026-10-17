@@ -90,7 +90,7 @@ body {
     <div class="row" style="margin-top: 10px;">
         <div class="col-xs-12">
 			<!-- BEGIN: order_note -->
-			<em>{LANG.cart_note} : {DATA.order_note}</em>
+			<em style="white-space: pre-line;">{LANG.cart_note} : {DATA.order_note}</em>
 			<!-- END: order_note -->
 		</div>
 		<div class="col-xs-12 text-right">

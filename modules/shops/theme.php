@@ -2438,9 +2438,12 @@ function users_order($data_content, $data_order, $total_coupons, $order_info, $e
     global $module_info, $lang_module, $lang_global, $module_config, $module_data, $module_file, $module_name, $pro_config, $money_config, $global_array_group, $shipping_data;
     //error_log( 'cell users_order');
     $xtpl = new XTemplate('order_check.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
-    $invoice_requested = isset($data_order['invoice_requested']) ? $data_order['invoice_requested']
-        : strpos($data_order['order_note'] ?? '', 'Yêu cầu xuất hóa đơn mua hàng.') !== false;
-    $xtpl->assign('INVOICE_CHECKED', $invoice_requested ? 'checked' : '');
+    $invoice_data = isset($data_order['invoice_requested']) ? $data_order
+        : nv_shops_invoice_from_note($data_order['order_note'] ?? '');
+    $xtpl->assign('INVOICE_FORM', nv_shops_invoice_form($invoice_data, $error));
+    $payment_banking = $GLOBALS['nv_Request']->get_title('payment_method', 'post', 'cod') === 'banking';
+    $xtpl->assign('PAYMENT_COD_CHECKED', $payment_banking ? '' : 'checked');
+    $xtpl->assign('PAYMENT_BANKING_CHECKED', $payment_banking ? 'checked' : '');
     $xtpl->assign('PAYMENT_CHECKSS', md5($GLOBALS['client_info']['session_id'] . $GLOBALS['global_config']['sitekey'] . 'payment'));
     $xtpl->assign('LANG', $lang_module);
     $xtpl->assign('TEMPLATE', $module_info['template']);

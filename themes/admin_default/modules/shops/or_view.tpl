@@ -117,7 +117,7 @@
 <p class="text-right">{LANG.order_total}: <strong id="total">{order_total} {unit}</strong></p>
 
 <!-- BEGIN: order_note -->
-<span style="font-style: italic;">{LANG.order_products_note} : {DATA.order_note}</span>
+<span style="font-style: italic; white-space: pre-line;">{LANG.order_products_note} : {DATA.order_note}</span>
 <!-- END: order_note -->
 <table style="margin-top: 2px">
 	<tr>

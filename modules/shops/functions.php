@@ -21,6 +21,7 @@ define( 'NV_IS_MOD_SHOPS', true );
 require_once NV_ROOTDIR . '/modules/' . $module_file . '/global.functions.php';
 require_once NV_ROOTDIR . '/modules/' . $module_file . '/site.functions.php';
 require_once NV_ROOTDIR . '/modules/' . $module_file . '/bank_transfer.php';
+require_once NV_ROOTDIR . '/modules/' . $module_file . '/invoice.php';
 
 $array_wishlist_id = array();
 $arr_cat_title = array();
