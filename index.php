@@ -36,7 +36,7 @@ define( 'NV_SYSTEM', true );
 // Temporary hosting diagnosis: no cookies, passwords or request parameters are logged.
 $nv_frontend_diagnostic_stage = 'mainfile:before';
 $nv_frontend_diagnostic_id = substr(md5(uniqid('', true)), 0, 10);
-nv_frontend_diagnostic_log('start php=' . PHP_VERSION . ' stage=' . $nv_frontend_diagnostic_stage);
+//nv_frontend_diagnostic_log('start php=' . PHP_VERSION . ' stage=' . $nv_frontend_diagnostic_stage);
 register_shutdown_function(function () {
     global $nv_frontend_diagnostic_stage;
     $last_error = error_get_last();
@@ -48,7 +48,7 @@ register_shutdown_function(function () {
     } else {
         $detail .= ' fatal=none';
     }
-    nv_frontend_diagnostic_log($detail);
+    //nv_frontend_diagnostic_log($detail);
 });
 
 $mainfile = init_system();
