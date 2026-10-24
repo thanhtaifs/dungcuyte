@@ -615,10 +615,12 @@ if( $post_order == 1 )
 			$email_contents = call_user_func( 'email_new_order', $content, $data_order, $data_pro );
 			$email_title = empty( $order_info ) ? $lang_module['order_email_title'] : $lang_module['order_email_edit_title'];
 			//error_log('order.php prepared customer email, order_id=' . $order_id);
-			nv_sendmail( array(
-				$global_config['site_name'],
-				$global_config['site_email']
-			), $data_order['order_email'], sprintf( $email_title, $module_info['custom_title'], $data_order['order_code'] ), $email_contents );
+			$checkout_messages = array(array(
+				'from' => array($global_config['site_name'], $global_config['site_email']),
+				'to' => $data_order['order_email'],
+				'subject' => sprintf($email_title, $module_info['custom_title'], $data_order['order_code']),
+				'body' => $email_contents
+			));
 			//error_log('order.php customer email sent, order_id=' . $order_id);
 			
 			// Them vao notification
@@ -657,11 +659,11 @@ if( $post_order == 1 )
 					}
 
 					$email_contents_to_admin = call_user_func( 'email_new_order', $content, $data_order, $data_pro );					
-					$send_admin_mail = nv_sendmail(
-						array($global_config['site_name'], $global_config['site_email']),
-						$listmail_notify,
-						sprintf($email_title, $module_info['custom_title'], $data_order['order_code']),
-						$email_contents_to_admin
+					$checkout_messages[] = array(
+						'from' => array($global_config['site_name'], $global_config['site_email']),
+						'to' => $listmail_notify,
+						'subject' => sprintf($email_title, $module_info['custom_title'], $data_order['order_code']),
+						'body' => $email_contents_to_admin
 					);
 					//error_log( '[shops][order_mail] order_id=' . $data_order['id'] . ' admin_send=' . ( $send_admin_mail ? 'success' : 'failed' ) . ' recipients=' . implode( ',', (array)$listmail_notify ) );
 					
@@ -691,8 +693,8 @@ if( $post_order == 1 )
 
 			$success_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=order&success=1&order_id=' . $data_order['id'] . '&checkss=' . md5( $data_order['id'] . $global_config['sitekey'] . session_id() );
 			//error_log('order.php redirecting to success page: ' . $success_url);
-			Header( 'Location: ' . nv_url_rewrite( $success_url, true ) );
-			exit();
+			require_once NV_ROOTDIR . '/modules/' . $module_file . '/checkout_response.php';
+			nv_shops_checkout_redirect(nv_url_rewrite($success_url, true), $checkout_messages, $order_id);
 						
 		}
 	}

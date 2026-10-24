@@ -144,9 +144,15 @@ $(document).ready(function() {
         $.ajax({
             type: 'POST',
             url: $form.attr('action'),
-            data: $form.serialize(),
-            success: function() {
-                window.location.href = '{NV_BASE_SITEURL}index.php?nv=shops&op=payment';
+            data: $form.serialize() + '&checkout_prepare=1',
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    window.location.href = '{NV_BASE_SITEURL}index.php?nv=shops&op=payment';
+                } else {
+                    // Reload to show adjusted quantities and the existing cart validation.
+                    window.location.reload();
+                }
             },
             error: function() {
                 resetPaymentButton();

@@ -387,6 +387,36 @@ if (!empty($coupon_session['check']) && !empty($coupon_session['code'])) {
     $coupon = nv_shops_get_coupon_info($coupon_session['code']);
 }
 
+// Fetch fallback images together instead of querying once per cart line.
+$payment_image_ids = array();
+foreach ($cart as $cart_key => $cart_row) {
+    if (!empty($cart_row['order']) && empty($cart_row['variant_image']) && empty($cart_row['img_pro'])) {
+        $image_pid = isset($cart_row['proid']) ? intval($cart_row['proid']) : intval($cart_key);
+        if ($image_pid > 0) $payment_image_ids[$image_pid] = $image_pid;
+    }
+}
+$payment_images = $payment_variant_images = array();
+if ($payment_image_ids) {
+    $image_ids_sql = implode(',', $payment_image_ids);
+    try {
+        $image_result = $db->query('SELECT id, homeimgfile, homeimgthumb FROM ' . $db_config['prefix'] . '_' . $module_data . '_rows WHERE id IN (' . $image_ids_sql . ')');
+        while ($image_row = $image_result->fetch()) $payment_images[$image_row['id']] = $image_row;
+    } catch (Exception $e) {
+        $payment_images = array();
+    }
+    try {
+        $image_result = $db->query('SELECT product_id, image FROM ' . $db_config['prefix'] . '_' . $module_data . "_product_variants WHERE product_id IN (" . $image_ids_sql . ") AND image != '' ORDER BY id ASC");
+        while ($image_row = $image_result->fetch()) {
+            if (!isset($payment_variant_images[$image_row['product_id']])) {
+                $payment_variant_images[$image_row['product_id']] = $image_row['image'];
+            }
+        }
+    } catch (Exception $e) {
+        // Older installations may not have a variants table.
+        $payment_variant_images = array();
+    }
+}
+
 foreach ($cart as $pid => $row) {
     if (empty($row['order'])) continue;
     $cart_id = $pid;
@@ -412,11 +442,14 @@ foreach ($cart as $pid => $row) {
         $row_homeimgfile = '';
         $row_homeimgthumb = 0;
         try {
-            $product_row = $db->query('SELECT homeimgfile, homeimgthumb FROM ' . $db_config['prefix'] . '_' . $module_data . '_rows WHERE id = ' . $pid)->fetch();
+            $product_row = $payment_images[$pid] ?? array();
             if (!empty($product_row)) {
                 $row_homeimgfile = $product_row['homeimgfile'];
                 $row_homeimgthumb = $product_row['homeimgthumb'];
-                nv_shops_apply_variant_image($pid, $row_homeimgfile, $row_homeimgthumb);
+                if (!empty($payment_variant_images[$pid])) {
+                    $row_homeimgfile = nv_shops_normalize_variant_image($payment_variant_images[$pid]);
+                    $row_homeimgthumb = 3;
+                }
                 if ($row_homeimgthumb == 1) {
                     $product_image = NV_BASE_SITEURL . NV_FILES_DIR . '/' . $module_upload . '/' . $row_homeimgfile;
                 } elseif ($row_homeimgthumb == 2) {

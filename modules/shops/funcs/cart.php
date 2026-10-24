@@ -16,6 +16,8 @@ $coupons_code = '';
 $coupons_check = 0;
 $coupon_error = '';
 $coupon_success = '';
+$checkout_prepare = $nv_Request->get_int('save', 'post', 0) === 1
+    && $nv_Request->get_int('checkout_prepare', 'post', 0) === 1;
 
 if( isset( $_SESSION[$module_data . '_coupons']['code'] ) and isset( $_SESSION[$module_data . '_coupons']['check'] ) )
 {
@@ -261,6 +263,7 @@ if( ! empty( $_SESSION[$module_data . '_cart'] ) )
 				'homeimgalt' => $homeimgalt,
 				'homeimgthumb' => $thumb,
 				'product_price' => $product_price,
+				'product_number' => $product_number,
 				'discount_id' => $discount_id,
 				'product_unit' => $unit,
 				'money_unit' => $money_unit,
@@ -293,7 +296,7 @@ if( ! empty( $_SESSION[$module_data . '_cart'] ) )
 			{
 				$row_data['homeimgthumb'] = $variant_image;
 			}
-			$product_number = $db->query( 'SELECT product_number FROM ' . $db_config['prefix'] . '_' . $module_data . '_rows WHERE id=' . $id )->fetchColumn();
+			$product_number = $row_data['product_number'];
 
 			if( !empty( $order_info ) )
 			{
@@ -334,6 +337,15 @@ if( ! empty( $_SESSION[$module_data . '_cart'] ) )
 				'link_remove' => $link . 'remove&id=' . rawurlencode( $cart_id )
 			) );
 			$_SESSION[$module_data . '_cart'][$cart_id]['order'] = 1;
+		}
+
+		// The payment button only needs the updated session, not another full cart page.
+		if ($checkout_prepare) {
+			$checkout_result = array('success' => !empty($data_content) && empty($array_error_product_number));
+			if (session_status() === PHP_SESSION_ACTIVE) session_write_close();
+			header('Content-Type: application/json; charset=utf-8');
+			echo json_encode($checkout_result);
+			exit();
 		}
 
 		$total = 0;
@@ -385,6 +397,12 @@ else
 {
 	$data_content = array();
 	$total_cart = '0 ' . nv_shops_get_display_money_unit( $pro_config['money_unit'] );
+}
+
+if ($checkout_prepare) {
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(array('success' => false));
+    exit();
 }
 
 $page_title = $lang_module['cart_title'];
