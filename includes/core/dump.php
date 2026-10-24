@@ -28,13 +28,13 @@ class dumpsave
 	var $fp = false;
 
 	/**
-	 * dumpsave::dumpsave()
+	 * dumpsave::__construct()
 	 *
 	 * @param mixed $save_type
 	 * @param mixed $filesave_name
 	 * @return
 	 */
-	function dumpsave( $save_type, $filesave_name )
+	function __construct( $save_type, $filesave_name )
 	{
 		$this->filesavename = $filesave_name;
 		if( $save_type == 'gz' and extension_loaded( 'zlib' ) )
@@ -56,6 +56,10 @@ class dumpsave
 	 */
 	function open()
 	{
+		if( ! is_string( $this->filesavename ) or trim( $this->filesavename ) === '' )
+		{
+			return false;
+		}
 		$this->fp = call_user_func_array( ( $this->savetype == 'gz' ) ? 'gzopen' : 'fopen', array( $this->filesavename, $this->mode ) );
 		return $this->fp;
 	}
