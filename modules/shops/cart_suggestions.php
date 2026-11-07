@@ -38,16 +38,47 @@ function nv_shops_cart_suggestions($total, $item_count, $checkout_product_ids = 
         $xtpl->parse('main');
         return $xtpl->text('main');
     }
-    $where = 'status = 1 AND showprice = 1 AND contact_price = 0 AND product_number > 0';
+    $where = 'status = 1 AND showprice = 1 AND contact_price = 0';
     $where .= ' AND listcatid IN (' . implode(',', array_unique($categories)) . ')';
     if ($exclude) $where .= ' AND id NOT IN (' . implode(',', $exclude) . ')';
-    $rows = $db->query('SELECT id, listcatid, ' . NV_LANG_DATA . '_title AS title, ' . NV_LANG_DATA . '_alias AS alias, homeimgfile, homeimgthumb FROM '
+    $rows = $db->query('SELECT id, listcatid, product_number, money_unit, ' . NV_LANG_DATA . '_title AS title, ' . NV_LANG_DATA . '_alias AS alias, homeimgfile, homeimgthumb FROM '
         . $db_config['prefix'] . '_' . $module_data . '_rows WHERE ' . $where . ' ORDER BY product_price ASC, id DESC');
     $count = 0;
+    $variants_supported = true;
     while ($row = $rows->fetch()) {
         if (empty($global_array_shops_cat[$row['listcatid']])) continue;
         if (!nv_user_in_groups($global_array_shops_cat[$row['listcatid']]['groups_view'])) continue;
+        $variants = array();
+        if ($variants_supported) {
+            try {
+                $variant_rows = $db->query('SELECT price, stock FROM ' . $db_config['prefix'] . '_' . $module_data
+                    . '_product_variants WHERE product_id = ' . (int)$row['id'] . ' AND status = 1 ORDER BY price ASC');
+                while ($variant = $variant_rows->fetch()) $variants[] = $variant;
+            } catch (Exception $error) {
+                // Older installations may not have a variants table.
+                $variants_supported = false;
+            }
+        }
+        if (!$variants && (int)$row['product_number'] <= 0) continue;
         $price = nv_get_price((int)$row['id'], $pro_config['money_unit'], 1, true);
+        if ($variants) {
+            // Variant stock is authoritative; the parent quantity can remain zero.
+            $variant_sale = null;
+            $discount = (float)str_replace(array(',', ' '), array('.', ''), $price['discount_percent']);
+            foreach ($variants as $variant) {
+                if ((int)$variant['stock'] <= 0 || (float)$variant['price'] <= 0) continue;
+                $sale = nv_currency_conversion((float)$variant['price'], $row['money_unit'], $pro_config['money_unit']);
+                if ($discount > 0) {
+                    $sale = $price['discount_unit'] === '%' ? $sale * (1 - $discount / 100) : $sale - $discount;
+                }
+                $sale_vnd = nv_currency_conversion($sale, $pro_config['money_unit'], 'VND');
+                if ($sale_vnd < 100 || round($sale_vnd) >= 100000) continue;
+                if ($variant_sale === null || $sale < $variant_sale) $variant_sale = $sale;
+            }
+            if ($variant_sale === null) continue;
+            $price['sale'] = $variant_sale;
+            $price['sale_format'] = nv_number_format($variant_sale, nv_get_decimals($pro_config['money_unit']));
+        }
         $vnd = nv_currency_conversion($price['sale'], $pro_config['money_unit'], 'VND');
         if ($vnd < 100 || round($vnd) >= 100000) continue;
         nv_shops_apply_variant_image($row['id'], $row['homeimgfile'], $row['homeimgthumb']);

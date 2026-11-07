@@ -15708,11 +15708,110 @@ img[width][height] {
 .cart-threshold-banner { padding: 16px 18px; border: 1px solid #f1d39b; border-left: 4px solid #e6a321; border-radius: 8px; background: #fff8e8; color: #684b16; }
 .cart-threshold-banner p { margin: 6px 0 0; color: inherit; font-size: 14px; line-height: 1.6; }
 .cart-suggestions-title { margin: 18px 0 12px; font-size: 18px; }
-.cart-suggestions-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-.cart-suggestion-card { display: flex; flex-direction: column; align-items: flex-start; padding: 12px; border: 1px solid #dde5eb; border-radius: 8px; background: #fff; color: #263746; }
-.cart-suggestion-card:hover, .cart-suggestion-card:focus { border-color: #1684a7; }
-.cart-suggestion-card img { width: 100%; height: 100px; object-fit: contain; margin-bottom: 10px; }
-.cart-suggestion-name { flex: 1; margin-bottom: 8px; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
-.cart-suggestion-card strong { color: #bd292d; }
-.cart-suggestion-link { margin-top: 10px; font-size: 13px; color: #086b94; }
-@media (max-width: 575px) { .cart-suggestions-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.cart-suggestions-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px 12px;
+}
+.cart-suggestion-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(44, 155, 40, 0.14);
+  border-radius: 8px;
+  background: #fff;
+  color: #17301a;
+  box-shadow: 0 8px 22px rgba(31, 122, 37, 0.07);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.cart-suggestion-card:hover, .cart-suggestion-card:focus {
+  border-color: rgba(44, 155, 40, 0.32);
+  color: #17301a;
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(31, 122, 37, 0.11);
+}
+.cart-suggestion-card:focus-visible {
+  outline: 3px solid #2c9b28;
+  outline-offset: 3px;
+}
+.cart-suggestion-image {
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(135deg, #f0faec, #fbfff8);
+}
+.cart-suggestion-card .cart-suggestion-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  padding: 18px;
+  object-fit: contain;
+}
+.cart-suggestion-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 11px;
+  text-align: center;
+}
+.cart-suggestion-name {
+  display: -webkit-box;
+  min-height: 44px;
+  margin-bottom: 8px;
+  overflow: hidden;
+  color: #17301a;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.cart-suggestion-body strong {
+  display: block;
+  margin-top: auto;
+  color: #d71920;
+  font-size: 17px;
+  line-height: 22px;
+}
+.cart-suggestion-body .price-shipping-note {
+  min-height: 32px;
+  margin: 4px 0 8px;
+  padding: 0;
+  font-size: 11px;
+  line-height: 16px;
+}
+.cart-suggestion-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #2c9b28, #63bd10);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+  box-shadow: 0 8px 16px rgba(44, 155, 40, 0.2);
+}
+.cart-suggestion-card:hover .cart-suggestion-link,
+.cart-suggestion-card:focus .cart-suggestion-link {
+  background: linear-gradient(135deg, #1f7a25, #4f9600);
+}
+@media (max-width: 1199px) {
+  .cart-suggestions-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (max-width: 991px) {
+  .cart-suggestions-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+  .cart-suggestions-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 8px; }
+  .cart-suggestion-body { padding: 9px; }
+  .cart-suggestion-card .cart-suggestion-image img { padding: 12px; }
+  .cart-suggestion-name { min-height: 40px; font-size: 13px; line-height: 1.3; }
+  .cart-suggestion-body strong { font-size: 14px; }
+  .cart-suggestion-link { min-height: 34px; padding: 7px 8px; font-size: 12px; }
+}

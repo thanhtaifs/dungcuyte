@@ -9,11 +9,15 @@
     <div class="cart-suggestions-grid">
         <!-- BEGIN: item -->
         <a class="cart-suggestion-card" href="{PRODUCT.url}">
-            <img src="{PRODUCT.image}" alt="{PRODUCT.title}" loading="lazy">
-            <span class="cart-suggestion-name">{PRODUCT.title}</span>
-            <strong>{PRODUCT.price}</strong>
-            <small class="price-shipping-note">Giá chưa bao gồm phí vận chuyển</small>
-            <span class="cart-suggestion-link">Xem sản phẩm</span>
+            <div class="cart-suggestion-image">
+                <img src="{PRODUCT.image}" alt="{PRODUCT.title}" width="500" height="500" loading="lazy" decoding="async">
+            </div>
+            <div class="cart-suggestion-body">
+                <span class="cart-suggestion-name">{PRODUCT.title}</span>
+                <strong>{PRODUCT.price}</strong>
+                <small class="price-shipping-note">Giá chưa bao gồm phí vận chuyển</small>
+                <span class="cart-suggestion-link">Xem sản phẩm <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+            </div>
         </a>
         <!-- END: item -->
     </div>
