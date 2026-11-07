@@ -15665,8 +15665,45 @@ img[width][height] {
     margin-top: 20px;
   }
 }
-.price-shipping-note { display: block; margin-top: 5px; color: #596675; font-size: 12px; font-weight: 400; line-height: 1.5; }
+.price-shipping-note { display: block; margin-top: 5px; color: #596675; font-size: 12px; font-weight: 400; line-height: 1.5; text-align: center ; padding-bottom: 4px; }
 .price-shipping-note:empty { display: none; }
+
+/* Keep homepage prices and actions aligned when the shipping note is absent. */
+#maincontent.site-main--home .product-body--home {
+  display: grid;
+  flex: 1;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(min-content, 1fr) 38px minmax(44px, auto) auto;
+}
+
+#maincontent.site-main--home .product-body--home > .product-cat {
+  grid-row: 1;
+}
+
+#maincontent.site-main--home .product-body--home > .product-title {
+  grid-row: 2;
+}
+
+#maincontent.site-main--home .product-body--home > .product-price {
+  grid-row: 3;
+  margin: 0;
+}
+
+#maincontent.site-main--home .product-body--home > .price-shipping-note {
+  grid-row: 4;
+  min-width: 0;
+  margin: 4px 0 8px;
+  padding: 0;
+  font-size: 11px;
+  line-height: 16px;
+  text-align: center;
+}
+
+#maincontent.site-main--home .product-body--home > .btn-add-to-cart {
+  grid-row: 5;
+  align-self: end;
+}
+
 .cart-suggestions { margin: 0 0 20px; text-align: left; padding: 10px 10px}
 .cart-threshold-banner { padding: 16px 18px; border: 1px solid #f1d39b; border-left: 4px solid #e6a321; border-radius: 8px; background: #fff8e8; color: #684b16; }
 .cart-threshold-banner p { margin: 6px 0 0; color: inherit; font-size: 14px; line-height: 1.6; }
