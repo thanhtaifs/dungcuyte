@@ -3,7 +3,8 @@
 ini_set('display_errors', 0);
 ini_set('display_startup_errors', 0);
 ini_set('log_errors', 1);
-error_reporting(E_ALL);
+// Production: retain fatal errors without logging routine warnings/notices.
+error_reporting(E_ERROR | E_PARSE | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
 
 
 /**
@@ -35,10 +36,7 @@ $editor = false;
 //error_log("=== mainfile before Xac dinh thu muc goc cua site ===");
 // Xac dinh thu muc goc cua site
 define( 'NV_ROOTDIR', pathinfo( str_replace( DIRECTORY_SEPARATOR, '/', __file__ ), PATHINFO_DIRNAME ) );
-// Capture startup failures, including missing deployment dependencies.
-if (is_file(NV_ROOTDIR . '/error_php.log') ? is_writable(NV_ROOTDIR . '/error_php.log') : is_writable(NV_ROOTDIR)) {
-    ini_set('error_log', NV_ROOTDIR . '/error_php.log');
-}
+// Use the server's configured PHP error log instead of a website debug file.
 require_once NV_ROOTDIR . '/includes/core/auth_security.php';
 
 // Register given function autoload implementation

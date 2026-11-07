@@ -33,27 +33,8 @@
 
 define( 'NV_SYSTEM', true );
 
-// Temporary hosting diagnosis: no cookies, passwords or request parameters are logged.
-$nv_frontend_diagnostic_stage = 'mainfile:before';
-$nv_frontend_diagnostic_id = substr(md5(uniqid('', true)), 0, 10);
-//nv_frontend_diagnostic_log('start php=' . PHP_VERSION . ' stage=' . $nv_frontend_diagnostic_stage);
-register_shutdown_function(function () {
-    global $nv_frontend_diagnostic_stage;
-    $last_error = error_get_last();
-    $fatal_types = array(E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR);
-    $detail = 'end stage=' . $nv_frontend_diagnostic_stage;
-    if ($last_error && in_array($last_error['type'], $fatal_types, true)) {
-        $detail .= ' FATAL type=' . $last_error['type'] . ' file=' . $last_error['file'] . ' line=' . $last_error['line']
-            . ' message=' . substr(str_replace(array("\r", "\n"), ' ', $last_error['message']), 0, 2000);
-    } else {
-        $detail .= ' fatal=none';
-    }
-    //nv_frontend_diagnostic_log($detail);
-});
-
 $mainfile = init_system();
 require $mainfile;
-$nv_frontend_diagnostic_stage = 'mainfile:done';
 
 if (!defined('NV_ROOTDIR')) 
 {
@@ -67,35 +48,26 @@ else
 
 $user_functions =  NV_ROOTDIR . '/includes/core/user_functions.php';
 if ($user_functions) {
-    $nv_frontend_diagnostic_stage = 'user_functions:before';
     require $user_functions;
-    $nv_frontend_diagnostic_stage = 'user_functions:done';
 }
 google_sitemap($nv_Request);
 if( defined( 'NV_IS_USER' ) ) 
 	trigger_error( 'Hacking attempt', 256 );
 $is_user = NV_ROOTDIR . '/includes/core/is_user.php';
 if ($is_user) {
-    $nv_frontend_diagnostic_stage = 'is_user:before';
     require $is_user;
-    $nv_frontend_diagnostic_stage = 'is_user:done';
 }
 $update_status_online =  update_status_online($global_config);
 if ($update_status_online) {
-    $nv_frontend_diagnostic_stage = 'online:before';
     require $update_status_online;
-    $nv_frontend_diagnostic_stage = 'online:done';
 }
 //require update_statistic($global_config, $nv_Request);
 $statFile = update_statistic($global_config, $nv_Request);
 if ($statFile) {
-    $nv_frontend_diagnostic_stage = 'statistic:before';
     require $statFile;
-    $nv_frontend_diagnostic_stage = 'statistic:done';
 }
 
 $Referer = Referer($client_info);
-$nv_frontend_diagnostic_stage = 'referer:done';
 if ($Referer) {
     require $Referer;
 }
@@ -126,14 +98,6 @@ function init_root()
     // chuáº©n hoÃ¡ dáº¥u phÃ¢n cÃ¡ch (Windows)
     $root = str_replace('\\', '/', $root);
 	return $root;    
-}
-
-function nv_frontend_diagnostic_log($message)
-{
-    global $nv_frontend_diagnostic_id;
-    $line = '[frontend-diagnostic ' . $nv_frontend_diagnostic_id . '] ' . $message;
-    $record = '[' . date('c') . '] ' . $line . PHP_EOL;
-    if (!@error_log($record, 3, __DIR__ . '/error_php.log')) error_log($line);
 }
 
 function google_sitemap($nv_Request) 
@@ -268,7 +232,6 @@ else
 	$module_name = $global_config['site_home_module'];
 	$meta_property['og:title'] = $global_config['site_name'];
 }
-$nv_frontend_diagnostic_stage = 'routing';
 
 //error_log("=== Referer + Gqueries ===");
 
@@ -451,9 +414,7 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 			//error_log("Xac dinh layout funcs cua module pass");
 			// Doc file cau hinh giao dien
 			$themeConfig = nv_object2array( simplexml_load_file( NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/config.ini' ) );
-			$nv_frontend_diagnostic_stage = 'theme:before';
 			require NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/theme.php';
-			$nv_frontend_diagnostic_stage = 'theme:done';
 
 			// Ket noi ngon ngu theo theme
 			if( file_exists( NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/language/' . NV_LANG_INTERFACE . '.php' ) )
@@ -480,9 +441,7 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 			if( file_exists( NV_ROOTDIR . '/modules/' . $module_file . '/functions.php' ) )
 			{
 				//error_log("Ket noi voi file functions.php, file chua cac function vÃ o Ä‘Æ°á»£c if");
-				$nv_frontend_diagnostic_stage = 'module_functions:before';
 				require NV_ROOTDIR . '/modules/' . $module_file . '/functions.php';
-				$nv_frontend_diagnostic_stage = 'module_functions:done';
 				//error_log("DEBUG path: " . NV_ROOTDIR . '/modules/' . $module_file . '/functions.php');
 			}
 			
@@ -493,15 +452,11 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 
 			if( file_exists( NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/modules/' . $module_file . '/theme.php' ) )
 			{
-				$nv_frontend_diagnostic_stage = 'module_theme:before';
 				require NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/modules/' . $module_file . '/theme.php';
-				$nv_frontend_diagnostic_stage = 'module_theme:done';
 			}
 			elseif( file_exists( NV_ROOTDIR . '/modules/' . $module_file . '/theme.php' ) )
 			{
-				$nv_frontend_diagnostic_stage = 'module_theme:before';
 				require NV_ROOTDIR . '/modules/' . $module_file . '/theme.php';
-				$nv_frontend_diagnostic_stage = 'module_theme:done';
 			}
 
 			if( !defined( 'NV_IS_AJAX' ) )
@@ -512,12 +467,10 @@ if( preg_match( $global_config['check_module'], $module_name ) )
 			// Ket noi voi cac op cua module de thuc hien
 			if( $is_mobile and file_exists( NV_ROOTDIR . '/modules/' . $module_file . '/mobile/' . $op_file . '.php' ) )
 			{
-				$nv_frontend_diagnostic_stage = 'module_mobile:before';
 				require NV_ROOTDIR . '/modules/' . $module_file . '/mobile/' . $op_file . '.php';
 			}
 			else
 			{
-				$nv_frontend_diagnostic_stage = 'module_page:before';
 				require NV_ROOTDIR . '/modules/' . $module_file . '/funcs/' . $op_file . '.php';
 			}
 			exit();

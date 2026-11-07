@@ -583,7 +583,7 @@ function nv_site_theme( $contents, $full = true )
 	if( $full )
 	{
 		$sitecontent = nv_blocks_content( $sitecontent );
-		$sitecontent = str_replace( '[THEME_ERROR_INFO]', nv_error_info(), $sitecontent );
+		$sitecontent = str_replace( '[THEME_ERROR_INFO]', (string) nv_error_info(), $sitecontent );
 
 		if( defined( 'NV_IS_ADMIN' ) )
 		{
