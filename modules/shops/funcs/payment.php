@@ -469,11 +469,13 @@ foreach ($cart as $pid => $row) {
 
     $items[] = [
         'id' => $cart_id,
+        'proid' => $pid,
         'title' => $row['title_pro'] ?? 'San pham ' . $pid,
         'link_pro' => $row['link_pro'] ?? '#',
         'img_pro' => $product_image,
         'qty' => $qty,
         'price' => number_format($price, 0, ',', '.'),
+        'price_raw' => $price,
         'subtotal' => number_format($subtotal, 0, ',', '.'),
         'variant_label' => $row['variant_label'] ?? ''
     ];
@@ -486,13 +488,17 @@ if (($pro_config['money_unit'] ?? 'VND') === 'VND') $total = round($total);
 // Chuẩn bị dữ liệu cho template payment.tpl
 $xtpl = new XTemplate("payment.tpl", NV_ROOTDIR . "/themes/" . $module_info['template'] . "/modules/" . $module_file);
 $xtpl->assign('LANG', $lang_module);
+$xtpl->assign('CART_SUGGESTIONS', nv_shops_cart_suggestions($total, count($items), array_column($items, 'proid')));
 $xtpl->assign('PAYMENT_ACTION', htmlspecialchars($payment_url, ENT_QUOTES, 'UTF-8'));
 $xtpl->assign('PAYMENT_CHECKSS', $payment_checkss);
 $xtpl->assign('INVOICE_FORM', nv_shops_invoice_form($payment_invoice, $payment_invoice_errors));
-$payment_banking = $nv_Request->get_title('payment_method', 'post', 'cod') === 'banking';
+$payment_banking_allowed = nv_shops_transfer_allowed($total, $pro_config['money_unit'] ?? 'VND');
+$payment_banking = $payment_banking_allowed && $nv_Request->get_title('payment_method', 'post', 'cod') === 'banking';
 $xtpl->assign('PAYMENT_COD_CHECKED', $payment_banking ? '' : 'checked');
 $xtpl->assign('PAYMENT_BANKING_CHECKED', $payment_banking ? 'checked' : '');
-$xtpl->assign('BANK_TRANSFER_PANEL', nv_shops_transfer_panel($total, nv_shops_transfer_reference(), $pro_config['money_unit'] ?? 'VND'));
+$xtpl->assign('PAYMENT_BANKING_DISABLED', $payment_banking_allowed ? '' : 'disabled aria-describedby="bankingAvailabilityNotice"');
+if (!$payment_banking_allowed) $xtpl->parse('main.banking_unavailable');
+$xtpl->assign('BANK_TRANSFER_PANEL', $payment_banking_allowed ? nv_shops_transfer_panel($total, nv_shops_transfer_reference(), $pro_config['money_unit'] ?? 'VND') : '');
 if (!defined('NV_IS_USER')) {
     $auth_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=users&' . NV_OP_VARIABLE . '=';
     $return_url = '&nv_redirect=' . rawurlencode(nv_base64_encode($payment_url));
@@ -532,6 +538,9 @@ foreach ($items as $product) {
     $xtpl->assign('product_number', $product['qty']);
     $xtpl->assign('product_unit', $pro_config['money_unit'] ?? 'VND');
     $xtpl->assign('product_price', $product['price']);
+    if ($product['price_raw'] > 0 && !empty($pro_config['active_price'])) {
+        $xtpl->parse('main.loop.shipping_note');
+    }
     $xtpl->assign('product_price_total', $product['subtotal']);
     $xtpl->assign('img_pro', $product['img_pro']);
     $xtpl->parse('main.loop');

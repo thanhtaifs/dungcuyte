@@ -29,6 +29,9 @@
                         <!-- END: variant -->
                         <!-- Giá và số lượng -->
                         <div class="price-info">
+                            <!-- BEGIN: shipping_note -->
+                            <small class="price-shipping-note">Giá chưa bao gồm phí vận chuyển</small>
+                            <!-- END: shipping_note -->
                             <div><strong>Đơn giá:</strong> {product_price}</div>
                             <div><strong>Số lượng:</strong> {product_number}</div>
                             <div><strong>Thành tiền:</strong> <span class="text-danger">{product_price_total}</span></div>
@@ -83,13 +86,16 @@
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="payment_method" id="banking" value="banking" {PAYMENT_BANKING_CHECKED}>
+                        <input class="form-check-input" type="radio" name="payment_method" id="banking" value="banking" {PAYMENT_BANKING_CHECKED} {PAYMENT_BANKING_DISABLED}>
                         <label class="form-check-label" for="banking">
                             Chuyển khoản ngân hàng
                         </label>
                     </div>
                 </div>
 
+                <!-- BEGIN: banking_unavailable -->
+                <p id="bankingAvailabilityNotice" class="alert alert-info">Chuyển khoản chỉ áp dụng cho tổng tiền hàng sau giảm giá trên 200.000đ. Vui lòng mua thêm sản phẩm cùng loại được gợi ý bên dưới hoặc chọn COD.</p>
+                <!-- END: banking_unavailable -->
                 <div id="bankTransferPanel" hidden>
                     <p class="alert alert-info">Vui lòng xác nhận đặt hàng trước khi chuyển khoản. QR chính thức sẽ hiển thị cùng mã đơn hàng sau khi đặt hàng thành công.</p>
                     {BANK_TRANSFER_PANEL}
@@ -132,6 +138,7 @@
         </div>
     </div>
 </form>
+<div id="checkoutSuggestions">{CART_SUGGESTIONS}</div>
 
 <script type="text/javascript">
 $(document).ready(function() {

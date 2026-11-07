@@ -44,7 +44,8 @@
 							<p class="current-price">{PRICE.price_format} {PRICE.unit}</p>
 							<!-- END: no_discounts -->
 						</div>
-						<!-- END: price -->
+                    <small class="price-shipping-note">{PRICE.shipping_note}</small>
+                    <!-- END: price -->
 						<!-- BEGIN: contact -->
 						<div class="product-price product-price--contact">
 							<p class="current-price">Liên hệ</p>
@@ -95,7 +96,8 @@
 							<p class="current-price">{PRICE.price_format} {PRICE.unit}</p>
 							<!-- END: no_discounts -->
 						</div>
-						<!-- END: price -->
+                    <small class="price-shipping-note">{PRICE.shipping_note}</small>
+                    <!-- END: price -->
 						<!-- BEGIN: contact -->
 						<div class="product-price product-price--contact">
 							<p class="current-price">Liên hệ</p>
@@ -142,7 +144,8 @@
 							<p class="current-price">{PRICE.price_format} {PRICE.unit}</p>
 							<!-- END: no_discounts -->
 						</div>
-						<!-- END: price -->
+                    <small class="price-shipping-note">{PRICE.shipping_note}</small>
+                    <!-- END: price -->
 						<!-- BEGIN: contact -->
 						<div class="product-price product-price--contact">
 							<p class="current-price">Liên hệ</p>

@@ -32,7 +32,8 @@ body {
 		<!-- BEGIN: price -->
 		<span>{LANG.detail_pro_price}: </span>
 		<span><strong>{PRICE.sale_format}</strong> {money_unit}</span>
-		<!-- END: price -->
+                    <small class="price-shipping-note">{PRICE.shipping_note}</small>
+                    <!-- END: price -->
 		<br>
 		{DETAIL}
 	</div>

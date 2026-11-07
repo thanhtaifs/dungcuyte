@@ -2275,6 +2275,9 @@ function cart_product($data_content, $coupons_code, $order_info, $array_error_nu
             }
             //$total = nv_number_format($cart_total) . ' ' . $pro_config['money_unit'];
             $xtpl->assign('PRICE_TOTAL', $price);
+            if ($pro_config['active_price'] == '1' && $price['sale'] > 0) {
+                $xtpl->parse('main.rows.shipping_note');
+            }
             $xtpl->assign('pro_num', $data_row['num']);
             $xtpl->assign('link_remove', $data_row['link_remove']);
             $xtpl->assign('product_unit', $data_row['product_unit']);

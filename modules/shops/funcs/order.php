@@ -238,6 +238,14 @@ if( $post_order == 1 )
 	}
 	//error_log('total' . $total);
 	$total += $total_weight_price;
+	// Shipping must not unlock bank transfer for an ineligible merchandise total.
+	$banking_coupon = nv_shops_get_coupon_discount($counpons, $total_old, $total_coupons);
+	$banking_total = $banking_coupon['is_valid'] ? $banking_coupon['final_total'] : $total_old;
+	if ($payment_method === 'banking' && !nv_shops_transfer_allowed($banking_total, $data_order['unit_total'])) {
+		$payment_redirect = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=payment';
+		header('Location: ' . nv_url_rewrite($payment_redirect, true), true, 303);
+		exit();
+	}
 	$coupon_calc = nv_shops_get_coupon_discount( $counpons, $total, $total_coupons );
 	$total_coupons = $coupon_calc['discount_amount'];
 	if( $coupon_calc['is_valid'] and $coupon_calc['discount_amount'] > 0 )

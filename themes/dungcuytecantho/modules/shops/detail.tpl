@@ -70,6 +70,7 @@
 										<!-- BEGIN: no_discounts -->
 										<span class="money t" id="product_sale_price">{PRICE.price_format} {PRICE.unit}</span>
 										<!-- END: no_discounts -->
+                                        <small class="price-shipping-note">{PRICE.shipping_note}</small>
 									</p>
 								</div>							
 								<div class="stock-status">								

@@ -129,6 +129,7 @@ function nv_get_price( $pro_id, $currency_convert, $number = 1, $per_pro = false
 	global $db, $db_config, $site_mods, $module_data, $global_array_shops_cat, $pro_config, $money_config, $discounts_config, $lang_module;
 
 	$return = array();
+	$return['shipping_note'] = '';
 	$discount_percent = 0;
 	$discount_unit = '';
 	$discount = 0;
@@ -318,6 +319,7 @@ function nv_get_price( $pro_id, $currency_convert, $number = 1, $per_pro = false
 	}
 	elseif( $price_original > 0 )
 	{
+		$return['shipping_note'] = 'Giá chưa bao gồm phí vận chuyển';
 		$return['price_format'] = nv_number_format( $price_original, $decimals ); // Giá gốc đã format
 		$return['sale_format'] = nv_number_format( $return['sale'], $decimals );// Giá bán thực tế của sản phẩm đã format	
 	}	

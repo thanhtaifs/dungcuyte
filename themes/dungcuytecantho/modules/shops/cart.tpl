@@ -28,6 +28,9 @@
 
                         <!-- Giá và thành tiền -->
                         <div class="price-info">
+                            <!-- BEGIN: shipping_note -->
+                            <small class="price-shipping-note">Giá chưa bao gồm phí vận chuyển</small>
+                            <!-- END: shipping_note -->
                             <div><strong>Giá:</strong> <span class="text-danger">{PRICE.sale_format}</span><!-- BEGIN: discounts --> <small class="text-muted"><del>{PRICE.price_format}</del></small><!-- END: discounts --></div>
                             <div><strong>Thành tiền:</strong> <span class="text-danger">{PRICE_TOTAL.sale_format}</span><!-- BEGIN: total_discounts --> <small class="text-muted"><del>{PRICE_TOTAL.price_format}</del></small><!-- END: total_discounts --></div>
                         </div>
@@ -71,12 +74,12 @@
                 <!-- END: coupon_success -->
                 <p class="cart-total">
                     <strong>Tạm tính:</strong>
-                    <span class="cart-amount">{SUBTOTAL}</span>
+                    <span id="cartSubtotal" class="cart-amount">{SUBTOTAL}</span>
                 </p>
                 <!-- BEGIN: coupon_summary -->
                 <p class="cart-total">
                     <strong>Giảm giá:</strong>
-                    <span class="cart-amount text-success">- {COUPON_DISCOUNT}</span>
+                    <span id="cartDiscount" class="cart-amount text-success">- {COUPON_DISCOUNT}</span>
                 </p>
                 <!-- END: coupon_summary -->
                 <p class="cart-total">

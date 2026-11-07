@@ -73,6 +73,7 @@
                         <p class="current-price">{PRICE.price_format} {PRICE.unit}</p>
                         <!-- END: no_discounts -->
                     </div>
+                    <small class="price-shipping-note">{PRICE.shipping_note}</small>
                     <!-- END: price -->
                     <!-- BEGIN: contact -->
                     <div class="product-price product-price--contact">

@@ -40,7 +40,8 @@
 						<!-- BEGIN: no_discounts -->
 						<span class="money">{PRICE.price_format} </span>
 						<!-- END: no_discounts -->
-    				<!-- END: price -->
+                    <small class="price-shipping-note">{PRICE.shipping_note}</small>
+                    <!-- END: price -->
 
     				<!-- BEGIN: contact -->
     				{LANG.detail_pro_price}: <span class="money">{LANG.price_contact}</span>

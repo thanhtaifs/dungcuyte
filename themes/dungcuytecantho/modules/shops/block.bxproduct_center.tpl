@@ -34,7 +34,8 @@ $(document).ready(function(){
 			<span class="money">{PRICE.price_format} </span>
 			<!-- END: no_discounts -->
 		</span>
-		<!-- END: price -->
+                    <small class="price-shipping-note">{PRICE.shipping_note}</small>
+                    <!-- END: price -->
 		<!-- BEGIN: contact -->
 		<span class="money">{LANG.price_contact}</span>
 		<!-- END: contact -->

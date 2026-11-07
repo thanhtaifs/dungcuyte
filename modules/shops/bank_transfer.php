@@ -1,6 +1,12 @@
 <?php
 if (!defined('NV_IS_MOD_SHOPS')) die('Stop!!!');
 
+function nv_shops_transfer_allowed($amount, $currency = 'VND')
+{
+    return is_numeric($amount) && is_finite((float)$amount)
+        && strtoupper($currency) === 'VND' && round((float)$amount) > 200000;
+}
+
 function nv_shops_transfer_reference()
 {
     global $module_data;
@@ -29,7 +35,7 @@ function nv_shops_transfer_from_note($note)
 
 function nv_shops_transfer_data($amount, $reference, $currency = 'VND')
 {
-    if (!is_numeric($amount) || !is_finite((float)$amount) || $amount < 1 || $amount > 9999999999999
+    if (!nv_shops_transfer_allowed($amount, $currency) || $amount > 9999999999999
         || strtoupper($currency) !== 'VND' || !preg_match('/^HG[A-F0-9]{12}$/D', $reference)) return array();
     $amount = number_format(round((float)$amount), 0, '.', '');
     $query = http_build_query(array('amount' => $amount, 'addInfo' => $reference,

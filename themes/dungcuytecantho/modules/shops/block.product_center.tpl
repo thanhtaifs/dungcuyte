@@ -46,7 +46,8 @@
 				<span class="money">{PRICE.price_format} </span>
 				<!-- END: no_discounts -->
 			</p>
-			<!-- END: price -->
+                    <small class="price-shipping-note">{PRICE.shipping_note}</small>
+                    <!-- END: price -->
 
             <!-- BEGIN: contact -->
             <p class="price">

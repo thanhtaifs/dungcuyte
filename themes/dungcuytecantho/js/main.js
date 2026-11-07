@@ -424,6 +424,11 @@ function addToCartAndGo(id) {
 }
 
 
+function updateCartSummary(res) {
+    if (res.subtotal !== undefined) $('#cartSubtotal').text(res.subtotal + ' VNĐ');
+    if (res.discount !== undefined) $('#cartDiscount').text('- ' + res.discount + ' VNĐ');
+}
+
 // Load giỏ hàng
 function loadCart() {
   $.ajax({
@@ -431,6 +436,7 @@ function loadCart() {
     url: themeSiteUrl('index.php?nv=shops&op=loadcart&t=json'),
     dataType: 'json',
     success: function (res) {
+      updateCartSummary(res);
       //console.log('getcart response:', res);
       let $cartContent = $('#cartContent');
       let $cartFooter = $('#cartFooter');
@@ -452,7 +458,6 @@ function loadCart() {
         html += '</ul>';
 
         $cartContent.html(html);
-        $('#totalPrice').text(res.total + ' VNĐ');
 		$('#totalPrice-popup').text(res.total + ' VNĐ');
         $cartFooter.show();
         // cập nhật badge
@@ -514,6 +519,7 @@ function removeCart(id,position) {
 }
 
 function updateCartTotal(res) {	
+    updateCartSummary(res);
     let $cartProducts = $('#cart-products'); // khu vực danh sách sản phẩm
     let total = 0;
     // --- Nếu có dữ liệu từ server ---
@@ -537,6 +543,7 @@ function updateCartTotal(res) {
                         </div>
 
                         <div class="price-info">
+                            ${item.price_raw > 0 ? '<small class="price-shipping-note">Giá chưa bao gồm phí vận chuyển</small>' : ''}
                             <div><strong>Giá:</strong> ${item.price}</div>                            
                             <div><strong>Thành tiền:</strong> <span class="text-danger">${item.subtotal}</span></div>
                         </div>
@@ -557,7 +564,7 @@ function updateCartTotal(res) {
             .fadeIn(200);		
 
         // --- Cập nhật tổng tiền ---
-        $('.cart-amount, #totalPrice').text(
+        $('#totalPrice').text(
             res.total ? (res.total + ' VNĐ') : (total.toLocaleString('vi-VN') + ' VNĐ')
         );	
 
@@ -578,6 +585,7 @@ function updateCartTotal(res) {
 }
 
 function updateCartUI(res) {
+  updateCartSummary(res);
   let $cartContent = $('#cartContent');
   let $cartFooter = $('#cartFooter');
   if (res && res.items.length > 0) {
