@@ -160,7 +160,7 @@ class Browser
 
     const OPERATING_SYSTEM_UNKNOWN = 'unknown';
 
-    public function Browser( $userAgent = "" )
+    public function __construct( $userAgent = "" )
     {
         $this->reset();
         if ( $userAgent != "" )
@@ -1413,7 +1413,7 @@ class Browser
             elseif ( preg_match( "/wi(n|ndows)[ \-]?nt[ \/]?6\.1/i", $this->_agent ) ) $this->_platform = self::PLATFORM_WINDOWS_7;
             elseif ( preg_match( "/wi(n|ndows)[ \-]?nt[ \/]?6\.0/i", $this->_agent ) ) $this->_platform = self::PLATFORM_WINDOWS_VISTA;
             elseif ( preg_match( "/wi(n|ndows)[ \-]?(2003|nt[ \/]?5\\.2)/i", $this->_agent ) ) $this->_platform = self::PLATFORM_WINDOWS_2003;
-            elseif ( preg_match( "/windows xp/i", $this->_agent ) or preg_match( "/wi(n|ndows)[ \-]?nt[ /]?5\.1/i", $this->_agent ) ) $this->_platform = self::PLATFORM_WINDOWS_XP;
+            elseif ( preg_match( "/windows xp/i", $this->_agent ) or preg_match( "/wi(n|ndows)[ \-]?nt[ \/]?5\.1/i", $this->_agent ) ) $this->_platform = self::PLATFORM_WINDOWS_XP;
             elseif ( preg_match( "/wi(n|ndows)[ \-]?(2000|nt[ \/]?5\.0)/i", $this->_agent ) ) $this->_platform = self::PLATFORM_WINDOWS_2000;
             elseif ( preg_match( "/wi(n|ndows)[ \-]?95/i", $this->_agent ) ) $this->_platform = self::PLATFORM_WINDOWS_95;
             elseif ( preg_match( "/wi(n|ndows)[ \-]?ce/i", $this->_agent ) ) $this->_platform = self::PLATFORM_WINDOWS_CE;

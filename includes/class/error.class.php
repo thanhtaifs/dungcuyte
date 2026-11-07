@@ -63,7 +63,10 @@ class NV_Error
 	 */
 	public function __construct( $config )
 	{
-		$this->log_errors_list = $this->parse_error_num( ( int )$config['log_errors_list'] );
+		// Apply the production limit even when generated configuration still uses E_ALL.
+		$log_errors = ( int )$config['log_errors_list'];
+		if( defined( 'NV_LOG_ERRORS_LIST' ) ) $log_errors &= NV_LOG_ERRORS_LIST;
+		$this->log_errors_list = $this->parse_error_num( $log_errors );
 		$this->display_errors_list = $this->parse_error_num( ( int )$config['display_errors_list'] );
 		$this->send_errors_list = $this->parse_error_num( ( int )$config['send_errors_list'] );
 		$this->error_log_path = $this->get_error_log_path( ( string )$config['error_log_path'] );
@@ -136,7 +139,6 @@ class NV_Error
 		if( ( function_exists( 'ini_set' ) and ! in_array( 'ini_set', $disable_functions ) ) )
 		{
 			ini_set( 'display_startup_errors', 0 );
-			ini_set( 'track_errors', 1 );
 
 			// PHP fatal errors bypass error_handler and must remain in the server log.
 			ini_set( 'log_errors', 1 );
@@ -386,6 +388,12 @@ class NV_Error
 	public function error_handler( $errno, $errstr, $errfile, $errline )
 	{
 		if( empty( $errno ) ) return;
+		// A custom handler also receives suppressed/excluded errors. Do not create
+		// deduplication files for those errors on every request/client IP.
+		if( ! ( error_reporting() & $errno ) ) return true;
+		if( $errno != E_USER_ERROR and ! isset( $this->log_errors_list[$errno] )
+			and ! isset( $this->send_errors_list[$errno] )
+			and ! isset( $this->display_errors_list[$errno] ) ) return true;
 		if( ! empty( $errno ) ) $this->errno = $errno;
 		if( isset( $errstr ) and ! empty( $errstr ) ) $this->errstr = $errstr;
 		if( isset( $errfile ) and ! empty( $errfile ) ) $this->errfile = str_replace( NV_ROOTDIR, '', str_replace( '\\', '/', $errfile ) );

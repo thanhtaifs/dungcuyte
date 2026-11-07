@@ -83,6 +83,7 @@ $GLOBALS['_transient']['static']['nusoap_base']['globalDebugLevel'] = 9;
 * @access   public
 */
 class nusoap_base {
+	function __construct(...$args) { $this->nusoap_base(...$args); }
 	/**
 	 * Identification for HTTP headers.
 	 *
@@ -860,7 +861,7 @@ class nusoap_base {
 			$sec = time();
 			$usec = 0;
 		}
-		return strftime('%Y-%m-%d %H:%M:%S', $sec) . '.' . sprintf('%06d', $usec);
+		return date('Y-m-d H:i:s', $sec) . '.' . sprintf('%06d', $usec);
 	}
 
 	/**
@@ -1005,6 +1006,7 @@ function usleepWindows($usec)
 * @access public
 */
 class nusoap_fault extends nusoap_base {
+	function __construct(...$args) { $this->nusoap_fault(...$args); }
 	/**
 	 * The fault code (client|server)
 	 * @var string
@@ -1093,6 +1095,7 @@ class soap_fault extends nusoap_fault {
 * @access   public
 */
 class nusoap_xmlschema extends nusoap_base  {
+	function __construct(...$args) { $this->nusoap_xmlschema(...$args); }
 	
 	// files
 	var $schema = '';
@@ -2065,6 +2068,7 @@ class XMLSchema extends nusoap_xmlschema {
 * @access   public
 */
 class soapval extends nusoap_base {
+	function __construct(...$args) { $this->soapval(...$args); }
 	/**
 	 * The XML element name
 	 *
@@ -2167,6 +2171,7 @@ class soapval extends nusoap_base {
 * @access public
 */
 class soap_transport_http extends nusoap_base {
+	function __construct(...$args) { $this->soap_transport_http(...$args); }
 
 	var $url = '';
 	var $uri = '';
@@ -2605,7 +2610,7 @@ class soap_transport_http extends nusoap_base {
 	* @access   public
 	* @deprecated
 	*/
-	function sendHTTPS($data, $timeout=0, $response_timeout=30, $cookies) {
+	function sendHTTPS($data, $timeout=0, $response_timeout=30, $cookies=array()) {
 		return $this->send($data, $timeout, $response_timeout, $cookies);
 	}
 	
@@ -3472,6 +3477,7 @@ class soap_transport_http extends nusoap_base {
 * @access   public
 */
 class nusoap_server extends nusoap_base {
+	function __construct(...$args) { $this->nusoap_server(...$args); }
 	/**
 	 * HTTP headers of request
 	 * @var array
@@ -4595,6 +4601,7 @@ class soap_server extends nusoap_server {
 * @access public 
 */
 class wsdl extends nusoap_base {
+	function __construct(...$args) { $this->wsdl(...$args); }
 	// URL or filename of the root of this WSDL
     var $wsdl; 
     // define internal arrays of bindings, ports, operations, messages, etc.
@@ -6530,10 +6537,13 @@ class wsdl extends nusoap_base {
 * @access   public
 */
 class nusoap_parser extends nusoap_base {
+	function __construct(...$args) { $this->nusoap_parser(...$args); }
 
+	var $parser = null;
 	var $xml = '';
 	var $xml_encoding = '';
 	var $method = '';
+	var $methodNamespace = '';
 	var $root_struct = '';
 	var $root_struct_name = '';
 	var $root_struct_namespace = '';
@@ -6936,7 +6946,14 @@ class nusoap_parser extends nusoap_base {
 			// raw UTF-8 that, e.g., might not map to iso-8859-1
 			// TODO: this can also be handled with xml_parser_set_option($this->parser, XML_OPTION_TARGET_ENCODING, "ISO-8859-1");
 			if($this->decode_utf8){
-				$data = utf8_decode($data);
+				// Preserve utf8_decode's Latin-1 bytes and '?' replacement policy.
+				$substitute = mb_substitute_character();
+				try {
+					mb_substitute_character(63);
+					$data = mb_convert_encoding($data, 'ISO-8859-1', 'UTF-8');
+				} finally {
+					mb_substitute_character($substitute);
+				}
 			}
 		}
         $this->message[$pos]['cdata'] .= $data;
@@ -7181,6 +7198,7 @@ class soap_parser extends nusoap_parser {
 * @access   public
 */
 class nusoap_client extends nusoap_base  {
+	function __construct(...$args) { $this->nusoap_client(...$args); }
 
 	var $username = '';				// Username for HTTP authentication
 	var $password = '';				// Password for HTTP authentication

@@ -199,7 +199,7 @@ class download
 				}
 			}
 
-			if( is_resource( $finfo ) )
+			if( is_resource( $finfo ) || $finfo instanceof \finfo )
 			{
 				$mime = finfo_file( $finfo, realpath( $path ) );
 				finfo_close( $finfo );

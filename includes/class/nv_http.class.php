@@ -324,7 +324,7 @@ class NV_Http
 		$r = array();
 		parse_str( $str, $r );
 
-		if( get_magic_quotes_gpc() )
+		if( function_exists( 'get_magic_quotes_gpc' ) && get_magic_quotes_gpc() )
 		{
 			$r = array_map( "stripslashes", $r );
 		}

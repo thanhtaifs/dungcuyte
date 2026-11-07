@@ -640,7 +640,7 @@ if( $nv_Request->isset_request( 'contentid', 'get,post' ) and $fcheckss == $chec
 		$xtpl->parse( 'main.catid' );
 	}
 
-	while( list( $topicid_i, $title_i ) = each( $array_topic_module ) )
+	foreach( $array_topic_module as $topicid_i => $title_i )
 	{
 		$array_temp = array();
 		$array_temp['value'] = $topicid_i;
@@ -650,7 +650,7 @@ if( $nv_Request->isset_request( 'contentid', 'get,post' ) and $fcheckss == $chec
 		$xtpl->parse( 'main.topic' );
 	}
 
-	while( list( $id_imgposition, $title_imgposition ) = each( $array_imgposition ) )
+	foreach( $array_imgposition as $id_imgposition => $title_imgposition )
 	{
 		$array_temp = array();
 		$array_temp['value'] = $id_imgposition;

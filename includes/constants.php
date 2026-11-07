@@ -8,7 +8,7 @@
  * @Createdate 1-27-2010 5:25
  */
 
-error_reporting(E_ALL);
+error_reporting(E_ERROR | E_PARSE | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 ini_set('error_log', NV_ROOTDIR . '/error_php.log');
@@ -144,7 +144,7 @@ define( 'NV_REQUEST_DEFAULT_MODE', 'request' );
 define( 'NV_DISPLAY_ERRORS_LIST', E_ALL );
 //Danh sach cac loi se hien thi
 //define( 'NV_DISPLAY_ERRORS_LIST', 0); //tat thong bao loi
-define( 'NV_LOG_ERRORS_LIST', E_ALL | E_STRICT );
+define( 'NV_LOG_ERRORS_LIST', E_ERROR | E_PARSE | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR );
 //Danh sach cac loi se ghi log
 define( 'NV_SEND_ERRORS_LIST', E_USER_ERROR );
 //Danh sach cac loi se gui den email

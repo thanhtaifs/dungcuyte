@@ -37,7 +37,7 @@ class image
 	 * @param integer $gmaxY
 	 * @return
 	 */
-	function image( $filename, $gmaxX = 0, $gmaxY = 0 )
+	function __construct( $filename, $gmaxX = 0, $gmaxY = 0 )
 	{
 		if( preg_match( "/(http|https|ftp):\/\//i", $filename ) )
 		{
@@ -880,8 +880,9 @@ class image
 	 */
 	function Destroy()
 	{
-		if( is_resource( $this->logoimg ) ) @ImageDestroy( $this->logoimg );
-		if( is_resource( $this->createImage ) ) @ImageDestroy( $this->createImage );
+		if( is_resource( $this->logoimg ) || $this->logoimg instanceof \GdImage ) @ImageDestroy( $this->logoimg );
+		if( is_resource( $this->createImage ) || $this->createImage instanceof \GdImage ) @ImageDestroy( $this->createImage );
+		$this->logoimg = $this->createImage = false;
 		$this->is_destroy = true;
 	}
 
@@ -892,8 +893,7 @@ class image
 	 */
 	function close()
 	{
-		if( is_resource( $this->logoimg ) ) @ImageDestroy( $this->logoimg );
-		if( is_resource( $this->createImage ) ) @ImageDestroy( $this->createImage );
+		$this->Destroy();
 		if( $this->is_url )
 		{
 			@unlink( $this->filename );

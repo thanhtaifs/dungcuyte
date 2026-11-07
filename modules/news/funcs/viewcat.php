@@ -538,7 +538,6 @@ if( empty( $contents ) )
 	}
 	elseif( $viewcat == 'viewcat_grid_new' or $viewcat == 'viewcat_grid_old' )
 	{
-		error_log("=== news viewcat viewcat_grid_new viewcat_grid_old loaded OK ===");
 		$order_by = ( $viewcat == 'viewcat_grid_new' ) ? 'publtime DESC' : 'publtime ASC';
 
 		$db->sqlreset()

@@ -85,7 +85,6 @@ function contact_main_theme( $array_content, $array_department, $base_url, $chec
 
 		$xtpl->parse( 'main.form' );
 	}
-	error_log("=== OK theme.php contact  ===");
 	$xtpl->parse( 'main' );
 	return $xtpl->text( 'main' );
 }

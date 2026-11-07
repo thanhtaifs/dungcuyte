@@ -61,7 +61,7 @@ while( $row = $result->fetch() )
 }
 
 $a = 0;
-while( list( $key, $value ) = each( $language_array ) )
+foreach( $language_array as $key => $value )
 {
 	$arr_lang_func = array();
 	$check_lang_exit = false;

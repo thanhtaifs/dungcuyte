@@ -17,8 +17,6 @@ if( headers_sent() || connection_status() != 0 || connection_aborted() )
 
 if( $sys_info['ini_set_support'] )
 {
-	ini_set( 'magic_quotes_runtime', 'Off' );
-	ini_set( 'magic_quotes_sybase', 'Off' );
 
 	if( ! isset( $_SESSION ) )
 	{
@@ -48,7 +46,6 @@ if( $sys_info['ini_set_support'] )
 	}
 
 	ini_set( 'arg_separator.output', '&' );
-	ini_set( 'auto_detect_line_endings', 0 );
 }
 
 $sys_info['safe_mode'] = ( ini_get( 'safe_mode' ) == '1' || strtolower( ini_get( 'safe_mode' ) ) == 'on' ) ? 1 : 0;

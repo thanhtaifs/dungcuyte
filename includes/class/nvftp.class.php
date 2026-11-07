@@ -149,7 +149,7 @@ class NVftp
 		}
 
 		// Ket noi den FTP server
-		if( ! is_resource( $this->conn_id ) )
+		if( ! ( is_resource( $this->conn_id ) || $this->conn_id instanceof \FTP\Connection ) )
 		{
 			$this->conn_id = ftp_connect( $this->host, $this->port );
 
@@ -181,7 +181,7 @@ class NVftp
 	 */
 	private function check_login()
 	{
-		if( is_resource( $this->conn_id ) and $this->logined )
+		if( ( is_resource( $this->conn_id ) || $this->conn_id instanceof \FTP\Connection ) and $this->logined )
 		{
 			return true;
 		}
@@ -561,9 +561,11 @@ class NVftp
 	 */
 	public function close()
 	{
-		if( ! is_resource( $this->conn_id ) ) return false;
+		if( ! ( is_resource( $this->conn_id ) || $this->conn_id instanceof \FTP\Connection ) ) return false;
 
 		ftp_close( $this->conn_id );
+		$this->conn_id = false;
+		$this->logined = false;
 	}
 
 	/**

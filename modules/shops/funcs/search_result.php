@@ -154,7 +154,7 @@ if (! empty($groupid)) {
 }
 
 if ($keyword != "") {
-    $search .= " AND (t1." . NV_LANG_DATA . "_title LIKE '%" . $db->dblikeescape($kwhtml) . "%' OR t1." . NV_LANG_DATA . "_alias LIKE '%" . $db->dblikeescape($kwhtml) . "%' OR t1." . NV_LANG_DATA . "_hometext LIKE '%" . $db->dblikeescape($kwhtml) . "%' OR t1." . NV_LANG_DATA . "_bodytext LIKE '%" . $db->dblikeescape($kwhtml) . "%' OR product_code LIKE '%" . $db->dblikeescape($keyword) . "%')";
+    $search .= " AND t1." . NV_LANG_DATA . "_title LIKE '%" . $db->dblikeescape($kwhtml) . "%'";
 }
 
 if (($price1 >= 0 and $price2 > 0)) {

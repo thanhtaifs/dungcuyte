@@ -168,7 +168,7 @@ function nv_get_mime_type( $filename, $magic_path = '' )
 			}
 		}
 
-		if( is_resource( $finfo ) )
+		if( is_resource( $finfo ) || $finfo instanceof \finfo )
 		{
 			$mime = finfo_file( $finfo, realpath( $filename ) );
 			finfo_close( $finfo );

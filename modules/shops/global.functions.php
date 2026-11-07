@@ -198,7 +198,6 @@ function nv_shops_get_display_money_unit($unit)
 
 // Tu dong xoa don hang sau tgian khong duoc xac nhan
 if (!empty($pro_config['order_day']) and $pro_config['order_nexttime'] < NV_CURRENTTIME) {
-    global $nv_Cache;
     $result = $db->query('SELECT order_id, order_time FROM ' . $db_config['prefix'] . '_' . $module_data . '_orders WHERE transaction_status=0 AND order_time < ' . (NV_CURRENTTIME - (int)$pro_config['order_day'] * 86400));
     while (list($order_id, $order_time) = $result->fetch(3)) {
         $result_del = $db->query('DELETE FROM ' . $db_config['prefix'] . '_' . $module_data . '_orders WHERE order_id=' . $order_id);
@@ -223,8 +222,8 @@ if (!empty($pro_config['order_day']) and $pro_config['order_nexttime'] < NV_CURR
         }
     }
     $db->query("UPDATE " . NV_CONFIG_GLOBALTABLE . " SET config_value = " . (NV_CURRENTTIME + 86400) . " WHERE lang='" . NV_LANG_DATA . "' AND module=" . $db->quote($module_name) . ' AND config_name="order_nexttime"');
-    $nv_Cache->delMod('settings');
-    $nv_Cache->delMod($module_name);
+    nv_del_moduleCache('settings');
+    nv_del_moduleCache($module_name);
 }
 
 // Xu ly viec dang san pham tu dong, cho het han san pham ...
@@ -239,7 +238,7 @@ if ($pro_config['timecheckstatus'] > 0 and $pro_config['timecheckstatus'] < NV_C
  */
 function nv_set_status_module()
 {
-    global $nv_Cache, $db, $module_name, $module_data, $global_config, $db_config;
+    global $db, $module_name, $module_data, $global_config, $db_config;
 
     $check_run_cronjobs = NV_ROOTDIR . '/' . NV_LOGS_DIR . '/data_logs/cronjobs_' . md5($module_data . 'nv_set_status_module' . $global_config['sitekey']) . '.txt';
     $p = NV_CURRENTTIME - 300;
@@ -280,8 +279,8 @@ function nv_set_status_module()
     }
 
     $db->query("REPLACE INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES('" . NV_LANG_DATA . "', " . $db->quote($module_name) . ", 'timecheckstatus', '" . intval($timecheckstatus) . "')");
-    $nv_Cache->delMod('settings');
-    $nv_Cache->delMod($module_name);
+    nv_del_moduleCache('settings');
+    nv_del_moduleCache($module_name);
 
     unlink($check_run_cronjobs);
     clearstatcache();

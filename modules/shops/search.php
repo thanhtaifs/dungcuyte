@@ -14,26 +14,18 @@ $result_array = [];
 $num_items = 0;
 
 // Escape từ khóa tìm kiếm
-$dbkeyword = $db->dblikeescape($key);
 $dbkeywordhtml = $db->dblikeescape(nv_htmlspecialchars($key));
 
 //file_put_contents(NV_ROOTDIR . '/debug_seek.log', ">>> Từ khóa: $key - Escaped: $dbkeyword\n", FILE_APPEND);
 
 // Tạo câu lệnh đếm số dòng khớp
 $title_field = NV_LANG_DATA . '_title';
-$alias_field = NV_LANG_DATA . '_alias';
-$hometext_field = NV_LANG_DATA . '_hometext';
-$bodytext_field = NV_LANG_DATA . '_bodytext';
 
 $db->sqlreset()->select('COUNT(*)')
     ->from($db_config['prefix'] . '_' . $m_values['module_data'] . '_rows')
     ->where(
         "(" .
-        nv_like_logic($title_field, $dbkeywordhtml, $logic) . " OR " .
-        nv_like_logic($alias_field, $dbkeywordhtml, $logic) . " OR " .
-        nv_like_logic('product_code', $dbkeyword, $logic) . " OR " .
-        nv_like_logic($hometext_field, $dbkeywordhtml, $logic) . " OR " .
-        nv_like_logic($bodytext_field, $dbkeywordhtml, $logic) . ")" .
+        nv_like_logic($title_field, $dbkeywordhtml, $logic) . ")" .
         " AND (publtime < " . NV_CURRENTTIME . " AND (exptime=0 OR exptime>" . NV_CURRENTTIME . "))"
     );
 

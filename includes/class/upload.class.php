@@ -300,7 +300,7 @@ class upload
 				}
 			}
 
-			if( is_resource( $finfo ) )
+			if( is_resource( $finfo ) || $finfo instanceof \finfo )
 			{
 				$mime = finfo_file( $finfo, realpath( $userfile['tmp_name'] ) );
 				finfo_close( $finfo );

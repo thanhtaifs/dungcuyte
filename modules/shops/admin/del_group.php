@@ -72,7 +72,7 @@ if( $groupid > 0 )
 					$xtpl->assign( 'DELALLCHECKSS', $delallcheckss );
 					$xtpl->assign( 'INFO', sprintf( $lang_module['delgroup_msg_rows_select'], $title, $check_rows ) );
 
-					while( list( $groupid_i, $title_i ) = each( $array_group_list ) )
+					foreach( $array_group_list as $groupid_i => $title_i )
 					{
 						$xtpl->assign( 'GROUP_ID', $groupid_i );
 						$xtpl->assign( 'GROUP_TITLE', $title_i );

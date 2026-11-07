@@ -73,7 +73,7 @@ if( $catid > 0 )
 					$xtpl->assign( 'DELALLCHECKSS', $delallcheckss );
 					$xtpl->assign( 'INFO', sprintf( $lang_module['delcat_msg_rows_select'], $title, $check_rows ) );
 
-					while( list( $catid_i, $title_i ) = each( $array_cat_list ) )
+					foreach( $array_cat_list as $catid_i => $title_i )
 					{
 						$xtpl->assign( 'CAT_ID', $catid_i );
 						$xtpl->assign( 'CAT_TITLE', $title_i );

@@ -200,7 +200,7 @@ $array_imgposition = array(
 );
 
 // position images
-while( list( $id_imgposition, $title_imgposition ) = each( $array_imgposition ) )
+foreach( $array_imgposition as $id_imgposition => $title_imgposition )
 {
 	$sl = ( $id_imgposition == $module_config[$module_name]['imgposition'] ) ? ' selected="selected"' : '';
 	$xtpl->assign( 'id_imgposition', $id_imgposition );

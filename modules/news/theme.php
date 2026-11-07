@@ -14,7 +14,6 @@ if( ! defined( 'NV_IS_MOD_NEWS' ) ) die( 'Stop!!!' );
 
 function viewcat_grid_new( $array_catpage, $catid, $generate_page )
 {
-	error_log("=== news viewcat_grid_newloaded OK ===");
 	global $module_name, $module_file, $module_upload, $lang_module, $module_config, $module_info, $global_array_cat, $global_array_cat, $catid, $page;
 
 	$xtpl = new XTemplate( 'viewcat_grid.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
@@ -116,7 +115,6 @@ function viewcat_grid_new( $array_catpage, $catid, $generate_page )
 
 function viewcat_list_new( $array_catpage, $catid, $page, $generate_page )
 {
-	error_log("=== news viewcat_list_new loaded OK ===");
 	global $module_name, $module_file, $module_upload, $lang_module, $module_config, $module_info, $global_array_cat;
 
 	$xtpl = new XTemplate( 'viewcat_list.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );
@@ -488,7 +486,6 @@ function viewsubcat_main( $viewcat, $array_cat )
 
 function viewcat_two_column( $array_content, $array_catpage )
 {
-	error_log("=== news viewcat_two_column loaded OK ===");
 	global $module_name, $module_file, $module_upload, $module_config, $module_info, $lang_module, $global_array_cat, $catid, $page;
 
 	$xtpl = new XTemplate( 'viewcat_two_column.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file );

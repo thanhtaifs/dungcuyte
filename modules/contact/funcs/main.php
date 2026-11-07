@@ -260,8 +260,6 @@ $array_content = array(
 
 $checkss = md5($client_info['session_id'] . $global_config['sitekey'] );
 $contents = contact_main_theme( $array_content, $array_department, $base_url, $checkss );
-error_log("=== contact_main_theme main load fucs theme.php contact  ===");
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_site_theme( $contents, $full );
-error_log("=== contact_main_theme main load fucs full footer===");
 include NV_ROOTDIR . '/includes/footer.php';
