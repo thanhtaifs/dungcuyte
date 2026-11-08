@@ -48,7 +48,7 @@ class NV_Http
 	 * @param string $tmp_dir
 	 * @return
 	 */
-	public function __construct( $config, $tmp_dir = 'tmp' )
+	public function __construct( $config = array(), $tmp_dir = 'tmp' )
 	{
 		/**
 		 * Important!
@@ -129,6 +129,10 @@ class NV_Http
 
 		// Get full args
 		$args = $this->build_args( $args, $defaults );
+		if( ! isset( $args['_redirection'] ) )
+		{
+			$args['_redirection'] = $args['redirection'];
+		}
 
 		// Get url info
 		$infoURL = @parse_url( $url );
@@ -465,7 +469,7 @@ class NV_Http
 		// Don't redirect if we've run out of redirects
 		if( $args['redirection'] -- <= 0 )
 		{
-			$this->set_error(5);
+			self::set_error(5);
 			return false;
 		}
 
