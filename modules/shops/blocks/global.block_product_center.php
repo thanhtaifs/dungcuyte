@@ -231,7 +231,8 @@ if( ! nv_function_exists( 'nv_global_product_center' ) )
 			$xtpl->assign( 'LINK', $link );
 			$xtpl->assign( 'TITLE', $row['title'] );
 			$xtpl->assign( 'TITLE0', nv_clean60( $row['title'], 100 ) );
-			$xtpl->assign( 'SRC_IMG', $src_img );
+			require_once NV_ROOTDIR . '/modules/shops/responsive_images.php';
+            nv_shops_assign_card_image($xtpl, $src_img, 'SRC_IMG');
 
 			if( $pro_config['active_price'] == '1' )
 			{

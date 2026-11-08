@@ -168,6 +168,12 @@ function nv_shops_normalize_variant_image($image)
 
     $image = ltrim($image, '/');
 
+    // Images saved under a subdirectory installation may already include its base path.
+    $base_path = trim(NV_BASE_SITEURL, '/');
+    if ($base_path !== '' && strpos($image, $base_path . '/') === 0) {
+        $image = substr($image, strlen($base_path) + 1);
+    }
+
     if (strpos($image, $upload_prefix) === 0) {
         return NV_BASE_SITEURL . $image;
     }

@@ -26,7 +26,7 @@
 					</div>
 					<div class="product-image">
 						<a href="{LINK}" title="{TITLE}">
-							<img src="{IMG_SRC}" alt="{TITLE}" class="img-fluid" width="500" height="500" loading="lazy" decoding="async" />
+							<img src="{IMG_SRC}" alt="{TITLE}" class="img-fluid" width="270" height="270" srcset="{CARD_IMAGE.srcset}" sizes="{CARD_IMAGE.sizes}" loading="{CARD_IMAGE.loading}" decoding="async" />
 						</a>
 					</div>
 					<div class="product-body product-body--home">
@@ -78,7 +78,7 @@
 					</div>
 					<div class="product-image">
 						<a href="{LINK}" title="{TITLE}">
-							<img src="{IMG_SRC}" alt="{TITLE}" class="img-fluid" width="500" height="500" loading="lazy" decoding="async" />
+							<img src="{IMG_SRC}" alt="{TITLE}" class="img-fluid" width="270" height="270" srcset="{CARD_IMAGE.srcset}" sizes="{CARD_IMAGE.sizes}" loading="{CARD_IMAGE.loading}" decoding="async" />
 						</a>
 					</div>
 					<div class="product-body product-body--home">
@@ -126,7 +126,7 @@
 				<div class="product-card">
 					<div class="product-image">
 						<a href="{LINK}" title="{TITLE}">
-							<img src="{IMG_SRC}" alt="{TITLE}" class="img-fluid" width="500" height="500" loading="lazy" decoding="async" />
+							<img src="{IMG_SRC}" alt="{TITLE}" class="img-fluid" width="270" height="270" srcset="{CARD_IMAGE.srcset}" sizes="{CARD_IMAGE.sizes}" loading="{CARD_IMAGE.loading}" decoding="async" />
 						</a>
 					</div>
 					<div class="product-body product-body--home">

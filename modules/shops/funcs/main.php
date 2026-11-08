@@ -251,7 +251,7 @@ if( $nv_Request->isset_request( 'changeviewtype', 'post' ) )
 
 if( ! defined( 'NV_IS_MODADMIN' ) and $page < 5 )
 {
-	$cache_file = NV_LANG_DATA . '_' . $module_info['template'] . '_' . $op . '_' . $page . '_' . NV_CACHE_PREFIX . '.cache';
+	$cache_file = NV_LANG_DATA . '_' . $module_info['template'] . '_responsive_v1_' . $op . '_' . $page . '_' . NV_CACHE_PREFIX . '.cache';
 	if( ( $cache = nv_get_cache( $module_name, $cache_file ) ) != false )
 	{
 		$contents = $cache;

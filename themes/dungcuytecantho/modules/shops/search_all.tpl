@@ -63,7 +63,7 @@
 	<div class="product-list-item">
 		<div class="product-list-item__image">
 			<a href="{LINK}" title="{TITLE}">
-				<img src="{IMG_SRC}" alt="{TITLE}" data-content='{hometext}' data-rel="tooltip" class="img-thumbnail" style="max-height:{height}px;max-width:{width}px;">
+				<img src="{IMG_SRC}" srcset="{CARD_IMAGE.srcset}" sizes="{width}px" loading="{CARD_IMAGE.loading}" decoding="async" alt="{TITLE}" data-content='{hometext}' data-rel="tooltip" class="img-thumbnail" style="max-height:{height}px;max-width:{width}px;">
 			</a>
 		</div>
 		<div class="product-list-item__content">

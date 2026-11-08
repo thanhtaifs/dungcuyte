@@ -82,7 +82,7 @@
         <div class="text-justify">
             <p>
                 <!-- BEGIN: result_img -->
-                <img src="{IMG_SRC}" width="100px" class="img-thumbnail pull-left image" />
+                <img src="{IMG_SRC}" srcset="{CARD_IMAGE.srcset}" sizes="100px" loading="{CARD_IMAGE.loading}" decoding="async" width="100" class="img-thumbnail pull-left image" />
                 <!-- END: result_img -->
                 {CONTENT}
             </p>

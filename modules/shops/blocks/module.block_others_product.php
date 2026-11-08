@@ -63,7 +63,8 @@ if( ! function_exists( 'nv_others_product' ) )
 
 				$xtpl->assign( 'link', NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=' . $global_array_shops_cat[$listcatid_i]['alias'] . '/' . $alias_i . $global_config['rewrite_exturl'] );
 				$xtpl->assign( 'title', $title_i );
-				$xtpl->assign( 'src_img', $src_img );
+				require_once NV_ROOTDIR . '/modules/shops/responsive_images.php';
+            nv_shops_assign_card_image($xtpl, $src_img, 'src_img');
 				$xtpl->assign( 'time', nv_date( 'd-m-Y h:i:s A', $addtime_i ) );
 
 				if( $pro_config['active_price'] == '1' )

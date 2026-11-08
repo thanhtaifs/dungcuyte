@@ -8,7 +8,7 @@
                 <div class="thumbnail">
     	<div class="hot">Hot</div>
         <div class="image_center">
-            <a href="{LINK}" title="{TITLE}"><img src="{SRC_IMG}" alt="{TITLE}" loading="lazy" decoding="async" width="500" height="500"/></a>
+            <a href="{LINK}" title="{TITLE}"><img src="{SRC_IMG}" alt="{TITLE}" srcset="{CARD_IMAGE.srcset}" sizes="{CARD_IMAGE.sizes}" loading="{CARD_IMAGE.loading}" decoding="async" width="270" height="270"/></a>
         </div>
         <div class="info_pro">
         	<!-- BEGIN: new -->

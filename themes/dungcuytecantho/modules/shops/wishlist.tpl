@@ -4,7 +4,7 @@
     <div class="col-sm-12 col-md-{num}" id="item_{ID}">
         <div class="thumbnail">
             <div>
-                <a href="{LINK}" title="{TITLE}"><img src="{IMG_SRC}" alt="{TITLE}" data-content='{hometext}' data-rel="tooltip" class="img-thumbnail" style="max-width:{width}px;"></a>
+                <a href="{LINK}" title="{TITLE}"><img src="{IMG_SRC}" srcset="{CARD_IMAGE.srcset}" sizes="{width}px" loading="{CARD_IMAGE.loading}" decoding="async" alt="{TITLE}" data-content='{hometext}' data-rel="tooltip" class="img-thumbnail" style="max-width:{width}px;"></a>
             </div>
             <div class="info_pro">
             	<!-- BEGIN: new -->

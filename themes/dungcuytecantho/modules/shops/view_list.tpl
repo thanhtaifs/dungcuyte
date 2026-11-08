@@ -41,7 +41,7 @@
 	<div class="panel panel-default">
 	    <div class="panel-body">
     		<div class="pull-left">
-    			<a title="{title_pro}" href="{link_pro}"> <img class="img-thumbnail image" src="{img_pro}" alt="{title_pro}" width="{width}"/> </a>
+			<a title="{title_pro}" href="{link_pro}"> <img class="img-thumbnail image" src="{img_pro}" srcset="{CARD_IMAGE.srcset}" sizes="{width}px" loading="{CARD_IMAGE.loading}" decoding="async" alt="{title_pro}" width="{width}"/> </a>
     		</div>
     		<div>
     			<strong><a title="{title_pro}" href="{link_pro}">{title_pro}</a></strong>

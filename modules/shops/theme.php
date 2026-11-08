@@ -14,6 +14,8 @@ if (!defined('NV_IS_MOD_SHOPS')) {
 
 global $db, $db_config, $module_data;
 
+require_once __DIR__ . '/responsive_images.php';
+
 function nv_shops_can_show_price($data_row)
 {
     return !empty($data_row['showprice']) && empty($data_row['contact_price']);
@@ -216,7 +218,7 @@ function view_home_group($data_content, $compare_id, $html_pages = '', $sort = 0
                     $xtpl->assign('LINK', $data_row_i['link_pro']);
                     $xtpl->assign('TITLE', $data_row_i['title']);
                     $xtpl->assign('TITLE0', nv_clean60($data_row_i['title'], 40));
-                    $xtpl->assign('IMG_SRC', $data_row_i['homeimgthumb']);
+                    nv_shops_assign_card_image($xtpl, $data_row_i['homeimgthumb']);
                     $xtpl->assign('LINK_ORDER', $data_row_i['link_order']);
                     $xtpl->assign('height', $pro_config['homeheight']);
                     $xtpl->assign('width', $pro_config['homewidth']);
@@ -527,7 +529,7 @@ function view_home_cat($data_content, $compare_id, $html_pages = '', $sort = 0)
                     $xtpl->assign('LINK', $data_row_i['link_pro']);
                     $xtpl->assign('TITLE', $data_row_i['title']);
                     $xtpl->assign('TITLE0', nv_clean60($data_row_i['title'], 40));
-                    $xtpl->assign('IMG_SRC', $data_row_i['homeimgthumb']);
+                    nv_shops_assign_card_image($xtpl, $data_row_i['homeimgthumb']);
                     $xtpl->assign('LINK_ORDER', $data_row_i['link_order']);
                     $xtpl->assign('height', $pro_config['homeheight']);
                     $xtpl->assign('width', $pro_config['homewidth']);
@@ -798,7 +800,7 @@ function display_product_item(&$xtpl, $data_row, $num_row, $pro_config, $global_
     $xtpl->assign('LINK', $data_row['link_pro']);
     $xtpl->assign('TITLE', $data_row['title']);
     $xtpl->assign('TITLE0', nv_clean60($data_row['title'], 40));
-    $xtpl->assign('IMG_SRC', $data_row['homeimgthumb']);
+    nv_shops_assign_card_image($xtpl, $data_row['homeimgthumb']);
     $xtpl->assign('SRC_PRO_LAGE', $data_row['homeimgfile']);
     $xtpl->assign('LINK_ORDER', $data_row['link_order']);
     $xtpl->assign('height', $pro_config['homeheight']);
@@ -934,7 +936,7 @@ function view_home_all($data_content, $compare_id, $html_pages = '', $sort = 0, 
             $xtpl->assign('LINK', $data_row['link_pro']);
             $xtpl->assign('TITLE', $data_row['title']);
             $xtpl->assign('TITLE0', nv_clean60($data_row['title'], 40));
-            $xtpl->assign('IMG_SRC', $data_row['homeimgthumb']);
+            nv_shops_assign_card_image($xtpl, $data_row['homeimgthumb']);
             $xtpl->assign('LINK_ORDER', $data_row['link_order']);
             $xtpl->assign('height', $pro_config['homeheight']);
             $xtpl->assign('width', $pro_config['homewidth']);
@@ -1123,7 +1125,7 @@ function view_search_all($data_content, $compare_id, $html_pages = '')
             $xtpl->assign('LINK', $data_row['link_pro']);
             $xtpl->assign('TITLE', $data_row['title']);
             $xtpl->assign('TITLE0', nv_clean60($data_row['title'], 40));
-            $xtpl->assign('IMG_SRC', $data_row['homeimgthumb']);
+            nv_shops_assign_card_image($xtpl, $data_row['homeimgthumb']);
             $xtpl->assign('LINK_ORDER', $data_row['link_order']);
             $xtpl->assign('height', $pro_config['homeheight']);
             $xtpl->assign('width', $pro_config['homewidth']);
@@ -1277,7 +1279,7 @@ function viewcat_page_gird($data_content, $compare_id, $pages, $sort = 0, $viewt
             $xtpl->assign('variant_label', empty($data_row['variant_label']) ? '' : $data_row['variant_label']);
             $xtpl->assign('title_pro0', nv_clean60($data_row['title'], 40));
             $xtpl->assign('link_pro', $data_row['link_pro']);
-            $xtpl->assign('img_pro', $data_row['homeimgthumb']);
+            nv_shops_assign_card_image($xtpl, $data_row['homeimgthumb'], 'img_pro');
             $xtpl->assign('link_order', $data_row['link_order']);
             $xtpl->assign('intro', $data_row['hometext']);
             $xtpl->assign('PRODUCT_CODE', $data_row['product_code']);
@@ -1490,7 +1492,7 @@ function viewcat_page_list($data_content, $compare_id, $pages, $sort = 0, $viewt
             $xtpl->assign('title_pro', $data_row['title']);
             $xtpl->assign('variant_label', empty($data_row['variant_label']) ? '' : $data_row['variant_label']);
             $xtpl->assign('link_pro', $data_row['link_pro']);
-            $xtpl->assign('img_pro', $data_row['homeimgthumb']);
+            nv_shops_assign_card_image($xtpl, $data_row['homeimgthumb'], 'img_pro');
             $xtpl->assign('link_order', $data_row['link_order']);
             $xtpl->assign('intro', $data_row['hometext']);
             $xtpl->assign('PRODUCT_CODE', $data_row['product_code']);
@@ -3052,7 +3054,7 @@ function search_result_theme($key, $numRecord, $per_pages, $pages, $array_conten
             $xtpl->assign('height', $pro_config['homeheight']);
             $xtpl->assign('width', $pro_config['homewidth']);
 
-            $xtpl->assign('IMG_SRC', $value['homeimgthumb']);
+            nv_shops_assign_card_image($xtpl, $value['homeimgthumb']);
             $xtpl->parse('results.result.result_img');
 
             if (defined('NV_IS_MODADMIN')) {
@@ -3250,7 +3252,7 @@ function wishlist($data_content, $compare_id, $html_pages = '')
             $xtpl->assign('LINK', $data_row['link_pro']);
             $xtpl->assign('TITLE', $data_row['title']);
             $xtpl->assign('TITLE0', nv_clean60($data_row['title'], 40));
-            $xtpl->assign('IMG_SRC', $data_row['homeimgthumb']);
+            nv_shops_assign_card_image($xtpl, $data_row['homeimgthumb']);
             $xtpl->assign('LINK_ORDER', $data_row['link_order']);
             $xtpl->assign('height', $pro_config['homeheight']);
             $xtpl->assign('width', $pro_config['homewidth']);
