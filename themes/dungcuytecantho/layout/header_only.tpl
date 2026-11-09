@@ -46,9 +46,7 @@
 		<link rel="preload" href="{NV_BASE_SITEURL}themes/dungcuytecantho/fonts/roboto-700.woff" as="font" type="font/woff" crossorigin />
 
         <!-- BEGIN: responsive -->
-        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css?v=20261107-checkout-product-cards" rel="stylesheet" />
-        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.responsive.css?v=20260705e" rel="stylesheet" />
+        {THEME_BASE_CSS}
         <!-- END: responsive -->
 
         <!-- BEGIN: non_responsive -->

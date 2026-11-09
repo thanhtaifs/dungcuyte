@@ -927,6 +927,7 @@ function email_new_order_payment( $content, $data_content, $data_pro, $data_tabl
 		foreach( $data_pro as $pdata )
 		{
 			$xtpl->assign( 'product_name', $pdata['title'] );
+			$xtpl->assign( 'product_code', htmlspecialchars((string) ($pdata['product_code'] ?? ''), ENT_QUOTES, 'UTF-8') );
 			$xtpl->assign( 'product_number', $pdata['product_number'] );
 			$xtpl->assign( 'product_price', nv_number_format( $pdata['product_price'], nv_get_decimals( $pro_config['money_unit'] ) ) );
 			$xtpl->assign( 'product_unit', $pdata['product_unit'] );

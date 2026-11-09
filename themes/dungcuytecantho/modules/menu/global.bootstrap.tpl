@@ -44,7 +44,9 @@
 </nav>
 
 <script type="text/javascript" data-show="after">
-nv_DigitalClock('digclock');
+document.addEventListener('DOMContentLoaded', function () {
+    nv_DigitalClock('digclock');
+});
 
 // Auto-select appropriate icon based on menu link
 $(document).ready(function(){

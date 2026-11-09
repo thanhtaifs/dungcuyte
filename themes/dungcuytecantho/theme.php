@@ -10,6 +10,8 @@
 
  if( ! defined( 'NV_SYSTEM' ) or ! defined( 'NV_MAINFILE' ) ) die( 'Stop!!!' );
 
+require_once __DIR__ . '/assets.php';
+
 function dungcuyte_add_schema( $schema )
 {
 	global $dungcuyte_schema_nodes;
@@ -291,7 +293,7 @@ function dungcuyte_get_home_stats()
 
 function nv_site_theme( $contents, $full = true )
 {
-	global $home, $array_mod_title, $lang_global, $language_array, $global_config, $site_mods, $module_name, $module_info, $op_file, $mod_title, $my_head, $my_footer, $client_info, $module_config, $op;
+	global $home, $array_mod_title, $lang_global, $language_array, $global_config, $site_mods, $module_name, $module_file, $module_info, $op_file, $mod_title, $my_head, $my_footer, $client_info, $module_config, $op;
 
 	//error_log('===== DEBUG nv_site_theme =====');
 	//error_log('Layout funcs: ' . print_r($module_info['layout_funcs'], true));
@@ -397,7 +399,8 @@ function nv_site_theme( $contents, $full = true )
 	$xtpl->assign( 'THEME_META_TAGS', nv_html_meta_tags() );
 	$xtpl->assign( 'THEME_SITE_RSS', nv_html_site_rss() );
 	$xtpl->assign( 'THEME_CSS', $css );
-	$xtpl->assign( 'THEME_SITE_JS', nv_html_site_js() );
+	$xtpl->assign( 'THEME_BASE_CSS', dungcuyte_base_css_links() );
+	$xtpl->assign( 'THEME_SITE_JS', dungcuyte_defer_catalog_scripts( nv_html_site_js(), $module_file, $op ) );
 	dungcuyte_add_schema( dungcuyte_build_website_schema() );
 	dungcuyte_add_schema( dungcuyte_build_localbusiness_schema() );
 	

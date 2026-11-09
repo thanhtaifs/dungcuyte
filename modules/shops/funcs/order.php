@@ -565,12 +565,13 @@ if( $post_order == 1 )
 			{
 				
 				$templistid = implode( ',', $arrayid );		
-				$sql = 'SELECT t1.id, t1.listcatid, t1.publtime, t1.' . NV_LANG_DATA . '_title, t1.' . NV_LANG_DATA . '_alias, t1.' . NV_LANG_DATA . '_hometext, t2.' . NV_LANG_DATA . '_title, t1.money_unit FROM ' . $db_config['prefix'] . '_' . $module_data . '_rows AS t1 LEFT JOIN ' . $db_config['prefix'] . '_' . $module_data . '_units AS t2 ON t1.product_unit = t2.id WHERE t1.id IN (' . $templistid . ') AND t1.status =1';
+				$sql = 'SELECT t1.id, t1.listcatid, t1.product_code, t1.publtime, t1.' . NV_LANG_DATA . '_title, t1.' . NV_LANG_DATA . '_alias, t1.' . NV_LANG_DATA . '_hometext, t2.' . NV_LANG_DATA . '_title, t1.money_unit FROM ' . $db_config['prefix'] . '_' . $module_data . '_rows AS t1 LEFT JOIN ' . $db_config['prefix'] . '_' . $module_data . '_units AS t2 ON t1.product_unit = t2.id WHERE t1.id IN (' . $templistid . ') AND t1.status =1';
 				$result = $db->query( $sql );			
-				while( list( $id, $listcatid, $publtime, $title, $alias, $hometext, $unit, $money_unit ) = $result->fetch( 3 ) )
+				while( list( $id, $listcatid, $product_code, $publtime, $title, $alias, $hometext, $unit, $money_unit ) = $result->fetch( 3 ) )
 				{
 					$data_pro[] = array(
 						'id' => $id,
+						'product_code' => $product_code,
 						'publtime' => $publtime,
 						'title' => $title,
 						'alias' => $alias,
