@@ -15668,6 +15668,12 @@ img[width][height] {
 .price-shipping-note { display: block; margin-top: 5px; color: #596675; font-size: 12px; font-weight: 400; line-height: 1.5; text-align: center ; padding-bottom: 4px; }
 .price-shipping-note:empty { display: none; }
 
+@media (min-width: 992px) {
+  .shop-detail .price-stock-row .price-shipping-note {
+    text-align: left;
+  }
+}
+
 /* Keep homepage prices and actions aligned when the shipping note is absent. */
 #maincontent.site-main--home .product-body--home {
   display: grid;

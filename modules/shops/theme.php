@@ -2122,6 +2122,12 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
         }
     }
 
+    if (nv_shops_can_show_price($data_content)) {
+        $xtpl->parse('main.purchase_buttons');
+    } else {
+        $xtpl->parse('main.quote_button');
+    }
+
     if ($pro_config['active_order'] == '1') {
         if (nv_shops_can_show_price($data_content)) {
             if ($data_content['product_number'] > 0 or $pro_config['active_order_number']) {

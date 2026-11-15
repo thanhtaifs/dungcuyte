@@ -164,6 +164,7 @@
 						</li>
 					</ul>
 
+					<!-- BEGIN: purchase_buttons -->
 					<div class="detail-promo-notice">
 						<i class="fa fa-tag"></i>
 						<span>Giá ưu đãi chỉ áp dụng cho đơn hàng đặt trực tuyến thành công</span>
@@ -179,6 +180,15 @@
 							</button>
 					</div>
 					
+					<!-- END: purchase_buttons -->
+					<!-- BEGIN: quote_button -->
+					<div class="order-buttons">
+						<a class="btn btn-danger btn-order" href="tel:0937037770">
+							<em class="fa fa-phone fa-lg">&nbsp;</em>
+							Liên hệ báo giá
+						</a>
+					</div>
+					<!-- END: quote_button -->
 					<div class="socaial-share">
 						<a class="button_share share facebook" href="https://www.facebook.com/sharer/sharer.php?u={SELFURL}" target="_blank">
 						<i class="fa fa-facebook"></i> Share
