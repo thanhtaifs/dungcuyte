@@ -51,7 +51,7 @@
 
         <!-- BEGIN: non_responsive -->
         <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/bootstrap.non-responsive.css" rel="stylesheet" />
-        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css?v=20261107-checkout-product-cards" rel="stylesheet" />
+        <link href="{NV_BASE_SITEURL}themes/{TEMPLATE}/css/style.css?v=20261111-desktop-shipping-note" rel="stylesheet" />
         <!-- END: non_responsive -->
 
 		<!-- Font Awesome: non-blocking load -->
