@@ -1667,6 +1667,7 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
         // Load variants
         $variants = array();
         $default_price = $price['sale_format'];
+        $stock_status_price = $price['price'];
         $default_stock = $data_content['product_number'];
         try {
             $result = $db->query( 'SELECT * FROM ' . $db_config['prefix'] . '_' . $module_data . '_product_variants WHERE product_id = ' . $data_content['id'] . ' ORDER BY id ASC' );
@@ -1773,6 +1774,8 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
         {
             foreach( $variants as $variant )
             {
+                $variant['disabled'] = $variant['sale_price_raw'] < 100 ? 'disabled="disabled"' : '';
+                $variant['stock_label'] = $variant['sale_price_raw'] < 100 ? ' - Hết hàng' : '';
                 //error_log( 'DEBUG: Assigning variant - ID: ' . $variant['id'] . ', Option1: ' . $variant['option_1'] . ', Option2: ' . $variant['option_2'] . ', Price: ' . $variant['price_format'] );
                 $xtpl->assign( 'VARIANT', $variant );
                 $xtpl->parse( 'main.variants.variant' );
@@ -1780,6 +1783,13 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
             $xtpl->parse( 'main.variants' );
             // Set default price to first variant
             $first_variant = $variants[0];
+            foreach ($variants as $variant) {
+                if ($variant['sale_price_raw'] >= 100) {
+                    $first_variant = $variant;
+                    break;
+                }
+            }
+            $stock_status_price = $first_variant['sale_price_raw'];
             $price['sale_format'] = $first_variant['sale_price_format'];
             $price['price_format'] = $first_variant['price_format'];
             $xtpl->assign('PRODUCT_NUMBER', $first_variant['stock']);
@@ -1804,6 +1814,8 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
         $xtpl->assign('PRICE', $price); // Re-assign after possible update
         $xtpl->assign('DEFAULT_PRICE', $default_price);
         $xtpl->assign('DEFAULT_STOCK', $default_stock);
+        $xtpl->assign('DISPLAY_SALE_PRICE', $stock_status_price >= 100 ? ($price['discount_percent'] > 0 ? $price['sale_format'] : $price['price_format']) . ' ' . $price['unit'] : 'Liên hệ');
+        $xtpl->assign('ORIGINAL_PRICE_STYLE', $stock_status_price < 100 ? 'display:none' : '');
         $xtpl->assign('SCHEMA_AVAILABILITY', nv_shops_schema_availability($default_stock));
         
         // Debug discount info
@@ -1812,7 +1824,7 @@ function detail_product($data_content, $data_unit, $data_others, $array_other_vi
 
 
         // Kiểm tra tình trạng hàng hóa
-        if( $price['price'] < 100)
+        if( $stock_status_price < 100)
         {
             $xtpl->assign('STOCK_TEXT', 'Hết hàng');
             $xtpl->assign('STOCK_CLASS', 'out-of-stock');

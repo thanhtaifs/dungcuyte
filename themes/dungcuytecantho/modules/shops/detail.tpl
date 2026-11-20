@@ -63,12 +63,12 @@
 										{LANG.detail_pro_price}:
 										
 										<!-- BEGIN: discounts -->
-										<span class="money" id="product_sale_price">{PRICE.sale_format} {PRICE.unit}</span>
-										<span>(<del id="product_original_price">{PRICE.price_format} {PRICE.unit}</del>)</span>
+										<span class="money" id="product_sale_price">{DISPLAY_SALE_PRICE}</span>
+										<span style="{ORIGINAL_PRICE_STYLE}">(<del id="product_original_price">{PRICE.price_format} {PRICE.unit}</del>)</span>
 										<!-- END: discounts -->
 
 										<!-- BEGIN: no_discounts -->
-										<span class="money t" id="product_sale_price">{PRICE.price_format} {PRICE.unit}</span>
+										<span class="money t" id="product_sale_price">{DISPLAY_SALE_PRICE}</span>
 										<!-- END: no_discounts -->
                                         <small class="price-shipping-note">{PRICE.shipping_note}</small>
 									</p>
@@ -94,7 +94,7 @@
 									<!-- BEGIN: variant -->
 									<button type="button" 
 										class="btn btn-outline-home variant-btn" 
-										data-id="{VARIANT.id}" 
+										data-id="{VARIANT.id}" {VARIANT.disabled}
 										data-original-price-format="{VARIANT.price_format}" 
 										data-price-format="{VARIANT.sale_price_format}" 
 										data-stock="{VARIANT.stock}"
@@ -102,7 +102,7 @@
 										data-price-raw="{VARIANT.sale_price_raw}"
 										data-image="{VARIANT.image_url}"
 										data-alt="{VARIANT.alt}">
-										{VARIANT.option_1} {VARIANT.option_2}
+										{VARIANT.option_1} {VARIANT.option_2}{VARIANT.stock_label}
 									</button>
 									<!-- END: variant -->
 								</div>
@@ -382,6 +382,9 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $('.variant-btn').click(function() {
+        if (this.disabled || parseFloat($(this).data('price-raw')) < 100) {
+            return;
+        }
         // Keep theme tone; avoid Bootstrap primary classes
         $('.variant-btn').removeClass('btn-home').addClass('btn-outline-home');
         $(this).removeClass('btn-outline-home').addClass('btn-home');
@@ -390,6 +393,11 @@ $(document).ready(function() {
         $('#selected_variant_price').val($(this).data('price-raw') || '');
         var salePriceFormat = $(this).data('price-format');
         var originalPriceFormat = $(this).data('original-price-format');
+        var inStock = parseFloat($(this).data('price-raw')) >= 100;
+        var stockStatus = $('#detail .stock-status-btn');
+        stockStatus.removeClass('in-stock out-of-stock').addClass(inStock ? 'in-stock' : 'out-of-stock');
+        stockStatus.find('i').removeClass('fa-check-circle fa-times-circle').addClass(inStock ? 'fa-check-circle' : 'fa-times-circle');
+        stockStatus.find('span').text(inStock ? 'Còn hàng' : 'Hết hàng');
         var stock = $(this).data('stock');
         var imageUrl = $(this).data('image');
         var imageAlt = $(this).data('alt');
@@ -413,10 +421,14 @@ $(document).ready(function() {
             $('#product_original_price').text('{PRICE.price_format} {PRICE.unit}');
             $('#product_number').html('{LANG.detail_pro_number}: <strong>{DEFAULT_STOCK}</strong> {pro_unit}');
         }
+        if (!inStock) {
+            $('#product_sale_price').text('Liên hệ');
+        }
+        $('#product_original_price').parent().toggle(inStock);
     });
-    // Auto select first variant if exists
-    if ($('.variant-btn').length > 0) {
-        $('.variant-btn').first().click();
+    // Select the first available variant; unavailable codes remain disabled.
+    if ($('.variant-btn:not(:disabled)').length > 0) {
+        $('.variant-btn:not(:disabled)').first().click();
     }
 });
 </script>
