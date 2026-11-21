@@ -28,6 +28,61 @@ function dungcuyte_rebase_css_urls($css, $prefix)
     }, $css);
 }
 
+/** Remove only media blocks that cannot match a viewport below 768px.
+ * All other rules (including unknown media syntax) retain their cascade order.
+ */
+function dungcuyte_mobile_css($css)
+{
+    preg_match_all('~"(?:\\\\.|[^"\\\\])*"|\'(?:\\\\.|[^\'\\\\])*\'|/\*[\s\S]*?\*/|\\\\.|@media\\b|[{}]~i', $css, $tokens, PREG_OFFSET_CAPTURE);
+    $stack = array();
+    $ranges = array();
+    $pending = null;
+    foreach ($tokens[0] as $token) {
+        $value = $token[0];
+        $offset = $token[1];
+        if (strtolower($value) === '@media') {
+            $brace = strpos($css, '{', $offset);
+            if ($brace === false) { return $css; }
+            $query = preg_replace('~/\*[\s\S]*?\*/~', ' ', substr($css, $offset + 6, $brace - $offset - 6));
+            // A conjunction with a minimum >= 768px is impossible on mobile.
+            // Keep lists, negation, range syntax and unfamiliar queries unchanged.
+            if (!preg_match('~[,;{}]|\\b(?:not|or)\\b~i', $query)
+                && preg_match('~\\(\\s*min-width\\s*:\\s*([0-9]+(?:\\.[0-9]+)?)px\\s*\\)~i', $query, $width)
+                && (float) $width[1] >= 768) {
+                $pending = $offset;
+            }
+        } elseif ($value === '{') {
+            $stack[] = $pending;
+            $pending = null;
+        } elseif ($value === '}') {
+            if (!$stack) { return $css; }
+            $start = array_pop($stack);
+            if ($start !== null) { $ranges[] = array($start, $offset + 1); }
+        }
+    }
+    if ($stack) { return $css; }
+    usort($ranges, function ($a, $b) { return $a[0] - $b[0]; });
+    $result = '';
+    $cursor = 0;
+    foreach ($ranges as $range) {
+        if ($range[0] < $cursor) { continue; }
+        $result .= substr($css, $cursor, $range[0] - $cursor);
+        $cursor = $range[1];
+    }
+    return $result . substr($css, $cursor);
+}
+
+function dungcuyte_save_css($target, $content)
+{
+    $temporary = @tempnam(dirname($target), 'css-build-');
+    if ($temporary === false) { return false; }
+    $written = file_put_contents($temporary, $content);
+    @chmod($temporary, 0644);
+    $saved = $written === strlen($content) && @rename($temporary, $target);
+    if (is_file($temporary)) { unlink($temporary); }
+    return $saved;
+}
+
 function dungcuyte_base_css_links()
 {
     $source_directory = NV_ROOTDIR . '/themes/dungcuytecantho/css/';
@@ -45,7 +100,9 @@ function dungcuyte_base_css_links()
     $directory = NV_ROOTDIR . '/' . $files . '/css';
     $filename = 'dungcuyte-base-' . substr(sha1($fingerprint), 0, 20) . '.css';
     $target = $directory . '/' . $filename;
-    if (!is_file($target)) {
+    $mobile_filename = str_replace('dungcuyte-base-', 'dungcuyte-mobile-', $filename);
+    $mobile_target = $directory . '/' . $mobile_filename;
+    if (!is_file($target) || !is_file($mobile_target)) {
         if ((!is_dir($directory) && !@mkdir($directory, 0755, true)) || !is_writable($directory)) {
             return $fallback;
         }
@@ -58,15 +115,13 @@ function dungcuyte_base_css_links()
             $css = dungcuyte_rebase_css_urls($css, $prefix);
             $content .= '/*! ' . $source . ' */' . PHP_EOL . dungcuyte_compact_css($css) . PHP_EOL;
         }
-        $temporary = @tempnam($directory, 'css-build-');
-        if ($temporary === false) { return $fallback; }
-        $written = file_put_contents($temporary, $content);
-        @chmod($temporary, 0644);
-        $saved = $written === strlen($content) && @rename($temporary, $target);
-        if (is_file($temporary)) { unlink($temporary); }
-        if (!$saved) { return $fallback; }
+        if (!is_file($target) && !dungcuyte_save_css($target, $content)) { return $fallback; }
+        if (!is_file($mobile_target) && !dungcuyte_save_css($mobile_target, dungcuyte_mobile_css($content))) { return $fallback; }
     }
-    return '<link rel="stylesheet" href="' . NV_BASE_SITEURL . $files . '/css/' . $filename . '" />' . PHP_EOL;
+    // Nonmatching stylesheets download at lower priority and do not block paint.
+    // At 768px and above the original, complete stylesheet preserves desktop styling.
+    return '<link rel="stylesheet" media="not all and (min-width: 768px)" href="' . NV_BASE_SITEURL . $files . '/css/' . $mobile_filename . '" />' . PHP_EOL
+        . '<link rel="stylesheet" media="(min-width: 768px)" href="' . NV_BASE_SITEURL . $files . '/css/' . $filename . '" />' . PHP_EOL;
 }
 
 function dungcuyte_defer_catalog_scripts($html, $module_file, $op)

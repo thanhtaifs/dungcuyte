@@ -2225,6 +2225,10 @@ ol {
 
 
 /* --------------------- CHAT ZALO ------------------------ */
+.zalo-contact{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:48px;min-height:48px;text-decoration:none!important}
+.zalo-contact__icon{display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:50%;background:#0068ff;color:#fff;font:700 16px/1 Arial,sans-serif;box-shadow:0 3px 12px rgba(0,0,0,.18)}
+.zalo-contact:focus-visible{outline:3px solid #0068ff;outline-offset:4px;border-radius:8px}
+.zalo-contact .zalo-label{animation:none}
 /* Định vị nút */
 .zalo-button-wrapper {
   position: fixed;
